@@ -2,7 +2,7 @@
 
 Hi, We are Team 11 of Data Mining Project. 
 
-Our team memebers are:
+Our team members are:
 
 1. Anjali Mudgal
 
@@ -10,4 +10,4 @@ Our team memebers are:
 
 3. Medhasweta Sen
 
-And here is a link to a GitHub that I think has a list to a few useful public live API : https://github.com/public-apis/public-apis
+
