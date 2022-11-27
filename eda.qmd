@@ -92,3 +92,8 @@ bankdata.poutcome.value_counts()
 
 There are *36959   unknown* values, so we can directly drop this column.  
 
+```{python}
+bankdata['contact'].value_counts()
+```
+
+There are *13020 unknown values* in communication mode
