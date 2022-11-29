@@ -147,3 +147,34 @@ plt.yticks(fontsize=10)
 plt.title('Correlation Matrix')
 plt.show()
 ```
+
+### Month wise subscription
+```{python}
+sns.countplot(x ='month',hue='y', data = bankdata)
+```
+
+### Contact versus Subscription month wise
+
+### Number of calls verus Duration and affect on subscription
+```{python}
+import seaborn as sns
+dur_cam = sns.lmplot(x='duration', y='campaign',data = bankdata,
+                     hue = 'y',
+                     fit_reg = False,
+                     scatter_kws={'alpha':0.6}, height =7)
+
+plt.axis([0,65,0,65])
+plt.ylabel('Number of Calls')
+plt.xlabel('Duration of Calls (Minutes)')
+plt.title('The Relationship between the Number and Duration of Calls (with Response Result)')
+
+# Annotation
+plt.axhline(y=5, linewidth=2, color="k", linestyle='--')
+plt.annotate('Higher subscription rate when calls <5',xytext = (35,13),
+             arrowprops=dict(color = 'k', width=1),xy=(30,6))
+plt.show()
+
+```
+
+
+
