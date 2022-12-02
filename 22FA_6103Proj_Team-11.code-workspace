@@ -1,4 +1,5 @@
 {
+<<<<<<< Updated upstream
 	"folders": [
 		{
 			"path": "."
@@ -8,4 +9,10 @@
 		"editor.tabCompletion": "on",
 		"diffEditor.codeLens": true
 	}
+=======
+    "settings": {
+        "editor.tabCompletion": "on",
+        "diffEditor.codeLens": true
+    }
+>>>>>>> Stashed changes
 }
