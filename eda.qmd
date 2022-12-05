@@ -176,5 +176,54 @@ plt.show()
 
 ```
 
+For Removing Missing values the following things can be done 
+
+Outliers :
+* balance - more than 3SD
+
+Transforming
+ 
+* duration seconds - minutes
+* job education unknown to others
+
+Dropping
+* contact : useless
+* duration < 5s 
+* other education
+* putcome drop 
+* job : unknown 288 rows
+* education : unknown  1857
+```{python}
+for i in bankdata.columns:
+    if bankdata[i].dtype == np.int64:
+        pass
+    else:
+        
+        # printing names and count using loop.
+        for idx, name in enumerate(bankdata[i].value_counts().index.tolist()):
+            if name == 'unknown' or name == 'other':
+                print(f"for {i}")
+                print(f"{name} : {bankdata[i].value_counts()[idx]}")
+                print()
+```
+
+During Modelling 
+* standarize 
+* pipeline
+
+Mapping 
+* y : 0 or 1
+* loan 
+* housing 
+* default
+
+Randome Forest 
+* Feature importance 
+* can combine housing and personal loan to loan 
+
+
+
+
+
 
 
