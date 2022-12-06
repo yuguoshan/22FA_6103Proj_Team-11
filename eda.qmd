@@ -276,6 +276,11 @@ plt.show()
 
 ```
 
+Writing Cleaned data to csv file 
+```{python}
+bankdata.to_csv('cleaned_data.csv')
+```
+
 
 
 
