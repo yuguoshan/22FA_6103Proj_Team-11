@@ -73,6 +73,7 @@ pieChart('y','Percentage of yes and no target(term deposit)in dataset')
 Convert Y as binary 
 ```{python}
 bankdata['y'] = bankdata['y'].apply(lambda x: 0 if x == 'no' else 1)
+bankdata['y'] = bankdata['y'].astype('category')
 ```
 
 # Data Cleaning 
@@ -153,28 +154,7 @@ plt.show()
 sns.countplot(x ='month',hue='y', data = bankdata)
 ```
 
-### Contact versus Subscription month wise
 
-### Number of calls verus Duration and affect on subscription
-```{python}
-import seaborn as sns
-dur_cam = sns.lmplot(x='duration', y='campaign',data = bankdata,
-                     hue = 'y',
-                     fit_reg = False,
-                     scatter_kws={'alpha':0.6}, height =7)
-
-plt.axis([0,65,0,65])
-plt.ylabel('Number of Calls')
-plt.xlabel('Duration of Calls (Minutes)')
-plt.title('The Relationship between the Number and Duration of Calls (with Response Result)')
-
-# Annotation
-plt.axhline(y=5, linewidth=2, color="k", linestyle='--')
-plt.annotate('Higher subscription rate when calls <5',xytext = (35,13),
-             arrowprops=dict(color = 'k', width=1),xy=(30,6))
-plt.show()
-
-```
 
 For Removing Missing values the following things can be done 
 
@@ -193,7 +173,12 @@ Dropping
 * putcome drop 
 * job : unknown 288 rows
 * education : unknown  1857
+
+### Dropping the missing values 
+
 ```{python}
+bankdata = bankdata.drop(['poutcome'], axis=1)
+bankdata = bankdata.drop(['contact'], axis=1)
 for i in bankdata.columns:
     if bankdata[i].dtype == np.int64:
         pass
@@ -204,8 +189,52 @@ for i in bankdata.columns:
             if name == 'unknown' or name == 'other':
                 print(f"for {i}")
                 print(f"{name} : {bankdata[i].value_counts()[idx]}")
-                print()
+                if bankdata[i].value_counts()[idx] < 15000:
+                    print(f"dropping rows with value as {name} in {i}")
+                    bankdata = bankdata[bankdata[i] != name]
 ```
+
+### Dropping Outliers
+#### plotting violen plot for duration and balance 
+```{python}
+f, axes = plt.subplots(1, 2,sharex=True)
+axes[0].set_title('For duration')
+sns.violinplot( x='y',y='duration',  split=True, inner="quart", ax=axes[0], data=bankdata)
+axes[1].set_title('For balance')
+sns.violinplot( x='y',y='balance',  split=True, inner="quart", ax=axes[1], data=bankdata)
+sns.despine(left=True)
+plt.show()
+```
+
+### Dropping values above 3SD away from balance
+```{python}
+from scipy.stats import zscore
+
+#bankdata[['balance']].mean()
+#bankdata[['balance']].mean()
+standard_deviation = bankdata[['balance']].std()
+mean = bankdata[['balance']].mean()
+bankdata['balance_outliers'] = bankdata['balance']
+bankdata['balance_outliers']= zscore(bankdata['balance_outliers'])
+print(f"removing enteries before {mean - 3*standard_deviation } and after {mean + 3*standard_deviation }")
+three_SD = (bankdata['balance_outliers']>3) | (bankdata['balance_outliers']<-3 )
+bankdata = bankdata.drop(bankdata[three_SD].index, axis = 0, inplace = False)
+bankdata = bankdata.drop('balance_outliers', axis=1)
+
+```
+
+## Changing unit of duration from seconds to minutes to make more sense
+
+### Dropping rows where the duration of calls is less than 5sec since that is irrelevant 
+```{python}
+less_5 = (bankdata['duration']<5)
+bankdata = bankdata.drop(bankdata[less_5].index, axis = 0, inplace = False)
+```
+```{python}
+bankdata['duration'] = bankdata['duration'].apply(lambda n:n/60).round(2)
+```
+
+
 
 During Modelling 
 * standarize 
@@ -222,7 +251,30 @@ Randome Forest
 * can combine housing and personal loan to loan 
 
 
+## Data Visualization
 
+### Contact versus Subscription month wise
+
+### Number of calls verus Duration and affect on subscription
+```{python}
+import seaborn as sns
+dur_cam = sns.lmplot(x='duration', y='campaign',data = bankdata,
+                     hue = 'y',
+                     fit_reg = False,
+                     scatter_kws={'alpha':0.6}, height =7)
+
+plt.axis([0,65,0,65])
+plt.ylabel('Number of Calls')
+plt.xlabel('Duration of Calls (Minutes)')
+plt.title('The Relationship between the Number and Duration of Calls (with y)')
+
+# Annotation
+plt.axhline(y=5, linewidth=2, color="k", linestyle='--')
+plt.annotate('Higher subscription rate when calls <5 minutes',xytext = (35,13),
+             arrowprops=dict(color = 'k', width=1),xy=(30,6))
+plt.show()
+
+```
 
 
 
