@@ -267,3 +267,31 @@ print(scv_results)
 print(np.mean(scv_results)) 
 
 print("\nReady to continue.")
+
+#%%
+# K-means 
+# 
+from sklearn.cluster import KMeans
+
+km_X = KMeans( n_clusters=3, init='random', n_init=10, max_iter=300, tol=1e-04, random_state=0 )
+y_km = km_X.fit_predict(X)
+
+#%%
+# plot
+# plot the 3 clusters
+index1 = 2
+index2 = 5
+
+plt.scatter( X[y_km==0].iloc[:,index1], X[y_km==0].iloc[:,index2], s=50, c='lightgreen', marker='s', edgecolor='black', label='cluster 1' )
+
+plt.scatter( X[y_km==1].iloc[:,index1], X[y_km==1].iloc[:,index2], s=50, c='orange', marker='o', edgecolor='black', label='cluster 2' )
+
+plt.scatter( X[y_km==2].iloc[:,index1], X[y_km==2].iloc[:,index2], s=50, c='lightblue', marker='v', edgecolor='black', label='cluster 3' )
+
+# plot the centroids
+plt.scatter( km_X.cluster_centers_[:, index1], km_X.cluster_centers_[:, index2], s=250, marker='*', c='red', edgecolor='black', label='centroids' )
+plt.legend(scatterpoints=1)
+plt.xlabel(str(index1) + " : " + X.columns[index1])
+plt.ylabel(str(index2) + " : " + X.columns[index2])
+plt.grid()
+plt.show()
