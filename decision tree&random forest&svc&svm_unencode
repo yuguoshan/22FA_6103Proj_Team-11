@@ -8,7 +8,7 @@ from sklearn.metrics import accuracy_score
 from sklearn.metrics import confusion_matrix 
 from sklearn.metrics import classification_report
 #%%
-inputFile = "encoded_unbalanced.csv"
+inputFile = "unbalanced_bin.csv"
 df = pd.read_csv(inputFile)
     
 
