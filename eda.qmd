@@ -1,0 +1,386 @@
+---
+title: "Team6"
+format: html
+---
+
+Importing required libraries
+
+```{python}
+import numpy as np 
+import pandas as pd 
+import os 
+
+
+## Import data visualization packages
+import seaborn as sns
+import matplotlib.pyplot as plt
+%matplotlib inline
+import warnings
+warnings.filterwarnings('ignore')
+```
+
+Reading Dataset
+```{python}
+#datapath  = os.getcwd()
+fileName1 = 'bank-additional-full.csv'
+fileName2 = 'Dataset/bank-full.csv'
+bankdata1 = pd.read_csv(fileName1, sep = ';')
+bankdata = pd.read_csv(fileName2, sep = ';')
+print(bankdata1.shape)
+bankdata2.shape
+```
+# Input Variables 
+## bank client data:
+
+1. - age (numeric)
+2. - job : type of job (categorical: 'admin.','blue-collar','entrepreneur','housemaid','management','retired','self-employed','services','student','technician','unemployed','unknown')
+3. - marital : marital status (categorical: 'divorced','married','single','unknown'; note: 'divorced' means divorced or widowed)
+4. - education (categorical: 'basic.4y','basic.6y','basic.9y','high.school','illiterate','professional.course','university.degree','unknown')
+5. - default: has credit in default? (categorical: 'no','yes','unknown')
+6. - housing: has housing loan? (categorical: 'no','yes','unknown')
+7. - loan: has personal loan? (categorical: 'no','yes','unknown')
+## related with the last contact of the current campaign:
+
+8. - contact: contact communication type (categorical: 'cellular','telephone')
+9. - month: last contact month of year (categorical: 'jan', 'feb', 'mar', ..., 'nov', 'dec')
+10. - day_of_week: last contact day of the week (categorical: 'mon','tue','wed','thu','fri')
+11. - duration: last contact duration, in seconds (numeric). Important note: this attribute highly affects the output target (e.g., if duration=0 then y='no'). Yet, the duration is not known before a call is performed. Also, after the end of the call y is obviously known. Thus, this input should only be included for benchmark purposes and should be discarded if the intention is to have a realistic predictive model.
+## other attributes:
+
+12. - campaign: number of contacts performed during this campaign and for this client (numeric, includes last contact)
+13. - pdays: number of days that passed by after the client was last contacted from a previous campaign (numeric; 999 means client was not previously contacted)
+14. - previous: number of contacts performed before this campaign and for this client (numeric)
+15. - poutcome: outcome of the previous marketing campaign (categorical: 'failure','nonexistent','success')
+## social and economic context attributes
+16. - emp.var.rate: employment variation rate - quarterly indicator (numeric)
+17. - cons.price.idx: consumer price index - monthly indicator (numeric)
+18. - cons.conf.idx: consumer confidence index - monthly indicator (numeric)
+19. - euribor3m: euribor 3 month rate - daily indicator (numeric)
+20. - nr.employed: number of employees - quarterly indicator (numeric)
+
+# Output variable (desired target):
+
+21. - y - has the client subscribed a term deposit? (binary: 'yes','no')
+# About Data
+Let's look at the percentage of people who have/have not subscribed to term deposit in our dataset
+```{python}
+def pieChart(x_var,title):
+    yesNo = bankdata.groupby(x_var).size()
+    yesNo.plot(kind='pie', title=title, figsize=[8,8],
+          autopct=lambda p: '{:.2f}%({:.0f})'.format(p,(p/100)*yesNo.sum()))
+    plt.show()
+
+pieChart('y','Percentage of yes and no target(term deposit)in dataset')
+```
+
+Convert Y as binary 
+```{python}
+bankdata['y'] = bankdata['y'].apply(lambda x: 0 if x == 'no' else 1)
+bankdata['y'] = bankdata['y'].astype('category')
+```
+
+
+Let's fill in the social and economic factors 
+```{python}
+def month_to_int(var):
+    if var == 'jan':
+        return 1
+    elif var == 'feb':
+        return 2 
+    elif var == 'mar':
+        return 3
+    elif var == 'apr':
+        return 4
+    elif var == 'may':
+        return 5
+    elif var == 'jun':
+        return 6
+    elif var == 'jul':
+        return 7
+    elif var == 'aug':
+        return 8
+    elif var == 'sep':
+        return 9
+    elif var == 'oct':
+        return 10 
+    elif var =='nov':
+        return 11
+    elif var == 'dec':
+        return 12
+    return -1      
+def monthSocial(var):
+    if var =='jan':
+        # social_month.append'jan'
+        # social_month[var]['cons.conf.idx'] = 92.16
+        # social_month[var]['emp.var.rate'] = 1.2
+        # social_month[var]['euribor3m'] = 2.859
+        # social_month[var]['nr.employed'] = 4870.5
+        # social_month[var]['cons.price.idx'] = 92.16
+        
+    elif var =='feb':
+        social_month['month'] = 'feb'
+        social_month[var]['cons.conf.idx'] = 92.111
+        social_month[var]['emp.var.rate'] = 1.1
+        social_month[var]['euribor3m'] = 2.77
+        social_month[var]['nr.employed'] = 4851.4
+        social_month[var]['cons.price.idx'] = 92.111
+
+        dict = {'month'='jan',
+                'cons.conf.idx' =92.111
+                'emp.var.rate' = 1.1
+                'euribor3m' = 2.77
+                'nr.employed' = 4851.4
+                'cons.price.idx' = 92.111
+       }
+        df1 = pd.DataFrame(dict)
+        display(df1)
+  
+    
+    df3 = pd.concat([df1, df2], ignore_index = True)
+    df3.reset_index()
+  
+    display(df3)
+
+#contains all the social and economic information
+social_month = bankdata1[['month', 'emp.var.rate','cons.conf.idx','euribor3m','nr.employed','cons.price.idx']]
+social_month= social_month.drop_duplicates(subset=['month'])
+#monthSocial('jan')
+#monthSocial('feb')
+social_month['month'] = social_month['month'].apply(month_to_int)
+bankdata['month_int'] = bankdata['month'].apply(month_to_int)
+```
+# Data Cleaning 
+```{python}
+bankdata.info()
+```
+## Null Values 
+Checking for null values in our dataset
+```{python}
+bankdata.isnull().sum()
+```
+No null values, but there are values such as, unknown and others as seen from the description
+## Unknown Values
+
+### poutcome
+* poutcome: outcome of the previous marketing campaign (categorical: 'failure','nonexistent','success'
+
+
+```{python}
+pieChart('poutcome','Distribution of poutcome in dataset')
+bankdata.poutcome.value_counts()
+#bankdata.groupby('poutcome').size()
+```
+
+There are *36959   unknown* values and  1840 values with other category.
+Since, 82% of entries are unknown, 4.07% other, we will directly drop this column. 
+
+### Contact
+
+```{python}
+def barDistribution(x,y):
+    #x,y = 'contact', 'y'
+    df1 = bankdata.groupby(x)[y].value_counts(normalize=True)
+    df1 = df1.mul(100)
+    df1 = df1.rename('percent').reset_index()
+    print(df1)
+    g = sns.catplot(x=x,y='percent',hue=y,kind='bar',data=df1)
+    g.ax.set_ylim(0,100)
+
+    for p in g.ax.patches:
+        txt = str(p.get_height().round(2)) + '%'
+        txt_x = p.get_x() 
+        txt_y = p.get_height()
+        g.ax.text(txt_x,txt_y,txt)
+```
+```{python}
+barDistribution('contact','y')
+```
+Contact: contact communication type (categorical: 'cellular','telephone')
+```{python}
+bankdata['contact'].value_counts()
+```
+
+There are *13020 unknown values* in communication mode
+Since the distribution of cellular and telephone contact is almost similar, we will simply drop this column. 
+
+# EDA
+## Related with last contact of current campaign 
+```{python}
+
+```
+### Correlation Plot
+```{python}
+# corr_data = bankdata[['contact','month','day','duration','campaign','pdays','previous','poutcome','y']]
+# corr = corr_data.corr()
+
+# cor_plot = sns.heatmap(corr,annot=True,cmap='RdYlGn',linewidths=0.2,annot_kws={'size':10})
+# fig=plt.gcf()
+# fig.set_size_inches(6,5)
+# plt.xticks(fontsize=10,rotation=-30)
+# plt.yticks(fontsize=10)
+# plt.title('Correlation Matrix')
+# plt.show()
+```
+
+### Month wise subscription
+```{python}
+sns.countplot(x ='month',hue='y', data = bankdata)
+```
+
+
+
+For Removing Missing values the following things can be done 
+
+Outliers :
+* balance - more than 3SD
+
+Transforming
+ 
+* duration seconds - minutes
+* job education unknown to others
+
+Dropping
+* contact : useless
+* duration < 5s 
+* other education
+* putcome drop 
+* job : unknown 288 rows
+* education : unknown  1857
+
+### Dropping the missing values 
+
+```{python}
+# NOW CLEANING POUTCOME
+for j in range (0,len(bankdata["poutcome"])):
+    if (bankdata["poutcome"][j] == 'nonexistent'):
+        if (bankdata["default"][j] == 'yes'):
+            bankdata["poutcome"][j] = 'success'
+        elif(bankdata["default"][j] == 'no'):
+            bankdata["poutcome"][j] = 'success'
+        elif(bankdata["default"][j] == 'unknown'):
+            bankdata["poutcome"][j] = 'failure'
+#bankdata['poutcome'] = bankdata['poutcome'].apply(lambda x: 0 if x == 'no' else 1)
+```
+
+```{python}
+#bankdata = bankdata.drop(['poutcome'], axis=1)
+bankdata = bankdata.drop(['contact'], axis=1)
+for i in bankdata.columns:
+    if bankdata[i].dtype == np.int64:
+        pass
+    else:
+        
+        # printing names and count using loop.
+        for idx, name in enumerate(bankdata[i].value_counts().index.tolist()):
+            if name == 'unknown' or name == 'other':
+                print(f"for {i}")
+                print(f"{name} : {bankdata[i].value_counts()[idx]}")
+                if bankdata[i].value_counts()[idx] < 15000:
+                    print(f"dropping rows with value as {name} in {i}")
+                    bankdata = bankdata[bankdata[i] != name]
+```
+
+### Dropping Outliers
+#### plotting violen plot for duration and balance 
+```{python}
+f, axes = plt.subplots(1, 2,sharex=True)
+axes[0].set_title('For duration')
+sns.violinplot( x='y',y='duration',  split=True, inner="quart", ax=axes[0], data=bankdata)
+axes[1].set_title('For balance')
+sns.violinplot( x='y',y='balance',  split=True, inner="quart", ax=axes[1], data=bankdata)
+sns.despine(left=True)
+plt.show()
+```
+
+### Dropping values above 3SD away from balance
+```{python}
+from scipy.stats import zscore
+
+#bankdata[['balance']].mean()
+#bankdata[['balance']].mean()
+standard_deviation = bankdata[['balance']].std()
+mean = bankdata[['balance']].mean()
+bankdata['balance_outliers'] = bankdata['balance']
+bankdata['balance_outliers']= zscore(bankdata['balance_outliers'])
+print(f"removing enteries before {mean - 3*standard_deviation } and after {mean + 3*standard_deviation }")
+three_SD = (bankdata['balance_outliers']>3) | (bankdata['balance_outliers']<-3 )
+bankdata = bankdata.drop(bankdata[three_SD].index, axis = 0, inplace = False)
+bankdata = bankdata.drop('balance_outliers', axis=1)
+
+```
+
+## Changing unit of duration from seconds to minutes to make more sense
+
+### Dropping rows where the duration of calls is less than 5sec since that is irrelevant 
+```{python}
+less_5 = (bankdata['duration']<5)
+bankdata = bankdata.drop(bankdata[less_5].index, axis = 0, inplace = False)
+```
+```{python}
+bankdata['duration'] = bankdata['duration'].apply(lambda n:n/60).round(2)
+```
+
+
+
+During Modelling 
+* standarize 
+* pipeline
+
+Mapping 
+* y : 0 or 1
+* loan 
+* housing 
+* default
+
+Randome Forest 
+* Feature importance 
+* can combine housing and personal loan to loan 
+
+
+## Data Visualization
+
+### Contact versus Subscription month wise
+
+### Number of calls verus Duration and affect on subscription
+```{python}
+import seaborn as sns
+dur_cam = sns.lmplot(x='duration', y='campaign',data = bankdata,
+                     hue = 'y',
+                     fit_reg = False,
+                     scatter_kws={'alpha':0.6}, height =7)
+
+plt.axis([0,65,0,65])
+plt.ylabel('Number of Calls')
+plt.xlabel('Duration of Calls (Minutes)')
+plt.title('The Relationship between the Number and Duration of Calls (with y)')
+
+# Annotation
+plt.axhline(y=5, linewidth=2, color="k", linestyle='--')
+plt.annotate('Higher subscription rate when calls <5 minutes',xytext = (35,13),
+             arrowprops=dict(color = 'k', width=1),xy=(30,6))
+plt.show()
+
+```
+
+Writing Cleaned data to csv file 
+```{python}
+bankdata.to_csv('cleaned_data.csv')
+```
+
+```{python}
+#pip install imblearn
+# x = bankdata.iloc[:, 0:14]
+# y= bankdata.iloc[:, -1]
+# from imblearn.over_sampling import SMOTE
+# sm = SMOTE(random_state=42)
+# X_res, y_res = sm.fit_resample(x, y)
+```
+
+```{python}
+bankdata = pd.get_dummies(bankdata, columns = ['job'])
+bankdata = pd.get_dummies(bankdata, columns = ['education'])
+bankdata['housing'] = bankdata['housing'].map({'yes': 1, 'no': 0})
+bankdata['default'] = bankdata['default'].map({'yes': 1, 'no': 0})
+bankdata['loan'] = bankdata['loan'].map({'yes': 1, 'no': 0})
+bankdata['loan'] = bankdata['loan'].map({'yes': 1, 'no': 0})
+```
