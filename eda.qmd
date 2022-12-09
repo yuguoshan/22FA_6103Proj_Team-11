@@ -27,7 +27,7 @@ fileName2 = 'Dataset/bank-full.csv'
 bankdata1 = pd.read_csv(fileName1, sep = ';')
 bankdata = pd.read_csv(fileName2, sep = ';')
 print(bankdata1.shape)
-bankdata2.shape
+bankdata.shape
 ```
 # Input Variables 
 ## bank client data:
@@ -110,45 +110,57 @@ def month_to_int(var):
     return -1      
 def monthSocial(var):
     if var =='jan':
-        # social_month.append'jan'
-        # social_month[var]['cons.conf.idx'] = 92.16
-        # social_month[var]['emp.var.rate'] = 1.2
-        # social_month[var]['euribor3m'] = 2.859
-        # social_month[var]['nr.employed'] = 4870.5
-        # social_month[var]['cons.price.idx'] = 92.16
+        social_month[var]['cons.conf.idx'] = 92.16
+        social_month[var]['emp.var.rate'] = 1.2
+        social_month[var]['euribor3m'] = 2.859
+        social_month[var]['nr.employed'] = 4870.5
+        social_month[var]['cons.price.idx'] = 92.16
         
     elif var =='feb':
-        social_month['month'] = 'feb'
         social_month[var]['cons.conf.idx'] = 92.111
         social_month[var]['emp.var.rate'] = 1.1
         social_month[var]['euribor3m'] = 2.77
         social_month[var]['nr.employed'] = 4851.4
         social_month[var]['cons.price.idx'] = 92.111
 
-        dict = {'month'='jan',
-                'cons.conf.idx' =92.111
-                'emp.var.rate' = 1.1
-                'euribor3m' = 2.77
-                'nr.employed' = 4851.4
-                'cons.price.idx' = 92.111
-       }
-        df1 = pd.DataFrame(dict)
-        display(df1)
-  
-    
-    df3 = pd.concat([df1, df2], ignore_index = True)
-    df3.reset_index()
-  
-    display(df3)
 
 #contains all the social and economic information
 social_month = bankdata1[['month', 'emp.var.rate','cons.conf.idx','euribor3m','nr.employed','cons.price.idx']]
 social_month= social_month.drop_duplicates(subset=['month'])
-#monthSocial('jan')
-#monthSocial('feb')
-social_month['month'] = social_month['month'].apply(month_to_int)
+
+diction1 = { 'month' :'jan',
+            'cons.conf.idx' : 92.16,
+            'emp.var.rate' : 1.2,
+            'euribor3m' : 2.859,
+            'nr.employed' : 4870.5,
+            'cons.price.idx' : 92.16
+            }
+diction2 = { 'month' :'feb',
+            'cons.conf.idx' : 92.111,
+            'emp.var.rate' : 1.1,
+            'euribor3m' : 2.77,
+            'nr.employed' : 4851,
+            'cons.price.idx' : 92.111
+            }
+
+jan_row = pd.DataFrame(diction1, index=[0])
+social_month = pd.concat([jan_row,social_month.loc[:]]).reset_index(drop=True)
+feb_row = pd.DataFrame(diction2, index=[0])
+social_month = pd.concat([feb_row,social_month.loc[:]]).reset_index(drop=True)
+# monthSocial('jan')
+# monthSocial('feb')
+social_month['month_int'] = social_month['month'].apply(month_to_int)
 bankdata['month_int'] = bankdata['month'].apply(month_to_int)
 ```
+
+Combining based on month values 
+```{python}
+social_month = social_month.drop(['month'],axis=1)
+bankdata= bankdata.merge(social_month,on='month_int',how='left')
+bankdata.info()
+```
+
+
 # Data Cleaning 
 ```{python}
 bankdata.info()
@@ -252,7 +264,7 @@ Dropping
 ```{python}
 # NOW CLEANING POUTCOME
 for j in range (0,len(bankdata["poutcome"])):
-    if (bankdata["poutcome"][j] == 'nonexistent'):
+    if (bankdata["poutcome"][j] == 'nonexistent' or bankdata["poutcome"][j] == 'unknown'):
         if (bankdata["default"][j] == 'yes'):
             bankdata["poutcome"][j] = 'success'
         elif(bankdata["default"][j] == 'no'):
@@ -263,8 +275,7 @@ for j in range (0,len(bankdata["poutcome"])):
 ```
 
 ```{python}
-#bankdata = bankdata.drop(['poutcome'], axis=1)
-bankdata = bankdata.drop(['contact'], axis=1)
+#bankdata = bankdata.drop(['contact'], axis=1)
 for i in bankdata.columns:
     if bankdata[i].dtype == np.int64:
         pass
@@ -376,11 +387,26 @@ bankdata.to_csv('cleaned_data.csv')
 # X_res, y_res = sm.fit_resample(x, y)
 ```
 
+
+### Encoding the variables  
 ```{python}
-bankdata = pd.get_dummies(bankdata, columns = ['job'])
-bankdata = pd.get_dummies(bankdata, columns = ['education'])
-bankdata['housing'] = bankdata['housing'].map({'yes': 1, 'no': 0})
-bankdata['default'] = bankdata['default'].map({'yes': 1, 'no': 0})
-bankdata['loan'] = bankdata['loan'].map({'yes': 1, 'no': 0})
-bankdata['loan'] = bankdata['loan'].map({'yes': 1, 'no': 0})
+#bankdata = bankdata.drop(['contact'], axis=1)
+#bankdata = bankdata.drop(['month'], axis=1)
+bankdata1 = bankdata.drop(['month_int'], axis=1)
+bankdata_e = bankdata1
+bankdata_e = pd.get_dummies(bankdata_e, columns = ['job'])
+bankdata_e = pd.get_dummies(bankdata_e, columns = ['education'])
+bankdata_e = pd.get_dummies(bankdata_e, columns = ['marital'])
+bankdata_e = pd.get_dummies(bankdata_e, columns = ['housing'])
+bankdata_e = pd.get_dummies(bankdata_e, columns = ['loan'])
+bankdata_e = pd.get_dummies(bankdata_e, columns = ['default'])
+bankdata_e = pd.get_dummies(bankdata_e, columns = ['poutcome'])
+bankdata_e = pd.get_dummies(bankdata_e, columns = ['month'])
+# bankdata_e['housing'] = bankdata_e['housing'].map({'yes': 1, 'no': 0})
+# bankdata_e['default'] = bankdata_e['default'].map({'yes': 1, 'no': 0})
+# bankdata_e['loan'] = bankdata_e['loan'].map({'yes': 1, 'no': 0})
+```
+
+```{python}
+bankdata_e.to_csv('encoded_unbalanced.csv',index=False)
 ```
