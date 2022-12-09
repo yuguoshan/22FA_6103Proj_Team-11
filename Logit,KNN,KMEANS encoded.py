@@ -1,4 +1,6 @@
 #%%
+# IMPORTING THE DATASET
+import pandas as pd
 from sklearn.linear_model import LogisticRegression
 from sklearn.preprocessing import StandardScaler
 from sklearn.feature_selection import RFE
@@ -10,7 +12,6 @@ from sklearn.compose import ColumnTransformer
 from sklearn.pipeline import Pipeline
 from sklearn.impute import SimpleImputer
 from collections import Counter
-import pandas as pd
 import numpy as np
 from sklearn import preprocessing
 import matplotlib.pyplot as plt 
@@ -19,7 +20,7 @@ from sklearn.model_selection import train_test_split
 import seaborn as sns
 sns.set(style="white")
 sns.set(style="whitegrid", color_codes=True)
-inputFile = "unbalanced_bin.csv"
+inputFile = "encoded_unbalanced.csv"
 df= pd.read_csv(inputFile)
 print(df.shape)
 #%%
@@ -197,3 +198,73 @@ plt.show()
 
 
 # %%
+#%%
+# K-Nearest-Neighbor KNN   on  admissions data
+# number of neighbors
+mrroger = 7
+
+print("\nReady to continue.")
+
+#%%
+# KNN algorithm
+from sklearn.neighbors import KNeighborsClassifier
+knn = KNeighborsClassifier(n_neighbors=mrroger) # instantiate with n value given
+knn.fit(X,y)
+y_pred = knn.predict(X)
+y_pred = knn.predict_proba(X)
+print(y_pred)
+print(knn.score(X,y))
+
+print("\nReady to continue.")
+
+#%%
+# 2-KNN algorithm
+# The better way
+# from sklearn.neighbors import KNeighborsClassifier
+knn_split = KNeighborsClassifier(n_neighbors=mrroger) # instantiate with n value given
+knn_split.fit(X_train,y_train)
+ytest_pred = knn_split.predict(X_test)
+ytest_pred
+print(knn_split.score(X_test,y_test))
+
+# Try different n values
+
+print("\nReady to continue.")
+
+#%%
+# 3-KNN algorithm
+# The best way
+from sklearn.neighbors import KNeighborsClassifier
+knn_cv = KNeighborsClassifier(n_neighbors=mrroger) # instantiate with n value given
+
+from sklearn.model_selection import cross_val_score
+cv_results = cross_val_score(knn_cv, X, y, cv=10)
+print(cv_results) 
+print(np.mean(cv_results)) 
+
+print("\nReady to continue.")
+
+#%%
+# 4-KNN algorithm
+# Scale first? better or not?
+
+# Re-do our darta with scale on X
+from sklearn.preprocessing import scale
+xsadmit = pd.DataFrame( scale(X), columns=X.columns )  # reminder: X = dfadmit[['gre', 'gpa', 'rank']]
+# Note that scale( ) coerce the object from pd.dataframe to np.array  
+# Need to reconstruct the pandas df with column names
+# xsadmit.rank = X.rank
+ysadmit = y.copy()  # no need to scale y, but make a true copy / deep copy to be safe
+
+print("\nReady to continue.")
+
+#%%
+# from sklearn.neighbors import KNeighborsClassifier
+knn_scv = KNeighborsClassifier(n_neighbors=mrroger) # instantiate with n value given
+
+# from sklearn.model_selection import cross_val_score
+scv_results = cross_val_score(knn_scv, xsadmit, ysadmit, cv=5)
+print(scv_results) 
+print(np.mean(scv_results)) 
+
+print("\nReady to continue.")
