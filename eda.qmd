@@ -22,9 +22,12 @@ warnings.filterwarnings('ignore')
 Reading Dataset
 ```{python}
 #datapath  = os.getcwd()
-fileName = 'Dataset/bank-full.csv'
-bankdata = pd.read_csv(fileName, sep = ';')
-bankdata.head(5)
+fileName1 = 'bank-additional-full.csv'
+fileName2 = 'Dataset/bank-full.csv'
+bankdata1 = pd.read_csv(fileName1, sep = ';')
+bankdata = pd.read_csv(fileName2, sep = ';')
+print(bankdata1.shape)
+bankdata2.shape
 ```
 # Input Variables 
 ## bank client data:
@@ -76,6 +79,76 @@ bankdata['y'] = bankdata['y'].apply(lambda x: 0 if x == 'no' else 1)
 bankdata['y'] = bankdata['y'].astype('category')
 ```
 
+
+Let's fill in the social and economic factors 
+```{python}
+def month_to_int(var):
+    if var == 'jan':
+        return 1
+    elif var == 'feb':
+        return 2 
+    elif var == 'mar':
+        return 3
+    elif var == 'apr':
+        return 4
+    elif var == 'may':
+        return 5
+    elif var == 'jun':
+        return 6
+    elif var == 'jul':
+        return 7
+    elif var == 'aug':
+        return 8
+    elif var == 'sep':
+        return 9
+    elif var == 'oct':
+        return 10 
+    elif var =='nov':
+        return 11
+    elif var == 'dec':
+        return 12
+    return -1      
+def monthSocial(var):
+    if var =='jan':
+        # social_month.append'jan'
+        # social_month[var]['cons.conf.idx'] = 92.16
+        # social_month[var]['emp.var.rate'] = 1.2
+        # social_month[var]['euribor3m'] = 2.859
+        # social_month[var]['nr.employed'] = 4870.5
+        # social_month[var]['cons.price.idx'] = 92.16
+        
+    elif var =='feb':
+        social_month['month'] = 'feb'
+        social_month[var]['cons.conf.idx'] = 92.111
+        social_month[var]['emp.var.rate'] = 1.1
+        social_month[var]['euribor3m'] = 2.77
+        social_month[var]['nr.employed'] = 4851.4
+        social_month[var]['cons.price.idx'] = 92.111
+
+        dict = {'month'='jan',
+                'cons.conf.idx' =92.111
+                'emp.var.rate' = 1.1
+                'euribor3m' = 2.77
+                'nr.employed' = 4851.4
+                'cons.price.idx' = 92.111
+       }
+        df1 = pd.DataFrame(dict)
+        display(df1)
+  
+    
+    df3 = pd.concat([df1, df2], ignore_index = True)
+    df3.reset_index()
+  
+    display(df3)
+
+#contains all the social and economic information
+social_month = bankdata1[['month', 'emp.var.rate','cons.conf.idx','euribor3m','nr.employed','cons.price.idx']]
+social_month= social_month.drop_duplicates(subset=['month'])
+#monthSocial('jan')
+#monthSocial('feb')
+social_month['month'] = social_month['month'].apply(month_to_int)
+bankdata['month_int'] = bankdata['month'].apply(month_to_int)
+```
 # Data Cleaning 
 ```{python}
 bankdata.info()
@@ -137,16 +210,16 @@ Since the distribution of cellular and telephone contact is almost similar, we w
 ```
 ### Correlation Plot
 ```{python}
-corr_data = bankdata[['contact','month','day','duration','campaign','pdays','previous','poutcome','y']]
-corr = corr_data.corr()
+# corr_data = bankdata[['contact','month','day','duration','campaign','pdays','previous','poutcome','y']]
+# corr = corr_data.corr()
 
-cor_plot = sns.heatmap(corr,annot=True,cmap='RdYlGn',linewidths=0.2,annot_kws={'size':10})
-fig=plt.gcf()
-fig.set_size_inches(6,5)
-plt.xticks(fontsize=10,rotation=-30)
-plt.yticks(fontsize=10)
-plt.title('Correlation Matrix')
-plt.show()
+# cor_plot = sns.heatmap(corr,annot=True,cmap='RdYlGn',linewidths=0.2,annot_kws={'size':10})
+# fig=plt.gcf()
+# fig.set_size_inches(6,5)
+# plt.xticks(fontsize=10,rotation=-30)
+# plt.yticks(fontsize=10)
+# plt.title('Correlation Matrix')
+# plt.show()
 ```
 
 ### Month wise subscription
@@ -177,7 +250,20 @@ Dropping
 ### Dropping the missing values 
 
 ```{python}
-bankdata = bankdata.drop(['poutcome'], axis=1)
+# NOW CLEANING POUTCOME
+for j in range (0,len(bankdata["poutcome"])):
+    if (bankdata["poutcome"][j] == 'nonexistent'):
+        if (bankdata["default"][j] == 'yes'):
+            bankdata["poutcome"][j] = 'success'
+        elif(bankdata["default"][j] == 'no'):
+            bankdata["poutcome"][j] = 'success'
+        elif(bankdata["default"][j] == 'unknown'):
+            bankdata["poutcome"][j] = 'failure'
+#bankdata['poutcome'] = bankdata['poutcome'].apply(lambda x: 0 if x == 'no' else 1)
+```
+
+```{python}
+#bankdata = bankdata.drop(['poutcome'], axis=1)
 bankdata = bankdata.drop(['contact'], axis=1)
 for i in bankdata.columns:
     if bankdata[i].dtype == np.int64:
@@ -283,11 +369,18 @@ bankdata.to_csv('cleaned_data.csv')
 
 ```{python}
 #pip install imblearn
-x = bankdata.iloc[:, 0:14]
-y= bankdata.iloc[:, -1]
-from imblearn.over_sampling import SMOTE
-sm = SMOTE(random_state=42)
-X_res, y_res = sm.fit_resample(x, y)
+# x = bankdata.iloc[:, 0:14]
+# y= bankdata.iloc[:, -1]
+# from imblearn.over_sampling import SMOTE
+# sm = SMOTE(random_state=42)
+# X_res, y_res = sm.fit_resample(x, y)
 ```
 
-
+```{python}
+bankdata = pd.get_dummies(bankdata, columns = ['job'])
+bankdata = pd.get_dummies(bankdata, columns = ['education'])
+bankdata['housing'] = bankdata['housing'].map({'yes': 1, 'no': 0})
+bankdata['default'] = bankdata['default'].map({'yes': 1, 'no': 0})
+bankdata['loan'] = bankdata['loan'].map({'yes': 1, 'no': 0})
+bankdata['loan'] = bankdata['loan'].map({'yes': 1, 'no': 0})
+```
