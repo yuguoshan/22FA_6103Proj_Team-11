@@ -1,6 +1,4 @@
 #%%
-# IMPORTING THE DATASET
-import pandas as pd
 from sklearn.linear_model import LogisticRegression
 from sklearn.preprocessing import StandardScaler
 from sklearn.feature_selection import RFE
@@ -12,6 +10,7 @@ from sklearn.compose import ColumnTransformer
 from sklearn.pipeline import Pipeline
 from sklearn.impute import SimpleImputer
 from collections import Counter
+import pandas as pd
 import numpy as np
 from sklearn import preprocessing
 import matplotlib.pyplot as plt 
@@ -20,7 +19,7 @@ from sklearn.model_selection import train_test_split
 import seaborn as sns
 sns.set(style="white")
 sns.set(style="whitegrid", color_codes=True)
-inputFile = "encoded_unbalanced.csv"
+inputFile = "unbalanced_bin.csv"
 df= pd.read_csv(inputFile)
 print(df.shape)
 #%%
