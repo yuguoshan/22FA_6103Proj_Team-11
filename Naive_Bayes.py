@@ -8,7 +8,9 @@ import warnings
 warnings.filterwarnings('ignore')
 #%%
 from sklearn.model_selection import train_test_split
-
+from sklearn.metrics import accuracy_score
+from sklearn.metrics import confusion_matrix 
+from sklearn.metrics import classification_report
 
 # %%
 #Reading the dataset 
@@ -45,4 +47,50 @@ pred1=modelNB.predict_proba(x_test)[:,0]
 pred2 = modelNB.predict_proba(x_test)[:,1]
 modelProbability(pred1,pred2,y_test)
 
+# %%
+#Applying Naive Bayes on upsampled dataset 
+#Reading the training and testing dataset 
+
+balanced_train = pd.read_csv('Dataset\\train_balanced.csv')
+unbalanced_train = pd.read_csv('Dataset\\train_unbalanced.csv')
+balanced_test = pd.read_csv('Dataset\\test_balanced.csv')
+unbalanced_test = pd.read_csv('Dataset\\test_unbalanced.csv')
+
+# %%
+
+#modelling
+def xAndY(dataset):
+    x = dataset.drop(['y'],axis=1)
+    y = dataset['y']
+    return x,y
+def evaluateNB(dataset):
+    x_train,y_train = xAndY(dataset)
+    model_temp = GaussianNB()
+    model_temp.fit(x_train,y_train)
+    return model_temp
+def modelEvaluation(model,x,y):
+    print('test set evaluation: ')
+    y_pred = model.predict(x)
+    print(accuracy_score(y, y_pred))
+    print(confusion_matrix(y, y_pred))
+    print(classification_report(y, y_pred))
+    
+          
+    
+model_balanced = evaluateNB(balanced_train)
+model_unbalanced = evaluateNB(unbalanced_train)
+#checking it on the unbalanced test dataset only 
+x_test,y_test = xAndY(unbalanced_test)
+print(f"Training : balanced \n Testing : unbalanced")
+modelEvaluation(model_balanced,x_test,y_test)
+   
+print(f"Training : unbalanced \n Testing : unbalanced")
+modelEvaluation(model_unbalanced, x_test,  y_test) 
+# %%
+# balanced Testing dataset 
+#checking it on the unbalanced test dataset only 
+x_test,y_test = xAndY(balanced_test)
+print(f"Training : balanced \n Testing : balanced")
+modelEvaluation(model_balanced,x_test,y_test)
+   
 # %%
