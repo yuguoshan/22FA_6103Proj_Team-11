@@ -161,7 +161,7 @@ bankdata.info()
 ```
 
 ```{python}
-bankdata.to_csv('Dataset/primary.csv',index=False)
+#bankdata.to_csv('Dataset/primary.csv',index=False)
 ```
 
 # Data Cleaning 
@@ -278,7 +278,7 @@ for j in range (0,len(bankdata["poutcome"])):
 ```
 
 ```{python}
-#bankdata = bankdata.drop(['contact'], axis=1)
+bankdata = bankdata.drop(['contact'], axis=1)
 for i in bankdata.columns:
     if bankdata[i].dtype == np.int64:
         pass
@@ -378,7 +378,7 @@ plt.show()
 
 Writing Cleaned data to csv file 
 ```{python}
-bankdata.to_csv('cleaned_data.csv')
+bankdata.to_csv('cleaned_data.csv',index=False)
 ```
 
 ```{python}
