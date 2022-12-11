@@ -160,6 +160,9 @@ bankdata= bankdata.merge(social_month,on='month_int',how='left')
 bankdata.info()
 ```
 
+```{python}
+bankdata.to_csv('Dataset/primary.csv',index=False)
+```
 
 # Data Cleaning 
 ```{python}
@@ -202,7 +205,7 @@ def barDistribution(x,y):
         txt = str(p.get_height().round(2)) + '%'
         txt_x = p.get_x() 
         txt_y = p.get_height()
-        g.ax.text(txt_x,txt_y,txt)
+        g.ax.text(txt_x,txt_y,txt)    
 ```
 ```{python}
 barDistribution('contact','y')
@@ -233,7 +236,7 @@ Since the distribution of cellular and telephone contact is almost similar, we w
 # plt.title('Correlation Matrix')
 # plt.show()
 ```
-
+ 
 ### Month wise subscription
 ```{python}
 sns.countplot(x ='month',hue='y', data = bankdata)
@@ -427,3 +430,6 @@ bankdata_map.to_csv('Dataset/unbalanced_bin.csv',index=False)
 bankdata_e= bankdata_e.drop(['contact'], axis=1)
 bankdata_e.to_csv('encoded_unbalanced.csv',index=False)
 ```
+
+
+
