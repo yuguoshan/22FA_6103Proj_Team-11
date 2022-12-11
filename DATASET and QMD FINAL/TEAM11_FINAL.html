@@ -1,0 +1,259 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
+
+<meta charset="utf-8">
+<meta name="generator" content="quarto-1.1.251">
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+
+<meta name="author" content="TEAM 11: Anjali Mudgal , Guoshan Yu and Medhasweta Sen">
+<meta name="dcterms.date" content="2022-11-21">
+
+<title>AN ANALYSIS OF PORTUGUESE BANK MARKETING DATA</title>
+<style>
+code{white-space: pre-wrap;}
+span.smallcaps{font-variant: small-caps;}
+div.columns{display: flex; gap: min(4vw, 1.5em);}
+div.column{flex: auto; overflow-x: auto;}
+div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+ul.task-list{list-style: none;}
+ul.task-list li input[type="checkbox"] {
+  width: 0.8em;
+  margin: 0 0.8em 0.2em -1.6em;
+  vertical-align: middle;
+}
+</style>
+
+
+<script src="TEAM11_FINAL_files/libs/clipboard/clipboard.min.js"></script>
+<script src="TEAM11_FINAL_files/libs/quarto-html/quarto.js"></script>
+<script src="TEAM11_FINAL_files/libs/quarto-html/popper.min.js"></script>
+<script src="TEAM11_FINAL_files/libs/quarto-html/tippy.umd.min.js"></script>
+<script src="TEAM11_FINAL_files/libs/quarto-html/anchor.min.js"></script>
+<link href="TEAM11_FINAL_files/libs/quarto-html/tippy.css" rel="stylesheet">
+<link href="TEAM11_FINAL_files/libs/quarto-html/quarto-syntax-highlighting.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+<script src="TEAM11_FINAL_files/libs/bootstrap/bootstrap.min.js"></script>
+<link href="TEAM11_FINAL_files/libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
+<link href="TEAM11_FINAL_files/libs/bootstrap/bootstrap.min.css" rel="stylesheet" id="quarto-bootstrap" data-mode="light">
+
+
+</head>
+
+<body class="fullcontent">
+
+<div id="quarto-content" class="page-columns page-rows-contents page-layout-article">
+
+<main class="content" id="quarto-document-content">
+
+<header id="title-block-header" class="quarto-title-block default">
+<div class="quarto-title">
+<h1 class="title">AN ANALYSIS OF PORTUGUESE BANK MARKETING DATA</h1>
+</div>
+
+
+
+<div class="quarto-title-meta">
+
+    <div>
+    <div class="quarto-title-meta-heading">Author</div>
+    <div class="quarto-title-meta-contents">
+             <p>TEAM 11: Anjali Mudgal , Guoshan Yu and Medhasweta Sen </p>
+          </div>
+  </div>
+    
+    <div>
+    <div class="quarto-title-meta-heading">Published</div>
+    <div class="quarto-title-meta-contents">
+      <p class="date">November 21, 2022</p>
+    </div>
+  </div>
+    
+  </div>
+  
+
+</header>
+
+<section id="introduction" class="level1">
+<h1>1. INTRODUCTION</h1>
+<p>Bank marketing is the practice of attracting and acquiring new customers through traditional media and digital media strategies. The use of these media strategies helps determine what kind of customer is attracted to a certain institutions. This also includes different banking institutions purposefully using different strategies to attract the type of customer they want to do business with.</p>
+<p>As a discipline, marketing has evolved over the past few decades to become what it is today. Earlier, marketing strategies were primarily a means of spreading brand awareness. Today, marketing has been reinvented to fit a much bigger role. Creating both value and revenue to the institution. It is a big step up from its previous communication role, no doubt. One that was necessitated by the evolution of three factors: the consumer, the technology, and data analytics.</p>
+<p>Marketing has evolved from a communication role to a revenue generating role. The consumer has evolved from being a passive recipient of marketing messages to an active participant in the marketing process. Technology has evolved from being a means of communication to a means of data collection and analysis. Data analytics has evolved from being a means of understanding the consumer to a means of understanding the consumer and the institution.</p>
+<section id="the-data-set" class="level2">
+<h2 class="anchored" data-anchor-id="the-data-set">1.1. The Data Set</h2>
+<p>The data set used in this analysis is from a Portuguese bank. The data set contains 41,188 observations and 21 variables. The variables include the following:</p>
+<ol type="1">
+<li><ul>
+<li>age (numeric)</li>
+</ul></li>
+<li><ul>
+<li>job : type of job (categorical: ‘admin.’,‘blue-collar’,‘entrepreneur’,‘housemaid’,‘management’,‘retired’,‘self-employed’,‘services’,‘student’,‘technician’,‘unemployed’,‘unknown’)</li>
+</ul></li>
+<li><ul>
+<li>marital : marital status (categorical: ‘divorced’,‘married’,‘single’,‘unknown’; note: ‘divorced’ means divorced or widowed)</li>
+</ul></li>
+<li><ul>
+<li>education (categorical: ‘basic.4y’,‘basic.6y’,‘basic.9y’,‘high.school’,‘illiterate’,‘professional.course’,‘university.degree’,‘unknown’)</li>
+</ul></li>
+<li><ul>
+<li>default: has credit in default? (categorical: ‘no’,‘yes’,‘unknown’)</li>
+</ul></li>
+<li><ul>
+<li>housing: has housing loan? (categorical: ‘no’,‘yes’,‘unknown’)</li>
+</ul></li>
+<li><ul>
+<li>loan: has personal loan? (categorical: ‘no’,‘yes’,‘unknown’)</li>
+</ul></li>
+<li><ul>
+<li>contact: contact communication type (categorical: ‘cellular’,‘telephone’)</li>
+</ul></li>
+<li><ul>
+<li>month: last contact month of year (categorical: ‘jan’, ‘feb’, ‘mar’, …, ‘nov’, ‘dec’)</li>
+</ul></li>
+<li><ul>
+<li>day_of_week: last contact day of the week (categorical: ‘mon’,‘tue’,‘wed’,‘thu’,‘fri’)</li>
+</ul></li>
+<li><ul>
+<li>duration: last contact duration, in seconds (numeric). Important note: this attribute highly affects the output target (e.g., if duration=0 then y=‘no’). Yet, the duration is not known before a call is performed. Also, after the end of the call y is obviously known. Thus, this input should only be included for benchmark purposes and should be discarded if the intention is to have a realistic predictive model.</li>
+</ul></li>
+<li><ul>
+<li>campaign: number of contacts performed during this campaign and for this client (numeric, includes last contact)</li>
+</ul></li>
+<li><ul>
+<li>pdays: number of days that passed by after the client was last contacted from a previous campaign (numeric; 999 means client was not previously contacted)</li>
+</ul></li>
+<li><ul>
+<li>previous: number of contacts performed before this campaign and for this client (numeric)</li>
+</ul></li>
+<li><ul>
+<li>poutcome: outcome of the previous marketing campaign (categorical: ‘failure’,‘nonexistent’,‘success’)</li>
+</ul></li>
+<li><ul>
+<li>emp.var.rate: employment variation rate - quarterly indicator (numeric)</li>
+</ul></li>
+<li><ul>
+<li>cons.price.idx: consumer price index - monthly indicator (numeric)</li>
+</ul></li>
+<li><ul>
+<li>cons.conf.idx: consumer confidence index - monthly indicator (numeric)</li>
+</ul></li>
+<li><ul>
+<li>euribor3m: euribor 3 month rate - daily indicator (numeric)</li>
+</ul></li>
+<li><ul>
+<li>nr.employed: number of employees - quarterly indicator (numeric)</li>
+</ul></li>
+<li><ul>
+<li>balance -</li>
+</ul></li>
+<li><ul>
+<li>y - has the client subscribed a term deposit? (binary: ‘yes’,‘no’)</li>
+</ul></li>
+</ol>
+</section>
+</section>
+
+</main>
+<!-- /main column -->
+<script id="quarto-html-after-body" type="application/javascript">
+window.document.addEventListener("DOMContentLoaded", function (event) {
+  const toggleBodyColorMode = (bsSheetEl) => {
+    const mode = bsSheetEl.getAttribute("data-mode");
+    const bodyEl = window.document.querySelector("body");
+    if (mode === "dark") {
+      bodyEl.classList.add("quarto-dark");
+      bodyEl.classList.remove("quarto-light");
+    } else {
+      bodyEl.classList.add("quarto-light");
+      bodyEl.classList.remove("quarto-dark");
+    }
+  }
+  const toggleBodyColorPrimary = () => {
+    const bsSheetEl = window.document.querySelector("link#quarto-bootstrap");
+    if (bsSheetEl) {
+      toggleBodyColorMode(bsSheetEl);
+    }
+  }
+  toggleBodyColorPrimary();  
+  const icon = "";
+  const anchorJS = new window.AnchorJS();
+  anchorJS.options = {
+    placement: 'right',
+    icon: icon
+  };
+  anchorJS.add('.anchored');
+  const clipboard = new window.ClipboardJS('.code-copy-button', {
+    target: function(trigger) {
+      return trigger.previousElementSibling;
+    }
+  });
+  clipboard.on('success', function(e) {
+    // button target
+    const button = e.trigger;
+    // don't keep focus
+    button.blur();
+    // flash "checked"
+    button.classList.add('code-copy-button-checked');
+    var currentTitle = button.getAttribute("title");
+    button.setAttribute("title", "Copied!");
+    setTimeout(function() {
+      button.setAttribute("title", currentTitle);
+      button.classList.remove('code-copy-button-checked');
+    }, 1000);
+    // clear code selection
+    e.clearSelection();
+  });
+  function tippyHover(el, contentFn) {
+    const config = {
+      allowHTML: true,
+      content: contentFn,
+      maxWidth: 500,
+      delay: 100,
+      arrow: false,
+      appendTo: function(el) {
+          return el.parentElement;
+      },
+      interactive: true,
+      interactiveBorder: 10,
+      theme: 'quarto',
+      placement: 'bottom-start'
+    };
+    window.tippy(el, config); 
+  }
+  const noterefs = window.document.querySelectorAll('a[role="doc-noteref"]');
+  for (var i=0; i<noterefs.length; i++) {
+    const ref = noterefs[i];
+    tippyHover(ref, function() {
+      // use id or data attribute instead here
+      let href = ref.getAttribute('data-footnote-href') || ref.getAttribute('href');
+      try { href = new URL(href).hash; } catch {}
+      const id = href.replace(/^#\/?/, "");
+      const note = window.document.getElementById(id);
+      return note.innerHTML;
+    });
+  }
+  var bibliorefs = window.document.querySelectorAll('a[role="doc-biblioref"]');
+  for (var i=0; i<bibliorefs.length; i++) {
+    const ref = bibliorefs[i];
+    const cites = ref.parentNode.getAttribute('data-cites').split(' ');
+    tippyHover(ref, function() {
+      var popup = window.document.createElement('div');
+      cites.forEach(function(cite) {
+        var citeDiv = window.document.createElement('div');
+        citeDiv.classList.add('hanging-indent');
+        citeDiv.classList.add('csl-entry');
+        var biblioDiv = window.document.getElementById('ref-' + cite);
+        if (biblioDiv) {
+          citeDiv.innerHTML = biblioDiv.innerHTML;
+        }
+        popup.appendChild(citeDiv);
+      });
+      return popup.innerHTML;
+    });
+  }
+});
+</script>
+</div> <!-- /content -->
+
+
+
+</body></html>
