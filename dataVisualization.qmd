@@ -1,0 +1,50 @@
+---
+title: "Untitled"
+format: html
+---
+
+
+```{python}
+import numpy as np 
+import pandas as pd 
+import os 
+
+
+## Import data visualization packages
+import seaborn as sns
+import matplotlib.pyplot as plt
+%matplotlib inline
+import warnings
+warnings.filterwarnings('ignore')
+```
+
+Reading Dataset
+```{python}
+#datapath  = os.getcwd()
+fileName = 'cleaned_data.csv'
+bankdata = pd.read_csv(fileName)
+#reading balanced dataset as well
+file_balance = 'Dataset/train_balanced.csv'
+balance_data = pd.read_csv(file_balance)
+```
+
+Checking the number of enteries in balanced and unbalanced datasets
+```{python}
+def pieChart(df1,df2,x_var,title1,title2):
+    fig, ax =plt.subplots(1,2)
+    yesNo1 = df1.groupby(x_var).size()
+    yesNo1.plot(kind='pie', title=title1, ax=ax[0],figsize=[8,8],
+          autopct=lambda p: '{:.2f}%({:.0f})'.format(p,(p/100)*yesNo1.sum()))
+    yesNo2 = df2.groupby(x_var).size()
+    yesNo2.plot(kind='pie', title=title2, ax=ax[1],figsize=[8,8],
+          autopct=lambda p: '{:.2f}%({:.0f})'.format(p,(p/100)*yesNo2.sum()))
+    fig.show()
+
+pieChart(bankdata,balance_data,'y','term deposit in dataset','term deposit in balanced dataset')
+
+```
+
+
+
+
+
