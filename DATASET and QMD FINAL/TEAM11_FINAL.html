@@ -22,6 +22,69 @@ ul.task-list li input[type="checkbox"] {
   margin: 0 0.8em 0.2em -1.6em;
   vertical-align: middle;
 }
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+    color: #aaaaaa;
+  }
+pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
+code span.al { color: #ff0000; font-weight: bold; } /* Alert */
+code span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
+code span.at { color: #7d9029; } /* Attribute */
+code span.bn { color: #40a070; } /* BaseN */
+code span.bu { color: #008000; } /* BuiltIn */
+code span.cf { color: #007020; font-weight: bold; } /* ControlFlow */
+code span.ch { color: #4070a0; } /* Char */
+code span.cn { color: #880000; } /* Constant */
+code span.co { color: #60a0b0; font-style: italic; } /* Comment */
+code span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } /* CommentVar */
+code span.do { color: #ba2121; font-style: italic; } /* Documentation */
+code span.dt { color: #902000; } /* DataType */
+code span.dv { color: #40a070; } /* DecVal */
+code span.er { color: #ff0000; font-weight: bold; } /* Error */
+code span.ex { } /* Extension */
+code span.fl { color: #40a070; } /* Float */
+code span.fu { color: #06287e; } /* Function */
+code span.im { color: #008000; font-weight: bold; } /* Import */
+code span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
+code span.kw { color: #007020; font-weight: bold; } /* Keyword */
+code span.op { color: #666666; } /* Operator */
+code span.ot { color: #007020; } /* Other */
+code span.pp { color: #bc7a00; } /* Preprocessor */
+code span.sc { color: #4070a0; } /* SpecialChar */
+code span.ss { color: #bb6688; } /* SpecialString */
+code span.st { color: #4070a0; } /* String */
+code span.va { color: #19177c; } /* Variable */
+code span.vs { color: #4070a0; } /* VerbatimString */
+code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
 </style>
 
 
@@ -51,6 +114,19 @@ ul.task-list li input[type="checkbox"] {
   <li><a href="#introduction" id="toc-introduction" class="nav-link active" data-scroll-target="#introduction"><span class="toc-section-number">1</span>  INTRODUCTION</a>
   <ul class="collapse">
   <li><a href="#the-data-set" id="toc-the-data-set" class="nav-link" data-scroll-target="#the-data-set"><span class="toc-section-number">1.1</span>  The Data Set</a></li>
+  <li><a href="#the-smart-questions" id="toc-the-smart-questions" class="nav-link" data-scroll-target="#the-smart-questions"><span class="toc-section-number">1.2</span>  The SMART Questions</a></li>
+  <li><a href="#importing-the-libraries" id="toc-importing-the-libraries" class="nav-link" data-scroll-target="#importing-the-libraries"><span class="toc-section-number">1.3</span>  Importing the libraries</a></li>
+  <li><a href="#importing-the-dataset" id="toc-importing-the-dataset" class="nav-link" data-scroll-target="#importing-the-dataset"><span class="toc-section-number">1.4</span>  Importing the dataset</a></li>
+  <li><a href="#basic-information-about-the-data" id="toc-basic-information-about-the-data" class="nav-link" data-scroll-target="#basic-information-about-the-data"><span class="toc-section-number">1.5</span>  Basic Information about the data</a></li>
+  </ul></li>
+  <li><a href="#exploratory-data-analysis-eda" id="toc-exploratory-data-analysis-eda" class="nav-link" data-scroll-target="#exploratory-data-analysis-eda"><span class="toc-section-number">2</span>  Exploratory Data Analysis (EDA)</a>
+  <ul class="collapse">
+  <li><a href="#barchart-for-all-categorical-variables" id="toc-barchart-for-all-categorical-variables" class="nav-link" data-scroll-target="#barchart-for-all-categorical-variables"><span class="toc-section-number">2.1</span>  Barchart for all Categorical Variables</a></li>
+  <li><a href="#piechart-for-all-categorical-variables" id="toc-piechart-for-all-categorical-variables" class="nav-link" data-scroll-target="#piechart-for-all-categorical-variables"><span class="toc-section-number">2.2</span>  Piechart for all Categorical Variables</a></li>
+  <li><a href="#histogram-and-density-plots-for-all-numerical-variables" id="toc-histogram-and-density-plots-for-all-numerical-variables" class="nav-link" data-scroll-target="#histogram-and-density-plots-for-all-numerical-variables"><span class="toc-section-number">2.3</span>  Histogram and Density Plots for all Numerical Variables</a></li>
+  <li><a href="#boxplots-for-all-numeric-variables" id="toc-boxplots-for-all-numeric-variables" class="nav-link" data-scroll-target="#boxplots-for-all-numeric-variables"><span class="toc-section-number">2.4</span>  Boxplots for all Numeric Variables</a></li>
+  <li><a href="#scatterplots-between-all-numeric-variables" id="toc-scatterplots-between-all-numeric-variables" class="nav-link" data-scroll-target="#scatterplots-between-all-numeric-variables"><span class="toc-section-number">2.5</span>  Scatterplots between all Numeric variables</a></li>
+  <li><a href="#heatmap-for-all-numeric-variables" id="toc-heatmap-for-all-numeric-variables" class="nav-link" data-scroll-target="#heatmap-for-all-numeric-variables"><span class="toc-section-number">2.6</span>  Heatmap for all Numeric Variables</a></li>
   </ul></li>
   </ul>
 </nav>
@@ -162,12 +238,804 @@ ul.task-list li input[type="checkbox"] {
 <li>nr.employed: number of employees - quarterly indicator (numeric)</li>
 </ul></li>
 <li><ul>
-<li>balance -</li>
+<li>balance - average yearly balance, in euros (numeric)</li>
 </ul></li>
 <li><ul>
 <li>y - has the client subscribed a term deposit? (binary: ‘yes’,‘no’)</li>
 </ul></li>
 </ol>
+</section>
+<section id="the-smart-questions" class="level2" data-number="1.2">
+<h2 data-number="1.2" class="anchored" data-anchor-id="the-smart-questions"><span class="header-section-number">1.2</span> The SMART Questions</h2>
+<p>The SMART questions are as follows:</p>
+</section>
+<section id="importing-the-libraries" class="level2" data-number="1.3">
+<h2 data-number="1.3" class="anchored" data-anchor-id="importing-the-libraries"><span class="header-section-number">1.3</span> Importing the libraries</h2>
+<div class="cell" data-execution_count="1">
+<details>
+<summary>Code</summary>
+<div class="sourceCode cell-code" id="cb1"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> numpy <span class="im">as</span> np </span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> pandas <span class="im">as</span> pd </span>
+<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> os </span>
+<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> matplotlib.pyplot <span class="im">as</span> plt</span>
+<span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a><span class="op">%</span>matplotlib inline</span>
+<span id="cb1-6"><a href="#cb1-6" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> warnings</span>
+<span id="cb1-7"><a href="#cb1-7" aria-hidden="true" tabindex="-1"></a>warnings.filterwarnings(<span class="st">'ignore'</span>)</span>
+<span id="cb1-8"><a href="#cb1-8" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> seaborn <span class="im">as</span> sns</span>
+<span id="cb1-9"><a href="#cb1-9" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> scipy.stats <span class="im">as</span> stats</span>
+<span id="cb1-10"><a href="#cb1-10" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> statsmodels.api <span class="im">as</span> sm</span>
+<span id="cb1-11"><a href="#cb1-11" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> statsmodels.formula.api <span class="im">as</span> smf</span>
+<span id="cb1-12"><a href="#cb1-12" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> statsmodels.stats.api <span class="im">as</span> sms</span>
+<span id="cb1-13"><a href="#cb1-13" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> statsmodels.stats.multicomp <span class="im">as</span> mc</span>
+<span id="cb1-14"><a href="#cb1-14" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> statsmodels.stats.outliers_influence <span class="im">as</span> influence</span>
+<span id="cb1-15"><a href="#cb1-15" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> statsmodels.stats.diagnostic <span class="im">as</span> diag</span>
+<span id="cb1-16"><a href="#cb1-16" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> statsmodels.stats.stattools <span class="im">as</span> stattools</span>
+<span id="cb1-17"><a href="#cb1-17" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> statsmodels.stats.anova <span class="im">as</span> anova</span>
+<span id="cb1-18"><a href="#cb1-18" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> statsmodels.stats.weightstats <span class="im">as</span> weightstats</span>
+<span id="cb1-19"><a href="#cb1-19" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> statsmodels.stats.libqsturng <span class="im">as</span> libqsturng</span>
+<span id="cb1-20"><a href="#cb1-20" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> statsmodels.stats.power <span class="im">as</span> power</span>
+<span id="cb1-21"><a href="#cb1-21" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> statsmodels.stats.proportion <span class="im">as</span> proportion</span>
+<span id="cb1-22"><a href="#cb1-22" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> statsmodels.stats.contingency_tables <span class="im">as</span> contingency_tables</span>
+<span id="cb1-23"><a href="#cb1-23" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> statsmodels.stats.multitest <span class="im">as</span> multitest</span>
+<span id="cb1-24"><a href="#cb1-24" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> statsmodels.stats.diagnostic <span class="im">as</span> diagnostic</span>
+<span id="cb1-25"><a href="#cb1-25" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> statsmodels.stats.correlation_tools <span class="im">as</span> correlation_tools</span>
+<span id="cb1-26"><a href="#cb1-26" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> statsmodels.formula.api <span class="im">import</span> ols</span>
+<span id="cb1-27"><a href="#cb1-27" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> researchpy <span class="im">as</span> rp</span>
+<span id="cb1-28"><a href="#cb1-28" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> scipy.stats <span class="im">as</span> stats</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+</div>
+</section>
+<section id="importing-the-dataset" class="level2" data-number="1.4">
+<h2 data-number="1.4" class="anchored" data-anchor-id="importing-the-dataset"><span class="header-section-number">1.4</span> Importing the dataset</h2>
+<div class="cell" data-execution_count="2">
+<details>
+<summary>Code</summary>
+<div class="sourceCode cell-code" id="cb2"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a>inputFile <span class="op">=</span> <span class="st">"primary.csv"</span></span>
+<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a>df <span class="op">=</span> pd.read_csv(inputFile)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+</div>
+</section>
+<section id="basic-information-about-the-data" class="level2" data-number="1.5">
+<h2 data-number="1.5" class="anchored" data-anchor-id="basic-information-about-the-data"><span class="header-section-number">1.5</span> Basic Information about the data</h2>
+<div class="cell" data-execution_count="3">
+<details>
+<summary>Code</summary>
+<div class="sourceCode cell-code" id="cb3"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(df.shape)</span>
+<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(df.head())</span>
+<span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(df.tail())</span>
+<span id="cb3-4"><a href="#cb3-4" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(df.columns)</span>
+<span id="cb3-5"><a href="#cb3-5" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(df.shape)</span>
+<span id="cb3-6"><a href="#cb3-6" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(df.dtypes)</span>
+<span id="cb3-7"><a href="#cb3-7" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(df.isnull().<span class="bu">sum</span>())</span>
+<span id="cb3-8"><a href="#cb3-8" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(df.isnull().<span class="bu">sum</span>().<span class="bu">sum</span>())</span>
+<span id="cb3-9"><a href="#cb3-9" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(df.info())</span>
+<span id="cb3-10"><a href="#cb3-10" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(df.describe())</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+<div class="cell-output cell-output-stdout">
+<pre><code>(45211, 23)
+   age           job  marital  education default  balance housing loan  \
+0   58    management  married   tertiary      no     2143     yes   no   
+1   44    technician   single  secondary      no       29     yes   no   
+2   33  entrepreneur  married  secondary      no        2     yes  yes   
+3   47   blue-collar  married    unknown      no     1506     yes   no   
+4   33       unknown   single    unknown      no        1      no   no   
+
+   contact  day  ... pdays  previous  poutcome  y  month_int cons.conf.idx  \
+0  unknown    5  ...    -1         0   unknown  0          5         -36.4   
+1  unknown    5  ...    -1         0   unknown  0          5         -36.4   
+2  unknown    5  ...    -1         0   unknown  0          5         -36.4   
+3  unknown    5  ...    -1         0   unknown  0          5         -36.4   
+4  unknown    5  ...    -1         0   unknown  0          5         -36.4   
+
+   emp.var.rate  euribor3m  nr.employed  cons.price.idx  
+0           1.1      4.857       5191.0          93.994  
+1           1.1      4.857       5191.0          93.994  
+2           1.1      4.857       5191.0          93.994  
+3           1.1      4.857       5191.0          93.994  
+4           1.1      4.857       5191.0          93.994  
+
+[5 rows x 23 columns]
+       age           job   marital  education default  balance housing loan  \
+45206   51    technician   married   tertiary      no      825      no   no   
+45207   71       retired  divorced    primary      no     1729      no   no   
+45208   72       retired   married  secondary      no     5715      no   no   
+45209   57   blue-collar   married  secondary      no      668      no   no   
+45210   37  entrepreneur   married  secondary      no     2971      no   no   
+
+         contact  day  ... pdays  previous  poutcome  y  month_int  \
+45206   cellular   17  ...    -1         0   unknown  1         11   
+45207   cellular   17  ...    -1         0   unknown  1         11   
+45208   cellular   17  ...   184         3   success  1         11   
+45209  telephone   17  ...    -1         0   unknown  0         11   
+45210   cellular   17  ...   188        11     other  0         11   
+
+      cons.conf.idx  emp.var.rate  euribor3m  nr.employed  cons.price.idx  
+45206         -42.0          -0.1      4.733       5195.8            93.2  
+45207         -42.0          -0.1      4.733       5195.8            93.2  
+45208         -42.0          -0.1      4.733       5195.8            93.2  
+45209         -42.0          -0.1      4.733       5195.8            93.2  
+45210         -42.0          -0.1      4.733       5195.8            93.2  
+
+[5 rows x 23 columns]
+Index(['age', 'job', 'marital', 'education', 'default', 'balance', 'housing',
+       'loan', 'contact', 'day', 'month', 'duration', 'campaign', 'pdays',
+       'previous', 'poutcome', 'y', 'month_int', 'cons.conf.idx',
+       'emp.var.rate', 'euribor3m', 'nr.employed', 'cons.price.idx'],
+      dtype='object')
+(45211, 23)
+age                 int64
+job                object
+marital            object
+education          object
+default            object
+balance             int64
+housing            object
+loan               object
+contact            object
+day                 int64
+month              object
+duration            int64
+campaign            int64
+pdays               int64
+previous            int64
+poutcome           object
+y                   int64
+month_int           int64
+cons.conf.idx     float64
+emp.var.rate      float64
+euribor3m         float64
+nr.employed       float64
+cons.price.idx    float64
+dtype: object
+age               0
+job               0
+marital           0
+education         0
+default           0
+balance           0
+housing           0
+loan              0
+contact           0
+day               0
+month             0
+duration          0
+campaign          0
+pdays             0
+previous          0
+poutcome          0
+y                 0
+month_int         0
+cons.conf.idx     0
+emp.var.rate      0
+euribor3m         0
+nr.employed       0
+cons.price.idx    0
+dtype: int64
+0
+&lt;class 'pandas.core.frame.DataFrame'&gt;
+RangeIndex: 45211 entries, 0 to 45210
+Data columns (total 23 columns):
+ #   Column          Non-Null Count  Dtype  
+---  ------          --------------  -----  
+ 0   age             45211 non-null  int64  
+ 1   job             45211 non-null  object 
+ 2   marital         45211 non-null  object 
+ 3   education       45211 non-null  object 
+ 4   default         45211 non-null  object 
+ 5   balance         45211 non-null  int64  
+ 6   housing         45211 non-null  object 
+ 7   loan            45211 non-null  object 
+ 8   contact         45211 non-null  object 
+ 9   day             45211 non-null  int64  
+ 10  month           45211 non-null  object 
+ 11  duration        45211 non-null  int64  
+ 12  campaign        45211 non-null  int64  
+ 13  pdays           45211 non-null  int64  
+ 14  previous        45211 non-null  int64  
+ 15  poutcome        45211 non-null  object 
+ 16  y               45211 non-null  int64  
+ 17  month_int       45211 non-null  int64  
+ 18  cons.conf.idx   45211 non-null  float64
+ 19  emp.var.rate    45211 non-null  float64
+ 20  euribor3m       45211 non-null  float64
+ 21  nr.employed     45211 non-null  float64
+ 22  cons.price.idx  45211 non-null  float64
+dtypes: float64(5), int64(9), object(9)
+memory usage: 7.9+ MB
+None
+                age        balance           day      duration      campaign  \
+count  45211.000000   45211.000000  45211.000000  45211.000000  45211.000000   
+mean      40.936210    1362.272058     15.806419    258.163080      2.763841   
+std       10.618762    3044.765829      8.322476    257.527812      3.098021   
+min       18.000000   -8019.000000      1.000000      0.000000      1.000000   
+25%       33.000000      72.000000      8.000000    103.000000      1.000000   
+50%       39.000000     448.000000     16.000000    180.000000      2.000000   
+75%       48.000000    1428.000000     21.000000    319.000000      3.000000   
+max       95.000000  102127.000000     31.000000   4918.000000     63.000000   
+
+              pdays      previous             y     month_int  cons.conf.idx  \
+count  45211.000000  45211.000000  45211.000000  45211.000000   45211.000000   
+mean      40.197828      0.580323      0.116985      6.144655     -27.792928   
+std      100.128746      2.303441      0.321406      2.408034      37.807116   
+min       -1.000000      0.000000      0.000000      1.000000     -50.000000   
+25%       -1.000000      0.000000      0.000000      5.000000     -42.000000   
+50%       -1.000000      0.000000      0.000000      6.000000     -36.400000   
+75%       -1.000000      0.000000      0.000000      8.000000     -36.400000   
+max      871.000000    275.000000      1.000000     12.000000      92.160000   
+
+       emp.var.rate     euribor3m   nr.employed  cons.price.idx  
+count  45211.000000  45211.000000  45211.000000    45211.000000  
+mean       0.818338      4.389787   5167.578859       93.623608  
+std        1.004594      1.099787    104.885694        0.639706  
+min       -3.400000      0.819000   4851.000000       92.111000  
+25%        1.100000      4.733000   5191.000000       93.200000  
+50%        1.100000      4.857000   5195.800000       93.918000  
+75%        1.400000      4.955000   5228.100000       93.994000  
+max        1.400000      5.045000   5228.100000       94.465000  </code></pre>
+</div>
+</div>
+</section>
+</section>
+<section id="exploratory-data-analysis-eda" class="level1" data-number="2">
+<h1 data-number="2"><span class="header-section-number">2</span> Exploratory Data Analysis (EDA)</h1>
+<section id="barchart-for-all-categorical-variables" class="level2" data-number="2.1">
+<h2 data-number="2.1" class="anchored" data-anchor-id="barchart-for-all-categorical-variables"><span class="header-section-number">2.1</span> Barchart for all Categorical Variables</h2>
+<div class="cell" data-execution_count="4">
+<details>
+<summary>Code</summary>
+<div class="sourceCode cell-code" id="cb5"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="co"># JOB</span></span>
+<span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a>job_count <span class="op">=</span> df[<span class="st">'job'</span>].value_counts()</span>
+<span id="cb5-3"><a href="#cb5-3" aria-hidden="true" tabindex="-1"></a>job_count</span>
+<span id="cb5-4"><a href="#cb5-4" aria-hidden="true" tabindex="-1"></a>plt.figure(figsize <span class="op">=</span> (<span class="dv">8</span>, <span class="dv">5</span>))</span>
+<span id="cb5-5"><a href="#cb5-5" aria-hidden="true" tabindex="-1"></a>job_count.plot(kind <span class="op">=</span> <span class="st">"bar"</span>)</span>
+<span id="cb5-6"><a href="#cb5-6" aria-hidden="true" tabindex="-1"></a>plt.title(<span class="st">"Type of Job Distribution"</span>)</span>
+<span id="cb5-7"><a href="#cb5-7" aria-hidden="true" tabindex="-1"></a><span class="co"># %%</span></span>
+<span id="cb5-8"><a href="#cb5-8" aria-hidden="true" tabindex="-1"></a><span class="co"># MARITAL</span></span>
+<span id="cb5-9"><a href="#cb5-9" aria-hidden="true" tabindex="-1"></a>job_count <span class="op">=</span> df[<span class="st">'marital'</span>].value_counts()</span>
+<span id="cb5-10"><a href="#cb5-10" aria-hidden="true" tabindex="-1"></a>job_count</span>
+<span id="cb5-11"><a href="#cb5-11" aria-hidden="true" tabindex="-1"></a>plt.figure(figsize <span class="op">=</span> (<span class="dv">8</span>, <span class="dv">5</span>))</span>
+<span id="cb5-12"><a href="#cb5-12" aria-hidden="true" tabindex="-1"></a>job_count.plot(kind <span class="op">=</span> <span class="st">"bar"</span>)</span>
+<span id="cb5-13"><a href="#cb5-13" aria-hidden="true" tabindex="-1"></a>plt.title(<span class="st">"Type of Marital Distribution"</span>)</span>
+<span id="cb5-14"><a href="#cb5-14" aria-hidden="true" tabindex="-1"></a><span class="co"># %%</span></span>
+<span id="cb5-15"><a href="#cb5-15" aria-hidden="true" tabindex="-1"></a><span class="co"># EDUCATION </span></span>
+<span id="cb5-16"><a href="#cb5-16" aria-hidden="true" tabindex="-1"></a>job_count <span class="op">=</span> df[<span class="st">'education'</span>].value_counts()</span>
+<span id="cb5-17"><a href="#cb5-17" aria-hidden="true" tabindex="-1"></a>job_count</span>
+<span id="cb5-18"><a href="#cb5-18" aria-hidden="true" tabindex="-1"></a>plt.figure(figsize <span class="op">=</span> (<span class="dv">8</span>, <span class="dv">5</span>))</span>
+<span id="cb5-19"><a href="#cb5-19" aria-hidden="true" tabindex="-1"></a>job_count.plot(kind <span class="op">=</span> <span class="st">"bar"</span>)</span>
+<span id="cb5-20"><a href="#cb5-20" aria-hidden="true" tabindex="-1"></a>plt.title(<span class="st">"Type of Education Distribution"</span>)</span>
+<span id="cb5-21"><a href="#cb5-21" aria-hidden="true" tabindex="-1"></a><span class="co">#%%</span></span>
+<span id="cb5-22"><a href="#cb5-22" aria-hidden="true" tabindex="-1"></a><span class="co"># DEFAULT</span></span>
+<span id="cb5-23"><a href="#cb5-23" aria-hidden="true" tabindex="-1"></a>job_count <span class="op">=</span> df[<span class="st">'default'</span>].value_counts()</span>
+<span id="cb5-24"><a href="#cb5-24" aria-hidden="true" tabindex="-1"></a>job_count</span>
+<span id="cb5-25"><a href="#cb5-25" aria-hidden="true" tabindex="-1"></a>plt.figure(figsize <span class="op">=</span> (<span class="dv">8</span>, <span class="dv">5</span>))</span>
+<span id="cb5-26"><a href="#cb5-26" aria-hidden="true" tabindex="-1"></a>job_count.plot(kind <span class="op">=</span> <span class="st">"bar"</span>)</span>
+<span id="cb5-27"><a href="#cb5-27" aria-hidden="true" tabindex="-1"></a>plt.title(<span class="st">"Type of Default Distribution"</span>)</span>
+<span id="cb5-28"><a href="#cb5-28" aria-hidden="true" tabindex="-1"></a><span class="co">#%%</span></span>
+<span id="cb5-29"><a href="#cb5-29" aria-hidden="true" tabindex="-1"></a><span class="co"># HOUSING</span></span>
+<span id="cb5-30"><a href="#cb5-30" aria-hidden="true" tabindex="-1"></a>job_count <span class="op">=</span> df[<span class="st">'housing'</span>].value_counts()</span>
+<span id="cb5-31"><a href="#cb5-31" aria-hidden="true" tabindex="-1"></a>job_count</span>
+<span id="cb5-32"><a href="#cb5-32" aria-hidden="true" tabindex="-1"></a>plt.figure(figsize <span class="op">=</span> (<span class="dv">8</span>, <span class="dv">5</span>))</span>
+<span id="cb5-33"><a href="#cb5-33" aria-hidden="true" tabindex="-1"></a>job_count.plot(kind <span class="op">=</span> <span class="st">"bar"</span>)</span>
+<span id="cb5-34"><a href="#cb5-34" aria-hidden="true" tabindex="-1"></a>plt.title(<span class="st">"Type of Housing Distribution"</span>)</span>
+<span id="cb5-35"><a href="#cb5-35" aria-hidden="true" tabindex="-1"></a><span class="co">#%%</span></span>
+<span id="cb5-36"><a href="#cb5-36" aria-hidden="true" tabindex="-1"></a><span class="co"># LOAN</span></span>
+<span id="cb5-37"><a href="#cb5-37" aria-hidden="true" tabindex="-1"></a>job_count <span class="op">=</span> df[<span class="st">'loan'</span>].value_counts()</span>
+<span id="cb5-38"><a href="#cb5-38" aria-hidden="true" tabindex="-1"></a>job_count</span>
+<span id="cb5-39"><a href="#cb5-39" aria-hidden="true" tabindex="-1"></a>plt.figure(figsize <span class="op">=</span> (<span class="dv">8</span>, <span class="dv">5</span>))</span>
+<span id="cb5-40"><a href="#cb5-40" aria-hidden="true" tabindex="-1"></a>job_count.plot(kind <span class="op">=</span> <span class="st">"bar"</span>)</span>
+<span id="cb5-41"><a href="#cb5-41" aria-hidden="true" tabindex="-1"></a>plt.title(<span class="st">"Type of Loan Distribution"</span>)</span>
+<span id="cb5-42"><a href="#cb5-42" aria-hidden="true" tabindex="-1"></a><span class="co">#%%</span></span>
+<span id="cb5-43"><a href="#cb5-43" aria-hidden="true" tabindex="-1"></a><span class="co"># CONTACT</span></span>
+<span id="cb5-44"><a href="#cb5-44" aria-hidden="true" tabindex="-1"></a>job_count <span class="op">=</span> df[<span class="st">'contact'</span>].value_counts()</span>
+<span id="cb5-45"><a href="#cb5-45" aria-hidden="true" tabindex="-1"></a>job_count</span>
+<span id="cb5-46"><a href="#cb5-46" aria-hidden="true" tabindex="-1"></a>plt.figure(figsize <span class="op">=</span> (<span class="dv">8</span>, <span class="dv">5</span>))</span>
+<span id="cb5-47"><a href="#cb5-47" aria-hidden="true" tabindex="-1"></a>job_count.plot(kind <span class="op">=</span> <span class="st">"bar"</span>)</span>
+<span id="cb5-48"><a href="#cb5-48" aria-hidden="true" tabindex="-1"></a>plt.title(<span class="st">"Type of Contact Distribution"</span>)</span>
+<span id="cb5-49"><a href="#cb5-49" aria-hidden="true" tabindex="-1"></a><span class="co">#%%</span></span>
+<span id="cb5-50"><a href="#cb5-50" aria-hidden="true" tabindex="-1"></a><span class="co"># DAYS </span></span>
+<span id="cb5-51"><a href="#cb5-51" aria-hidden="true" tabindex="-1"></a>job_count <span class="op">=</span> df[<span class="st">'day'</span>].value_counts()</span>
+<span id="cb5-52"><a href="#cb5-52" aria-hidden="true" tabindex="-1"></a>job_count</span>
+<span id="cb5-53"><a href="#cb5-53" aria-hidden="true" tabindex="-1"></a>plt.figure(figsize <span class="op">=</span> (<span class="dv">8</span>, <span class="dv">5</span>))</span>
+<span id="cb5-54"><a href="#cb5-54" aria-hidden="true" tabindex="-1"></a>job_count.plot(kind <span class="op">=</span> <span class="st">"bar"</span>)</span>
+<span id="cb5-55"><a href="#cb5-55" aria-hidden="true" tabindex="-1"></a>plt.title(<span class="st">"Type of Days Distribution"</span>)</span>
+<span id="cb5-56"><a href="#cb5-56" aria-hidden="true" tabindex="-1"></a><span class="co">#%%</span></span>
+<span id="cb5-57"><a href="#cb5-57" aria-hidden="true" tabindex="-1"></a><span class="co"># MONTH</span></span>
+<span id="cb5-58"><a href="#cb5-58" aria-hidden="true" tabindex="-1"></a>job_count <span class="op">=</span> df[<span class="st">'month'</span>].value_counts()</span>
+<span id="cb5-59"><a href="#cb5-59" aria-hidden="true" tabindex="-1"></a>job_count</span>
+<span id="cb5-60"><a href="#cb5-60" aria-hidden="true" tabindex="-1"></a>plt.figure(figsize <span class="op">=</span> (<span class="dv">8</span>, <span class="dv">5</span>))</span>
+<span id="cb5-61"><a href="#cb5-61" aria-hidden="true" tabindex="-1"></a>job_count.plot(kind <span class="op">=</span> <span class="st">"bar"</span>)</span>
+<span id="cb5-62"><a href="#cb5-62" aria-hidden="true" tabindex="-1"></a>plt.title(<span class="st">"Type of Months Distribution"</span>)</span>
+<span id="cb5-63"><a href="#cb5-63" aria-hidden="true" tabindex="-1"></a><span class="co">#%%</span></span>
+<span id="cb5-64"><a href="#cb5-64" aria-hidden="true" tabindex="-1"></a><span class="co"># POUTCOME</span></span>
+<span id="cb5-65"><a href="#cb5-65" aria-hidden="true" tabindex="-1"></a>job_count <span class="op">=</span> df[<span class="st">'poutcome'</span>].value_counts()</span>
+<span id="cb5-66"><a href="#cb5-66" aria-hidden="true" tabindex="-1"></a>job_count</span>
+<span id="cb5-67"><a href="#cb5-67" aria-hidden="true" tabindex="-1"></a>plt.figure(figsize <span class="op">=</span> (<span class="dv">8</span>, <span class="dv">5</span>))</span>
+<span id="cb5-68"><a href="#cb5-68" aria-hidden="true" tabindex="-1"></a>job_count.plot(kind <span class="op">=</span> <span class="st">"bar"</span>)</span>
+<span id="cb5-69"><a href="#cb5-69" aria-hidden="true" tabindex="-1"></a>plt.title(<span class="st">"Type of Poutcome Distribution"</span>)</span>
+<span id="cb5-70"><a href="#cb5-70" aria-hidden="true" tabindex="-1"></a><span class="co">#%%</span></span>
+<span id="cb5-71"><a href="#cb5-71" aria-hidden="true" tabindex="-1"></a><span class="co"># OUTCOME</span></span>
+<span id="cb5-72"><a href="#cb5-72" aria-hidden="true" tabindex="-1"></a>job_count <span class="op">=</span> df[<span class="st">'y'</span>].value_counts()</span>
+<span id="cb5-73"><a href="#cb5-73" aria-hidden="true" tabindex="-1"></a>job_count</span>
+<span id="cb5-74"><a href="#cb5-74" aria-hidden="true" tabindex="-1"></a>plt.figure(figsize <span class="op">=</span> (<span class="dv">8</span>, <span class="dv">5</span>))</span>
+<span id="cb5-75"><a href="#cb5-75" aria-hidden="true" tabindex="-1"></a>job_count.plot(kind <span class="op">=</span> <span class="st">"bar"</span>)</span>
+<span id="cb5-76"><a href="#cb5-76" aria-hidden="true" tabindex="-1"></a>plt.title(<span class="st">"Type of Outcome Distribution"</span>)</span>
+<span id="cb5-77"><a href="#cb5-77" aria-hidden="true" tabindex="-1"></a>plt.tight_layout()</span>
+<span id="cb5-78"><a href="#cb5-78" aria-hidden="true" tabindex="-1"></a>plt.show()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+<div class="cell-output cell-output-display">
+<p><img src="TEAM11_FINAL_files/figure-html/cell-5-output-1.png" width="666" height="512"></p>
+</div>
+<div class="cell-output cell-output-display">
+<p><img src="TEAM11_FINAL_files/figure-html/cell-5-output-2.png" width="666" height="475"></p>
+</div>
+<div class="cell-output cell-output-display">
+<p><img src="TEAM11_FINAL_files/figure-html/cell-5-output-3.png" width="666" height="487"></p>
+</div>
+<div class="cell-output cell-output-display">
+<p><img src="TEAM11_FINAL_files/figure-html/cell-5-output-4.png" width="666" height="441"></p>
+</div>
+<div class="cell-output cell-output-display">
+<p><img src="TEAM11_FINAL_files/figure-html/cell-5-output-5.png" width="666" height="441"></p>
+</div>
+<div class="cell-output cell-output-display">
+<p><img src="TEAM11_FINAL_files/figure-html/cell-5-output-6.png" width="666" height="441"></p>
+</div>
+<div class="cell-output cell-output-display">
+<p><img src="TEAM11_FINAL_files/figure-html/cell-5-output-7.png" width="666" height="485"></p>
+</div>
+<div class="cell-output cell-output-display">
+<p><img src="TEAM11_FINAL_files/figure-html/cell-5-output-8.png" width="658" height="435"></p>
+</div>
+<div class="cell-output cell-output-display">
+<p><img src="TEAM11_FINAL_files/figure-html/cell-5-output-9.png" width="666" height="447"></p>
+</div>
+<div class="cell-output cell-output-display">
+<p><img src="TEAM11_FINAL_files/figure-html/cell-5-output-10.png" width="666" height="478"></p>
+</div>
+<div class="cell-output cell-output-display">
+<p><img src="TEAM11_FINAL_files/figure-html/cell-5-output-11.png" width="758" height="470"></p>
+</div>
+</div>
+</section>
+<section id="piechart-for-all-categorical-variables" class="level2" data-number="2.2">
+<h2 data-number="2.2" class="anchored" data-anchor-id="piechart-for-all-categorical-variables"><span class="header-section-number">2.2</span> Piechart for all Categorical Variables</h2>
+<div class="cell" data-execution_count="5">
+<details>
+<summary>Code</summary>
+<div class="sourceCode cell-code" id="cb6"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a><span class="co">#%%</span></span>
+<span id="cb6-2"><a href="#cb6-2" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> pieChart(x_var,title):</span>
+<span id="cb6-3"><a href="#cb6-3" aria-hidden="true" tabindex="-1"></a>    yesNo <span class="op">=</span> df.groupby(x_var).size()</span>
+<span id="cb6-4"><a href="#cb6-4" aria-hidden="true" tabindex="-1"></a>    yesNo.plot(kind<span class="op">=</span><span class="st">'pie'</span>, title<span class="op">=</span>title, figsize<span class="op">=</span>[<span class="dv">8</span>,<span class="dv">8</span>],</span>
+<span id="cb6-5"><a href="#cb6-5" aria-hidden="true" tabindex="-1"></a>          autopct<span class="op">=</span><span class="kw">lambda</span> p: <span class="st">'</span><span class="sc">{:.2f}</span><span class="st">%(</span><span class="sc">{:.0f}</span><span class="st">)'</span>.<span class="bu">format</span>(p,(p<span class="op">/</span><span class="dv">100</span>)<span class="op">*</span>yesNo.<span class="bu">sum</span>()))</span>
+<span id="cb6-6"><a href="#cb6-6" aria-hidden="true" tabindex="-1"></a>    plt.show()</span>
+<span id="cb6-7"><a href="#cb6-7" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-8"><a href="#cb6-8" aria-hidden="true" tabindex="-1"></a>pieChart(<span class="st">'y'</span>,<span class="st">'Percentage of yes and no target(term deposit)in dataset'</span>)</span>
+<span id="cb6-9"><a href="#cb6-9" aria-hidden="true" tabindex="-1"></a><span class="co">#%%</span></span>
+<span id="cb6-10"><a href="#cb6-10" aria-hidden="true" tabindex="-1"></a><span class="co"># JOB</span></span>
+<span id="cb6-11"><a href="#cb6-11" aria-hidden="true" tabindex="-1"></a>pieChart(<span class="st">'job'</span>,<span class="st">'Distribution of job in dataset'</span>)</span>
+<span id="cb6-12"><a href="#cb6-12" aria-hidden="true" tabindex="-1"></a>df.poutcome.value_counts()</span>
+<span id="cb6-13"><a href="#cb6-13" aria-hidden="true" tabindex="-1"></a>df.groupby(<span class="st">'job'</span>).size()</span>
+<span id="cb6-14"><a href="#cb6-14" aria-hidden="true" tabindex="-1"></a><span class="co">#%%</span></span>
+<span id="cb6-15"><a href="#cb6-15" aria-hidden="true" tabindex="-1"></a><span class="co"># MARITAL</span></span>
+<span id="cb6-16"><a href="#cb6-16" aria-hidden="true" tabindex="-1"></a>pieChart(<span class="st">'marital'</span>,<span class="st">'Distribution of marital in dataset'</span>)</span>
+<span id="cb6-17"><a href="#cb6-17" aria-hidden="true" tabindex="-1"></a>df.poutcome.value_counts()</span>
+<span id="cb6-18"><a href="#cb6-18" aria-hidden="true" tabindex="-1"></a>df.groupby(<span class="st">'marital'</span>).size()</span>
+<span id="cb6-19"><a href="#cb6-19" aria-hidden="true" tabindex="-1"></a><span class="co">#%%</span></span>
+<span id="cb6-20"><a href="#cb6-20" aria-hidden="true" tabindex="-1"></a><span class="co"># EDUCATION</span></span>
+<span id="cb6-21"><a href="#cb6-21" aria-hidden="true" tabindex="-1"></a>pieChart(<span class="st">'education'</span>,<span class="st">'Distribution of education in dataset'</span>)</span>
+<span id="cb6-22"><a href="#cb6-22" aria-hidden="true" tabindex="-1"></a>df.poutcome.value_counts()</span>
+<span id="cb6-23"><a href="#cb6-23" aria-hidden="true" tabindex="-1"></a>df.groupby(<span class="st">'education'</span>).size()</span>
+<span id="cb6-24"><a href="#cb6-24" aria-hidden="true" tabindex="-1"></a><span class="co">#%%</span></span>
+<span id="cb6-25"><a href="#cb6-25" aria-hidden="true" tabindex="-1"></a><span class="co"># DEFAULT</span></span>
+<span id="cb6-26"><a href="#cb6-26" aria-hidden="true" tabindex="-1"></a>pieChart(<span class="st">'default'</span>,<span class="st">'Distribution of default in dataset'</span>)</span>
+<span id="cb6-27"><a href="#cb6-27" aria-hidden="true" tabindex="-1"></a>df.poutcome.value_counts()</span>
+<span id="cb6-28"><a href="#cb6-28" aria-hidden="true" tabindex="-1"></a>df.groupby(<span class="st">'default'</span>).size()</span>
+<span id="cb6-29"><a href="#cb6-29" aria-hidden="true" tabindex="-1"></a><span class="co">#%%</span></span>
+<span id="cb6-30"><a href="#cb6-30" aria-hidden="true" tabindex="-1"></a><span class="co"># HOUSING</span></span>
+<span id="cb6-31"><a href="#cb6-31" aria-hidden="true" tabindex="-1"></a>pieChart(<span class="st">'housing'</span>,<span class="st">'Distribution of housing in dataset'</span>)</span>
+<span id="cb6-32"><a href="#cb6-32" aria-hidden="true" tabindex="-1"></a>df.poutcome.value_counts()</span>
+<span id="cb6-33"><a href="#cb6-33" aria-hidden="true" tabindex="-1"></a>df.groupby(<span class="st">'housing'</span>).size()</span>
+<span id="cb6-34"><a href="#cb6-34" aria-hidden="true" tabindex="-1"></a><span class="co">#%%</span></span>
+<span id="cb6-35"><a href="#cb6-35" aria-hidden="true" tabindex="-1"></a><span class="co"># LOAN</span></span>
+<span id="cb6-36"><a href="#cb6-36" aria-hidden="true" tabindex="-1"></a>pieChart(<span class="st">'loan'</span>,<span class="st">'Distribution of loan in dataset'</span>)</span>
+<span id="cb6-37"><a href="#cb6-37" aria-hidden="true" tabindex="-1"></a>df.poutcome.value_counts()</span>
+<span id="cb6-38"><a href="#cb6-38" aria-hidden="true" tabindex="-1"></a>df.groupby(<span class="st">'loan'</span>).size()</span>
+<span id="cb6-39"><a href="#cb6-39" aria-hidden="true" tabindex="-1"></a><span class="co">#%%</span></span>
+<span id="cb6-40"><a href="#cb6-40" aria-hidden="true" tabindex="-1"></a><span class="co"># CONTACT</span></span>
+<span id="cb6-41"><a href="#cb6-41" aria-hidden="true" tabindex="-1"></a>pieChart(<span class="st">'contact'</span>,<span class="st">'Distribution of contact in dataset'</span>)</span>
+<span id="cb6-42"><a href="#cb6-42" aria-hidden="true" tabindex="-1"></a>df.poutcome.value_counts()</span>
+<span id="cb6-43"><a href="#cb6-43" aria-hidden="true" tabindex="-1"></a>df.groupby(<span class="st">'contact'</span>).size()</span>
+<span id="cb6-44"><a href="#cb6-44" aria-hidden="true" tabindex="-1"></a><span class="co">#%%</span></span>
+<span id="cb6-45"><a href="#cb6-45" aria-hidden="true" tabindex="-1"></a><span class="co"># DAY</span></span>
+<span id="cb6-46"><a href="#cb6-46" aria-hidden="true" tabindex="-1"></a>pieChart(<span class="st">'day'</span>,<span class="st">'Distribution of day in dataset'</span>)</span>
+<span id="cb6-47"><a href="#cb6-47" aria-hidden="true" tabindex="-1"></a>df.poutcome.value_counts()</span>
+<span id="cb6-48"><a href="#cb6-48" aria-hidden="true" tabindex="-1"></a>df.groupby(<span class="st">'day'</span>).size()</span>
+<span id="cb6-49"><a href="#cb6-49" aria-hidden="true" tabindex="-1"></a><span class="co">#%%</span></span>
+<span id="cb6-50"><a href="#cb6-50" aria-hidden="true" tabindex="-1"></a><span class="co"># MONTH</span></span>
+<span id="cb6-51"><a href="#cb6-51" aria-hidden="true" tabindex="-1"></a>pieChart(<span class="st">'month'</span>,<span class="st">'Distribution of month in dataset'</span>)</span>
+<span id="cb6-52"><a href="#cb6-52" aria-hidden="true" tabindex="-1"></a>df.poutcome.value_counts()</span>
+<span id="cb6-53"><a href="#cb6-53" aria-hidden="true" tabindex="-1"></a>df.groupby(<span class="st">'month'</span>).size()</span>
+<span id="cb6-54"><a href="#cb6-54" aria-hidden="true" tabindex="-1"></a><span class="co">#%%</span></span>
+<span id="cb6-55"><a href="#cb6-55" aria-hidden="true" tabindex="-1"></a><span class="co"># POUTCOME</span></span>
+<span id="cb6-56"><a href="#cb6-56" aria-hidden="true" tabindex="-1"></a>pieChart(<span class="st">'poutcome'</span>,<span class="st">'Distribution of poutcome in dataset'</span>)</span>
+<span id="cb6-57"><a href="#cb6-57" aria-hidden="true" tabindex="-1"></a>df.poutcome.value_counts()</span>
+<span id="cb6-58"><a href="#cb6-58" aria-hidden="true" tabindex="-1"></a>df.groupby(<span class="st">'poutcome'</span>).size()</span>
+<span id="cb6-59"><a href="#cb6-59" aria-hidden="true" tabindex="-1"></a><span class="co">#%%</span></span>
+<span id="cb6-60"><a href="#cb6-60" aria-hidden="true" tabindex="-1"></a><span class="co"># OUTCOME</span></span>
+<span id="cb6-61"><a href="#cb6-61" aria-hidden="true" tabindex="-1"></a>pieChart(<span class="st">'y'</span>,<span class="st">'Distribution of outcome in dataset'</span>)</span>
+<span id="cb6-62"><a href="#cb6-62" aria-hidden="true" tabindex="-1"></a>df.poutcome.value_counts()</span>
+<span id="cb6-63"><a href="#cb6-63" aria-hidden="true" tabindex="-1"></a>df.groupby(<span class="st">'y'</span>).size()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+<div class="cell-output cell-output-display">
+<p><img src="TEAM11_FINAL_files/figure-html/cell-6-output-1.png" width="611" height="631"></p>
+</div>
+<div class="cell-output cell-output-display">
+<p><img src="TEAM11_FINAL_files/figure-html/cell-6-output-2.png" width="709" height="631"></p>
+</div>
+<div class="cell-output cell-output-display">
+<p><img src="TEAM11_FINAL_files/figure-html/cell-6-output-3.png" width="616" height="631"></p>
+</div>
+<div class="cell-output cell-output-display">
+<p><img src="TEAM11_FINAL_files/figure-html/cell-6-output-4.png" width="633" height="631"></p>
+</div>
+<div class="cell-output cell-output-display">
+<p><img src="TEAM11_FINAL_files/figure-html/cell-6-output-5.png" width="611" height="631"></p>
+</div>
+<div class="cell-output cell-output-display">
+<p><img src="TEAM11_FINAL_files/figure-html/cell-6-output-6.png" width="611" height="631"></p>
+</div>
+<div class="cell-output cell-output-display">
+<p><img src="TEAM11_FINAL_files/figure-html/cell-6-output-7.png" width="611" height="631"></p>
+</div>
+<div class="cell-output cell-output-display">
+<p><img src="TEAM11_FINAL_files/figure-html/cell-6-output-8.png" width="611" height="631"></p>
+</div>
+<div class="cell-output cell-output-display">
+<p><img src="TEAM11_FINAL_files/figure-html/cell-6-output-9.png" width="611" height="631"></p>
+</div>
+<div class="cell-output cell-output-display">
+<p><img src="TEAM11_FINAL_files/figure-html/cell-6-output-10.png" width="611" height="631"></p>
+</div>
+<div class="cell-output cell-output-display">
+<p><img src="TEAM11_FINAL_files/figure-html/cell-6-output-11.png" width="611" height="631"></p>
+</div>
+<div class="cell-output cell-output-display">
+<p><img src="TEAM11_FINAL_files/figure-html/cell-6-output-12.png" width="611" height="631"></p>
+</div>
+<div class="cell-output cell-output-display" data-execution_count="44">
+<pre><code>y
+0    39922
+1     5289
+dtype: int64</code></pre>
+</div>
+</div>
+</section>
+<section id="histogram-and-density-plots-for-all-numerical-variables" class="level2" data-number="2.3">
+<h2 data-number="2.3" class="anchored" data-anchor-id="histogram-and-density-plots-for-all-numerical-variables"><span class="header-section-number">2.3</span> Histogram and Density Plots for all Numerical Variables</h2>
+<div class="cell" data-execution_count="6">
+<details>
+<summary>Code</summary>
+<div class="sourceCode cell-code" id="cb8"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a><span class="co">#%%</span></span>
+<span id="cb8-2"><a href="#cb8-2" aria-hidden="true" tabindex="-1"></a><span class="co"># HISTOGRAM AND DESITY PLOTS FOR ALL NUMERIC VARIABLE</span></span>
+<span id="cb8-3"><a href="#cb8-3" aria-hidden="true" tabindex="-1"></a><span class="co">#%%</span></span>
+<span id="cb8-4"><a href="#cb8-4" aria-hidden="true" tabindex="-1"></a>sns.distplot(a<span class="op">=</span>df.age, bins<span class="op">=</span><span class="dv">40</span>, color<span class="op">=</span><span class="st">'green'</span>,</span>
+<span id="cb8-5"><a href="#cb8-5" aria-hidden="true" tabindex="-1"></a>             hist_kws<span class="op">=</span>{<span class="st">"edgecolor"</span>: <span class="st">'black'</span>})</span>
+<span id="cb8-6"><a href="#cb8-6" aria-hidden="true" tabindex="-1"></a>plt.title(<span class="st">'Age Distribution'</span>)</span>
+<span id="cb8-7"><a href="#cb8-7" aria-hidden="true" tabindex="-1"></a>plt.show()</span>
+<span id="cb8-8"><a href="#cb8-8" aria-hidden="true" tabindex="-1"></a><span class="co"># %%</span></span>
+<span id="cb8-9"><a href="#cb8-9" aria-hidden="true" tabindex="-1"></a>sns.distplot(a<span class="op">=</span>df.duration, bins<span class="op">=</span><span class="dv">40</span>, color<span class="op">=</span><span class="st">'green'</span>,</span>
+<span id="cb8-10"><a href="#cb8-10" aria-hidden="true" tabindex="-1"></a>             hist_kws<span class="op">=</span>{<span class="st">"edgecolor"</span>: <span class="st">'black'</span>})</span>
+<span id="cb8-11"><a href="#cb8-11" aria-hidden="true" tabindex="-1"></a>plt.title(<span class="st">'Duration Distribution'</span>)</span>
+<span id="cb8-12"><a href="#cb8-12" aria-hidden="true" tabindex="-1"></a>plt.show()</span>
+<span id="cb8-13"><a href="#cb8-13" aria-hidden="true" tabindex="-1"></a><span class="co"># %%</span></span>
+<span id="cb8-14"><a href="#cb8-14" aria-hidden="true" tabindex="-1"></a>sns.distplot(a<span class="op">=</span>df.campaign, bins<span class="op">=</span><span class="dv">40</span>, color<span class="op">=</span><span class="st">'green'</span>,</span>
+<span id="cb8-15"><a href="#cb8-15" aria-hidden="true" tabindex="-1"></a>             hist_kws<span class="op">=</span>{<span class="st">"edgecolor"</span>: <span class="st">'black'</span>})</span>
+<span id="cb8-16"><a href="#cb8-16" aria-hidden="true" tabindex="-1"></a>plt.title(<span class="st">'Campaign Distribution'</span>)</span>
+<span id="cb8-17"><a href="#cb8-17" aria-hidden="true" tabindex="-1"></a>plt.show()</span>
+<span id="cb8-18"><a href="#cb8-18" aria-hidden="true" tabindex="-1"></a><span class="co"># %%</span></span>
+<span id="cb8-19"><a href="#cb8-19" aria-hidden="true" tabindex="-1"></a>sns.distplot(a<span class="op">=</span>df.pdays, bins<span class="op">=</span><span class="dv">40</span>, color<span class="op">=</span><span class="st">'green'</span>,</span>
+<span id="cb8-20"><a href="#cb8-20" aria-hidden="true" tabindex="-1"></a>             hist_kws<span class="op">=</span>{<span class="st">"edgecolor"</span>: <span class="st">'black'</span>})</span>
+<span id="cb8-21"><a href="#cb8-21" aria-hidden="true" tabindex="-1"></a>plt.title(<span class="st">'Pdays Distribution'</span>)</span>
+<span id="cb8-22"><a href="#cb8-22" aria-hidden="true" tabindex="-1"></a>plt.show()</span>
+<span id="cb8-23"><a href="#cb8-23" aria-hidden="true" tabindex="-1"></a><span class="co"># %%</span></span>
+<span id="cb8-24"><a href="#cb8-24" aria-hidden="true" tabindex="-1"></a>sns.distplot(a<span class="op">=</span>df.previous, bins<span class="op">=</span><span class="dv">40</span>, color<span class="op">=</span><span class="st">'green'</span>,</span>
+<span id="cb8-25"><a href="#cb8-25" aria-hidden="true" tabindex="-1"></a>             hist_kws<span class="op">=</span>{<span class="st">"edgecolor"</span>: <span class="st">'black'</span>})</span>
+<span id="cb8-26"><a href="#cb8-26" aria-hidden="true" tabindex="-1"></a>plt.title(<span class="st">'Previous Distribution'</span>)</span>
+<span id="cb8-27"><a href="#cb8-27" aria-hidden="true" tabindex="-1"></a>plt.show()</span>
+<span id="cb8-28"><a href="#cb8-28" aria-hidden="true" tabindex="-1"></a><span class="co">#%%</span></span>
+<span id="cb8-29"><a href="#cb8-29" aria-hidden="true" tabindex="-1"></a>sns.distplot(a<span class="op">=</span>df[<span class="st">'emp.var.rate'</span>], bins<span class="op">=</span><span class="dv">40</span>, color<span class="op">=</span><span class="st">'green'</span>,</span>
+<span id="cb8-30"><a href="#cb8-30" aria-hidden="true" tabindex="-1"></a>             hist_kws<span class="op">=</span>{<span class="st">"edgecolor"</span>: <span class="st">'black'</span>})</span>
+<span id="cb8-31"><a href="#cb8-31" aria-hidden="true" tabindex="-1"></a>plt.title(<span class="st">'Emp.var.rate Distribution'</span>)</span>
+<span id="cb8-32"><a href="#cb8-32" aria-hidden="true" tabindex="-1"></a>plt.show()</span>
+<span id="cb8-33"><a href="#cb8-33" aria-hidden="true" tabindex="-1"></a><span class="co">#%%</span></span>
+<span id="cb8-34"><a href="#cb8-34" aria-hidden="true" tabindex="-1"></a>sns.distplot(a<span class="op">=</span>df[<span class="st">'cons.price.idx'</span>], bins<span class="op">=</span><span class="dv">40</span>, color<span class="op">=</span><span class="st">'green'</span>,</span>
+<span id="cb8-35"><a href="#cb8-35" aria-hidden="true" tabindex="-1"></a>             hist_kws<span class="op">=</span>{<span class="st">"edgecolor"</span>: <span class="st">'black'</span>})</span>
+<span id="cb8-36"><a href="#cb8-36" aria-hidden="true" tabindex="-1"></a>plt.title(<span class="st">'Cons.price.idx Distribution'</span>)</span>
+<span id="cb8-37"><a href="#cb8-37" aria-hidden="true" tabindex="-1"></a>plt.show()</span>
+<span id="cb8-38"><a href="#cb8-38" aria-hidden="true" tabindex="-1"></a><span class="co">#%%</span></span>
+<span id="cb8-39"><a href="#cb8-39" aria-hidden="true" tabindex="-1"></a>sns.distplot(a<span class="op">=</span>df[<span class="st">'cons.conf.idx'</span>], bins<span class="op">=</span><span class="dv">40</span>, color<span class="op">=</span><span class="st">'green'</span>,</span>
+<span id="cb8-40"><a href="#cb8-40" aria-hidden="true" tabindex="-1"></a>             hist_kws<span class="op">=</span>{<span class="st">"edgecolor"</span>: <span class="st">'black'</span>})</span>
+<span id="cb8-41"><a href="#cb8-41" aria-hidden="true" tabindex="-1"></a>plt.title(<span class="st">'Cons.conf.idx Distribution'</span>)</span>
+<span id="cb8-42"><a href="#cb8-42" aria-hidden="true" tabindex="-1"></a>plt.show()</span>
+<span id="cb8-43"><a href="#cb8-43" aria-hidden="true" tabindex="-1"></a><span class="co">#%%</span></span>
+<span id="cb8-44"><a href="#cb8-44" aria-hidden="true" tabindex="-1"></a>sns.distplot(a<span class="op">=</span>df.euribor3m, bins<span class="op">=</span><span class="dv">40</span>, color<span class="op">=</span><span class="st">'green'</span>,</span>
+<span id="cb8-45"><a href="#cb8-45" aria-hidden="true" tabindex="-1"></a>             hist_kws<span class="op">=</span>{<span class="st">"edgecolor"</span>: <span class="st">'black'</span>})</span>
+<span id="cb8-46"><a href="#cb8-46" aria-hidden="true" tabindex="-1"></a>plt.title(<span class="st">'Euribor3m Distribution'</span>)</span>
+<span id="cb8-47"><a href="#cb8-47" aria-hidden="true" tabindex="-1"></a>plt.show()</span>
+<span id="cb8-48"><a href="#cb8-48" aria-hidden="true" tabindex="-1"></a><span class="co">#%%</span></span>
+<span id="cb8-49"><a href="#cb8-49" aria-hidden="true" tabindex="-1"></a>sns.distplot(a<span class="op">=</span>df[<span class="st">'nr.employed'</span>], bins<span class="op">=</span><span class="dv">40</span>, color<span class="op">=</span><span class="st">'green'</span>,</span>
+<span id="cb8-50"><a href="#cb8-50" aria-hidden="true" tabindex="-1"></a>             hist_kws<span class="op">=</span>{<span class="st">"edgecolor"</span>: <span class="st">'black'</span>})</span>
+<span id="cb8-51"><a href="#cb8-51" aria-hidden="true" tabindex="-1"></a>plt.title(<span class="st">'Nr.employed Distribution'</span>)</span>
+<span id="cb8-52"><a href="#cb8-52" aria-hidden="true" tabindex="-1"></a>plt.show()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+<div class="cell-output cell-output-display">
+<p><img src="TEAM11_FINAL_files/figure-html/cell-7-output-1.png" width="597" height="449"></p>
+</div>
+<div class="cell-output cell-output-display">
+<p><img src="TEAM11_FINAL_files/figure-html/cell-7-output-2.png" width="614" height="449"></p>
+</div>
+<div class="cell-output cell-output-display">
+<p><img src="TEAM11_FINAL_files/figure-html/cell-7-output-3.png" width="589" height="449"></p>
+</div>
+<div class="cell-output cell-output-display">
+<p><img src="TEAM11_FINAL_files/figure-html/cell-7-output-4.png" width="606" height="449"></p>
+</div>
+<div class="cell-output cell-output-display">
+<p><img src="TEAM11_FINAL_files/figure-html/cell-7-output-5.png" width="597" height="449"></p>
+</div>
+<div class="cell-output cell-output-display">
+<p><img src="TEAM11_FINAL_files/figure-html/cell-7-output-6.png" width="591" height="449"></p>
+</div>
+<div class="cell-output cell-output-display">
+<p><img src="TEAM11_FINAL_files/figure-html/cell-7-output-7.png" width="576" height="449"></p>
+</div>
+<div class="cell-output cell-output-display">
+<p><img src="TEAM11_FINAL_files/figure-html/cell-7-output-8.png" width="597" height="449"></p>
+</div>
+<div class="cell-output cell-output-display">
+<p><img src="TEAM11_FINAL_files/figure-html/cell-7-output-9.png" width="589" height="449"></p>
+</div>
+<div class="cell-output cell-output-display">
+<p><img src="TEAM11_FINAL_files/figure-html/cell-7-output-10.png" width="597" height="449"></p>
+</div>
+</div>
+</section>
+<section id="boxplots-for-all-numeric-variables" class="level2" data-number="2.4">
+<h2 data-number="2.4" class="anchored" data-anchor-id="boxplots-for-all-numeric-variables"><span class="header-section-number">2.4</span> Boxplots for all Numeric Variables</h2>
+<div class="cell" data-execution_count="7">
+<details>
+<summary>Code</summary>
+<div class="sourceCode cell-code" id="cb9"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a>numerical <span class="op">=</span> [<span class="st">'age'</span>,<span class="st">'duration'</span>,<span class="st">'campaign'</span>,<span class="st">'pdays'</span>,<span class="st">'previous'</span>,<span class="st">'emp.var.rate'</span>,<span class="st">'cons.price.idx'</span>,<span class="st">'cons.conf.idx'</span>,<span class="st">'euribor3m'</span>,<span class="st">'nr.employed'</span>,<span class="st">'balance'</span>]</span>
+<span id="cb9-2"><a href="#cb9-2" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> i <span class="kw">in</span> <span class="bu">range</span> (<span class="dv">0</span>,<span class="bu">len</span>(numerical)):</span>
+<span id="cb9-3"><a href="#cb9-3" aria-hidden="true" tabindex="-1"></a>    sns.boxplot(data<span class="op">=</span>df,x<span class="op">=</span>numerical[i],y<span class="op">=</span><span class="st">'y'</span>)</span>
+<span id="cb9-4"><a href="#cb9-4" aria-hidden="true" tabindex="-1"></a>    plt.show()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+<div class="cell-output cell-output-display">
+<p><img src="TEAM11_FINAL_files/figure-html/cell-8-output-1.png" width="594" height="429"></p>
+</div>
+<div class="cell-output cell-output-display">
+<p><img src="TEAM11_FINAL_files/figure-html/cell-8-output-2.png" width="606" height="429"></p>
+</div>
+<div class="cell-output cell-output-display">
+<p><img src="TEAM11_FINAL_files/figure-html/cell-8-output-3.png" width="592" height="429"></p>
+</div>
+<div class="cell-output cell-output-display">
+<p><img src="TEAM11_FINAL_files/figure-html/cell-8-output-4.png" width="601" height="429"></p>
+</div>
+<div class="cell-output cell-output-display">
+<p><img src="TEAM11_FINAL_files/figure-html/cell-8-output-5.png" width="595" height="429"></p>
+</div>
+<div class="cell-output cell-output-display">
+<p><img src="TEAM11_FINAL_files/figure-html/cell-8-output-6.png" width="589" height="429"></p>
+</div>
+<div class="cell-output cell-output-display">
+<p><img src="TEAM11_FINAL_files/figure-html/cell-8-output-7.png" width="590" height="429"></p>
+</div>
+<div class="cell-output cell-output-display">
+<p><img src="TEAM11_FINAL_files/figure-html/cell-8-output-8.png" width="589" height="429"></p>
+</div>
+<div class="cell-output cell-output-display">
+<p><img src="TEAM11_FINAL_files/figure-html/cell-8-output-9.png" width="589" height="429"></p>
+</div>
+<div class="cell-output cell-output-display">
+<p><img src="TEAM11_FINAL_files/figure-html/cell-8-output-10.png" width="589" height="429"></p>
+</div>
+<div class="cell-output cell-output-display">
+<p><img src="TEAM11_FINAL_files/figure-html/cell-8-output-11.png" width="614" height="429"></p>
+</div>
+</div>
+</section>
+<section id="scatterplots-between-all-numeric-variables" class="level2" data-number="2.5">
+<h2 data-number="2.5" class="anchored" data-anchor-id="scatterplots-between-all-numeric-variables"><span class="header-section-number">2.5</span> Scatterplots between all Numeric variables</h2>
+<div class="cell" data-execution_count="8">
+<details>
+<summary>Code</summary>
+<div class="sourceCode cell-code" id="cb10"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> i <span class="kw">in</span> <span class="bu">range</span> (<span class="dv">0</span>,<span class="bu">len</span>(numerical)):</span>
+<span id="cb10-2"><a href="#cb10-2" aria-hidden="true" tabindex="-1"></a>    <span class="cf">for</span> j <span class="kw">in</span> <span class="bu">range</span> (i<span class="op">+</span><span class="dv">1</span>,<span class="bu">len</span>(numerical)):</span>
+<span id="cb10-3"><a href="#cb10-3" aria-hidden="true" tabindex="-1"></a>        sns.scatterplot(data<span class="op">=</span>df,x<span class="op">=</span>numerical[i],y<span class="op">=</span>numerical[j],hue<span class="op">=</span><span class="st">'y'</span>)</span>
+<span id="cb10-4"><a href="#cb10-4" aria-hidden="true" tabindex="-1"></a>        plt.show()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+<div class="cell-output cell-output-display">
+<p><img src="TEAM11_FINAL_files/figure-html/cell-9-output-1.png" width="601" height="429"></p>
+</div>
+<div class="cell-output cell-output-display">
+<p><img src="TEAM11_FINAL_files/figure-html/cell-9-output-2.png" width="585" height="429"></p>
+</div>
+<div class="cell-output cell-output-display">
+<p><img src="TEAM11_FINAL_files/figure-html/cell-9-output-3.png" width="593" height="429"></p>
+</div>
+<div class="cell-output cell-output-display">
+<p><img src="TEAM11_FINAL_files/figure-html/cell-9-output-4.png" width="593" height="429"></p>
+</div>
+<div class="cell-output cell-output-display">
+<p><img src="TEAM11_FINAL_files/figure-html/cell-9-output-5.png" width="587" height="429"></p>
+</div>
+<div class="cell-output cell-output-display">
+<p><img src="TEAM11_FINAL_files/figure-html/cell-9-output-6.png" width="597" height="429"></p>
+</div>
+<div class="cell-output cell-output-display">
+<p><img src="TEAM11_FINAL_files/figure-html/cell-9-output-7.png" width="596" height="429"></p>
+</div>
+<div class="cell-output cell-output-display">
+<p><img src="TEAM11_FINAL_files/figure-html/cell-9-output-8.png" width="576" height="429"></p>
+</div>
+<div class="cell-output cell-output-display">
+<p><img src="TEAM11_FINAL_files/figure-html/cell-9-output-9.png" width="602" height="429"></p>
+</div>
+<div class="cell-output cell-output-display">
+<p><img src="TEAM11_FINAL_files/figure-html/cell-9-output-10.png" width="618" height="429"></p>
+</div>
+<div class="cell-output cell-output-display">
+<p><img src="TEAM11_FINAL_files/figure-html/cell-9-output-11.png" width="586" height="429"></p>
+</div>
+<div class="cell-output cell-output-display">
+<p><img src="TEAM11_FINAL_files/figure-html/cell-9-output-12.png" width="594" height="429"></p>
+</div>
+<div class="cell-output cell-output-display">
+<p><img src="TEAM11_FINAL_files/figure-html/cell-9-output-13.png" width="594" height="429"></p>
+</div>
+<div class="cell-output cell-output-display">
+<p><img src="TEAM11_FINAL_files/figure-html/cell-9-output-14.png" width="588" height="429"></p>
+</div>
+<div class="cell-output cell-output-display">
+<p><img src="TEAM11_FINAL_files/figure-html/cell-9-output-15.png" width="598" height="429"></p>
+</div>
+<div class="cell-output cell-output-display">
+<p><img src="TEAM11_FINAL_files/figure-html/cell-9-output-16.png" width="597" height="429"></p>
+</div>
+<div class="cell-output cell-output-display">
+<p><img src="TEAM11_FINAL_files/figure-html/cell-9-output-17.png" width="577" height="429"></p>
+</div>
+<div class="cell-output cell-output-display">
+<p><img src="TEAM11_FINAL_files/figure-html/cell-9-output-18.png" width="603" height="429"></p>
+</div>
+<div class="cell-output cell-output-display">
+<p><img src="TEAM11_FINAL_files/figure-html/cell-9-output-19.png" width="619" height="429"></p>
+</div>
+<div class="cell-output cell-output-display">
+<p><img src="TEAM11_FINAL_files/figure-html/cell-9-output-20.png" width="593" height="429"></p>
+</div>
+<div class="cell-output cell-output-display">
+<p><img src="TEAM11_FINAL_files/figure-html/cell-9-output-21.png" width="593" height="429"></p>
+</div>
+<div class="cell-output cell-output-display">
+<p><img src="TEAM11_FINAL_files/figure-html/cell-9-output-22.png" width="587" height="429"></p>
+</div>
+<div class="cell-output cell-output-display">
+<p><img src="TEAM11_FINAL_files/figure-html/cell-9-output-23.png" width="597" height="429"></p>
+</div>
+<div class="cell-output cell-output-display">
+<p><img src="TEAM11_FINAL_files/figure-html/cell-9-output-24.png" width="596" height="429"></p>
+</div>
+<div class="cell-output cell-output-display">
+<p><img src="TEAM11_FINAL_files/figure-html/cell-9-output-25.png" width="576" height="429"></p>
+</div>
+<div class="cell-output cell-output-display">
+<p><img src="TEAM11_FINAL_files/figure-html/cell-9-output-26.png" width="602" height="429"></p>
+</div>
+<div class="cell-output cell-output-display">
+<p><img src="TEAM11_FINAL_files/figure-html/cell-9-output-27.png" width="618" height="429"></p>
+</div>
+<div class="cell-output cell-output-display">
+<p><img src="TEAM11_FINAL_files/figure-html/cell-9-output-28.png" width="593" height="429"></p>
+</div>
+<div class="cell-output cell-output-display">
+<p><img src="TEAM11_FINAL_files/figure-html/cell-9-output-29.png" width="587" height="429"></p>
+</div>
+<div class="cell-output cell-output-display">
+<p><img src="TEAM11_FINAL_files/figure-html/cell-9-output-30.png" width="597" height="429"></p>
+</div>
+<div class="cell-output cell-output-display">
+<p><img src="TEAM11_FINAL_files/figure-html/cell-9-output-31.png" width="596" height="429"></p>
+</div>
+<div class="cell-output cell-output-display">
+<p><img src="TEAM11_FINAL_files/figure-html/cell-9-output-32.png" width="576" height="429"></p>
+</div>
+<div class="cell-output cell-output-display">
+<p><img src="TEAM11_FINAL_files/figure-html/cell-9-output-33.png" width="602" height="429"></p>
+</div>
+<div class="cell-output cell-output-display">
+<p><img src="TEAM11_FINAL_files/figure-html/cell-9-output-34.png" width="618" height="429"></p>
+</div>
+<div class="cell-output cell-output-display">
+<p><img src="TEAM11_FINAL_files/figure-html/cell-9-output-35.png" width="587" height="429"></p>
+</div>
+<div class="cell-output cell-output-display">
+<p><img src="TEAM11_FINAL_files/figure-html/cell-9-output-36.png" width="597" height="429"></p>
+</div>
+<div class="cell-output cell-output-display">
+<p><img src="TEAM11_FINAL_files/figure-html/cell-9-output-37.png" width="596" height="429"></p>
+</div>
+<div class="cell-output cell-output-display">
+<p><img src="TEAM11_FINAL_files/figure-html/cell-9-output-38.png" width="576" height="429"></p>
+</div>
+<div class="cell-output cell-output-display">
+<p><img src="TEAM11_FINAL_files/figure-html/cell-9-output-39.png" width="602" height="429"></p>
+</div>
+<div class="cell-output cell-output-display">
+<p><img src="TEAM11_FINAL_files/figure-html/cell-9-output-40.png" width="618" height="429"></p>
+</div>
+<div class="cell-output cell-output-display">
+<p><img src="TEAM11_FINAL_files/figure-html/cell-9-output-41.png" width="597" height="429"></p>
+</div>
+<div class="cell-output cell-output-display">
+<p><img src="TEAM11_FINAL_files/figure-html/cell-9-output-42.png" width="596" height="429"></p>
+</div>
+<div class="cell-output cell-output-display">
+<p><img src="TEAM11_FINAL_files/figure-html/cell-9-output-43.png" width="576" height="429"></p>
+</div>
+<div class="cell-output cell-output-display">
+<p><img src="TEAM11_FINAL_files/figure-html/cell-9-output-44.png" width="602" height="429"></p>
+</div>
+<div class="cell-output cell-output-display">
+<p><img src="TEAM11_FINAL_files/figure-html/cell-9-output-45.png" width="618" height="429"></p>
+</div>
+<div class="cell-output cell-output-display">
+<p><img src="TEAM11_FINAL_files/figure-html/cell-9-output-46.png" width="596" height="429"></p>
+</div>
+<div class="cell-output cell-output-display">
+<p><img src="TEAM11_FINAL_files/figure-html/cell-9-output-47.png" width="576" height="429"></p>
+</div>
+<div class="cell-output cell-output-display">
+<p><img src="TEAM11_FINAL_files/figure-html/cell-9-output-48.png" width="602" height="429"></p>
+</div>
+<div class="cell-output cell-output-display">
+<p><img src="TEAM11_FINAL_files/figure-html/cell-9-output-49.png" width="618" height="429"></p>
+</div>
+<div class="cell-output cell-output-display">
+<p><img src="TEAM11_FINAL_files/figure-html/cell-9-output-50.png" width="576" height="429"></p>
+</div>
+<div class="cell-output cell-output-display">
+<p><img src="TEAM11_FINAL_files/figure-html/cell-9-output-51.png" width="602" height="429"></p>
+</div>
+<div class="cell-output cell-output-display">
+<p><img src="TEAM11_FINAL_files/figure-html/cell-9-output-52.png" width="618" height="429"></p>
+</div>
+<div class="cell-output cell-output-display">
+<p><img src="TEAM11_FINAL_files/figure-html/cell-9-output-53.png" width="602" height="429"></p>
+</div>
+<div class="cell-output cell-output-display">
+<p><img src="TEAM11_FINAL_files/figure-html/cell-9-output-54.png" width="618" height="429"></p>
+</div>
+<div class="cell-output cell-output-display">
+<p><img src="TEAM11_FINAL_files/figure-html/cell-9-output-55.png" width="618" height="429"></p>
+</div>
+</div>
+</section>
+<section id="heatmap-for-all-numeric-variables" class="level2" data-number="2.6">
+<h2 data-number="2.6" class="anchored" data-anchor-id="heatmap-for-all-numeric-variables"><span class="header-section-number">2.6</span> Heatmap for all Numeric Variables</h2>
+<div class="cell" data-execution_count="9">
+<details>
+<summary>Code</summary>
+<div class="sourceCode cell-code" id="cb11"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a>glue <span class="op">=</span> df[[<span class="st">'age'</span>,<span class="st">'duration'</span>,<span class="st">'campaign'</span>,<span class="st">'pdays'</span>,<span class="st">'previous'</span>,<span class="st">'emp.var.rate'</span>,<span class="st">'cons.price.idx'</span>,<span class="st">'cons.conf.idx'</span>,<span class="st">'euribor3m'</span>,<span class="st">'nr.employed'</span>,<span class="st">'balance'</span>]]</span>
+<span id="cb11-2"><a href="#cb11-2" aria-hidden="true" tabindex="-1"></a>df_norm_col<span class="op">=</span>(glue<span class="op">-</span>glue.mean())<span class="op">/</span>glue.std()</span>
+<span id="cb11-3"><a href="#cb11-3" aria-hidden="true" tabindex="-1"></a>sns.heatmap(df_norm_col, cmap<span class="op">=</span><span class="st">'viridis'</span>)</span>
+<span id="cb11-4"><a href="#cb11-4" aria-hidden="true" tabindex="-1"></a>plt.show()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+<div class="cell-output cell-output-display">
+<p><img src="TEAM11_FINAL_files/figure-html/cell-10-output-1.png" width="567" height="497"></p>
+</div>
+</div>
 </section>
 </section>
 

@@ -56,5 +56,301 @@ The data set used in this analysis is from a Portuguese bank. The data set conta
 18. - cons.conf.idx: consumer confidence index - monthly indicator (numeric)
 19. - euribor3m: euribor 3 month rate - daily indicator (numeric)
 20. - nr.employed: number of employees - quarterly indicator (numeric)
-21. - balance - 
+21. - balance - average yearly balance, in euros (numeric)
 22. - y - has the client subscribed a term deposit? (binary: 'yes','no')
+
+## The SMART Questions
+
+The SMART questions are as follows:
+
+## Importing the libraries
+
+```{python}
+import numpy as np 
+import pandas as pd 
+import os 
+import matplotlib.pyplot as plt
+%matplotlib inline
+import warnings
+warnings.filterwarnings('ignore')
+import seaborn as sns
+import scipy.stats as stats
+import statsmodels.api as sm
+import statsmodels.formula.api as smf
+import statsmodels.stats.api as sms
+import statsmodels.stats.multicomp as mc
+import statsmodels.stats.outliers_influence as influence
+import statsmodels.stats.diagnostic as diag
+import statsmodels.stats.stattools as stattools
+import statsmodels.stats.anova as anova
+import statsmodels.stats.weightstats as weightstats
+import statsmodels.stats.libqsturng as libqsturng
+import statsmodels.stats.power as power
+import statsmodels.stats.proportion as proportion
+import statsmodels.stats.contingency_tables as contingency_tables
+import statsmodels.stats.multitest as multitest
+import statsmodels.stats.diagnostic as diagnostic
+import statsmodels.stats.correlation_tools as correlation_tools
+from statsmodels.formula.api import ols
+import researchpy as rp
+import scipy.stats as stats
+```
+
+## Importing the dataset
+
+```{python}
+inputFile = "primary.csv"
+df = pd.read_csv(inputFile)
+```
+
+## Basic Information about the data
+
+```{python}
+print(df.shape)
+print(df.head())
+print(df.tail())
+print(df.columns)
+print(df.shape)
+print(df.dtypes)
+print(df.isnull().sum())
+print(df.isnull().sum().sum())
+print(df.info())
+print(df.describe())
+```
+
+# Exploratory Data Analysis (EDA)
+
+## Barchart for all Categorical Variables
+
+```{python}
+# JOB
+job_count = df['job'].value_counts()
+job_count
+plt.figure(figsize = (8, 5))
+job_count.plot(kind = "bar")
+plt.title("Type of Job Distribution")
+# %%
+# MARITAL
+job_count = df['marital'].value_counts()
+job_count
+plt.figure(figsize = (8, 5))
+job_count.plot(kind = "bar")
+plt.title("Type of Marital Distribution")
+# %%
+# EDUCATION 
+job_count = df['education'].value_counts()
+job_count
+plt.figure(figsize = (8, 5))
+job_count.plot(kind = "bar")
+plt.title("Type of Education Distribution")
+#%%
+# DEFAULT
+job_count = df['default'].value_counts()
+job_count
+plt.figure(figsize = (8, 5))
+job_count.plot(kind = "bar")
+plt.title("Type of Default Distribution")
+#%%
+# HOUSING
+job_count = df['housing'].value_counts()
+job_count
+plt.figure(figsize = (8, 5))
+job_count.plot(kind = "bar")
+plt.title("Type of Housing Distribution")
+#%%
+# LOAN
+job_count = df['loan'].value_counts()
+job_count
+plt.figure(figsize = (8, 5))
+job_count.plot(kind = "bar")
+plt.title("Type of Loan Distribution")
+#%%
+# CONTACT
+job_count = df['contact'].value_counts()
+job_count
+plt.figure(figsize = (8, 5))
+job_count.plot(kind = "bar")
+plt.title("Type of Contact Distribution")
+#%%
+# DAYS 
+job_count = df['day'].value_counts()
+job_count
+plt.figure(figsize = (8, 5))
+job_count.plot(kind = "bar")
+plt.title("Type of Days Distribution")
+#%%
+# MONTH
+job_count = df['month'].value_counts()
+job_count
+plt.figure(figsize = (8, 5))
+job_count.plot(kind = "bar")
+plt.title("Type of Months Distribution")
+#%%
+# POUTCOME
+job_count = df['poutcome'].value_counts()
+job_count
+plt.figure(figsize = (8, 5))
+job_count.plot(kind = "bar")
+plt.title("Type of Poutcome Distribution")
+#%%
+# OUTCOME
+job_count = df['y'].value_counts()
+job_count
+plt.figure(figsize = (8, 5))
+job_count.plot(kind = "bar")
+plt.title("Type of Outcome Distribution")
+plt.tight_layout()
+plt.show()
+```
+
+## Piechart for all Categorical Variables
+
+```{python}
+#%%
+def pieChart(x_var,title):
+    yesNo = df.groupby(x_var).size()
+    yesNo.plot(kind='pie', title=title, figsize=[8,8],
+          autopct=lambda p: '{:.2f}%({:.0f})'.format(p,(p/100)*yesNo.sum()))
+    plt.show()
+
+pieChart('y','Percentage of yes and no target(term deposit)in dataset')
+#%%
+# JOB
+pieChart('job','Distribution of job in dataset')
+df.poutcome.value_counts()
+df.groupby('job').size()
+#%%
+# MARITAL
+pieChart('marital','Distribution of marital in dataset')
+df.poutcome.value_counts()
+df.groupby('marital').size()
+#%%
+# EDUCATION
+pieChart('education','Distribution of education in dataset')
+df.poutcome.value_counts()
+df.groupby('education').size()
+#%%
+# DEFAULT
+pieChart('default','Distribution of default in dataset')
+df.poutcome.value_counts()
+df.groupby('default').size()
+#%%
+# HOUSING
+pieChart('housing','Distribution of housing in dataset')
+df.poutcome.value_counts()
+df.groupby('housing').size()
+#%%
+# LOAN
+pieChart('loan','Distribution of loan in dataset')
+df.poutcome.value_counts()
+df.groupby('loan').size()
+#%%
+# CONTACT
+pieChart('contact','Distribution of contact in dataset')
+df.poutcome.value_counts()
+df.groupby('contact').size()
+#%%
+# DAY
+pieChart('day','Distribution of day in dataset')
+df.poutcome.value_counts()
+df.groupby('day').size()
+#%%
+# MONTH
+pieChart('month','Distribution of month in dataset')
+df.poutcome.value_counts()
+df.groupby('month').size()
+#%%
+# POUTCOME
+pieChart('poutcome','Distribution of poutcome in dataset')
+df.poutcome.value_counts()
+df.groupby('poutcome').size()
+#%%
+# OUTCOME
+pieChart('y','Distribution of outcome in dataset')
+df.poutcome.value_counts()
+df.groupby('y').size()
+```
+
+## Histogram and Density Plots for all Numerical Variables
+
+```{python}
+#%%
+# HISTOGRAM AND DESITY PLOTS FOR ALL NUMERIC VARIABLE
+#%%
+sns.distplot(a=df.age, bins=40, color='green',
+             hist_kws={"edgecolor": 'black'})
+plt.title('Age Distribution')
+plt.show()
+# %%
+sns.distplot(a=df.duration, bins=40, color='green',
+             hist_kws={"edgecolor": 'black'})
+plt.title('Duration Distribution')
+plt.show()
+# %%
+sns.distplot(a=df.campaign, bins=40, color='green',
+             hist_kws={"edgecolor": 'black'})
+plt.title('Campaign Distribution')
+plt.show()
+# %%
+sns.distplot(a=df.pdays, bins=40, color='green',
+             hist_kws={"edgecolor": 'black'})
+plt.title('Pdays Distribution')
+plt.show()
+# %%
+sns.distplot(a=df.previous, bins=40, color='green',
+             hist_kws={"edgecolor": 'black'})
+plt.title('Previous Distribution')
+plt.show()
+#%%
+sns.distplot(a=df['emp.var.rate'], bins=40, color='green',
+             hist_kws={"edgecolor": 'black'})
+plt.title('Emp.var.rate Distribution')
+plt.show()
+#%%
+sns.distplot(a=df['cons.price.idx'], bins=40, color='green',
+             hist_kws={"edgecolor": 'black'})
+plt.title('Cons.price.idx Distribution')
+plt.show()
+#%%
+sns.distplot(a=df['cons.conf.idx'], bins=40, color='green',
+             hist_kws={"edgecolor": 'black'})
+plt.title('Cons.conf.idx Distribution')
+plt.show()
+#%%
+sns.distplot(a=df.euribor3m, bins=40, color='green',
+             hist_kws={"edgecolor": 'black'})
+plt.title('Euribor3m Distribution')
+plt.show()
+#%%
+sns.distplot(a=df['nr.employed'], bins=40, color='green',
+             hist_kws={"edgecolor": 'black'})
+plt.title('Nr.employed Distribution')
+plt.show()
+```
+
+## Boxplots for all Numeric Variables
+
+```{python}
+numerical = ['age','duration','campaign','pdays','previous','emp.var.rate','cons.price.idx','cons.conf.idx','euribor3m','nr.employed','balance']
+for i in range (0,len(numerical)):
+    sns.boxplot(data=df,x=numerical[i],y='y')
+    plt.show()
+```
+
+## Scatterplots between all Numeric variables
+
+```{python}
+for i in range (0,len(numerical)):
+    for j in range (i+1,len(numerical)):
+        sns.scatterplot(data=df,x=numerical[i],y=numerical[j],hue='y')
+        plt.show()
+```
+
+## Heatmap for all Numeric Variables
+
+```{python}
+glue = df[['age','duration','campaign','pdays','previous','emp.var.rate','cons.price.idx','cons.conf.idx','euribor3m','nr.employed','balance']]
+df_norm_col=(glue-glue.mean())/glue.std()
+sns.heatmap(df_norm_col, cmap='viridis')
+plt.show()
+```

@@ -26,10 +26,9 @@ plt.tight_layout()
 numerical = ['age','duration','campaign','pdays','previous','emp.var.rate','cons.price.idx','cons.conf.idx','euribor3m','nr.employed','balance']
 plt.figure(figsize=(50, 20))
 for i in range (0,len(numerical)):
-    ax = plt.subplot(3, 4, i+1)
     sns.boxplot(data=df,x=numerical[i],y='y',ax=ax)
-plt.title(numerical[i])
-plt.tight_layout()
+    plt.title(numerical[i])
+    plt.show()
 # %%
 plt.figure(figsize=(50, 20))
 for i in range (0,len(numerical)):

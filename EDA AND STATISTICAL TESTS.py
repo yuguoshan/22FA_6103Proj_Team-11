@@ -45,7 +45,6 @@ print(df.describe())
 # BAR CHAR AND PIE CHARTS FOR ALL CATEGORICAL VARIABLES.
 #%%
 # JOB
-figure, axis = plt.subplots(3,3)
 job_count = df['job'].value_counts()
 job_count
 plt.figure(figsize = (8, 5))
@@ -257,7 +256,7 @@ for i in range (0,len(numerical)):
         plt.show()
 # %%
 # HEATMAPS
-glue = df[['age','duration','campaign','pdays','previous','emp.var.rate','cons.price.idx','cons.conf.idx','euribor3m','nr.employed']]
+glue = df[['age','duration','campaign','pdays','previous','emp.var.rate','cons.price.idx','cons.conf.idx','euribor3m','nr.employed','balance']]
 df_norm_col=(glue-glue.mean())/glue.std()
 sns.heatmap(df_norm_col, cmap='viridis')
 plt.show()
