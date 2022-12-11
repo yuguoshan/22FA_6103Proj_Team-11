@@ -2,13 +2,21 @@
 title: "AN ANALYSIS OF PORTUGUESE BANK MARKETING DATA "
 author: "TEAM 11: Anjali Mudgal , Guoshan Yu and Medhasweta Sen"
 date: "November 21, 2022"
-website:
-  navbar:
-    background: primary
-    search: true
+subtitle : "The George Washington University (DATS 6103: An Introduction to Data Mining)"
+format:
+  html:
+    smooth-scroll: true
+    toc-location: left
+    code-fold: true
+    number-sections: true
+    toc: true
+    toc-depth: 3
+    toc-float: true
+jupyter: python3
+order: true
 ---              
 
-# 1. INTRODUCTION
+# INTRODUCTION
 
 Bank marketing is the practice of attracting and acquiring new customers through traditional media and digital media strategies. The use of these media strategies helps determine what kind of customer is attracted to a certain institutions. This also includes different banking institutions purposefully using different strategies to attract the type of customer they want to do business with.
 
@@ -16,8 +24,15 @@ As a discipline, marketing has evolved over the past few decades to become what 
 
 Marketing has evolved from a communication role to a revenue generating role. The consumer has evolved from being a passive recipient of marketing messages to an active participant in the marketing process. Technology has evolved from being a means of communication to a means of data collection and analysis. Data analytics has evolved from being a means of understanding the consumer to a means of understanding the consumer and the institution.
 
+Bank marketing strategy is increasingly focused on digital channels, including social media, video, search and connected TV. As bank and credit union marketers strive to promote brand awareness, they need a new way to assess channel ROI and more accurate data to enable personalized offers. Add to that the growing importance of purpose-driven marketing.
 
-## 1.1. The Data Set
+The relentless pace of digitization is disrupting not only the established order in banking, but bank marketing strategies. Marketers at both traditional institutions and digital disruptors are feeling the pressure.
+
+Just as bank marketers begin to master one channel, consumers move to another. Many now toggle between devices on a seemingly infinite number of platforms, making it harder than ever for marketers to pin down the right consumers at the right time in the right place.
+
+![](expected-marketing-budget-changes-by-channel.png)
+
+## The Data Set
 
 The data set used in this analysis is from a Portuguese bank. The data set contains 41,188 observations and 21 variables. The variables include the following:
 
