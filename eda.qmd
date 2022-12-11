@@ -370,12 +370,40 @@ plt.title('The Relationship between the Number and Duration of Calls (with y)')
 
 # Annotation
 plt.axhline(y=5, linewidth=2, color="k", linestyle='--')
-plt.annotate('Higher subscription rate when calls <5 minutes',xytext = (35,13),
+plt.annotate('Higher subscription rate when number of calls <5 ',xytext = (35,13),
              arrowprops=dict(color = 'k', width=1),xy=(30,6))
 plt.show()
 
 ```
 
+
+checking between pdays and previous as well
+
+13. - pdays: number of days that passed by after the client was last contacted from a previous campaign (numeric; 999 means client was not previously contacted)
+14. - previous: number of contacts performed before this campaign and for this client (numeric)
+15. - poutcome: outcome of the previous marketing campaign (categorical: 'failure','nonexistent','success')
+
+
+```{python}
+import seaborn as sns
+dur_cam = sns.lmplot(x='pdays', y='previous',data = bankdata,
+                     hue = 'y',
+                     fit_reg = False,
+                     scatter_kws={'alpha':0.6}, height =7)
+
+# plt.axis([0,65,0,65])
+plt.ylabel('pdays')
+plt.xlabel('previous')
+plt.title('The Relationship between number of contacts  and last contactbefore this campaign (with y)')
+
+# # Annotation
+# plt.axhline(y=5, linewidth=2, color="k", linestyle='--')
+# plt.annotate('Higher subscription rate when number of calls <5 ',xytext = (35,13),
+#              arrowprops=dict(color = 'k', width=1),xy=(30,6))
+plt.show()
+
+
+```
 Writing Cleaned data to csv file 
 ```{python}
 bankdata.to_csv('cleaned_data.csv',index=False)
