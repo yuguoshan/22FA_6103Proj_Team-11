@@ -44,7 +44,206 @@ pieChart(bankdata,balance_data,'y','term deposit in dataset','term deposit in ba
 
 ```
 
+### Month wise subscription
+
+```{python}
+#converting y values 
+# bankdata['y'] = bankdata['y'].apply(lambda x: 'no' if x == 'yes' else 1)
+# bankdata['y'] = bankdata['y'].astype('category')
+
+
+month = bankdata['month'].value_counts().rename_axis('month').reset_index(name='counts')
+m1_list=['jan','feb','mar','apr','may','jun','jul','aug','sep','nov','dec']
+m1=pd.DataFrame(m1_list,columns=['month'])
+month = m1.merge(month)
+#% of people contacted in that month 
+month['LastContact'] = month['counts']*100/month['counts'].sum()
+
+# y response 
+month_y = pd.crosstab(bankdata['y'],bankdata['month']).apply(lambda x: x/x.sum() * 100)
+month_y = month_y.transpose()
+month_y.rename(columns = {'y':'month',0:'no', 1:'yes'}, inplace = True)
+```
+```{python}
+#month = month.merge(month_y)
+month['yes'] = " "
+month['no'] = " "
+def addingCrossTab(): 
+    for i, val in enumerate(m1_list):
+        #print (i, ",",val)
+        month['yes'].iloc[i]=month_y.loc[val].loc['yes']
+        #print(month_y.loc[val].loc['yes'])
+        month['no'].iloc[i]=month_y.loc[val].loc['no']
+        
+addingCrossTab()  
+#print(month)      
+#print(month_y)
+# month['% Subscription'] = month_y['yes']
+# month['% NotSubscription'] = month_y['no']
+month.rename(columns = {'yes':'% Subscription','no':'% NotSubscribed'}, inplace = True)
+#month.drop('month_int',axis = 1,inplace = True)
+print(month)
+```
+
+```{python}
+plot_month = month[['month','% Subscription','LastContact']].plot(x='month',kind ='line',
+                                                          figsize = (10,6),
+                                                          marker = 'o')
+
+plt.title('Subscription vs. Contact Rate by Month')
+plt.ylabel('Subscription and Contact Rate')
+plt.xlabel('Month')
+
+ticks = np.arange(1,13,1)
+plt.xticks(ticks)
+
+```
+
+Bank should start considering contacting customer during the month where subscription rated are higher
+
+```{python}
+sns.countplot(x ='month',hue='y', data = bankdata)
+```
 
 
 
+```{python}
+# Import label encoder
+from sklearn import preprocessing 
+# label_encoder object knows how to understand word labels.
+label_encoder = preprocessing.LabelEncoder()
+# Encode labels in column 'species'.
+bankdata['day']= label_encoder.fit_transform(bankdata['day'])
+bankdata['day'].unique()
+```
 
+```{python}
+yes_data = bankdata[bankdata['y']==1]
+no_data = bankdata[bankdata['y']==0]
+```
+```{python}
+day = bankdata['day'].value_counts().rename_axis('day').reset_index(name='counts')
+day
+```
+
+```{python}
+day_yes = yes_data['day'].value_counts().rename_axis('day').reset_index(name='counts_yes')
+day_no = no_data['day'].value_counts().rename_axis('day').reset_index(name='counts_no')
+```
+
+
+
+```{python}
+day = day_yes.merge(day_no,on='day')
+day=day.sort_values('day')
+day= day.reset_index(drop=True)
+```
+
+```{python}
+
+day['Subscription'] = (day['counts_yes']*100)/ (day['counts_yes']+day['counts_no'])
+```
+
+Day and Subscription
+```{python}
+day_sub = day.drop(['counts_yes','counts_no'],axis=1)
+```
+```{python}
+day.plot(x='day',marker='o')
+plt.title('People subcription ')
+plt.ylabel('Subscription and Contact Rate')
+plt.xlabel('day')
+```
+
+
+
+```{python}
+day_sub.plot(x='day',marker='o')
+plt.title('Day versus Subscription rate ')
+plt.ylabel('Subscription and Contact Rate')
+plt.xlabel('day')
+```
+
+Checking days month wise
+```{python}
+def month_itr():
+    for i in m1_list:
+        month_df = bankdata[bankdata['month']==i]
+        count_job_response_pct = pd.crosstab(month_df['y'],month_df['day']).apply(lambda x: x/x.sum() * 100)
+        count_job_response_pct = count_job_response_pct.transpose()
+        print(count_job_response_pct)
+        # temp_yes = yes_data['day'].value_counts().rename_axis('day').reset_index(name='counts_yes')
+        # temp_no = 
+month_itr()
+```
+
+## Financially Stable Population 
+Checking with balance 
+
+```{python}
+#max = 10399
+#min = -6847
+def balance_group(bal):
+    balGroup = 'Negative' if bal < 0 else 'low balance' if bal < 1000 else 'moderate balance' if bal < 5000 else 'high balance'
+    return balGroup
+bankdata['balGroup'] = bankdata['balance'].apply(balance_group)
+
+```
+
+checking the subscription based on y value 
+```{python}
+y_balance = pd.crosstab(bankdata['y'],bankdata['balGroup']).apply(lambda x: x/x.sum() * 100)
+y_balance = y_balance.transpose()
+```
+
+
+Cheking the subscriptions in each balance groups 
+```{python}
+bal = pd.DataFrame(bankdata['balGroup'].value_counts().rename_axis('balGroup').reset_index(name='counts'))
+bal_y = bal.merge(y_balance,on='balGroup')
+
+bal_y['% Contacted'] = bal_y['counts']*100/bal_y['counts'].sum()
+bal_y['% Subscription'] = bal_y[1]
+bal_y.rename(columns = {'y':'month',0:'no', 1:'yes'}, inplace = True)
+
+bal_y = bal_y.drop(['counts','no','yes'],axis=1)
+print(bal_y)
+
+bal_list = ['Negative','low balance', 'moderate balance','high balance']
+balanceGroupInfo =pd.DataFrame(bal_list,columns=['balanceGroup'])
+balanceGroupInfo['Contact Rate'] = " "
+balanceGroupInfo['Subscription Rate'] = " "
+bal_y = bal_y.set_index(['balGroup'])
+
+
+for i,val in enumerate(bal_list):
+     balanceGroupInfo['Contact Rate'].iloc[i]=bal_y.loc[val].loc['% Contacted']
+     balanceGroupInfo['Subscription Rate'].iloc[i]=bal_y.loc[val].loc['% Subscription']
+print(balanceGroupInfo)
+#bal['bal'] = [1,2,0,3]
+#bal = bal.sort_values('bal',ascending = True)
+
+```
+
+
+```{python}
+balanceGroupInfo.plot(x='balanceGroup', kind='bar', stacked=False,
+        title='Balance Group Contact Rates and Subscription')
+plt.show()
+```
+
+Hence people with moderate and high balance should be contacted more often but are not.
+
+
+### JOb versus balance and subscription
+Checking job of people based on balance Group 
+```{python}
+job_balance1 = pd.DataFrame(bankdata.groupby(['job','balGroup'])['y'].sum())
+job_balance2 = pd.DataFrame(bankdata.groupby(['job','balGroup'])['y'].count())
+
+job_balance1['y'] = job_balance2['y']
+# age_balance1['response_rate'] = age_balance1['response_binary']/ (age_balance1['response'])
+# age_balance1 = age_balance1.drop(['response_binary','response'],axis =1)
+
+# age_balance1 = age_balance1.unstack()
+```
