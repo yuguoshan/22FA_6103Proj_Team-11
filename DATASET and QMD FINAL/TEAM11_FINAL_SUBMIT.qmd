@@ -105,6 +105,23 @@ sns.set_theme(style="whitegrid")
 ```{python}
 from sklearn.model_selection import train_test_split
 from imblearn.over_sampling import SMOTE
+from sklearn.ensemble import RandomForestClassifier
+from sklearn.svm import SVC, LinearSVC
+from sklearn.naive_bayes import GaussianNB
+from sklearn.neighbors import KNeighborsClassifier
+from sklearn.preprocessing import scale
+from sklearn.cluster import KMeans
+```
+
+```{python}
+from sklearn.linear_model import LogisticRegression
+from sklearn import metrics
+from sklearn.metrics import accuracy_score
+from sklearn.metrics import confusion_matrix 
+from sklearn.metrics import classification_report
+from sklearn.feature_selection import RFE
+from sklearn.tree import DecisionTreeClassifier
+from matplotlib import pyplot
 ```
 ## Importing the dataset
 
@@ -248,6 +265,7 @@ plt.show()
 
 ```{python}
 sns.violinplot( x='y',y='age',  split=True, inner="quart", data=df)
+plt.title('Age distribution for each response variable')
 plt.show()
 ```
 
@@ -435,7 +453,7 @@ So it's better to contact customer's based on the subcription rate plot.
 
 # Checking the Financially stable population
 ```{python}
-data_vis = clean_data
+data_vis = clean_data.copy()
 ```
 ## Job 
 ```{python}
@@ -605,8 +623,10 @@ data_encode = data_encode.drop(['balGroup'],axis=1)
 data_encode = data_encode.drop(['pdays'],axis=1)
 ```
 
+Checkpoint
 ```{python}
-# data_encode.to_csv('Dataset/final_encoded.csv',index=False)
+#data_encode.to_csv('Dataset/final_encoded.csv',index=False)
+#data_encode =  pd.read_csv('Dataset/final_encoded.csv')
 ```
 
 ```{python}
@@ -659,6 +679,7 @@ x_train= x_train.drop(['month_int'],axis=1)
 x_test=x_test.drop(['month_int'],axis=1)
 ```
 
+Checkpoint 2
 ```{python}
 train_balanced = pd.concat([train_sx, train_sy], axis=1)
 train_unbalanced = pd.concat([x_train, y_train], axis=1)
@@ -678,20 +699,49 @@ test_balanced = pd.concat([test_sx, test_sy], axis=1)
 # print(f"for testing : {np.bincount(test_sy)}")
 ```
 
-# Modeling
 
 ```{python}
-from sklearn.linear_model import LogisticRegression
-from sklearn import metrics
-from sklearn.metrics import accuracy_score
-from sklearn.metrics import confusion_matrix 
-from sklearn.metrics import classification_report
-from sklearn.feature_selection import RFE
+balanced_train= pd.read_csv('Dataset/train_balanced.csv')
+balanced_test= pd.read_csv('Dataset/test_balanced.csv')
+unbalanced_train= pd.read_csv('Dataset/train_unbalanced.csv')
+unbalanced_test= pd.read_csv('Dataset/train_unbalanced.csv')
 ```
-## Logistic Regression
 
-### Feature Selection 
 ```{python}
+from sklearn.preprocessing import StandardScaler
+# define standard scaler
+scaler = StandardScaler()
+# transform data
+balanced_train[['age','balance','duration']]= scaler.fit_transform(balanced_train[['age','balance','duration']])
+
+balanced_test[['age','balance','duration']]= scaler.fit_transform(balanced_test[['age','balance','duration']])
+
+unbalanced_train[['age','balance','duration']]= scaler.fit_transform(unbalanced_train[['age','balance','duration']])
+
+unbalanced_test[['age','balance','duration']]= scaler.fit_transform(unbalanced_test[['age','balance','duration']])
+
+```
+
+```{python}
+x_train = unbalanced_train.drop(['y'],axis=1)
+x_test = unbalanced_test.drop(['y'],axis=1)
+y_train = unbalanced_train['y']
+y_test = unbalanced_test['y']
+```
+
+```{python}
+bx_train = balanced_train.drop(['y'],axis=1)
+bx_test = balanced_test.drop(['y'],axis=1)
+by_train = balanced_train['y']
+by_test = balanced_test['y']
+```
+
+```{python}
+
+# Modeling
+## Logistic Regression
+### Feature Selection 
+
 rfe_model = RFE(LogisticRegression(solver='lbfgs', max_iter=1000), step= 25)
 rfe_model = rfe_model.fit(x_train,y_train)
 
@@ -711,7 +761,7 @@ X_test_final = x_test[selected_columns.tolist()]
 
 
 ```{python}
-lr = LogisticRegression()
+lr = LogisticRegression(random_state=123)
 lr.fit(x_train, y_train)
 y_pred = lr.predict(x_test)
 print(f"Accuracy for training set {accuracy_score(y_train, lr.predict(x_train))}")
@@ -721,16 +771,26 @@ print(f"{classification_report(y_test, y_pred)}")
 ```
 
 ```{python}
+classifiers = [lr]
+```
+
+```{python}
+from sklearn.metrics import ConfusionMatrixDisplay
+#ConfusionMatrixDisplay.from_estimator(lr, x_test, y_test)
 cut_off = 0.20
 precision = []
 recall = []
 accuracy =[]
+
 def checking_cutoff(cutoff):
     predictions = (lr.predict_proba(x_test)[:,1]>cutoff).astype(int)
-    print(f"cutoff = {i:.2f}")
+    ConfusionMatrixDisplay.from_estimator(lr, x_test, y_test)
+    print(f"cutoff = {cutoff:.2f}")
     dictionary = classification_report(y_test, predictions,output_dict=True)
-    accuracy.append(float(dictionary['accuracy']))
-    print(f"Accuracy {dictionary['accuracy']:.2f} Precision for 1{dictionary['1']['precision']:.2f} Recall for 1 {dictionary['1']['recall']:.2f}")
+    #plot_confusion_matrix(lr, x_test, y_test)
+    #plt.show()
+    #accuracy.append(float(dictionary['accuracy']))
+    print(f"Accuracy : {dictionary['accuracy']:.2f}\nPrecision : {dictionary['1']['precision']:.2f} \nRecall : {dictionary['1']['recall']:.2f}")
     print(f"Confusion matrix \n{confusion_matrix(y_test, predictions)}")
 
 cutoffs = np.linspace(0,0.5,5)
@@ -798,4 +858,531 @@ plt.ylabel('True Positive Rate')
 plt.legend()
 # show the plot
 plt.show()
+```
+
+```{python}
+from sklearn.metrics import PrecisionRecallDisplay
+
+display = PrecisionRecallDisplay.from_estimator(
+    lr, x_test, y_test, name="Logistic Regression"
+)
+_ = display.ax_.set_title("Precision-Recall curve")
+```
+
+
+# Decision Tree 
+
+## Feature Selection
+```{python}
+# feature selection
+dtc = DecisionTreeClassifier()
+dtc.fit(x_train, y_train)
+importance = dtc.feature_importances_
+features = [] 
+imp = []
+for i,v in enumerate(importance):
+    if v >0.01:
+        print(f"Feature {i} variable {x_train.columns[i]} score {v:.2f}")
+        features.append(x_train.columns[i])
+        imp.append(v)
+print(features)
+pyplot.bar([x for x in range(len(importance))], importance)
+pyplot.show()
+```
+
+```{python}
+x_train_ba,y_train_ba = x_train[features],y_train
+x_test_un,y_test_un = x_test[features],y_test
+
+dtc = DecisionTreeClassifier(racriterion='entropy',max_depth=6,splitter='best')
+dtc.fit(x_train_ba,y_train_ba )
+dtcprediction = dtc.predict(x_test_un)
+print(accuracy_score(y_test_un, dtcprediction))
+print(confusion_matrix(y_test_un, dtcprediction))
+print(classification_report(y_test_un, dtcprediction))
+
+```
+
+
+```{python}
+# Creating a dictionary of parameters to use in GridSearchCV
+# from sklearn.model_selection import GridSearchCV
+
+# params = {
+#     'criterion':  ['gini', 'entropy'],
+#     'max_depth':  [None, 2, 4, 6, 8, 10],
+#     'max_features': [None, 'sqrt', 'log2', 0.2, 0.4, 0.6, 0.8],
+#     'splitter': ['best', 'random']
+# }
+
+# clf = GridSearchCV(
+#     estimator=DecisionTreeClassifier(),
+#     param_grid=params,
+#     cv=5,
+#     n_jobs=5,
+#     verbose=1,
+# )
+
+# clf.fit(x_train, y_train)
+# print(clf.best_params_)
+
+```
+
+```{python}
+classifiers.append(dtc)
+```
+
+Drawing the tree
+```{python}
+# from sklearn import tree
+# fig = plt.figure(figsize=(25,20))
+# _ = tree.plot_tree(dtc, 
+#                    filled=True)
+# # from sklearn.tree import export_graphviz
+# from sklearn.externals.six import StringIO  
+# from IPython.display import Image  
+# import pydotplus
+
+# dot_data = StringIO()
+# export_graphviz(dtc, out_file=dot_data,  
+#                 filled=True, rounded=True,
+#                 special_characters=True,feature_names = feature_cols,class_names=['0','1'])
+# graph = pydotplus.graph_from_dot_data(dot_data.getvalue())  
+# graph.write_png('dt.png')
+# Image(graph.create_png())
+```
+
+# Random Forest 
+
+```{python}
+rfc = RandomForestClassifier()
+rfc.fit(x_train, y_train)
+rfcpredictions = rfc.predict(x_test)
+print(accuracy_score(y_test, rfcpredictions ))
+print(confusion_matrix(y_test, rfcpredictions ))
+print(classification_report(y_test, rfcpredictions ))
+```
+
+# Linear SVC 
+```{python}
+
+svc_linear = LinearSVC(C=1.0, class_weight=None, dual=True, fit_intercept=True,
+          intercept_scaling=1, loss='squared_hinge', max_iter=1000,
+          multi_class='ovr', penalty='l2', random_state=123, tol=0.0001,
+          verbose=0)
+svc_linear.fit(x_train,y_train)
+svc_linear_predictions = svc_linear.predict(x_test)
+print(accuracy_score(y_test, svc_linear_predictions))
+print(confusion_matrix(y_test, svc_linear_predictions))
+print(classification_report(y_test, svc_linear_bapredictions))
+```
+```{python}
+classifiers.append(rfc)
+classifiers.append(svc_linear)
+```
+
+# SVC
+
+```{python}
+#  SVM - Support Vector Machines balance check on unbalance test
+svc= SVC(kernel='poly', random_state=123)
+svc.fit(x_train,y_train)
+svcpredictions = svc.predict(x_test)
+print(accuracy_score(y_test, svcpredictions))
+print(confusion_matrix(y_test, svcpredictions))
+print(classification_report(y_test, svcpredictions))
+```
+
+# Naive Bayes 
+```{python}
+from sklearn.naive_bayes import GaussianNB
+modelNB = GaussianNB()
+modelNB.fit(x_train,y_train)
+print(f"Model score is {modelNB.score(x_test,y_test)}")
+def modelProbability(prediction0,prediction1,y):
+    plt.figure(figsize=(15,7))
+    plt.hist(prediction1[y==0], bins=50, label='No_pred1', alpha=0.7, color='g')
+    plt.hist(prediction0[y==0], bins=50, label='No_pred0')
+    plt.hist(prediction0[y==1], bins=50, label='Yes_pred0', alpha=0.7, color='r')
+    plt.hist(prediction1[y==1], bins=50, label='Yes_pred1', alpha=0.7, color='y')
+    plt.xlabel('Probability of being Positive Class', fontsize=25)
+    plt.ylabel('Number of records in each bucket', fontsize=25)
+    plt.legend(fontsize=15)
+    plt.tick_params(axis='both', labelsize=25, pad=5)
+    plt.show() 
+pred1=modelNB.predict_proba(x_test)[:,0]
+pred2 = modelNB.predict_proba(x_test)[:,1]
+modelProbability(pred1,pred2,y_test)
+```
+
+```{python}
+classifiers.append(svc)
+classifiers.append(modelNB)
+```
+```{python}
+
+#modelling
+def modelEvaluation(model,x,y):
+    print('test set evaluation: ')
+    y_pred = model.predict(x)
+    print(accuracy_score(y, y_pred))
+    print(confusion_matrix(y, y_pred))
+    print(classification_report(y, y_pred))
+    
+modelEvaluation(modelNB,x_test,y_test)
+```
+
+# KNN 
+
+
+
+```{python}
+acc = []
+prec = []
+# Will take some time
+from sklearn import metrics
+for i in range(1,40):
+    neigh = KNeighborsClassifier(n_neighbors = i).fit(x_train,y_train)
+    y_pred = neigh.predict(x_test)
+    acc.append(metrics.accuracy_score(y_test, y_pred))
+    prec.append((metrics.average_precision_score(y_test, y_pred)))
+
+```
+
+```{python}
+
+plt.figure(figsize=(10,6))
+plt.plot(range(1,40),acc,color = 'blue',linestyle='dashed', 
+         marker='o',markerfacecolor='red', markersize=10)
+plt.title('accuracy vs. K Value')
+plt.xlabel('K')
+plt.ylabel('Accuracy')
+print("Maximum accuracy:-",max(acc),"at K =",acc.index(max(acc)))
+```
+
+```{python}
+plt.figure(figsize=(10,6))
+plt.plot(range(1,40),prec,color = 'blue',linestyle='dashed', 
+         marker='o',markerfacecolor='red', markersize=10)
+plt.title('precision vs. K Value')
+plt.xlabel('K')
+plt.ylabel('Accuracy')
+print("Maximum Precision:-",max(prec),"at K =",prec.index(max(prec)))
+```
+```{python}
+mrroger = 11
+knn = KNeighborsClassifier(n_neighbors=11) # instantiate with n value given
+knn.fit(x_train,y_train)
+y_pred = knn.predict(x_test)
+y_pred = knn.predict_proba(x_test)
+print(accuracy_score(y_test, y_pred))
+print(confusion_matrix(y_test, y_pred))
+print(classification_report(y_test, y_pred))
+```
+
+```{python}
+# K-means 
+# 
+from sklearn.cluster import KMeans
+km_X = KMeans( n_clusters=2, init='random', n_init=10, max_iter=300, tol=1e-04, random_state=0 )
+y_km = km_X.fit_predict(x_train)
+
+index1 = 0
+index2 = 1
+
+plt.scatter( x_train[y_km==0].iloc[:,index1], x_train[y_km==0].iloc[:,index2], s=50, c='lightgreen', marker='s', edgecolor='black', label='cluster 1' )
+
+plt.scatter( x_train[y_km==1].iloc[:,index1], x_train[y_km==1].iloc[:,index2], s=50, c='orange', marker='o', edgecolor='black', label='cluster 2' )
+
+plt.scatter( x_train[y_km==2].iloc[:,index1], x_train[y_km==2].iloc[:,index2], s=50, c='lightblue', marker='v', edgecolor='black', label='cluster 3' )
+
+# plot the centroids
+plt.scatter( km_X.cluster_centers_[:, index1], km_X.cluster_centers_[:, index2], s=250, marker='*', c='red', edgecolor='black', label='centroids' )
+plt.legend(scatterpoints=1)
+plt.xlabel(str(index1) + " : " + x_train.columns[index1])
+plt.ylabel(str(index2) + " : " + x_train.columns[index2])
+plt.grid()
+plt.show()
+```
+
+
+
+```{python}
+# Precision-Recall vs Threshold
+y_pred_probs=lr.predict_proba(x_test) 
+# probs_y is a 2-D array of probability of being labeled as 0 (first 
+# column of array) vs 1 (2nd column in array)
+
+from sklearn import metrics
+from sklearn.metrics import precision_recall_curve
+precision, recall, thresholds = precision_recall_curve(y_test, y_pred_probs[:, 1]) 
+#retrieve probability of being 1(in second column of probs_y)
+pr_auc = metrics.auc(recall, precision)
+
+plt.title("Precision-Recall vs Threshold Chart")
+plt.plot(thresholds, precision[: -1], "b--", label="Precision")
+plt.plot(thresholds, recall[: -1], "r--", label="Recall")
+plt.ylabel("Precision, Recall")
+plt.xlabel("Threshold")
+plt.legend(loc="lower left")
+plt.ylim([0,1])
+
+print("\nReady to continue.")
+
+```
+
+Based on this curve, we would choose the cut off value as 0.25
+
+Roc - Auc Curve 
+```{python}
+# Receiver Operator Characteristics (ROC)
+# Area Under the Curve (AUC)
+from sklearn.metrics import roc_auc_score, roc_curve
+
+# generate a no skill prediction (majority class)
+ns_probs = [0 for _ in range(len(y_test))]
+# predict probabilities
+lr_probs = lr.predict_proba(x_test)
+# keep probabilities for the positive outcome only
+lr_probs = lr_probs[:, 1]
+# calculate scores
+ns_auc = roc_auc_score(y_test, ns_probs)
+lr_auc = roc_auc_score(y_test, lr_probs)
+# summarize scores
+print('No Skill: ROC AUC=%.3f' % (ns_auc))
+print('Logistic: ROC AUC=%.3f' % (lr_auc))
+# calculate roc curves
+ns_fpr, ns_tpr, _ = roc_curve(y_test, ns_probs)
+lr_fpr, lr_tpr, _ = roc_curve(y_test, lr_probs)
+# plot the roc curve for the model
+plt.plot(ns_fpr, ns_tpr, linestyle='--', label='No Skill')
+plt.plot(lr_fpr, lr_tpr, marker='.', label='Logistic')
+# aXis labels
+plt.xlabel('False Positive Rate')
+plt.ylabel('True Positive Rate')
+# show the legend
+plt.legend()
+# show the plot
+plt.show()
+```
+
+Model Comparison
+
+```{python}
+#set up plotting area
+plt.figure(0).clf()
+
+#fit logistic regression model and plot ROC curve
+# model = LogisticRegression()
+# model.fit(X_train, y_train)
+# y_pred = model.predict_proba(X_test)[:, 1]
+# fpr, tpr, _ = metrics.roc_curve(y_test, y_pred)
+# auc = round(metrics.roc_auc_score(y_test, y_pred), 4)
+# plt.plot(fpr,tpr,label="Logistic Regression, AUC="+str(auc))
+
+#fit gradient boosted model and plot ROC curve
+# model = GradientBoostingClassifier()
+# model.fit(X_train, y_train)
+# y_pred = model.predict_proba(X_test)[:, 1]
+# fpr, tpr, _ = metrics.roc_curve(y_test, y_pred)
+# auc = round(metrics.roc_auc_score(y_test, y_pred), 4)
+# plt.plot(fpr,tpr,label="Gradient Boosting, AUC="+str(auc))
+
+for c in classifiers:
+    c.fit(x_train, y_train)
+    y_pred = c.predict_proba(x_test)[:, 1]
+    fpr, tpr, _ = metrics.roc_curve(y_test, y_pred)
+    auc = round(metrics.roc_auc_score(y_test, y_pred), 4)
+    plt.plot(fpr,tpr,label=" AUC="+str(auc))
+
+#add legend
+plt.legend()
+```
+
+```{python}
+# Instantiate the classfiers and make a list
+classifiers = [LogisticRegression(random_state=123), 
+               GaussianNB(), 
+               KNeighborsClassifier(), 
+               DecisionTreeClassifier(random_state=123),
+               RandomForestClassifier(random_state=123)]
+
+# Define a result table as a DataFrame
+result_table = pd.DataFrame(columns=['classifiers', 'fpr','tpr','auc'])
+X_train = x_train
+X_test = x_test
+# Train the models and record the results
+for cls in classifiers:
+    model = cls.fit(X_train, y_train)
+    yproba = model.predict_proba(X_test)[::,1]
+    
+    fpr, tpr, _ = roc_curve(y_test,  yproba)
+    auc = roc_auc_score(y_test, yproba)
+    
+    result_table = result_table.append({'classifiers':cls.__class__.__name__,
+                                        'fpr':fpr, 
+                                        'tpr':tpr, 
+                                        'auc':auc}, ignore_index=True)
+
+# Set name of the classifiers as index labels
+result_table.set_index('classifiers', inplace=True)
+
+fig = plt.figure(figsize=(8,6))
+
+for i in result_table.index:
+    plt.plot(result_table.loc[i]['fpr'], 
+             result_table.loc[i]['tpr'], 
+             label="{}, AUC={:.3f}".format(i, result_table.loc[i]['auc']))
+    
+plt.plot([0,1], [0,1], color='orange', linestyle='--')
+
+plt.xticks(np.arange(0.0, 1.1, step=0.1))
+plt.xlabel("Flase Positive Rate", fontsize=15)
+
+plt.yticks(np.arange(0.0, 1.1, step=0.1))
+plt.ylabel("True Positive Rate", fontsize=15)
+
+plt.title('ROC Curve Analysis', fontweight='bold', fontsize=15)
+plt.legend(prop={'size':13}, loc='lower right')
+
+plt.show()
+```
+
+
+Precision Recall Curve 
+```{python}
+
+# Instantiate the classfiers and make a list
+classifiers = [LogisticRegression(random_state=123), 
+               GaussianNB(), 
+               KNeighborsClassifier(), 
+               DecisionTreeClassifier(random_state=123),
+               RandomForestClassifier(random_state=123)]
+
+# Define a result table as a DataFrame
+result_table = pd.DataFrame(columns=['classifiers', 'fpr','tpr','auc'])
+X_train = x_train
+X_test = x_test
+# Train the models and record the results
+for cls in classifiers:
+    model = cls.fit(X_train, y_train)
+    yproba = model.predict_proba(X_test)[::,1]
+    
+    fpr, tpr, _ = roc_curve(y_test,  yproba)
+    auc = roc_auc_score(y_test, yproba)
+    
+    result_table = result_table.append({'classifiers':cls.__class__.__name__,
+                                        'fpr':fpr, 
+                                        'tpr':tpr, 
+                                        'auc':auc}, ignore_index=True)
+
+# Set name of the classifiers as index labels
+result_table.set_index('classifiers', inplace=True)
+
+fig = plt.figure(figsize=(8,6))
+
+for i in result_table.index:
+    plt.plot(result_table.loc[i]['fpr'], 
+             result_table.loc[i]['tpr'], 
+             label="{}, AUC={:.3f}".format(i, result_table.loc[i]['auc']))
+    
+plt.plot([0,1], [0,1], color='orange', linestyle='--')
+
+plt.xticks(np.arange(0.0, 1.1, step=0.1))
+plt.xlabel("Flase Positive Rate", fontsize=15)
+
+plt.yticks(np.arange(0.0, 1.1, step=0.1))
+plt.ylabel("True Positive Rate", fontsize=15)
+
+plt.title('ROC Curve Analysis', fontweight='bold', fontsize=15)
+plt.legend(prop={'size':13}, loc='lower right')
+
+plt.show()
+
+
+```
+
+```{python}
+# predict probabilities
+lr_probs = lr.predict_proba(x_test)
+# keep probabilities for the positive outcome only
+lr_probs = lr_probs[:, 1]
+# predict class values
+yhat = lr.predict(x_test)
+lr_precision, lr_recall, _ = precision_recall_curve(y_test, lr_probs)
+#lr_f1, lr_auc = f1_score(y_test, yhat), auc(lr_recall, lr_precision)
+# summarize scores
+#print('Logistic: f1=%.3f auc=%.3f' % (lr_f1, lr_auc))
+# plot the precision-recall curves
+no_skill = len(y_test[y_test==1]) / len(y_test)
+pyplot.plot([0, 1], [no_skill, no_skill], linestyle='--', label='No Skill')
+pyplot.plot(lr_recall, lr_precision, marker='.', label='Logistic')
+# axis labels
+
+
+lr_probs = dtc.predict_proba(x_test)
+# keep probabilities for the positive outcome only
+lr_probs = lr_probs[:, 1]
+# predict class values
+yhat = lr.predict(x_test)
+lr_precision, lr_recall, _ = precision_recall_curve(y_test, lr_probs)
+#lr_f1, lr_auc = f1_score(y_test, yhat), auc(lr_recall, lr_precision)
+# summarize scores
+#print('Logistic: f1=%.3f auc=%.3f' % (lr_f1, lr_auc))
+# plot the precision-recall curves
+no_skill = len(y_test[y_test==1]) / len(y_test)
+#pyplot.plot([0, 1], [no_skill, no_skill], linestyle='--', label='No Skill')
+pyplot.plot(lr_recall, lr_precision, marker='.', label='Decision Tree')
+
+
+lr_probs = rfc.predict_proba(x_test)
+# keep probabilities for the positive outcome only
+lr_probs = lr_probs[:, 1]
+# predict class values
+yhat = lr.predict(x_test)
+lr_precision, lr_recall, _ = precision_recall_curve(y_test, lr_probs)
+#lr_f1, lr_auc = f1_score(y_test, yhat), auc(lr_recall, lr_precision)
+# summarize scores
+#print('Logistic: f1=%.3f auc=%.3f' % (lr_f1, lr_auc))
+# plot the precision-recall curves
+no_skill = len(y_test[y_test==1]) / len(y_test)
+#pyplot.plot([0, 1], [no_skill, no_skill], linestyle='--', label='No Skill')
+pyplot.plot(lr_recall, lr_precision, marker='.', label='Random Forest')
+
+lr_probs = modelNB.predict_proba(x_test)
+# keep probabilities for the positive outcome only
+lr_probs = lr_probs[:, 1]
+# predict class values
+yhat = lr.predict(x_test)
+lr_precision, lr_recall, _ = precision_recall_curve(y_test, lr_probs)
+#lr_f1, lr_auc = f1_score(y_test, yhat), auc(lr_recall, lr_precision)
+# summarize scores
+#print('Logistic: f1=%.3f auc=%.3f' % (lr_f1, lr_auc))
+# plot the precision-recall curves
+no_skill = len(y_test[y_test==1]) / len(y_test)
+#pyplot.plot([0, 1], [no_skill, no_skill], linestyle='--', label='No Skill')
+pyplot.plot(lr_recall, lr_precision, marker='.', label='Naive Bayes')
+
+
+lr_probs = knn.predict_proba(x_test)
+# keep probabilities for the positive outcome only
+lr_probs = lr_probs[:, 1]
+# predict class values
+yhat = lr.predict(x_test)
+lr_precision, lr_recall, _ = precision_recall_curve(y_test, lr_probs)
+#lr_f1, lr_auc = f1_score(y_test, yhat), auc(lr_recall, lr_precision)
+# summarize scores
+#print('Logistic: f1=%.3f auc=%.3f' % (lr_f1, lr_auc))
+# plot the precision-recall curves
+no_skill = len(y_test[y_test==1]) / len(y_test)
+#pyplot.plot([0, 1], [no_skill, no_skill], linestyle='--', label='No Skill')
+pyplot.plot(lr_recall, lr_precision, marker='.', label='KNN')
+
+
+pyplot.xlabel('Recall')
+pyplot.ylabel('Precision')
+# show the legend
+pyplot.legend()
+# show the plot
+pyplot.show()
 ```
