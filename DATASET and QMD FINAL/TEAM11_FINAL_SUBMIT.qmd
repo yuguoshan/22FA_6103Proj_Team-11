@@ -13,7 +13,7 @@ format:
     toc-depth: 3
     toc-float: true
 jupyter: python3
-order: true
+#order: true
 ---              
 
 # INTRODUCTION
@@ -894,7 +894,7 @@ pyplot.show()
 x_train_ba,y_train_ba = x_train[features],y_train
 x_test_un,y_test_un = x_test[features],y_test
 
-dtc = DecisionTreeClassifier(racriterion='entropy',max_depth=6,splitter='best')
+dtc = DecisionTreeClassifier(criterion='entropy',max_depth=6,splitter='best')
 dtc.fit(x_train_ba,y_train_ba )
 dtcprediction = dtc.predict(x_test_un)
 print(accuracy_score(y_test_un, dtcprediction))
@@ -1066,19 +1066,21 @@ plt.plot(range(1,40),prec,color = 'blue',linestyle='dashed',
          marker='o',markerfacecolor='red', markersize=10)
 plt.title('precision vs. K Value')
 plt.xlabel('K')
-plt.ylabel('Accuracy')
+plt.ylabel('Precision')
 print("Maximum Precision:-",max(prec),"at K =",prec.index(max(prec)))
 ```
 ```{python}
-mrroger = 11
-knn = KNeighborsClassifier(n_neighbors=11) # instantiate with n value given
+mrroger = 3
+knn = KNeighborsClassifier(n_neighbors=mrroger) # instantiate with n value given
 knn.fit(x_train,y_train)
 y_pred = knn.predict(x_test)
-y_pred = knn.predict_proba(x_test)
+#y_pred = knn.predict_proba(x_test)
 print(accuracy_score(y_test, y_pred))
 print(confusion_matrix(y_test, y_pred))
 print(classification_report(y_test, y_pred))
 ```
+
+# K Means
 
 ```{python}
 # K-means 
@@ -1087,6 +1089,11 @@ from sklearn.cluster import KMeans
 km_X = KMeans( n_clusters=2, init='random', n_init=10, max_iter=300, tol=1e-04, random_state=0 )
 y_km = km_X.fit_predict(x_train)
 
+y_pred = km_X.predict(x_test)
+#y_pred = knn.predict_proba(x_test)
+print(accuracy_score(y_test, y_pred))
+print(confusion_matrix(y_test, y_pred))
+print(classification_report(y_test, y_pred))
 index1 = 0
 index2 = 1
 
