@@ -120,6 +120,8 @@ job_count
 plt.figure(figsize = (8, 5))
 job_count.plot(kind = "bar")
 plt.title("Type of Outcome Distribution")
+plt.tight_layout()
+plt.show()
 #%%
 def pieChart(x_var,title):
     yesNo = df.groupby(x_var).size()
@@ -183,6 +185,7 @@ df.groupby('poutcome').size()
 pieChart('y','Distribution of outcome in dataset')
 df.poutcome.value_counts()
 df.groupby('y').size()
+#%%
 #%%
 # HISTOGRAM AND DESITY PLOTS FOR ALL NUMERIC VARIABLE
 #%%
@@ -253,13 +256,13 @@ for i in range (0,len(numerical)):
         plt.show()
 # %%
 # HEATMAPS
-glue = df[['age','duration','campaign','pdays','previous','emp.var.rate','cons.price.idx','cons.conf.idx','euribor3m','nr.employed']]
+glue = df[['age','duration','campaign','pdays','previous','emp.var.rate','cons.price.idx','cons.conf.idx','euribor3m','nr.employed','balance']]
 df_norm_col=(glue-glue.mean())/glue.std()
 sns.heatmap(df_norm_col, cmap='viridis')
 plt.show()
 #%%
 # SOMETHING TO LOOK AT (Dendrogram with heatmap and coloured leaves)
-dfz= df[['age','duration','campaign','pdays','previous','emp.var.rate','cons.price.idx','cons.conf.idx','euribor3m','nr.employed','y']]
+dfz= df[['age','duration','campaign','pdays','previous','emp.var.rate','cons.price.idx','cons.conf.idx','euribor3m','nr.employed','y','balance']]
 dfz['y'] = dfz['y'].apply(lambda x: 0 if x == 'no' else 1)
 my_palette = dict(zip(dfz.y.unique(), ["orange","yellow"]))
 row_colors = dfz.y.map(my_palette)
