@@ -175,8 +175,10 @@ ul.task-list li input[type="checkbox"] {
 <h2 class="anchored" data-anchor-id="basic-information-about-the-data">Basic Information about the data</h2>
 <div class="cell" data-execution_count="4">
 <div class="cell-output cell-output-stdout">
-<pre><code>Shape of dataset is : (45211, 23)
-&lt;class 'pandas.core.frame.DataFrame'&gt;
+<pre><code>Shape of dataset is : (45211, 23)</code></pre>
+</div>
+<div class="cell-output cell-output-stdout">
+<pre><code>&lt;class 'pandas.core.frame.DataFrame'&gt;
 RangeIndex: 45211 entries, 0 to 45210
 Data columns (total 23 columns):
  #   Column          Non-Null Count  Dtype  
@@ -579,7 +581,7 @@ accuracy                           0.88     33968</code></pre>
 </div>
 </div>
 <p>Average weighted precision achieved across all threshold is 0.45.</p>
-<p>For ROC - AUC curve refer here. For precision recall curve refer here.</p>
+<p>For ROC - AUC curve refer (<a href="#fig-roc-curve">Figure&nbsp;1</a>). For precision recall curve refer(<a href="#fig-pr-curve">Figure&nbsp;2</a>).</p>
 </section>
 </section>
 <section id="decision-tree" class="level1">
@@ -591,17 +593,18 @@ accuracy                           0.88     33968</code></pre>
 <pre><code>Feature 0 variable age score 0.12
 Feature 1 variable balance score 0.16
 Feature 2 variable duration score 0.33
-Feature 3 variable campaign score 0.05
+Feature 3 variable campaign score 0.04
 Feature 4 variable previous score 0.04
-Feature 5 variable housing_no score 0.03
-Feature 6 variable housing_yes score 0.01
+Feature 5 variable housing_no score 0.02
+Feature 6 variable housing_yes score 0.03
+Feature 11 variable job_admin. score 0.01
 Feature 20 variable job_technician score 0.01
 Feature 23 variable education_secondary score 0.01
 Feature 24 variable education_tertiary score 0.01
 Feature 28 variable sin_month score 0.09
 Feature 29 variable cos_month score 0.03
 Important features from decision treee are : 
-['age', 'balance', 'duration', 'campaign', 'previous', 'housing_no', 'housing_yes', 'job_technician', 'education_secondary', 'education_tertiary', 'sin_month', 'cos_month']</code></pre>
+['age', 'balance', 'duration', 'campaign', 'previous', 'housing_no', 'housing_yes', 'job_admin.', 'job_technician', 'education_secondary', 'education_tertiary', 'sin_month', 'cos_month']</code></pre>
 </div>
 <div class="cell-output cell-output-display">
 <p><img src="Summary_files/figure-html/cell-39-output-2.png" width="581" height="415"></p>
@@ -630,27 +633,27 @@ Important features from decision treee are :
 </div>
 <div class="cell-output cell-output-stdout">
 <pre><code>Best parameters from Grid Search CV : 
-{'criterion': 'entropy', 'max_depth': 6, 'max_features': 0.6, 'splitter': 'best'}</code></pre>
+{'criterion': 'entropy', 'max_depth': 8, 'max_features': 0.8, 'splitter': 'best'}</code></pre>
 </div>
 </div>
 <div class="cell" data-execution_count="40">
 <div class="cell-output cell-output-stdout">
-<pre><code>0.9092381064531324
-[[29083   945]
- [ 2138  1802]]
+<pre><code>0.9112399905793688
+[[29109   919]
+ [ 2096  1844]]
               precision    recall  f1-score   support
 
            0       0.93      0.97      0.95     30028
-           1       0.66      0.46      0.54      3940
+           1       0.67      0.47      0.55      3940
 
     accuracy                           0.91     33968
-   macro avg       0.79      0.71      0.74     33968
+   macro avg       0.80      0.72      0.75     33968
 weighted avg       0.90      0.91      0.90     33968
 </code></pre>
 </div>
 </div>
 <p>Here we are able to achieve better accuracy,precision and recall rate.</p>
-<p>AUC Curve : Precision Recall Curve :</p>
+<p>AUC Curve : <a href="#fig-roc-curve">Figure&nbsp;1</a> Precision Recall Curve : <a href="#fig-pr-curve">Figure&nbsp;2</a></p>
 </section>
 </section>
 <section id="random-forest" class="level1">
@@ -660,7 +663,7 @@ weighted avg       0.90      0.91      0.90     33968
 <div class="cell" data-execution_count="41">
 <div class="cell-output cell-output-stdout">
 <pre><code>Important features from random forest :
-['age', 'balance', 'duration', 'campaign', 'previous', 'housing_no', 'housing_yes', 'job_admin.', 'job_management', 'job_technician', 'education_secondary', 'education_tertiary', 'marital_married', 'marital_single', 'sin_month', 'cos_month']</code></pre>
+['age', 'balance', 'duration', 'campaign', 'previous', 'housing_no', 'housing_yes', 'job_admin.', 'job_management', 'job_technician', 'education_secondary', 'education_tertiary', 'marital_married', 'sin_month', 'cos_month']</code></pre>
 </div>
 <div class="cell-output cell-output-display">
 <p><img src="Summary_files/figure-html/cell-42-output-2.png" width="581" height="415"></p>
@@ -674,7 +677,7 @@ weighted avg       0.90      0.91      0.90     33968
 <pre><code>Fitting 3 folds for each of 32 candidates, totalling 96 fits</code></pre>
 </div>
 <div class="cell-output cell-output-display" data-execution_count="41">
-<pre><code>{'bootstrap': True, 'max_depth': 100, 'max_features': 3, 'n_estimators': 200}</code></pre>
+<pre><code>{'bootstrap': True, 'max_depth': 110, 'max_features': 3, 'n_estimators': 300}</code></pre>
 </div>
 </div>
 <div class="cell" data-execution_count="43">
@@ -695,10 +698,12 @@ weighted avg       1.00      1.00      1.00     33968
 </div>
 </div>
 <p>We are getting best performance from Random Forest but we are not sure why we are getting such idealistic results so we would also apply cross validation to test our results</p>
+<p>AUC Curve : <a href="#fig-roc-curve">Figure&nbsp;1</a> Precision Recall Curve : <a href="#fig-pr-curve">Figure&nbsp;2</a></p>
 </section>
 </section>
 <section id="linear-svc" class="level1">
 <h1>Linear SVC</h1>
+<p>Finding a linear hyperplane that tries to separate two classes</p>
 <div class="cell" data-execution_count="44">
 <div class="cell-output cell-output-stdout">
 <pre><code>0.8908384361752237
@@ -718,6 +723,7 @@ weighted avg       0.87      0.89      0.86     33968
 </section>
 <section id="svc" class="level1">
 <h1>SVC</h1>
+<p>Finding a complex hyperplane that tries to separate the classes.</p>
 <div class="cell" data-execution_count="45">
 <div class="cell-output cell-output-stdout">
 <pre><code>0.8952837965143665
@@ -764,6 +770,8 @@ weighted avg       0.86      0.88      0.87     33968
 </code></pre>
 </div>
 </div>
+<p>As we can see from the graph for Yes(1/have subscribed) the probabilities are coming both sides which is not correct.</p>
+<p>AUC Curve : <a href="#fig-roc-curve">Figure&nbsp;1</a> Precision Recall Curve : <a href="#fig-pr-curve">Figure&nbsp;2</a></p>
 </section>
 <section id="knn" class="level1">
 <h1>KNN</h1>
@@ -801,12 +809,18 @@ weighted avg       0.92      0.93      0.92     33968
 </code></pre>
 </div>
 </div>
+<p>AUC Curve : <a href="#fig-roc-curve">Figure&nbsp;1</a> Precision Recall Curve : <a href="#fig-pr-curve">Figure&nbsp;2</a></p>
 </section>
 <section id="roc--auc-curve" class="level1">
 <h1>ROC -AUC Curve</h1>
 <div class="cell" data-execution_count="51">
 <div class="cell-output cell-output-display">
-<p><img src="Summary_files/figure-html/cell-52-output-1.png" width="671" height="535"></p>
+<div id="fig-roc-curve" class="quarto-figure quarto-figure-center anchored">
+<figure class="figure">
+<p><img src="Summary_files/figure-html/fig-roc-curve-output-1.png" width="671" height="535" class="figure-img"></p>
+<p></p><figcaption class="figure-caption">Figure&nbsp;1: AUC ROC Curve for all Modeld</figcaption><p></p>
+</figure>
+</div>
 </div>
 </div>
 </section>
@@ -814,7 +828,12 @@ weighted avg       0.92      0.93      0.92     33968
 <h1>Precision Recall Curve</h1>
 <div class="cell" data-execution_count="52">
 <div class="cell-output cell-output-display">
-<p><img src="Summary_files/figure-html/cell-53-output-1.png" width="593" height="435"></p>
+<div id="fig-pr-curve" class="quarto-figure quarto-figure-center anchored">
+<figure class="figure">
+<p><img src="Summary_files/figure-html/fig-pr-curve-output-1.png" width="593" height="435" class="figure-img"></p>
+<p></p><figcaption class="figure-caption">Figure&nbsp;2: Precision Recall Curve for all Modeld</figcaption><p></p>
+</figure>
+</div>
 </div>
 </div>
 <p>As per the ROC Curve and Precision Recall curve, Random Forest Classifier is performing best. Second best is KNN.</p>
