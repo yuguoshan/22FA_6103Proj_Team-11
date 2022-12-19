@@ -3,24 +3,24 @@ title: "AN ANALYSIS OF PORTUGUESE BANK MARKETING DATA "
 author: "TEAM 11: Anjali Mudgal , Guoshan Yu and Medhasweta Sen"
 date: "November 21, 2022"
 subtitle : "The George Washington University (DATS 6103: An Introduction to Data Mining)"
-format:
-  html:
-    smooth-scroll: true
-    toc-location: left
-    code-fold: true
-    number-sections: true
-    toc: true
-    toc-depth: 3
-    toc-float: true
-jupyter: python3
-#order: true
----              
+execute:
+  echo: false
+html: 
+    code-tools:
+      source: true
+      toggle: false
+      caption: none
+---
 
+
+```{python}
+#| code-fold: true
+#| code-summary: "Show the code"
+#| 
+```
 # INTRODUCTION
 
 Bank marketing is the practice of attracting and acquiring new customers through traditional media and digital media strategies. The use of these media strategies helps determine what kind of customer is attracted to a certain institutions. This also includes different banking institutions purposefully using different strategies to attract the type of customer they want to do business with.
-
-As a discipline, marketing has evolved over the past few decades to become what it is today. Earlier, marketing strategies were primarily a means of spreading brand awareness. Today, marketing has been reinvented to fit a much bigger role. Creating both value and revenue to the institution. It is a big step up from its previous communication role, no doubt. One that was necessitated by the evolution of three factors: the consumer, the technology, and data analytics.
 
 Marketing has evolved from a communication role to a revenue generating role. The consumer has evolved from being a passive recipient of marketing messages to an active participant in the marketing process. Technology has evolved from being a means of communication to a means of data collection and analysis. Data analytics has evolved from being a means of understanding the consumer to a means of understanding the consumer and the institution.
 
@@ -63,18 +63,31 @@ The data set used in this analysis is from a Portuguese bank. The data set conta
 
 The SMART questions are as follows:
 
-## Importing the libraries
+1.Relationship between subscribing the term deposit and how much the customer is contacted (last contact, Campaign, Pdays, Previous Number of contacts)
+
+2. Find out the financially stable population? Will that affect the outcome?
+
+3.Effect of dimensionality reduction on accuracy of the model.
+
+4. How are the likelihood of subscriptions affected by social and economic factors?
+
+Throughout the paper we would try to answer the questions 
+
+Importing the required libraries
 
 ```{python}
+#| code-fold: true
+#| code-summary: "Show the code"
+
 import numpy as np 
 import pandas as pd 
 import os 
+import math
+from math import pi
 import matplotlib.pyplot as plt
 %matplotlib inline
 import warnings
-
 from scipy.stats import zscore
-import seaborn as sns
 import scipy.stats as stats
 import statsmodels.api as sm
 import statsmodels.formula.api as smf
@@ -100,9 +113,6 @@ import seaborn as sns
 from sklearn import preprocessing
 warnings.filterwarnings('ignore')
 sns.set_theme(style="whitegrid")
-```
-
-```{python}
 from sklearn.model_selection import train_test_split
 from imblearn.over_sampling import SMOTE
 from sklearn.ensemble import RandomForestClassifier
@@ -111,9 +121,7 @@ from sklearn.naive_bayes import GaussianNB
 from sklearn.neighbors import KNeighborsClassifier
 from sklearn.preprocessing import scale
 from sklearn.cluster import KMeans
-```
 
-```{python}
 from sklearn.linear_model import LogisticRegression
 from sklearn import metrics
 from sklearn.metrics import accuracy_score
@@ -123,99 +131,31 @@ from sklearn.feature_selection import RFE
 from sklearn.tree import DecisionTreeClassifier
 from matplotlib import pyplot
 ```
+
 ## Importing the dataset
 
 ```{python}
+#| code-fold: true
+#| code-summary: "Show the code"
 inputFile = "primary.csv"
 df = pd.read_csv(inputFile)
 ```
 
 ## Basic Information about the data
-
 ```{python}
-print(df.shape)
-print(df.head())
-print(df.tail())
-print(df.columns)
-print(df.shape)
-print(df.dtypes)
-print(df.isnull().sum())
-print(df.isnull().sum().sum())
-print(df.info())
-print(df.describe())
-```
+#| code-fold: true
+#| code-summary: "Show the code"
 
+print(f"Shape of dataset is : {df.shape}")
+print(f"Columns in dataset \n {df.info()}")
+
+```
 
 # Exploratory Data Analysis (EDA)
-## Analysing the variables 
-### Job Description
 
 ```{python}
-# JOB
-plt.figure(figsize = (8, 5))
-sns.countplot(data=df,y='job',hue='y')
-plt.title("Type of Job Distribution")
-```
-
-People in management, technical are more likely to subscibe to the term deposit  
-
-
-### Marital 
-```{python}
-# MARITAL
-plt.figure(figsize = (8, 5))
-sns.countplot(data=df,y='marital',hue='y')
-plt.title("Type of marital Distribution")
-```
-
-```{python}
-# EDUCATION 
-plt.figure(figsize = (8, 5))
-sns.countplot(data=df,y='education',hue='y')
-plt.title("Type of education Distribution")
-```
-
-### Loan
-```{python}
-# DEFAULT
-sns.countplot(data=df,y='default',hue='y')
-plt.title("Type of default Distribution")
-```
-
-So people who do not paid back there loans and have credits, have not subcribed to the term deposit. 
-
-```{python}
-# HOUSING
-sns.countplot(data=df,y='housing',hue='y')
-plt.title("Type of housing Distribution")
-```
-```{python}
-# LOAN
-sns.countplot(data=df,y='loan',hue='y')
-plt.title("Type of Loan Distribution")
-```
-
-* people who have loans are subscribing to term deposit less. 
-
-### Contact
-```{python}
-# CONTACT
-sns.countplot(data=df,y='contact',hue='y')
-plt.title("Type of Contact Distribution")
-```
-* since the type of communication(cellular and telephone) is not really a good indicator of subcription, we drop this variable.  
-
-#### Month
-```{python}
-# MONTH
-sns.countplot(x ='month',hue='y', data = df)
-plt.title("Type of Months Distribution")
-```
-
-
-
-
-```{python}
+#| code-fold: true
+#| code-summary: "Show the code"
 
 def pieChart(x_var,title):
     yesNo = df.groupby(x_var).size()
@@ -224,18 +164,43 @@ def pieChart(x_var,title):
     plt.show()
 ```
 
-### Term Deposit 
-Distribution of y(target) variable 
+## Distribution of y(target) variable 
 ```{python}
+#| code-fold: true
+#| code-summary: "Show the code"
 
 pieChart('y','Percentage of yes and no target(term deposit)in dataset')
 ```
 
-only 11.7% of enteries are for y=1, so our dataset is unbalanced. 
+Only 11.7% of enteries are for y=1, so our dataset is unbalanced. 
 
+## Missing values and Outliers
+### Education
+Here, even though we do not have any missing values but we have 'unknown' and 'other' as categories, so we will first get rid of them. 
 ```{python}
+#| code-fold: true
+#| code-summary: "Show the code"
+# EDUCATION 
+plt.figure(figsize = (8, 5))
+sns.countplot(data=df,y='education',hue='y')
+plt.title("Type of education Distribution")
+```
 
+### Contact
+```{python}
+#| code-fold: true
+#| code-summary: "Show the code"
+# CONTACT
+sns.countplot(data=df,y='contact',hue='y')
+plt.title("Type of Contact Distribution")
+```
 
+* since the type of communication(cellular and telephone) is not really a good indicator of subcription, we drop this variable. 
+
+### Poutcome
+```{python}
+#| code-fold: true
+#| code-summary: "Show the code"
 # POUTCOME
 pieChart('poutcome','Distribution of poutcome in dataset')
 df.poutcome.value_counts()
@@ -245,10 +210,11 @@ df.groupby('poutcome').size()
 There are *36959   unknown* values and  1840 values with other category.
 Since, 82% of entries are unknown, 4.07% other, we will directly drop this column. 
 
+## Outliers
 
-
-## Age, duration and balance
 ```{python}
+#| code-fold: true
+#| code-summary: "Show the code"
 # plotting violen plot for duration and balance 
 
 f, axes = plt.subplots(1, 2,sharex=True)
@@ -263,20 +229,7 @@ plt.show()
 * There are outliers in duration and balance so we need to get rid of them. 
 * people who have a high balance, are more likely to subscribe to term deposit. 
 
-```{python}
-sns.violinplot( x='y',y='age',  split=True, inner="quart", data=df)
-plt.title('Age distribution for each response variable')
-plt.show()
-```
-
-* No outliers 
-* People who are old are more likely to subscribe to term deposit. 
-
-
-### Day 
-
-# Summary  
-## Data Cleaning 
+# Data Cleaning
 
 * Contact is not useful so we drop it.
 * In poutcome, we have a lot of missing values so we drop it.  
@@ -284,18 +237,14 @@ plt.show()
 * Removing the unknowns 
 * Remove the outliers from balance and duration.
 
-## Data Visualization
-
-# Data Cleaning 
-
-## Dropping the column 
+## Dropping the irrelavant columns and missing values  
 ```{python}
+#| code-fold: true
+#| code-summary: "Show the code"
+#dropping the irrelavant columns
 clean_data = df.drop(['contact','poutcome','day'],axis=1)
-```
 
-
-## Removing unknown from job and education
-```{python}
+#iterating and removing unknown, other values  
 for i in clean_data.columns:
     if clean_data[i].dtype == np.int64:
         pass
@@ -309,12 +258,12 @@ for i in clean_data.columns:
                     print(f"dropping rows with value as {name} in {i}")
                     clean_data = clean_data[clean_data[i] != name]
 ```
-## Dropping the rows 
 
+## Outlier removal
 
-### Dropping the rows where values are 3SD away 
+We have outliers in balance and duration, so to get rid of them we would try to remove the enteries few standard deviation away, since from the histograms most of the enteries are around mean only, we are removing the enteries more than 3SD away.
 
-*Balance - Outliers* 
+### *Balance - Outliers* 
 
 ```{python}
 standard_deviation = clean_data[['balance']].std()
@@ -327,27 +276,52 @@ clean_data = clean_data.drop(clean_data[three_SD].index, axis = 0, inplace = Fal
 clean_data = clean_data.drop('balance_outliers', axis=1)
 ```
 
-*Duration - Outliers*
+### *Duration - Outliers*
 
-### Dropping rows where the duration of calls is less than 5sec since that is irrelevant 
+Dropping rows where the duration of calls is less than 5sec since that is irrelevant. And also since converting the call duration in minutes rather than seconds makes more sense we would convert it into minutes.
+
 ```{python}
+#| code-fold: true
+#| code-summary: "Show the code"
+# dropping values
+
 less_5 = (clean_data['duration']<5)
 clean_data = clean_data.drop(clean_data[less_5].index, axis = 0, inplace = False)
-```
-
-Changing unit of duration from seconds to minutes to make more sense
-
-```{python}
 clean_data['duration'] = clean_data['duration'].apply(lambda n:n/60).round(2)
 ```
 
-# Data Visualization 
+plotting violen plot for duration and balance after cleaning data
+```{python}
+#| code-fold: true
+#| code-summary: "Show the code"
+# plotting violen plot for duration and balance after cleaning data
 
-### Contact versus Subscription month wise
+f, axes = plt.subplots(1, 2,sharex=True)
+axes[0].set_title('For duration(in minutes)')
+sns.violinplot( x='y',y='duration',  split=True, inner="quart", ax=axes[0], data=clean_data)
+axes[1].set_title('For balance')
+sns.violinplot( x='y',y='balance',  split=True, inner="quart", ax=axes[1], data=clean_data)
+sns.despine(left=True)
+plt.show()
+```
+
+# Data Visualization 
+Let' visualize import relationships now between variables now. 
+
+## SMART Question 1 :
+Relationship between subscribing the term deposit and how much the customer is contacted (last contact, Campaign, Pdays, Previous Number of contacts)
+
+Answer : Based on last contact info only number of contacts performed during this campaign is contributing a lot towards subscription rates. 
 
 ### Number of calls versus Duration and affect on subscription
+
+Here if we notice, people are more likely to subscribe if the number of calls are less than 5.
+
 ```{python}
-import seaborn as sns
+#| code-fold: true
+#| code-summary: "Show the code"
+
+
 dur_cam = sns.lmplot(x='duration', y='campaign',data = clean_data,
                      hue = 'y',
                      fit_reg = False,
@@ -364,13 +338,16 @@ plt.annotate('Higher subscription rate when number of calls <5 ',xytext = (35,13
              arrowprops=dict(color = 'k', width=1),xy=(30,6))
 plt.show()
 ```
-
 Checking between pdays and previous as well
 
 13. - pdays: number of days that passed by after the client was last contacted from a previous campaign (numeric; 999 means client was not previously contacted)
 14. - previous: number of contacts performed before this campaign and for this client (numeric)
+
+No relation with pdays and previous 
 ```{python}
-import seaborn as sns
+#| code-fold: true
+#| code-summary: "Show the code"
+
 dur_cam = sns.lmplot(x='pdays', y='previous',data = clean_data,
                      hue = 'y',
                      fit_reg = False,
@@ -384,12 +361,13 @@ plt.title('The Relationship between number of contacts  and last contactbefore t
 plt.show()
 ```
 
-### Smart Question 
-Based on last contact info only number of contacts performed during this campaign is contributing a lot towards subscription rates. 
 
 
-### Month wise subscription
+## Month wise subscription
 ```{python}
+#| code-fold: true
+#| code-summary: "Show the code"
+
 #converting y values 
 # bankdata['y'] = bankdata['y'].apply(lambda x: 'no' if x == 'yes' else 1)
 # bankdata['y'] = bankdata['y'].astype('category')
@@ -413,8 +391,7 @@ month_y.rename(columns = {'y':'month',0:'no', 1:'yes'}, inplace = True)
 
 # month_y
 # y | no% | yes%
-```
-```{python}
+
 #month = month.merge(month_y)
 month['yes'] = " "
 month['no'] = " "
@@ -433,10 +410,8 @@ addingCrossTab()
 # month['% NotSubscription'] = month_y['no']
 month.rename(columns = {'yes':'Subscription Rate','no':'NotSubscribed Rate'}, inplace = True)
 #month.drop('month_int',axis = 1,inplace = True)
-print(month)
-```
+#print(month)
 
-```{python}
 plot_month = month[['month','Subscription Rate','Contact Rate']].plot(x='month',kind ='line',
                                                           figsize = (10,6),
                                                           marker = 'o')
@@ -450,12 +425,32 @@ plt.xlabel('Month')
 Maximum percentage of people have subscribed in the month of March but bank is contacting people more in the month of May. 
 So it's better to contact customer's based on the subcription rate plot. 
 
-# Checking the Financially stable population
+## SMART Question 2
+Find out the **financially stable** population? Will that affect the outcome?
 ```{python}
+#| code-fold: true
+#| code-summary: "Show the code"
 data_vis = clean_data.copy()
 ```
-## Job 
+
+We will try to find the financially stable population based on age, jobs and balance. 
+
+### Age
+Elder people might be more financially stable. 
 ```{python}
+#| code-fold: true
+#| code-summary: "Show the code"
+sns.violinplot( x='y',y='age',  split=True, inner="quart", data=df)
+plt.title('Age distribution for each response variable')
+plt.show()
+```
+
+* People who are old are more likely to subscribe to term deposit. 
+
+### Job 
+```{python}
+#| code-fold: true
+#| code-summary: "Show the code"
 y_job = pd.crosstab(data_vis['y'],data_vis['job']).apply(lambda x: x/x.sum() * 100)
 y_job = y_job.transpose()
 
@@ -473,9 +468,6 @@ for patch_i, label in zip(jobs_sub.patches,
                   label+'%', 
                   ha = 'center', 
                   va='bottom')
-```
-
-```{python}
 
 job_contact=  data_vis['job'].value_counts().rename_axis('job').reset_index(name='counts')        
 job_contact['Contact Rate']= job_contact['counts']*100/job_contact['counts'].sum()  
@@ -483,7 +475,7 @@ job_contact['Contact Rate'] = job_contact['Contact Rate'].round(2)
 job_contact=job_contact.drop(['counts'],axis=1)
 
 # job_contact['Contact Rate']= job_contact['Contact Rate'].sort_values(ascending = False)
-job_contact_plot = job_contact.plot(x='job',kind ='barh')  
+job_contact_plot = job_contact.plot(x='job',kind ='barh',color='r')  
 #.plot(kind ='barh')                                                
 plt.title('Contact Rate by Job')
 plt.xlabel('Contact Rate')
@@ -498,10 +490,17 @@ for patch_i, label in zip(job_contact_plot.patches,
                   va='bottom')
 ```
 
-People in blue color and managemnet jobs are contacted more, which should not be the case. 
 
-## Balance
+People in blue color and management jobs are contacted more, which should not be the case. Since they have less subscription rates. 
+Unlike popular assumption, students, retired and unemployment seem to have a high subscription rates. Even though they are contacted very less.
+
+
+### Balance
+
+Checking the subscriptions in each balance groups 
 ```{python}
+#| code-fold: true
+#| code-summary: "Show the code"
 #max = 10399
 #min = -6847
 def balance_group(bal):
@@ -509,17 +508,10 @@ def balance_group(bal):
     return balGroup
 data_vis['balGroup'] = data_vis['balance'].apply(balance_group)
 
-```
-
-checking the subscription based on y value 
-```{python}
+#checking y based on balance group
 y_balance = pd.crosstab(data_vis['y'],data_vis['balGroup']).apply(lambda x: x/x.sum() * 100)
 y_balance = y_balance.transpose()
-```
 
-
-Checking the subscriptions in each balance groups 
-```{python}
 bal = pd.DataFrame(data_vis['balGroup'].value_counts().rename_axis('balGroup').reset_index(name='counts'))
 bal_y = bal.merge(y_balance,on='balGroup')
 
@@ -544,10 +536,6 @@ print(balanceGroupInfo)
 #bal['bal'] = [1,2,0,3]
 #bal = bal.sort_values('bal',ascending = True)
 
-```
-
-
-```{python}
 balanceGroupInfo.plot(x='balanceGroup', kind='bar', stacked=False,
         title='Balance Group Contact Rates and Subscription')
 plt.show()
@@ -555,9 +543,12 @@ plt.show()
 
 People with moderate to high balance, are contacted less but they have high subscription rates so bank should target them more. 
 
+It might be possible that balance group and jobs are telling the same information since some jobs might have high salary and thus balance groups might be depicting jobs only, so we will try to look at them together.
 
 Balance Group versus Job 
 ```{python}
+#| code-fold: true
+#| code-summary: "Show the code"
 # add the values for 1 
 job_balance = pd.DataFrame(data_vis.groupby(['job','balGroup'])['y'].sum())
 # total number of values 
@@ -567,27 +558,27 @@ job_balance['y'] = (job_balance['y']/job_balance_count['y'])*100
 job_balance = job_balance.unstack()
 job_balance = job_balance.plot(kind='bar',figsize = (10,6))
 plt.title('Subscription Rates for each balance group in job category')
-```
 
-Student and Retired are more likely to subscribe and usually have moderate to high balance. 
-
-```{python}
 job_balance_count1 = job_balance_count.unstack()
 job_balance_count1 = job_balance_count1.plot(kind='bar',figsize = (10,6))
 plt.title('Contact for each balance group in job category')
 ```
 
-## Loan 
-covered loan in initial EDA 
+Only the low balance groups are targeted in each category even though moderate to high balance category are more likely to subscribe.
+Student and Retired are more likely to subscribe and usually have moderate to high balance. 
+
+# Data Encoding
 ```{python}
+#| code-fold: true
+#| code-summary: "Show the code"
 data_encode = data_vis.copy()
 ```
-# Getting Data Ready for Modelling 
 
-## Encoding
 
-One Hot Encoding 
+## One Hot Encoding 
 ```{python}
+#| code-fold: true
+#| code-summary: "Show the code"
 data_encode = pd.get_dummies(data_encode, columns = ['housing'])
 data_encode = pd.get_dummies(data_encode, columns = ['loan'])
 data_encode = pd.get_dummies(data_encode, columns = ['default'])
@@ -596,10 +587,12 @@ data_encode = pd.get_dummies(data_encode, columns = ['education'])
 data_encode = pd.get_dummies(data_encode, columns = ['marital'])
 ```
 
-Sin - Cos encoding 
+## Sin - Cos encoding
+Transforming month into sin and cos so that there cyclic nature (jan-dec are as close as jan-feb) is retained which is usually lost in label encoding.
+
 ```{python}
-import math
-from math import pi
+#| code-fold: true
+#| code-summary: "Show the code"
 def sin_transformation(x):
     x=x-1
     sin_x = math.sin((2*pi*x)/11)
@@ -610,37 +603,40 @@ def cos_transformation(x):
     return cos_x
 data_encode['sin_month'] = data_encode['month_int'].apply(sin_transformation) 
 data_encode['cos_month'] = data_encode['month_int'].apply(cos_transformation)  
-```
-```{python}
+
 sns.scatterplot(data=data_encode,x='sin_month',y='cos_month')
-```
-Label Encoding 
+``` 
+
+## Dropping unnecessary columns irrelevant for modelling 
+
 ```{python}
+#| code-fold: true
+#| code-summary: "Show the code"
 data_encode= data_encode.drop(['month'],axis=1)
 #data_encode= data_encode.drop(['month_int'],axis=1)
 data_encode = data_encode.drop(['balGroup'],axis=1)
 data_encode = data_encode.drop(['pdays'],axis=1)
-```
 
-Checkpoint
-```{python}
+#Checkpoint
 #data_encode.to_csv('Dataset/final_encoded.csv',index=False)
-#data_encode =  pd.read_csv('Dataset/final_encoded.csv')
-```
+data_encode =  pd.read_csv('Dataset/final_encoded.csv')
 
-```{python}
 data_model = data_encode.copy()
 ```
 
 
-### Dropping the unecessary varibles for modelling 
 ```{python}
+#| code-fold: true
+#| code-summary: "Show the code"
 data_model=data_model.drop(['cons.conf.idx', 'emp.var.rate', 'euribor3m', 'nr.employed',
        'cons.price.idx'],axis=1)
 ```
 
+# Data Modeling 
 # Splitting our Dataset 
 ```{python}
+#| code-fold: true
+#| code-summary: "Show the code"
 #dropping y to extract x variables 
 x = data_model.drop(['y'],axis=1)
 #y variables
@@ -649,43 +645,36 @@ y = data_model['y']
 x_train,x_test,y_train,y_test = train_test_split(x,y,test_size=0.2)
 ```
 
-# Balancing Our Dataset
+## Balancing Our Dataset
+
+* Upsampling using SMOTE 
+* Sin and cos transformation from month_int. 
 ```{python}
+#| code-fold: true
+#| code-summary: "Show the code"
 sm = SMOTE(random_state=42)
 train_sx, train_sy = sm.fit_resample(x_train, y_train)
 test_sx, test_sy = sm.fit_resample(x_test, y_test)
 #printing x and y values 
 np.bincount(train_sy)
-```
-
-
-
-
-
-
-```{python}
+#getting values of sin and cos from month int 
 train_sx['sin_month'] = train_sx['month_int'].apply(sin_transformation) 
 train_sx['cos_month'] = train_sx['month_int'].apply(cos_transformation) 
 
-sns.scatterplot(data=train_sx,x='sin_month',y='cos_month')
-```
-```{python}
+#sns.scatterplot(data=train_sx,x='sin_month',y='cos_month')
+#droppping month_int since we have encoded sin and cos value 
 train_sx= train_sx.drop(['month_int'],axis=1)
 test_sx=test_sx.drop(['month_int'],axis=1)
-```
-```{python}
+
 x_train= x_train.drop(['month_int'],axis=1)
 x_test=x_test.drop(['month_int'],axis=1)
-```
 
-Checkpoint 2
-```{python}
+
 train_balanced = pd.concat([train_sx, train_sy], axis=1)
 train_unbalanced = pd.concat([x_train, y_train], axis=1)
 
 test_unbalanced = pd.concat([x_test, y_test], axis=1)
 test_balanced = pd.concat([test_sx, test_sy], axis=1)
-
 # train_balanced.to_csv('Dataset/train_balanced.csv',index=False)
 # train_unbalanced.to_csv('Dataset/train_unbalanced.csv',index=False)
 # test_unbalanced.to_csv('Dataset/test_unbalanced.csv',index=False)
@@ -697,16 +686,20 @@ test_balanced = pd.concat([test_sx, test_sy], axis=1)
 # print(f"for training : {np.bincount(y_res)}")
 # print(f"for testing : {np.bincount(test_sy)}")
 ```
-
-
 ```{python}
+#| code-fold: true
+#| code-summary: "Show the code"
 balanced_train= pd.read_csv('Dataset/train_balanced.csv')
 balanced_test= pd.read_csv('Dataset/test_balanced.csv')
 unbalanced_train= pd.read_csv('Dataset/train_unbalanced.csv')
 unbalanced_test= pd.read_csv('Dataset/train_unbalanced.csv')
 ```
 
+# Scaling numeric variables 
+Scaling age, balance, duration so that our algorithms perform better and all variables are treated equally.
 ```{python}
+#| code-fold: true
+#| code-summary: "Show the code"
 from sklearn.preprocessing import StandardScaler
 # define standard scaler
 scaler = StandardScaler()
@@ -722,87 +715,118 @@ unbalanced_test[['age','balance','duration']]= scaler.fit_transform(unbalanced_t
 ```
 
 ```{python}
+#| code-fold: true
+#| code-summary: "Show the code"
 x_train = unbalanced_train.drop(['y'],axis=1)
 x_test = unbalanced_test.drop(['y'],axis=1)
 y_train = unbalanced_train['y']
 y_test = unbalanced_test['y']
-```
 
-```{python}
 bx_train = balanced_train.drop(['y'],axis=1)
 bx_test = balanced_test.drop(['y'],axis=1)
 by_train = balanced_train['y']
 by_test = balanced_test['y']
 ```
 
+# Logistic Regression
+Performing Logistic Regression on both balanced and unbalanced dataset.
+RFE is used in selecting the most important features
+## Unbalanced Dataset 
 ```{python}
-
-# Modeling
-## Logistic Regression
-### Feature Selection 
-
+#| code-fold: true
+#| code-summary: "Show the code"
 rfe_model = RFE(LogisticRegression(solver='lbfgs', max_iter=1000), step= 25)
 rfe_model = rfe_model.fit(x_train,y_train)
 
 # feature selection
-print(rfe_model.support_)
-print(rfe_model.ranking_)
+#print(rfe_model.support_)
+#print(rfe_model.ranking_)
 
 selected_columns = x_train.columns[rfe_model.support_]
-print(selected_columns.tolist())
+list_column= selected_columns.tolist()
+list_column.append('age')
+list_column.append('balance')
+list_column.append('sin_month')
+print(f"Columns selected by RE {list_column}")
+
+
+X_train_final = x_train[list_column]
+X_test_final = x_test[list_column]
+
+#X_train_final['balance','age'] = x_train['balance','age']
+#X_test_final['balance','age'] = x_test['balance','age']
 ```
 
+As we can see from RFE, the most relevant features are : 
+
+* Duration
+* Housing
+* Loan 
+* Job
+* Education
+* cos_month
+
+Applying model with selected features 
 
 ```{python}
-X_train_final = x_train[selected_columns.tolist()]
-X_test_final = x_test[selected_columns.tolist()]
-```
-
-
-```{python}
+#| code-fold: true
+#| code-summary: "Show the code"
 lr = LogisticRegression(random_state=123)
-lr.fit(x_train, y_train)
-y_pred = lr.predict(x_test)
-print(f"Accuracy for training set {accuracy_score(y_train, lr.predict(x_train))}")
+lr.fit(X_train_final, y_train)
+y_pred = lr.predict(X_test_final)
+print(f"Accuracy for training set {accuracy_score(y_train, lr.predict(X_train_final))}")
 print(f"Accuracy for testing set {accuracy_score(y_test, y_pred)}")
 print(f"Confusion matrix \n{confusion_matrix(y_test, y_pred)}")
 print(f"{classification_report(y_test, y_pred)}")
 ```
 
+Here, the accuracy is 89% but the precision(0.59) and recall rate value(0.20) is low. 
+
+# Balanced Dataset
 ```{python}
-classifiers = [lr]
+#| code-fold: true
+#| code-summary: "Show the code"
+rfe_model = RFE(LogisticRegression(solver='lbfgs', max_iter=1000), step= 25)
+rfe_model = rfe_model.fit(bx_train,by_train)
+
+# feature selection
+#print(rfe_model.support_)
+#print(rfe_model.ranking_)
+
+selected_columns = bx_train.columns[rfe_model.support_]
+print(f"Columns selected by RE {selected_columns.tolist()}")
+
+bX_train_final = bx_train[selected_columns.tolist()]
+bX_test_final = bx_test[selected_columns.tolist()]
+
+lr_b = LogisticRegression(random_state=123)
+lr_b.fit(bX_train_final, by_train)
+by_pred = lr_b.predict(bX_test_final)
+print(f"Accuracy for training set {accuracy_score(by_train, lr_b.predict(bX_train_final))}")
+print(f"Accuracy for testing set {accuracy_score(by_test, by_pred)}")
+print(f"Confusion matrix \n{confusion_matrix(by_test, by_pred)}")
+print(f"{classification_report(by_test, by_pred)}")
 ```
 
-```{python}
-from sklearn.metrics import ConfusionMatrixDisplay
-#ConfusionMatrixDisplay.from_estimator(lr, x_test, y_test)
-cut_off = 0.20
-precision = []
-recall = []
-accuracy =[]
+Here, important features are 
+* Housing 
+* Loan 
+* Job
+* Education
+* Marital Status 
 
-def checking_cutoff(cutoff):
-    predictions = (lr.predict_proba(x_test)[:,1]>cutoff).astype(int)
-    ConfusionMatrixDisplay.from_estimator(lr, x_test, y_test)
-    print(f"cutoff = {cutoff:.2f}")
-    dictionary = classification_report(y_test, predictions,output_dict=True)
-    #plot_confusion_matrix(lr, x_test, y_test)
-    #plt.show()
-    #accuracy.append(float(dictionary['accuracy']))
-    print(f"Accuracy : {dictionary['accuracy']:.2f}\nPrecision : {dictionary['1']['precision']:.2f} \nRecall : {dictionary['1']['recall']:.2f}")
-    print(f"Confusion matrix \n{confusion_matrix(y_test, predictions)}")
+Here even though the precision and recall have improved, and accuracy has dropped down, but the important relationships are lost, hence we would move ahead with unbalanced dataset only.
 
-cutoffs = np.linspace(0,0.5,5)
-for i in cutoffs:
-    checking_cutoff(i)
-print("\nReady to continue.")
-```
+### Deciding cut off value for logistic regression 
+But to have good values for cut-off we would try to find a cutoff where the precision and recall values are decent
 
 ```{python}
+#| code-fold: true
+#| code-summary: "Show the code"
+#| 
 # Precision-Recall vs Threshold
-from sklearn.linear_model import LogisticRegression
 #y_pred=logit.predict(x_test)
-y_pred_probs=lr.predict_proba(x_test) 
+y_pred_probs=lr.predict_proba(X_test_final) 
 # probs_y is a 2-D array of probability of being labeled as 0 (first 
 # column of array) vs 1 (2nd column in array)
 
@@ -820,59 +844,53 @@ plt.xlabel("Threshold")
 plt.legend(loc="lower left")
 plt.ylim([0,1])
 
-print("\nReady to continue.")
+print("\nBased on plot we would choose 0.25 as cut off ")
 
+
+thres = 0.25
+y_pred = np.where(y_pred_probs[:,1]>thres,1,0)
+print(f"Accuracy for testing set {accuracy_score(y_test, y_pred)}")
+print(f"Confusion matrix \n{confusion_matrix(y_test, y_pred)}")
+print(f"{classification_report(y_test, y_pred)}")
 ```
 
-Based on this curve, we would choose the cut off value as 0.25
+Here as after applying feature selection, finding optimized cut-off, we are able to achieve 
 
-Roc - Auc Curve 
-```{python}
-# Receiver Operator Characteristics (ROC)
-# Area Under the Curve (AUC)
-from sklearn.metrics import roc_auc_score, roc_curve
+Accuracy for testing set 0.8800341497880358
+Confusion matrix 
+[[28085  1943]
+ [ 2132  1808]]
+              precision    recall  f1-score   support
 
-# generate a no skill prediction (majority class)
-ns_probs = [0 for _ in range(len(y_test))]
-# predict probabilities
-lr_probs = lr.predict_proba(x_test)
-# keep probabilities for the positive outcome only
-lr_probs = lr_probs[:, 1]
-# calculate scores
-ns_auc = roc_auc_score(y_test, ns_probs)
-lr_auc = roc_auc_score(y_test, lr_probs)
-# summarize scores
-print('No Skill: ROC AUC=%.3f' % (ns_auc))
-print('Logistic: ROC AUC=%.3f' % (lr_auc))
-# calculate roc curves
-ns_fpr, ns_tpr, _ = roc_curve(y_test, ns_probs)
-lr_fpr, lr_tpr, _ = roc_curve(y_test, lr_probs)
-# plot the roc curve for the model
-plt.plot(ns_fpr, ns_tpr, linestyle='--', label='No Skill')
-plt.plot(lr_fpr, lr_tpr, marker='.', label='Logistic')
-# aXis labels
-plt.xlabel('False Positive Rate')
-plt.ylabel('True Positive Rate')
-# show the legend
-plt.legend()
-# show the plot
-plt.show()
-```
+           0       0.93      0.94      0.93     30028
+           1       0.48      0.46      0.47      3940
+
+    accuracy                           0.88     33968
+
+If we notice, we have the maximum f1 score achieved here. 
 
 ```{python}
+#| code-fold: true
+#| code-summary: "Show the code"
 from sklearn.metrics import PrecisionRecallDisplay
 
 display = PrecisionRecallDisplay.from_estimator(
-    lr, x_test, y_test, name="Logistic Regression"
+    lr, X_test_final, y_test, name="Logistic Regression"
 )
 _ = display.ax_.set_title("Precision-Recall curve")
 ```
 
+Average weighted precision achieved across all threshold is 0.45. 
 
-# Decision Tree 
+For ROC - AUC curve refer here. 
+For precision recall curve refer here. 
+
+# Decision Tree
 
 ## Feature Selection
 ```{python}
+#| code-fold: true
+#| code-summary: "Show the code"
 # feature selection
 dtc = DecisionTreeClassifier()
 dtc.fit(x_train, y_train)
@@ -884,83 +902,126 @@ for i,v in enumerate(importance):
         print(f"Feature {i} variable {x_train.columns[i]} score {v:.2f}")
         features.append(x_train.columns[i])
         imp.append(v)
-print(features)
+print(f"Important features from decision treee are : \n{features}")
 pyplot.bar([x for x in range(len(importance))], importance)
 pyplot.show()
+x_train_dt = x_train[features]
+x_test_dt = x_test[features]
 ```
 
+Features selected from this algorithm are 
+
+* Age 
+* Balance 
+* Duration 
+* Campaign
+* Previous 
+* Housing 
+* Job
+* Education
+* Marital 
+* Month - Sin,cos
+
+We have all the important features from EDA here
+
+## Hyperparameter tuning
 ```{python}
-x_train_ba,y_train_ba = x_train[features],y_train
-x_test_un,y_test_un = x_test[features],y_test
-
-dtc = DecisionTreeClassifier(criterion='entropy',max_depth=6,splitter='best')
-dtc.fit(x_train_ba,y_train_ba )
-dtcprediction = dtc.predict(x_test_un)
-print(accuracy_score(y_test_un, dtcprediction))
-print(confusion_matrix(y_test_un, dtcprediction))
-print(classification_report(y_test_un, dtcprediction))
-
-```
-
-
-```{python}
+#| code-fold: true
+#| code-summary: "Show the code"
 # Creating a dictionary of parameters to use in GridSearchCV
-# from sklearn.model_selection import GridSearchCV
+from sklearn.model_selection import GridSearchCV
 
-# params = {
-#     'criterion':  ['gini', 'entropy'],
-#     'max_depth':  [None, 2, 4, 6, 8, 10],
-#     'max_features': [None, 'sqrt', 'log2', 0.2, 0.4, 0.6, 0.8],
-#     'splitter': ['best', 'random']
-# }
+params = {
+    'criterion':  ['gini', 'entropy'],
+    'max_depth':  [None, 2, 4, 6, 8, 10],
+    'max_features': [None, 'sqrt', 'log2', 0.2, 0.4, 0.6, 0.8],
+    'splitter': ['best', 'random']
+}
 
-# clf = GridSearchCV(
-#     estimator=DecisionTreeClassifier(),
-#     param_grid=params,
-#     cv=5,
-#     n_jobs=5,
-#     verbose=1,
-# )
+clf = GridSearchCV(
+    estimator=DecisionTreeClassifier(),
+    param_grid=params,
+    cv=5,
+    n_jobs=5,
+    verbose=1,
+)
 
-# clf.fit(x_train, y_train)
-# print(clf.best_params_)
+clf.fit(x_train_dt, y_train)
+print(f"Best parameters from Grid Search CV : \n{clf.best_params_}")
 
 ```
 
 ```{python}
-classifiers.append(dtc)
+#| code-fold: true
+#| code-summary: "Show the code"
+dtc = DecisionTreeClassifier(criterion='entropy',max_depth=8,max_features= 0.8,splitter='best')
+dtc.fit(x_train_dt,y_train )
+dtcprediction = dtc.predict(x_test_dt)
+print(accuracy_score(y_test, dtcprediction))
+print(confusion_matrix(y_test, dtcprediction))
+print(classification_report(y_test, dtcprediction))
+
 ```
 
-Drawing the tree
-```{python}
-# from sklearn import tree
-# fig = plt.figure(figsize=(25,20))
-# _ = tree.plot_tree(dtc, 
-#                    filled=True)
-# # from sklearn.tree import export_graphviz
-# from sklearn.externals.six import StringIO  
-# from IPython.display import Image  
-# import pydotplus
+Here we are able to achieve better accuracy,precision and recall rate.
 
-# dot_data = StringIO()
-# export_graphviz(dtc, out_file=dot_data,  
-#                 filled=True, rounded=True,
-#                 special_characters=True,feature_names = feature_cols,class_names=['0','1'])
-# graph = pydotplus.graph_from_dot_data(dot_data.getvalue())  
-# graph.write_png('dt.png')
-# Image(graph.create_png())
-```
+AUC Curve : 
+Precision Recall Curve : 
 
 # Random Forest 
 
+## Feature Selection 
 ```{python}
+#| code-fold: true
+#| code-summary: "Show the code"
+from sklearn.ensemble import RandomForestClassifier
 rfc = RandomForestClassifier()
 rfc.fit(x_train, y_train)
-rfcpredictions = rfc.predict(x_test)
-print(accuracy_score(y_test, rfcpredictions ))
+importance_rfc = rfc.feature_importances_
+features_rfc = [] 
+for i,v in enumerate(importance_rfc):
+    if v >0.01:
+        #print(f"Feature {i} variable {balanced_train.columns[i]} score {v}")
+        features_rfc.append(balanced_train.columns[i])
+print(f"Important features from random forest :\n{features_rfc}")
+pyplot.bar([x for x in range(len(importance_rfc))], importance_rfc)
+pyplot.show()
+#selecting important features
+x_train_rf = x_train[features_rfc]
+x_test_rf = x_test[features_rfc]
+
+
+```
+
+## Hyperparameter Tuning 
+```{python}
+from sklearn.model_selection import GridSearchCV
+# Create the parameter grid based on the results of random search 
+param_grid = {
+    'bootstrap': [True],
+    'max_depth': [80, 90, 100, 110],
+    'max_features': [2, 3],
+    'n_estimators': [100, 200, 300, 1000]
+}
+# Create a based model
+rf = RandomForestClassifier()
+# Instantiate the grid search model
+grid_search = GridSearchCV(estimator = rf, param_grid =param_grid, cv = 3, n_jobs = -1, verbose = 2)
+grid_search.fit(x_train_rf, y_train)
+grid_search.best_params_
+```
+
+```{python}
+rfc = RandomForestClassifier(bootstrap=True,max_depth=80,max_features=3,n_estimators=200)
+rfc.fit(x_train_rf, y_train)
+rfcpredictions = rfc.predict(x_test_rf)
+print(f"Training accuracy {accuracy_score(y_train, rfc.predict(x_train_rf))}")
+print(f"Testing set accuracy {accuracy_score(y_test, rfcpredictions )}")
 print(confusion_matrix(y_test, rfcpredictions ))
 print(classification_report(y_test, rfcpredictions ))
 ```
+
+We are getting best performance from Random Forest but we are not sure why we are getting such idealistic results so we would also apply cross validation to test our results 
 
 # Linear SVC 
 ```{python}
@@ -973,12 +1034,9 @@ svc_linear.fit(x_train,y_train)
 svc_linear_predictions = svc_linear.predict(x_test)
 print(accuracy_score(y_test, svc_linear_predictions))
 print(confusion_matrix(y_test, svc_linear_predictions))
-print(classification_report(y_test, svc_linear_bapredictions))
+print(classification_report(y_test, svc_linear_predictions))
 ```
-```{python}
-classifiers.append(rfc)
-classifiers.append(svc_linear)
-```
+
 
 # SVC
 
@@ -993,9 +1051,17 @@ print(classification_report(y_test, svcpredictions))
 ```
 
 # Naive Bayes 
+
 ```{python}
+param_grid_nb = {
+    'var_smoothing': np.logspace(0,-9, num=100)
+}
+nbModel_grid = GridSearchCV(estimator=GaussianNB(), param_grid=param_grid_nb, verbose=1, cv=10, n_jobs=-1)
+nbModel_grid.fit(x_train, y_train)
+print(nbModel_grid.best_estimator_)
+
 from sklearn.naive_bayes import GaussianNB
-modelNB = GaussianNB()
+modelNB = GaussianNB(var_smoothing=0.04328761281083057)
 modelNB.fit(x_train,y_train)
 print(f"Model score is {modelNB.score(x_test,y_test)}")
 def modelProbability(prediction0,prediction1,y):
@@ -1012,13 +1078,6 @@ def modelProbability(prediction0,prediction1,y):
 pred1=modelNB.predict_proba(x_test)[:,0]
 pred2 = modelNB.predict_proba(x_test)[:,1]
 modelProbability(pred1,pred2,y_test)
-```
-
-```{python}
-classifiers.append(svc)
-classifiers.append(modelNB)
-```
-```{python}
 
 #modelling
 def modelEvaluation(model,x,y):
@@ -1032,8 +1091,6 @@ modelEvaluation(modelNB,x_test,y_test)
 ```
 
 # KNN 
-
-
 
 ```{python}
 acc = []
@@ -1052,15 +1109,14 @@ for i in range(1,40):
 
 plt.figure(figsize=(10,6))
 plt.plot(range(1,40),acc,color = 'blue',linestyle='dashed', 
-         marker='o',markerfacecolor='red', markersize=10)
+         marker='o',markerfacecolor='red',  markersize=10)
 plt.title('accuracy vs. K Value')
 plt.xlabel('K')
 plt.ylabel('Accuracy')
 print("Maximum accuracy:-",max(acc),"at K =",acc.index(max(acc)))
 ```
-
 ```{python}
-plt.figure(figsize=(10,6))
+#plt.figure(figsize=(10,6))
 plt.plot(range(1,40),prec,color = 'blue',linestyle='dashed', 
          marker='o',markerfacecolor='red', markersize=10)
 plt.title('precision vs. K Value')
@@ -1068,150 +1124,33 @@ plt.xlabel('K')
 plt.ylabel('Precision')
 print("Maximum Precision:-",max(prec),"at K =",prec.index(max(prec)))
 ```
+
+Based on the above plot, optimal k value is 3
+
 ```{python}
 mrroger = 3
 knn = KNeighborsClassifier(n_neighbors=mrroger) # instantiate with n value given
 knn.fit(x_train,y_train)
 y_pred = knn.predict(x_test)
 #y_pred = knn.predict_proba(x_test)
-print(accuracy_score(y_test, y_pred))
+print(f"Train set accuracy {accuracy_score(y_train, knn.predict(x_train))}")
+print(f"Test set accuracy {accuracy_score(y_test, y_pred)}")
 print(confusion_matrix(y_test, y_pred))
 print(classification_report(y_test, y_pred))
 ```
 
-# K Means
+# ROC -AUC Curve 
 
 ```{python}
-# K-means 
-# 
-from sklearn.cluster import KMeans
-km_X = KMeans( n_clusters=2, init='random', n_init=10, max_iter=300, tol=1e-04, random_state=0 )
-y_km = km_X.fit_predict(x_train)
-
-y_pred = km_X.predict(x_test)
-#y_pred = knn.predict_proba(x_test)
-print(accuracy_score(y_test, y_pred))
-print(confusion_matrix(y_test, y_pred))
-print(classification_report(y_test, y_pred))
-index1 = 0
-index2 = 1
-
-plt.scatter( x_train[y_km==0].iloc[:,index1], x_train[y_km==0].iloc[:,index2], s=50, c='lightgreen', marker='s', edgecolor='black', label='cluster 1' )
-
-plt.scatter( x_train[y_km==1].iloc[:,index1], x_train[y_km==1].iloc[:,index2], s=50, c='orange', marker='o', edgecolor='black', label='cluster 2' )
-
-plt.scatter( x_train[y_km==2].iloc[:,index1], x_train[y_km==2].iloc[:,index2], s=50, c='lightblue', marker='v', edgecolor='black', label='cluster 3' )
-
-# plot the centroids
-plt.scatter( km_X.cluster_centers_[:, index1], km_X.cluster_centers_[:, index2], s=250, marker='*', c='red', edgecolor='black', label='centroids' )
-plt.legend(scatterpoints=1)
-plt.xlabel(str(index1) + " : " + x_train.columns[index1])
-plt.ylabel(str(index2) + " : " + x_train.columns[index2])
-plt.grid()
-plt.show()
-```
-
-
-
-```{python}
-# Precision-Recall vs Threshold
-y_pred_probs=lr.predict_proba(x_test) 
-# probs_y is a 2-D array of probability of being labeled as 0 (first 
-# column of array) vs 1 (2nd column in array)
-
-from sklearn import metrics
-from sklearn.metrics import precision_recall_curve
-precision, recall, thresholds = precision_recall_curve(y_test, y_pred_probs[:, 1]) 
-#retrieve probability of being 1(in second column of probs_y)
-pr_auc = metrics.auc(recall, precision)
-
-plt.title("Precision-Recall vs Threshold Chart")
-plt.plot(thresholds, precision[: -1], "b--", label="Precision")
-plt.plot(thresholds, recall[: -1], "r--", label="Recall")
-plt.ylabel("Precision, Recall")
-plt.xlabel("Threshold")
-plt.legend(loc="lower left")
-plt.ylim([0,1])
-
-print("\nReady to continue.")
-
-```
-
-Based on this curve, we would choose the cut off value as 0.25
-
-Roc - Auc Curve 
-```{python}
-# Receiver Operator Characteristics (ROC)
-# Area Under the Curve (AUC)
 from sklearn.metrics import roc_auc_score, roc_curve
 
-# generate a no skill prediction (majority class)
-ns_probs = [0 for _ in range(len(y_test))]
-# predict probabilities
-lr_probs = lr.predict_proba(x_test)
-# keep probabilities for the positive outcome only
-lr_probs = lr_probs[:, 1]
-# calculate scores
-ns_auc = roc_auc_score(y_test, ns_probs)
-lr_auc = roc_auc_score(y_test, lr_probs)
-# summarize scores
-print('No Skill: ROC AUC=%.3f' % (ns_auc))
-print('Logistic: ROC AUC=%.3f' % (lr_auc))
-# calculate roc curves
-ns_fpr, ns_tpr, _ = roc_curve(y_test, ns_probs)
-lr_fpr, lr_tpr, _ = roc_curve(y_test, lr_probs)
-# plot the roc curve for the model
-plt.plot(ns_fpr, ns_tpr, linestyle='--', label='No Skill')
-plt.plot(lr_fpr, lr_tpr, marker='.', label='Logistic')
-# aXis labels
-plt.xlabel('False Positive Rate')
-plt.ylabel('True Positive Rate')
-# show the legend
-plt.legend()
-# show the plot
-plt.show()
-```
-
-Model Comparison
-
-```{python}
-#set up plotting area
-plt.figure(0).clf()
-
-#fit logistic regression model and plot ROC curve
-# model = LogisticRegression()
-# model.fit(X_train, y_train)
-# y_pred = model.predict_proba(X_test)[:, 1]
-# fpr, tpr, _ = metrics.roc_curve(y_test, y_pred)
-# auc = round(metrics.roc_auc_score(y_test, y_pred), 4)
-# plt.plot(fpr,tpr,label="Logistic Regression, AUC="+str(auc))
-
-#fit gradient boosted model and plot ROC curve
-# model = GradientBoostingClassifier()
-# model.fit(X_train, y_train)
-# y_pred = model.predict_proba(X_test)[:, 1]
-# fpr, tpr, _ = metrics.roc_curve(y_test, y_pred)
-# auc = round(metrics.roc_auc_score(y_test, y_pred), 4)
-# plt.plot(fpr,tpr,label="Gradient Boosting, AUC="+str(auc))
-
-for c in classifiers:
-    c.fit(x_train, y_train)
-    y_pred = c.predict_proba(x_test)[:, 1]
-    fpr, tpr, _ = metrics.roc_curve(y_test, y_pred)
-    auc = round(metrics.roc_auc_score(y_test, y_pred), 4)
-    plt.plot(fpr,tpr,label=" AUC="+str(auc))
-
-#add legend
-plt.legend()
-```
-
-```{python}
 # Instantiate the classfiers and make a list
-classifiers = [LogisticRegression(random_state=123), 
-               GaussianNB(), 
-               KNeighborsClassifier(), 
-               DecisionTreeClassifier(random_state=123),
-               RandomForestClassifier(random_state=123)]
+classifiers = [LogisticRegression(random_state=123),
+        DecisionTreeClassifier(criterion='entropy',max_depth=8,max_features= 0.8,splitter='best'),
+        RandomForestClassifier(bootstrap=True,max_depth=80,max_features=3,n_estimators=200),
+        #SVC(kernel='poly', random_state=123),
+        GaussianNB(var_smoothing=0.04328761281083057),
+        KNeighborsClassifier(n_neighbors=mrroger)]
 
 # Define a result table as a DataFrame
 result_table = pd.DataFrame(columns=['classifiers', 'fpr','tpr','auc'])
@@ -1254,135 +1193,51 @@ plt.legend(prop={'size':13}, loc='lower right')
 plt.show()
 ```
 
-
-Precision Recall Curve 
+# Precision Recall Curve 
 ```{python}
-
-# Instantiate the classfiers and make a list
-classifiers = [LogisticRegression(random_state=123), 
-               GaussianNB(), 
-               KNeighborsClassifier(), 
-               DecisionTreeClassifier(random_state=123),
-               RandomForestClassifier(random_state=123)]
-
-# Define a result table as a DataFrame
-result_table = pd.DataFrame(columns=['classifiers', 'fpr','tpr','auc'])
-X_train = x_train
-X_test = x_test
-# Train the models and record the results
-for cls in classifiers:
-    model = cls.fit(X_train, y_train)
-    yproba = model.predict_proba(X_test)[::,1]
-    
-    fpr, tpr, _ = roc_curve(y_test,  yproba)
-    auc = roc_auc_score(y_test, yproba)
-    
-    result_table = result_table.append({'classifiers':cls.__class__.__name__,
-                                        'fpr':fpr, 
-                                        'tpr':tpr, 
-                                        'auc':auc}, ignore_index=True)
-
-# Set name of the classifiers as index labels
-result_table.set_index('classifiers', inplace=True)
-
-fig = plt.figure(figsize=(8,6))
-
-for i in result_table.index:
-    plt.plot(result_table.loc[i]['fpr'], 
-             result_table.loc[i]['tpr'], 
-             label="{}, AUC={:.3f}".format(i, result_table.loc[i]['auc']))
-    
-plt.plot([0,1], [0,1], color='orange', linestyle='--')
-
-plt.xticks(np.arange(0.0, 1.1, step=0.1))
-plt.xlabel("Flase Positive Rate", fontsize=15)
-
-plt.yticks(np.arange(0.0, 1.1, step=0.1))
-plt.ylabel("True Positive Rate", fontsize=15)
-
-plt.title('ROC Curve Analysis', fontweight='bold', fontsize=15)
-plt.legend(prop={'size':13}, loc='lower right')
-
-plt.show()
-
-
-```
-
-```{python}
-# predict probabilities
-lr_probs = lr.predict_proba(x_test)
-# keep probabilities for the positive outcome only
+#Logistic Regression
+lr_probs = lr.predict_proba(X_test_final)
 lr_probs = lr_probs[:, 1]
-# predict class values
-yhat = lr.predict(x_test)
+yhat = lr.predict(X_test_final)
 lr_precision, lr_recall, _ = precision_recall_curve(y_test, lr_probs)
-#lr_f1, lr_auc = f1_score(y_test, yhat), auc(lr_recall, lr_precision)
-# summarize scores
-#print('Logistic: f1=%.3f auc=%.3f' % (lr_f1, lr_auc))
-# plot the precision-recall curves
 no_skill = len(y_test[y_test==1]) / len(y_test)
 pyplot.plot([0, 1], [no_skill, no_skill], linestyle='--', label='No Skill')
 pyplot.plot(lr_recall, lr_precision, marker='.', label='Logistic')
 # axis labels
 
-
-lr_probs = dtc.predict_proba(x_test)
-# keep probabilities for the positive outcome only
-lr_probs = lr_probs[:, 1]
-# predict class values
-yhat = lr.predict(x_test)
-lr_precision, lr_recall, _ = precision_recall_curve(y_test, lr_probs)
-#lr_f1, lr_auc = f1_score(y_test, yhat), auc(lr_recall, lr_precision)
-# summarize scores
-#print('Logistic: f1=%.3f auc=%.3f' % (lr_f1, lr_auc))
-# plot the precision-recall curves
+#Decision Tree Classifier
+dtc_probs = dtc.predict_proba(x_test_dt)
+dtc_probs = dtc_probs[:, 1]
+yhat = dtc.predict(x_test_dt)
+dtc_precision, dtc_recall, _ = precision_recall_curve(y_test, dtc_probs)
 no_skill = len(y_test[y_test==1]) / len(y_test)
-#pyplot.plot([0, 1], [no_skill, no_skill], linestyle='--', label='No Skill')
-pyplot.plot(lr_recall, lr_precision, marker='.', label='Decision Tree')
+pyplot.plot(dtc_recall, dtc_precision, marker='.', label='Decision Tree')
 
-
-lr_probs = rfc.predict_proba(x_test)
-# keep probabilities for the positive outcome only
-lr_probs = lr_probs[:, 1]
-# predict class values
-yhat = lr.predict(x_test)
-lr_precision, lr_recall, _ = precision_recall_curve(y_test, lr_probs)
-#lr_f1, lr_auc = f1_score(y_test, yhat), auc(lr_recall, lr_precision)
-# summarize scores
-#print('Logistic: f1=%.3f auc=%.3f' % (lr_f1, lr_auc))
-# plot the precision-recall curves
+#Random Forest Classifier
+rfc_probs = rfc.predict_proba(x_test_rf)
+rfc_probs = rfc_probs[:, 1]
+yhat = rfc.predict(x_test_rf)
+rfc_precision, rfc_recall, _ = precision_recall_curve(y_test, rfc_probs)
 no_skill = len(y_test[y_test==1]) / len(y_test)
-#pyplot.plot([0, 1], [no_skill, no_skill], linestyle='--', label='No Skill')
-pyplot.plot(lr_recall, lr_precision, marker='.', label='Random Forest')
+pyplot.plot(rfc_recall, rfc_precision, marker='.', label='Random Forest')
 
-lr_probs = modelNB.predict_proba(x_test)
+#Gaussian Model
+nb_probs = modelNB.predict_proba(x_test)
 # keep probabilities for the positive outcome only
-lr_probs = lr_probs[:, 1]
+nb_probs = nb_probs[:, 1]
 # predict class values
-yhat = lr.predict(x_test)
-lr_precision, lr_recall, _ = precision_recall_curve(y_test, lr_probs)
-#lr_f1, lr_auc = f1_score(y_test, yhat), auc(lr_recall, lr_precision)
-# summarize scores
-#print('Logistic: f1=%.3f auc=%.3f' % (lr_f1, lr_auc))
-# plot the precision-recall curves
+yhat = modelNB.predict(x_test)
+nb_precision, nb_recall, _ = precision_recall_curve(y_test, nb_probs)
 no_skill = len(y_test[y_test==1]) / len(y_test)
-#pyplot.plot([0, 1], [no_skill, no_skill], linestyle='--', label='No Skill')
-pyplot.plot(lr_recall, lr_precision, marker='.', label='Naive Bayes')
+pyplot.plot(nb_recall, nb_precision, marker='.', label='Naive Bayes')
 
-
-lr_probs = knn.predict_proba(x_test)
-# keep probabilities for the positive outcome only
-lr_probs = lr_probs[:, 1]
-# predict class values
-yhat = lr.predict(x_test)
-lr_precision, lr_recall, _ = precision_recall_curve(y_test, lr_probs)
-#lr_f1, lr_auc = f1_score(y_test, yhat), auc(lr_recall, lr_precision)
-# summarize scores
-#print('Logistic: f1=%.3f auc=%.3f' % (lr_f1, lr_auc))
-# plot the precision-recall curves
+#knn
+knn_probs = knn.predict_proba(x_test)
+knn_probs = knn_probs[:, 1]
+yhat = knn.predict(x_test)
+knn_precision, knn_recall, _ = precision_recall_curve(y_test, knn_probs)
 no_skill = len(y_test[y_test==1]) / len(y_test)
-#pyplot.plot([0, 1], [no_skill, no_skill], linestyle='--', label='No Skill')
-pyplot.plot(lr_recall, lr_precision, marker='.', label='KNN')
+pyplot.plot(knn_recall, knn_precision, marker='.', label='KNN')
 
 
 pyplot.xlabel('Recall')
@@ -1392,3 +1247,20 @@ pyplot.legend()
 # show the plot
 pyplot.show()
 ```
+
+As per the ROC Curve and Precision Recall curve, Random Forest Classifier is performing best. 
+Second best is KNN. 
+
+# Summary 
+| Model            | Accuracy | Precision | Recall | AUC   | 
+|------------------|----------|-----------|--------|-------|
+| Logistic         | 0.88     | 0.46      |  0.48  | 0.872 |
+| Decision Tree    | 0.91     | 0.66      |  0.47  | 0.923 |
+| Random Forest    | 1        | 1         |  1     | 1     |
+| SVC              | 0.89     |  0.75     |  0.15  |       |
+| Linear SVC       | 0.89     | 0.62      | 0.16   |       |
+| Gaussian Bayes   | 0.88     | 0.50      | 0.25   | 0.841 |         
+| KNN              | 0.92     | 0.78      | 0.54   | 0.965 |
+: Summary of Models {#tbl-letters}
+
+See @tbl-letters.
