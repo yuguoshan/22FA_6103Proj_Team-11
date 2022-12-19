@@ -882,8 +882,9 @@ _ = display.ax_.set_title("Precision-Recall curve")
 
 Average weighted precision achieved across all threshold is 0.45. 
 
-For ROC - AUC curve refer here. 
-For precision recall curve refer here. 
+For ROC - AUC curve refer (@fig-roc-curve). 
+For precision recall curve refer(@fig-pr-curve). 
+
 
 # Decision Tree
 
@@ -964,9 +965,10 @@ print(classification_report(y_test, dtcprediction))
 ```
 
 Here we are able to achieve better accuracy,precision and recall rate.
+ 
 
-AUC Curve : 
-Precision Recall Curve : 
+AUC Curve : @fig-roc-curve
+Precision Recall Curve : @fig-pr-curve
 
 # Random Forest 
 
@@ -1023,7 +1025,11 @@ print(classification_report(y_test, rfcpredictions ))
 
 We are getting best performance from Random Forest but we are not sure why we are getting such idealistic results so we would also apply cross validation to test our results 
 
+AUC Curve : @fig-roc-curve
+Precision Recall Curve : @fig-pr-curve
+
 # Linear SVC 
+Finding a linear hyperplane that tries to separate two classes
 ```{python}
 
 svc_linear = LinearSVC(C=1.0, class_weight=None, dual=True, fit_intercept=True,
@@ -1039,6 +1045,7 @@ print(classification_report(y_test, svc_linear_predictions))
 
 
 # SVC
+Finding a complex hyperplane that tries to separate the classes. 
 
 ```{python}
 #  SVM - Support Vector Machines balance check on unbalance test
@@ -1066,10 +1073,10 @@ modelNB.fit(x_train,y_train)
 print(f"Model score is {modelNB.score(x_test,y_test)}")
 def modelProbability(prediction0,prediction1,y):
     plt.figure(figsize=(15,7))
-    plt.hist(prediction1[y==0], bins=50, label='No_pred1', alpha=0.7, color='g')
-    plt.hist(prediction0[y==0], bins=50, label='No_pred0')
-    plt.hist(prediction0[y==1], bins=50, label='Yes_pred0', alpha=0.7, color='r')
-    plt.hist(prediction1[y==1], bins=50, label='Yes_pred1', alpha=0.7, color='y')
+    plt.hist(prediction1[y==0], bins=50, label='No/probability 1', alpha=0.7, color='g')
+    plt.hist(prediction0[y==0], bins=50, label='No/probability 0')
+    plt.hist(prediction0[y==1], bins=50, label='Yes/probability 0', alpha=0.7, color='r')
+    plt.hist(prediction1[y==1], bins=50, label='Yes/probability 1', alpha=0.7, color='y')
     plt.xlabel('Probability of being Positive Class', fontsize=25)
     plt.ylabel('Number of records in each bucket', fontsize=25)
     plt.legend(fontsize=15)
@@ -1089,6 +1096,12 @@ def modelEvaluation(model,x,y):
     
 modelEvaluation(modelNB,x_test,y_test)
 ```
+
+As we can see from the graph for Yes(1/have subscribed) the probabilities are coming both sides which is not correct.
+
+
+AUC Curve : @fig-roc-curve
+Precision Recall Curve : @fig-pr-curve
 
 # KNN 
 
@@ -1139,9 +1152,16 @@ print(confusion_matrix(y_test, y_pred))
 print(classification_report(y_test, y_pred))
 ```
 
+
+AUC Curve : @fig-roc-curve
+Precision Recall Curve : @fig-pr-curve
+
+
 # ROC -AUC Curve 
 
 ```{python}
+#|label : fig-roc-curve
+#| fig-cap: "AUC ROC Curve for all Modeld"
 from sklearn.metrics import roc_auc_score, roc_curve
 
 # Instantiate the classfiers and make a list
@@ -1195,6 +1215,8 @@ plt.show()
 
 # Precision Recall Curve 
 ```{python}
+#|label : fig-pr-curve
+#| fig-cap: "Precision Recall Curve for all Modeld"
 #Logistic Regression
 lr_probs = lr.predict_proba(X_test_final)
 lr_probs = lr_probs[:, 1]
