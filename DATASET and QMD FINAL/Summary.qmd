@@ -352,6 +352,9 @@ plt.show()
 ```
 Checking between pdays and previous as well
 
+
+Here as we can see from the t- test, t
+
 13. - pdays: number of days that passed by after the client was last contacted from a previous campaign (numeric; 999 means client was not previously contacted)
 14. - previous: number of contacts performed before this campaign and for this client (numeric)
 
@@ -471,6 +474,7 @@ plt.title('Age distribution for each response variable')
 plt.show()
 ```
 
+
 * People who are old are more likely to subscribe to term deposit. 
 
 ### Job 
@@ -568,6 +572,7 @@ balanceGroupInfo.plot(x='balanceGroup', kind='bar', stacked=False,
         title='Balance Group Contact Rates and Subscription')
 plt.show()
 ```
+
 
 **suggestion**:People with moderate to high balance, are contacted less but they have high subscription rates so bank should target them more. 
 
@@ -865,7 +870,7 @@ We also added the important features from unbalaced dataset
 * Balance
 
 Here even though the precision and recall have improved, and accuracy has dropped down, but the important relationships are lost since the training data now is artificially generated datapoints. 
-We will try to find the optimal cut-off value for originally dataset and compare it with the balance model.
+We will try to find the optimal cut-off value for original dataset and compare it with the model for balanced data.
 
 ### Deciding cut off value for logistic regression - Unbalance 
 But to have good values for cut-off we would try to find a cutoff where the precision and recall values are decent
@@ -1168,7 +1173,7 @@ def modelProbability(prediction0,prediction1,y):
     plt.hist(prediction0[y==0], bins=50, label='No/probability 0')
     plt.hist(prediction0[y==1], bins=50, label='Yes/probability 0', alpha=0.7, color='r')
     plt.hist(prediction1[y==1], bins=50, label='Yes/probability 1', alpha=0.7, color='y')
-    plt.xlabel('Probability of being Positive Class', fontsize=25)
+    plt.xlabel('Probability of being Positive/Negative Class', fontsize=25)
     plt.ylabel('Number of records in each bucket', fontsize=25)
     plt.legend(fontsize=15)
     plt.tick_params(axis='both', labelsize=25, pad=5)
@@ -1208,6 +1213,8 @@ for i in range(1,40):
 
 ```
 
+We will look into precision and accuracy curve for the optimal value of k. 
+
 ```{python}
 
 plt.figure(figsize=(10,6))
@@ -1228,7 +1235,7 @@ plt.ylabel('Precision')
 print("Maximum Precision:-",max(prec),"at K =",prec.index(max(prec)))
 ```
 
-Based on the above plot, optimal k value is 3
+Based on the above plot, optimal k value is 3, with maximum f1 score of 0.64. 
 
 ```{python}
 mrroger = 3
@@ -1362,6 +1369,7 @@ pyplot.show()
 
 As per the ROC Curve and Precision Recall curve, Random Forest Classifier is performing best. 
 Second best is KNN. 
+Since we have unrealistic results from Random Forest, we would suggest using KNN for our model. 
 
 # Summary 
 | Model            | Accuracy | Precision | Recall | AUC   | 
@@ -1376,3 +1384,20 @@ Second best is KNN.
 : Summary of Models {#tbl-letters}
 
 See @tbl-letters.
+
+# Conclusion 
+
+Our model would be beneficial in the following ways : 
+
+* For target marketing for bank campaigns, or in other events. For example based on the customer's job, age and loan history the model would can easily predict whether the customer is going to subscribe to the term deposit or not. So out of the million people, we can easily shortlist people based on our model and spend the time on them so as to improve efficiency. 
+
+* Improving buissness effficiency of banks. Since using the eda or model we can easily check the subscription insights, it would be very helpful for banks to improve their stratergies. For example, based on the monthly subscription rates, if banks are deciding the campaign promotion time, it can improve there efficiency.  
+
+* Since, we have month as a input factor in our model, and all other values are static, we can even find the best month to contact customer based on the predicted probability of the customer. As there can be a relation between the job type and the month they are subscribing or their fluctuating balance and age. This can be very useful in finding the best time to contact. 
+
+* Based on the model, since the number of contact is playing a major role, if we have the optimal time to contact them, we can restrict our calls to less than 5 and find a better turnover.
+
+* We didn't see any relation with the social and economic factors here, but if we had the data for multiple years, there was a possibility of finding a relation. Our model can accomodate these factors as well, and if trained by accomodating these factors as well, this can be helpful for banks in finding the proper time for there campaign. 
+
+Hence, analyzing this kind of marketing dataset has given us valuable insight into how we can tweak our model to give buisness insights as well as customer insights to improve subscription of term deposits.  
+

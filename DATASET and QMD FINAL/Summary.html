@@ -126,6 +126,7 @@ ul.task-list li input[type="checkbox"] {
   <li><a href="#roc--auc-curve" id="toc-roc--auc-curve" class="nav-link" data-scroll-target="#roc--auc-curve"><span class="toc-section-number">17</span>  ROC -AUC Curve</a></li>
   <li><a href="#precision-recall-curve" id="toc-precision-recall-curve" class="nav-link" data-scroll-target="#precision-recall-curve"><span class="toc-section-number">18</span>  Precision Recall Curve</a></li>
   <li><a href="#summary" id="toc-summary" class="nav-link" data-scroll-target="#summary"><span class="toc-section-number">19</span>  Summary</a></li>
+  <li><a href="#conclusion" id="toc-conclusion" class="nav-link" data-scroll-target="#conclusion"><span class="toc-section-number">20</span>  Conclusion</a></li>
   </ul>
 </nav>
 </div>
@@ -435,6 +436,7 @@ dtype: float64</code></pre>
 </div>
 </div>
 <p>Checking between pdays and previous as well</p>
+<p>Here as we can see from the t- test, t</p>
 <ol start="13" type="1">
 <li><ul>
 <li>pdays: number of days that passed by after the client was last contacted from a previous campaign (numeric; 999 means client was not previously contacted)</li>
@@ -612,8 +614,10 @@ dtype: float64</code></pre>
 <p>Applying model with selected features</p>
 <div class="cell" data-execution_count="35">
 <div class="cell-output cell-output-stdout">
-<pre><code>Accuracy for training set 0.8905146019783325
-Accuracy for testing set 0.8905146019783325
+<pre><code>Accuracy for training set 0.8905146019783325</code></pre>
+</div>
+<div class="cell-output cell-output-stdout">
+<pre><code>Accuracy for testing set 0.8905146019783325
 Confusion matrix 
 [[29481   547]
  [ 3172   768]]
@@ -654,7 +658,7 @@ weighted avg       0.88      0.82      0.84     33968
 </div>
 </div>
 <p>Here, important features are * Housing * Loan * Job * Education * Marital Status We also added the important features from unbalaced dataset * Duration * Age * Month * Balance</p>
-<p>Here even though the precision and recall have improved, and accuracy has dropped down, but the important relationships are lost since the training data now is artificially generated datapoints. We will try to find the optimal cut-off value for originally dataset and compare it with the balance model.</p>
+<p>Here even though the precision and recall have improved, and accuracy has dropped down, but the important relationships are lost since the training data now is artificially generated datapoints. We will try to find the optimal cut-off value for original dataset and compare it with the model for balanced data.</p>
 <section id="deciding-cut-off-value-for-logistic-regression---unbalance" class="level3" data-number="10.0.1">
 <h3 data-number="10.0.1" class="anchored" data-anchor-id="deciding-cut-off-value-for-logistic-regression---unbalance"><span class="header-section-number">10.0.1</span> Deciding cut off value for logistic regression - Unbalance</h3>
 <p>But to have good values for cut-off we would try to find a cutoff where the precision and recall values are decent</p>
@@ -703,19 +707,21 @@ weighted avg       0.88      0.88      0.88     33968
 <h2 data-number="11.1" class="anchored" data-anchor-id="feature-selection"><span class="header-section-number">11.1</span> Feature Selection</h2>
 <div class="cell" data-execution_count="38">
 <div class="cell-output cell-output-stdout">
-<pre><code>Feature 0 variable age score 0.12
+<pre><code>Feature 0 variable age score 0.13
 Feature 1 variable balance score 0.16
 Feature 2 variable duration score 0.33
 Feature 3 variable campaign score 0.04
 Feature 4 variable previous score 0.04
-Feature 5 variable housing_no score 0.04
+Feature 5 variable housing_no score 0.03
+Feature 6 variable housing_yes score 0.02
+Feature 11 variable job_admin. score 0.01
+Feature 15 variable job_management score 0.01
 Feature 20 variable job_technician score 0.01
 Feature 24 variable education_tertiary score 0.01
-Feature 26 variable marital_married score 0.01
 Feature 28 variable sin_month score 0.09
 Feature 29 variable cos_month score 0.03
 Important features from decision treee are : 
-['age', 'balance', 'duration', 'campaign', 'previous', 'housing_no', 'job_technician', 'education_tertiary', 'marital_married', 'sin_month', 'cos_month']</code></pre>
+['age', 'balance', 'duration', 'campaign', 'previous', 'housing_no', 'housing_yes', 'job_admin.', 'job_management', 'job_technician', 'education_tertiary', 'sin_month', 'cos_month']</code></pre>
 </div>
 <div class="cell-output cell-output-display">
 <p><img src="Summary_files/figure-html/cell-39-output-2.png" width="581" height="415"></p>
@@ -745,23 +751,23 @@ Important features from decision treee are :
 </div>
 <div class="cell-output cell-output-stdout">
 <pre><code>Best parameters from Grid Search CV : 
-{'criterion': 'gini', 'max_depth': 8, 'max_features': 0.6, 'splitter': 'best'}</code></pre>
+{'criterion': 'entropy', 'max_depth': 6, 'max_features': 0.8, 'splitter': 'best'}</code></pre>
 </div>
 </div>
 <p>Training model based on the parameters we got from Grid SearchCV.</p>
 <div class="cell" data-execution_count="40">
 <div class="cell-output cell-output-stdout">
-<pre><code>0.9086198775317946
-[[28801  1227]
- [ 1877  2063]]
+<pre><code>0.9091792275082431
+[[29038   990]
+ [ 2095  1845]]
               precision    recall  f1-score   support
 
-           0       0.94      0.96      0.95     30028
-           1       0.63      0.52      0.57      3940
+           0       0.93      0.97      0.95     30028
+           1       0.65      0.47      0.54      3940
 
     accuracy                           0.91     33968
-   macro avg       0.78      0.74      0.76     33968
-weighted avg       0.90      0.91      0.91     33968
+   macro avg       0.79      0.72      0.75     33968
+weighted avg       0.90      0.91      0.90     33968
 </code></pre>
 </div>
 </div>
@@ -790,7 +796,7 @@ weighted avg       0.90      0.91      0.91     33968
 <pre><code>Fitting 3 folds for each of 32 candidates, totalling 96 fits</code></pre>
 </div>
 <div class="cell-output cell-output-display" data-execution_count="41">
-<pre><code>{'bootstrap': True, 'max_depth': 110, 'max_features': 3, 'n_estimators': 300}</code></pre>
+<pre><code>{'bootstrap': True, 'max_depth': 100, 'max_features': 3, 'n_estimators': 300}</code></pre>
 </div>
 </div>
 <div class="cell" data-execution_count="43">
@@ -821,14 +827,14 @@ weighted avg       1.00      1.00      1.00     33968
  'Mean Training Recall': 1.0,
  'Training F1 scores': array([1., 1., 1., 1., 1.]),
  'Mean Training F1 Score': 1.0,
- 'Validation Accuracy scores': array([0.89917574, 0.90005888, 0.90020606, 0.90122185, 0.89562785]),
- 'Mean Validation Accuracy': 89.92580762348608,
- 'Validation Precision scores': array([0.60078278, 0.61377871, 0.61410788, 0.62689805, 0.59250585]),
- 'Mean Validation Precision': 0.6096146541684841,
- 'Validation Recall scores': array([0.38959391, 0.37309645, 0.37563452, 0.36675127, 0.32106599]),
- 'Mean Validation Recall': 0.36522842639593905,
- 'Validation F1 scores': array([0.47267129, 0.4640884 , 0.46614173, 0.46277022, 0.41646091]),
- 'Mean Validation F1 Score': 0.4564265074401127}</code></pre>
+ 'Validation Accuracy scores': array([0.89932293, 0.90079482, 0.90094201, 0.90122185, 0.89577506]),
+ 'Mean Validation Accuracy': 89.96113334385805,
+ 'Validation Precision scores': array([0.6023622 , 0.61728395, 0.61616162, 0.62473348, 0.59090909]),
+ 'Mean Validation Precision': 0.6102900675784289,
+ 'Validation Recall scores': array([0.38832487, 0.38071066, 0.38705584, 0.37182741, 0.32994924]),
+ 'Mean Validation Recall': 0.3715736040609137,
+ 'Validation F1 scores': array([0.47222222, 0.47095761, 0.47544817, 0.46618934, 0.42345277]),
+ 'Mean Validation F1 Score': 0.46165402256394605}</code></pre>
 </div>
 </div>
 <p>After applying cross validation, we are getting some what real estimates.</p>
@@ -909,6 +915,7 @@ weighted avg       0.86      0.88      0.87     33968
 </section>
 <section id="knn" class="level1" data-number="16">
 <h1 data-number="16"><span class="header-section-number">16</span> KNN</h1>
+<p>We will look into precision and accuracy curve for the optimal value of k.</p>
 <div class="cell" data-execution_count="49">
 <div class="cell-output cell-output-stdout">
 <pre><code>Maximum accuracy:- 1.0 at K = 0</code></pre>
@@ -925,7 +932,7 @@ weighted avg       0.86      0.88      0.87     33968
 <p><img src="Summary_files/figure-html/cell-51-output-2.png" width="593" height="455"></p>
 </div>
 </div>
-<p>Based on the above plot, optimal k value is 3</p>
+<p>Based on the above plot, optimal k value is 3, with maximum f1 score of 0.64.</p>
 <div class="cell" data-execution_count="51">
 <div class="cell-output cell-output-stdout">
 <pre><code>Train set accuracy 0.9294630240226095
@@ -970,7 +977,7 @@ weighted avg       0.92      0.93      0.92     33968
 </div>
 </div>
 </div>
-<p>As per the ROC Curve and Precision Recall curve, Random Forest Classifier is performing best. Second best is KNN.</p>
+<p>As per the ROC Curve and Precision Recall curve, Random Forest Classifier is performing best. Second best is KNN. Since we have unrealistic results from Random Forest, we would suggest using KNN for our model.</p>
 </section>
 <section id="summary" class="level1" data-number="19">
 <h1 data-number="19"><span class="header-section-number">19</span> Summary</h1>
@@ -1040,6 +1047,18 @@ weighted avg       0.92      0.93      0.92     33968
 </table>
 </div>
 <p>See <a href="#tbl-letters">Table&nbsp;1</a>.</p>
+</section>
+<section id="conclusion" class="level1" data-number="20">
+<h1 data-number="20"><span class="header-section-number">20</span> Conclusion</h1>
+<p>Our model would be beneficial in the following ways :</p>
+<ul>
+<li><p>For target marketing for bank campaigns, or in other events. For example based on the customer’s job, age and loan history the model would can easily predict whether the customer is going to subscribe to the term deposit or not. So out of the million people, we can easily shortlist people based on our model and spend the time on them so as to improve efficiency.</p></li>
+<li><p>Improving buissness effficiency of banks. Since using the eda or model we can easily check the subscription insights, it would be very helpful for banks to improve their stratergies. For example, based on the monthly subscription rates, if banks are deciding the campaign promotion time, it can improve there efficiency.</p></li>
+<li><p>Since, we have month as a input factor in our model, and all other values are static, we can even find the best month to contact customer based on the predicted probability of the customer. As there can be a relation between the job type and the month they are subscribing or their fluctuating balance and age. This can be very useful in finding the best time to contact.</p></li>
+<li><p>Based on the model, since the number of contact is playing a major role, if we have the optimal time to contact them, we can restrict our calls to less than 5 and find a better turnover.</p></li>
+<li><p>We didn’t see any relation with the social and economic factors here, but if we had the data for multiple years, there was a possibility of finding a relation. Our model can accomodate these factors as well, and if trained by accomodating these factors as well, this can be helpful for banks in finding the proper time for there campaign.</p></li>
+</ul>
+<p>Hence, analyzing this kind of marketing dataset has given us valuable insight into how we can tweak our model to give buisness insights as well as customer insights to improve subscription of term deposits.</p>
 </section>
 
 </main>
