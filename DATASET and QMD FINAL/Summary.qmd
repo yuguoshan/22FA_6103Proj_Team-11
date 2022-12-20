@@ -172,11 +172,12 @@ def pieChart(x_var,title):
 pieChart('y','Percentage of yes and no target(term deposit)in dataset')
 ```
 
-Only 11.7% of enteries are for y=1, so our dataset is unbalanced. 
+We have 45,211 datapoints, if our model predicts only 0 as output, we would still get 88% accuracy, so our dataset is unbalanced which may gives misleading results. Along with the accuracy, we will also consider precision and recall for evaluation. 
 
 ## Missing values and Outliers
 ### Education
 Here, even though we do not have any missing values but we have 'unknown' and 'other' as categories, so we will first get rid of them. 
+The variables with 'unknown' rows are Education and Contact showned below.
 ```{python}
 #| code-fold: true
 #| code-summary: "Show the code"
@@ -207,8 +208,7 @@ df.poutcome.value_counts()
 df.groupby('poutcome').size()
 ```
 
-There are *36959   unknown* values and  1840 values with other category.
-Since, 82% of entries are unknown, 4.07% other, we will directly drop this column. 
+There are *36959   unknown* values(82%) and  1840 values with other(4.07% ) category, we will directly drop these columns. 
 
 ## Outliers
 
@@ -227,14 +227,13 @@ plt.show()
 ```
 
 * There are outliers in duration and balance so we need to get rid of them. 
-* people who have a high balance, are more likely to subscribe to term deposit. 
 
 # Data Cleaning
 
 * Contact is not useful so we drop it.
-* In poutcome, we have a lot of missing values so we drop it.  
+* In poutcome, we have a lot of 'unknown' and 'other' values so we drop it.  
 * Day is not giving any relevant infomation so we drop it. 
-* Removing the unknowns 
+* Removing the unknowns from 'job' and 'education' columns.
 * Remove the outliers from balance and duration.
 
 ## Dropping the irrelavant columns and missing values  
@@ -294,6 +293,7 @@ plotting violen plot for duration and balance after cleaning data
 ```{python}
 #| code-fold: true
 #| code-summary: "Show the code"
+#| #| fig-cap: "Balance and Duration after removing Outliers"
 # plotting violen plot for duration and balance after cleaning data
 
 f, axes = plt.subplots(1, 2,sharex=True)
@@ -306,12 +306,15 @@ plt.show()
 ```
 
 # Data Visualization 
-Let' visualize import relationships now between variables now. 
+Let' visualize important relationships between variables now. 
 
 ## SMART Question 1 :
 Relationship between subscribing the term deposit and how much the customer is contacted (last contact, Campaign, Pdays, Previous Number of contacts)
 
 Answer : Based on last contact info only number of contacts performed during this campaign is contributing a lot towards subscription rates. 
+
+Suggestion: People who are contacted less than 5 times should be targeted more. Also, they could contact in less frequency in order to attract more target customers. 
+The plot below shows the relationship between the number of calls and duration vs subscription
 
 ### Number of calls versus Duration and affect on subscription
 
@@ -343,7 +346,7 @@ Checking between pdays and previous as well
 13. - pdays: number of days that passed by after the client was last contacted from a previous campaign (numeric; 999 means client was not previously contacted)
 14. - previous: number of contacts performed before this campaign and for this client (numeric)
 
-No relation with pdays and previous 
+We can notice from the plot that there is no relationship between subscription with pdays or previous. The datapoints are distrubuted randomly along the axies.
 ```{python}
 #| code-fold: true
 #| code-summary: "Show the code"
@@ -423,7 +426,8 @@ plt.xlabel('Month')
 ```
 
 Maximum percentage of people have subscribed in the month of March but bank is contacting people more in the month of May. 
-So it's better to contact customer's based on the subcription rate plot. 
+
+**Suggestion**:So it's better to contact customer's based on the subcription rate plot. 
 
 ## SMART Question 2
 Find out the **financially stable** population? Will that affect the outcome?
@@ -436,7 +440,7 @@ data_vis = clean_data.copy()
 We will try to find the financially stable population based on age, jobs and balance. 
 
 ### Age
-Elder people might be more financially stable. 
+Elder people might be more financially stable since they are subscriped to the term deposit more.
 ```{python}
 #| code-fold: true
 #| code-summary: "Show the code"
@@ -491,8 +495,10 @@ for patch_i, label in zip(job_contact_plot.patches,
 ```
 
 
-People in blue color and management jobs are contacted more, which should not be the case. Since they have less subscription rates. 
+People in blue collar and management jobs are contacted more, which should not be the case. Since they have less subscription rates. 
 Unlike popular assumption, students, retired and unemployment seem to have a high subscription rates. Even though they are contacted very less.
+
+**suggestion**: The high subscripted rate group(students, retired and unemployment) should be contacted more.
 
 
 ### Balance
