@@ -706,7 +706,7 @@ unbalanced_test= pd.read_csv('Dataset/train_unbalanced.csv')
 ```
 
 # Scaling numeric variables 
-Scaling age, balance, duration so that our algorithms perform better and all variables are treated equally.
+Scaling age, balance, duration so that our algorithms perform better and all variables are treated equally. Since all three variables are in different scales, so we transform them into same standard.
 ```{python}
 #| code-fold: true
 #| code-summary: "Show the code"
@@ -776,6 +776,8 @@ As we can see from RFE, the most relevant features are :
 * Education
 * cos_month
 
+From other features selection techniques and EDA, we can see that 'age' and 'balance' also contrubuted to the subscrption, so we added up these variables as well.
+
 Applying model with selected features 
 
 ```{python}
@@ -790,7 +792,7 @@ print(f"Confusion matrix \n{confusion_matrix(y_test, y_pred)}")
 print(f"{classification_report(y_test, y_pred)}")
 ```
 
-Here, the accuracy is 89% but the precision(0.59) and recall rate value(0.20) is low. 
+Here, the accuracy is 89% but the precision(0.59) and recall rate value(0.20) is low. And we also check on the balanced dataset since the low recall rate might be caused because of the less number of y = 1 value.
 
 # Balanced Dataset
 ```{python}
@@ -806,16 +808,24 @@ rfe_model = rfe_model.fit(bx_train,by_train)
 selected_columns = bx_train.columns[rfe_model.support_]
 print(f"Columns selected by RE {selected_columns.tolist()}")
 
-bX_train_final = bx_train[selected_columns.tolist()]
-bX_test_final = bx_test[selected_columns.tolist()]
+list_column= selected_columns.tolist()
+list_column.append('age')
+list_column.append('balance')
+list_column.append('sin_month')
+list_column.append('duration')
+list_column.append('cos_month')
+
+bX_train_final = bx_train[list_column]
+bX_test_final = bx_test[list_column]
+ubx_test_final = x_test[list_column]
 
 lr_b = LogisticRegression(random_state=123)
 lr_b.fit(bX_train_final, by_train)
-by_pred = lr_b.predict(bX_test_final)
+by_pred = lr_b.predict(ubx_test_final)
 print(f"Accuracy for training set {accuracy_score(by_train, lr_b.predict(bX_train_final))}")
-print(f"Accuracy for testing set {accuracy_score(by_test, by_pred)}")
-print(f"Confusion matrix \n{confusion_matrix(by_test, by_pred)}")
-print(f"{classification_report(by_test, by_pred)}")
+print(f"Accuracy for testing set {accuracy_score(y_test, by_pred)}")
+print(f"Confusion matrix \n{confusion_matrix(y_test, by_pred)}")
+print(f"{classification_report(y_test, by_pred)}")
 ```
 
 Here, important features are 
@@ -824,16 +834,22 @@ Here, important features are
 * Job
 * Education
 * Marital Status 
+We also added the important features from unbalaced dataset
+* Duration
+* Age
+* Month
+* Balance
 
-Here even though the precision and recall have improved, and accuracy has dropped down, but the important relationships are lost, hence we would move ahead with unbalanced dataset only.
+Here even though the precision and recall have improved, and accuracy has dropped down, but the important relationships are lost since the training data now is artificially generated datapoints. 
+We will try to find the optimal cut-off value for originally dataset and compare it with the balance model.
 
-### Deciding cut off value for logistic regression 
+### Deciding cut off value for logistic regression - Unbalance 
 But to have good values for cut-off we would try to find a cutoff where the precision and recall values are decent
 
 ```{python}
 #| code-fold: true
 #| code-summary: "Show the code"
-#| 
+#| fig-cap: "Optimal Cutoff at 0.25"
 # Precision-Recall vs Threshold
 #y_pred=logit.predict(x_test)
 y_pred_probs=lr.predict_proba(X_test_final) 
@@ -864,33 +880,11 @@ print(f"Confusion matrix \n{confusion_matrix(y_test, y_pred)}")
 print(f"{classification_report(y_test, y_pred)}")
 ```
 
-Here as after applying feature selection, finding optimized cut-off, we are able to achieve 
+Here as after applying feature selection, finding optimized cut-off, we are able to achieve higher accuracy with optimal precision and recall. Resulting from the comparison, we would continue our modellings with unbalance dataset.
 
-Accuracy for testing set 0.8800341497880358
-Confusion matrix 
-[[28085  1943]
- [ 2132  1808]]
-              precision    recall  f1-score   support
+### Smart Question 5: The optimal cut off value for classification of our imbalance dataset.
 
-           0       0.93      0.94      0.93     30028
-           1       0.48      0.46      0.47      3940
-
-    accuracy                           0.88     33968
-
-If we notice, we have the maximum f1 score achieved here. 
-
-```{python}
-#| code-fold: true
-#| code-summary: "Show the code"
-from sklearn.metrics import PrecisionRecallDisplay
-
-display = PrecisionRecallDisplay.from_estimator(
-    lr, X_test_final, y_test, name="Logistic Regression"
-)
-_ = display.ax_.set_title("Precision-Recall curve")
-```
-
-Average weighted precision achieved across all threshold is 0.45. 
+Ansewer: The optimal cut off value for our imbalance dataset is 0.25 as the precision- recall chart indicated.
 
 For ROC - AUC curve refer (@fig-roc-curve). 
 For precision recall curve refer(@fig-pr-curve). 
