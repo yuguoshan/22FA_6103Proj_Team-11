@@ -1,6 +1,6 @@
 ---
 title: "AN ANALYSIS OF PORTUGUESE BANK MARKETING DATA "
-author: "TEAM 11: Anjali Mudgal , Guoshan Yu and Medhasweta Sen"
+author: "TEAM 11: Anjali Mudgal, Guoshan Yu, Medhasweta Sen"
 date: "December 20, 2022"
 subtitle : "The George Washington University (DATS 6103: An Introduction to Data Mining)"
 execute:
@@ -139,6 +139,14 @@ from sklearn.metrics import classification_report
 from sklearn.feature_selection import RFE
 from sklearn.tree import DecisionTreeClassifier
 from matplotlib import pyplot
+
+from sklearn.model_selection import GridSearchCV
+
+from sklearn.model_selection import cross_validate
+from sklearn.model_selection import GridSearchCV
+from sklearn.ensemble import RandomForestClassifier
+from sklearn import metrics
+from sklearn.metrics import precision_recall_curve
 ```
 
 ## Importing the dataset
@@ -918,8 +926,6 @@ y_pred_probs=lr.predict_proba(X_test_final)
 # probs_y is a 2-D array of probability of being labeled as 0 (first 
 # column of array) vs 1 (2nd column in array)
 
-from sklearn import metrics
-from sklearn.metrics import precision_recall_curve
 precision, recall, thresholds = precision_recall_curve(y_test, y_pred_probs[:, 1]) 
 #retrieve probability of being 1(in second column of probs_y)
 pr_auc = metrics.auc(recall, precision)
@@ -1002,7 +1008,6 @@ For tuning the hyperparameter's we will use GridSearch CV.
 #| code-fold: true
 #| code-summary: "Show the code"
 # Creating a dictionary of parameters to use in GridSearchCV
-from sklearn.model_selection import GridSearchCV
 
 params = {
     'criterion':  ['gini', 'entropy'],
@@ -1050,7 +1055,7 @@ Precision Recall Curve : @fig-pr-curve
 ```{python}
 #| code-fold: true
 #| code-summary: "Show the code"
-from sklearn.ensemble import RandomForestClassifier
+
 rfc = RandomForestClassifier()
 rfc.fit(x_train, y_train)
 importance_rfc = rfc.feature_importances_
@@ -1071,7 +1076,7 @@ x_test_rf = x_test[features_rfc]
 
 ## Hyperparameter Tuning 
 ```{python}
-from sklearn.model_selection import GridSearchCV
+
 # Create the parameter grid based on the results of random search 
 param_grid = {
     'bootstrap': [True],
@@ -1105,7 +1110,7 @@ We are getting best performance from Random Forest but we are not sure why we ar
 # print(scores)
 
 # K-Fold Cross-Validation
-from sklearn.model_selection import cross_validate
+
 def cross_validation(model, _X, _y, _cv=5):
       '''Function to perform 5 Folds Cross-Validation
        Parameters
@@ -1228,6 +1233,9 @@ def modelEvaluation(model,x,y):
 modelEvaluation(modelNB,x_test,y_test)
 ```
 ## For balanced
+
+For balanced dataset, as we can see there is a slight improvement in performance. The f1 score has improved and also, the yellow bars are now slightly shifted towards right side. 
+
 ```{python}
 param_grid_nb = {
     'var_smoothing': np.logspace(0,-9, num=100)
@@ -1459,6 +1467,8 @@ But after combining these results with precision recall curve, we suggest using 
 | Linear SVC                   | 0.89     | 0.62      | 0.16   |       |
 | Gaussian Bayes               | 0.88     | 0.50      | 0.25   | 0.841 |         
 | KNN                          | 0.92     | 0.78      | 0.54   | 0.965 |
+| Naive Bayes                  | 0.85     | 0.56      | 0.02   |       |
+| Naive Bayes (Balanced-Train) | 0.69     | 0.19      | 0.35   |       |
 : Summary of Models {#tbl-letters}
 
 See @tbl-letters.

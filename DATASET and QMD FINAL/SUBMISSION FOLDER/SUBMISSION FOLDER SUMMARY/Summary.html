@@ -6,8 +6,8 @@
 
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
-<meta name="author" content="TEAM 11: Anjali Mudgal , Guoshan Yu and Medhasweta Sen">
-<meta name="dcterms.date" content="2022-11-21">
+<meta name="author" content="TEAM 11: Anjali Mudgal, Guoshan Yu, Medhasweta Sen">
+<meta name="dcterms.date" content="2022-12-20">
 
 <title>AN ANALYSIS OF PORTUGUESE BANK MARKETING DATA</title>
 <style>
@@ -122,7 +122,10 @@ ul.task-list li input[type="checkbox"] {
   </ul></li>
   <li><a href="#linear-svc" id="toc-linear-svc" class="nav-link" data-scroll-target="#linear-svc"><span class="toc-section-number">12</span>  Linear SVC</a></li>
   <li><a href="#svc" id="toc-svc" class="nav-link" data-scroll-target="#svc"><span class="toc-section-number">13</span>  SVC</a></li>
-  <li><a href="#naive-bayes" id="toc-naive-bayes" class="nav-link" data-scroll-target="#naive-bayes"><span class="toc-section-number">14</span>  Naive Bayes</a></li>
+  <li><a href="#naive-bayes" id="toc-naive-bayes" class="nav-link" data-scroll-target="#naive-bayes"><span class="toc-section-number">14</span>  Naive Bayes</a>
+  <ul class="collapse">
+  <li><a href="#for-balanced" id="toc-for-balanced" class="nav-link" data-scroll-target="#for-balanced"><span class="toc-section-number">14.1</span>  For balanced</a></li>
+  </ul></li>
   <li><a href="#knn" id="toc-knn" class="nav-link" data-scroll-target="#knn"><span class="toc-section-number">15</span>  KNN</a></li>
   <li><a href="#roc--auc-curve" id="toc-roc--auc-curve" class="nav-link" data-scroll-target="#roc--auc-curve"><span class="toc-section-number">16</span>  ROC -AUC Curve</a></li>
   <li><a href="#precision-recall-curve" id="toc-precision-recall-curve" class="nav-link" data-scroll-target="#precision-recall-curve"><span class="toc-section-number">17</span>  Precision Recall Curve</a></li>
@@ -149,14 +152,14 @@ ul.task-list li input[type="checkbox"] {
     <div>
     <div class="quarto-title-meta-heading">Author</div>
     <div class="quarto-title-meta-contents">
-             <p>TEAM 11: Anjali Mudgal , Guoshan Yu and Medhasweta Sen </p>
+             <p>TEAM 11: Anjali Mudgal, Guoshan Yu, Medhasweta Sen </p>
           </div>
   </div>
     
     <div>
     <div class="quarto-title-meta-heading">Published</div>
     <div class="quarto-title-meta-contents">
-      <p class="date">November 21, 2022</p>
+      <p class="date">December 20, 2022</p>
     </div>
   </div>
     
@@ -754,12 +757,13 @@ Feature 6 variable previous score 0.01
 Feature 7 variable cons.conf.idx score 0.01
 Feature 8 variable emp.var.rate score 0.03
 Feature 9 variable euribor3m score 0.02
-Feature 11 variable cons.price.idx score 0.03
+Feature 11 variable cons.price.idx score 0.01
+Feature 21 variable job_technician score 0.01
 Feature 29 variable housing_no score 0.03
-Feature 30 variable housing_yes score 0.01
 Feature 35 variable poutcome_failure score 0.05
+Feature 43 variable month_jun score 0.01
 Important features from decision treee are : 
-['age', 'balance', 'day', 'duration', 'campaign', 'pdays', 'previous', 'cons.conf.idx', 'emp.var.rate', 'euribor3m', 'cons.price.idx', 'housing_no', 'housing_yes', 'poutcome_failure']</code></pre>
+['age', 'balance', 'day', 'duration', 'campaign', 'pdays', 'previous', 'cons.conf.idx', 'emp.var.rate', 'euribor3m', 'cons.price.idx', 'job_technician', 'housing_no', 'poutcome_failure', 'month_jun']</code></pre>
 </div>
 <div class="cell-output cell-output-display">
 <p><img src="Summary_files/figure-html/cell-42-output-2.png" width="581" height="415"></p>
@@ -795,17 +799,17 @@ Important features from decision treee are :
 <p>Training model based on the parameters we got from Grid SearchCV.</p>
 <div class="cell" data-execution_count="43">
 <div class="cell-output cell-output-stdout">
-<pre><code>0.8844142259414226
-[[4674  233]
- [ 430  399]]
+<pre><code>0.8767433751743375
+[[4635  272]
+ [ 435  394]]
               precision    recall  f1-score   support
 
-           0       0.92      0.95      0.93      4907
-           1       0.63      0.48      0.55       829
+           0       0.91      0.94      0.93      4907
+           1       0.59      0.48      0.53       829
 
     accuracy                           0.88      5736
-   macro avg       0.77      0.72      0.74      5736
-weighted avg       0.87      0.88      0.88      5736
+   macro avg       0.75      0.71      0.73      5736
+weighted avg       0.87      0.88      0.87      5736
 </code></pre>
 </div>
 </div>
@@ -835,19 +839,19 @@ Precision Recall Curve : <a href="#fig-pr-curve">Figure&nbsp;2</a></p>
 <pre><code>Fitting 3 folds for each of 32 candidates, totalling 96 fits</code></pre>
 </div>
 <div class="cell-output cell-output-display" data-execution_count="44">
-<pre><code>{'bootstrap': True, 'max_depth': 100, 'max_features': 3, 'n_estimators': 1000}</code></pre>
+<pre><code>{'bootstrap': True, 'max_depth': 90, 'max_features': 3, 'n_estimators': 300}</code></pre>
 </div>
 </div>
 <div class="cell" data-execution_count="46">
 <div class="cell-output cell-output-stdout">
 <pre><code>Training accuracy 1.0
-Testing set accuracy 0.8868549511854951
-[[4714  193]
- [ 456  373]]
+Testing set accuracy 0.8872036262203626
+[[4712  195]
+ [ 452  377]]
               precision    recall  f1-score   support
 
            0       0.91      0.96      0.94      4907
-           1       0.66      0.45      0.53       829
+           1       0.66      0.45      0.54       829
 
     accuracy                           0.89      5736
    macro avg       0.79      0.71      0.74      5736
@@ -866,14 +870,14 @@ weighted avg       0.88      0.89      0.88      5736
  'Mean Training Recall': 1.0,
  'Training F1 scores': array([1., 1., 1., 1., 1.]),
  'Mean Training F1 Score': 1.0,
- 'Validation Accuracy scores': array([0.88472434, 0.88080192, 0.89322292, 0.88494225, 0.89232781]),
- 'Mean Validation Accuracy': 88.72038495450722,
- 'Validation Precision scores': array([0.64488017, 0.64427861, 0.6935123 , 0.64835165, 0.68103448]),
- 'Mean Validation Precision': 0.6624114433235884,
- 'Validation Recall scores': array([0.44712991, 0.39064857, 0.46757164, 0.44494721, 0.47734139]),
- 'Mean Validation Recall': 0.44552774398162703,
- 'Validation F1 scores': array([0.52809991, 0.48638498, 0.55855856, 0.52772809, 0.56127886]),
- 'Mean Validation F1 Score': 0.5324100789957235}</code></pre>
+ 'Validation Accuracy scores': array([0.88319895, 0.88210939, 0.8910438 , 0.88777511, 0.89363557]),
+ 'Mean Validation Accuracy': 88.75525663792135,
+ 'Validation Precision scores': array([0.63577586, 0.6509901 , 0.68822171, 0.66299559, 0.6875    ]),
+ 'Mean Validation Precision': 0.6650966529598903,
+ 'Validation Recall scores': array([0.44561934, 0.39668175, 0.4494721 , 0.45399698, 0.48187311]),
+ 'Mean Validation Recall': 0.4455286553385007,
+ 'Validation F1 scores': array([0.52397869, 0.49297095, 0.54379562, 0.5389436 , 0.56660746]),
+ 'Mean Validation F1 Score': 0.5332592623182313}</code></pre>
 </div>
 </div>
 <p>After applying cross validation, we are getting some what real estimates.</p>
@@ -951,31 +955,68 @@ weighted avg       0.81      0.86      0.80      5736
 </code></pre>
 </div>
 </div>
-<p>As we can see from the graph for Yes(1/have subscribed) the probabilities are coming both sides( for 0 as well as for 1) which is not correct.</p>
+<section id="for-balanced" class="level2" data-number="14.1">
+<h2 data-number="14.1" class="anchored" data-anchor-id="for-balanced"><span class="header-section-number">14.1</span> For balanced</h2>
+<p>For balanced dataset, as we can see there is a slight improvement in performance. The f1 score has improved and also, the yellow bars are now slightly shifted towards right side.</p>
+<div class="cell" data-execution_count="51">
+<div class="cell-output cell-output-stdout">
+<pre><code>Model score is 0.693863319386332</code></pre>
+</div>
+<div class="cell-output cell-output-display">
+<p><img src="Summary_files/figure-html/cell-52-output-2.png" width="1260" height="620"></p>
+</div>
+<div class="cell-output cell-output-stdout">
+<pre><code>test set evaluation: 
+0.693863319386332
+[[3690 1217]
+ [ 539  290]]
+              precision    recall  f1-score   support
+
+           0       0.87      0.75      0.81      4907
+           1       0.19      0.35      0.25       829
+
+    accuracy                           0.69      5736
+   macro avg       0.53      0.55      0.53      5736
+weighted avg       0.77      0.69      0.73      5736
+</code></pre>
+</div>
+</div>
+<p>As we can see from the graph for the red and yellow bars for yes(1 term deposit) are coming on the opposite sides which is not expected.</p>
 <p>AUC Curve : <a href="#fig-roc-curve">Figure&nbsp;1</a><br>
 Precision Recall Curve : <a href="#fig-pr-curve">Figure&nbsp;2</a></p>
 </section>
+</section>
 <section id="knn" class="level1" data-number="15">
 <h1 data-number="15"><span class="header-section-number">15</span> KNN</h1>
-<p>We will look into precision and accuracy curve for the optimal value of k.</p>
-<div class="cell" data-execution_count="52">
+<p>Using the k - nearest neighbours we try to predict the testing dataset. Now to find the optimal k value we will look into precision and accuracy curve for different k values.</p>
+<div class="cell" data-execution_count="53">
 <div class="cell-output cell-output-stdout">
 <pre><code>Maximum accuracy:- 0.8769177126917713 at K = 19</code></pre>
 </div>
 <div class="cell-output cell-output-display">
-<p><img src="Summary_files/figure-html/cell-53-output-2.png" width="833" height="529"></p>
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="Summary_files/figure-html/cell-54-output-2.png" width="833" height="529" class="figure-img"></p>
+<p></p><figcaption class="figure-caption">Accuracy curve for different k values</figcaption><p></p>
+</figure>
 </div>
 </div>
-<div class="cell" data-execution_count="53">
+</div>
+<div class="cell" data-execution_count="54">
 <div class="cell-output cell-output-stdout">
 <pre><code>Maximum Precision:- 0.32247407633937064 at K = 8</code></pre>
 </div>
 <div class="cell-output cell-output-display">
-<p><img src="Summary_files/figure-html/cell-54-output-2.png" width="601" height="455"></p>
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="Summary_files/figure-html/cell-55-output-2.png" width="601" height="455" class="figure-img"></p>
+<p></p><figcaption class="figure-caption">Precision curve for different k values</figcaption><p></p>
+</figure>
+</div>
 </div>
 </div>
 <p>Based on the above plot, optimal k value is 3, with maximum f1 score of 0.64.</p>
-<div class="cell" data-execution_count="54">
+<div class="cell" data-execution_count="55">
 <div class="cell-output cell-output-stdout">
 <pre><code>Train set accuracy 0.9197611576011158
 Test set accuracy 0.8657601115760112
@@ -997,7 +1038,7 @@ Precision Recall Curve : <a href="#fig-pr-curve">Figure&nbsp;2</a></p>
 </section>
 <section id="roc--auc-curve" class="level1" data-number="16">
 <h1 data-number="16"><span class="header-section-number">16</span> ROC -AUC Curve</h1>
-<div class="cell" data-execution_count="55">
+<div class="cell" data-execution_count="56">
 <div class="cell-output cell-output-display">
 <div id="fig-roc-curve" class="quarto-figure quarto-figure-center anchored">
 <figure class="figure">
@@ -1012,7 +1053,7 @@ Precision Recall Curve : <a href="#fig-pr-curve">Figure&nbsp;2</a></p>
 <h1 data-number="17"><span class="header-section-number">17</span> Precision Recall Curve</h1>
 <p>In imbalance problem since we have a high number of Negatives, this makes the False Posiitve Rate as low, resulting in the shift of ROC AUC Curve towards left, which is slightly misleading.</p>
 <p>So in imbalance problem we usually make sure to look at precision recall curve as well.</p>
-<div class="cell" data-execution_count="56">
+<div class="cell" data-execution_count="57">
 <div class="cell-output cell-output-display">
 <div id="fig-pr-curve" class="quarto-figure quarto-figure-center anchored">
 <figure class="figure">
@@ -1094,6 +1135,20 @@ Precision Recall Curve : <a href="#fig-pr-curve">Figure&nbsp;2</a></p>
 <td>0.78</td>
 <td>0.54</td>
 <td>0.965</td>
+</tr>
+<tr class="odd">
+<td>Naive Bayes</td>
+<td>0.85</td>
+<td>0.56</td>
+<td>0.02</td>
+<td></td>
+</tr>
+<tr class="even">
+<td>Naive Bayes (Balanced-Train)</td>
+<td>0.69</td>
+<td>0.19</td>
+<td>0.35</td>
+<td></td>
 </tr>
 </tbody>
 </table>
