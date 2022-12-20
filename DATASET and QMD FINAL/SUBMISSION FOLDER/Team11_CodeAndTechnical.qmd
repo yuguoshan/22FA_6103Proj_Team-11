@@ -730,10 +730,10 @@ test_balanced = pd.concat([test_sx, test_sy], axis=1)
 
 
 ```{python}
-balanced_train= pd.read_csv('Dataset/train_balanced.csv')
-balanced_test= pd.read_csv('Dataset/test_balanced.csv')
-unbalanced_train= pd.read_csv('Dataset/train_unbalanced.csv')
-unbalanced_test= pd.read_csv('Dataset/train_unbalanced.csv')
+balanced_train= pd.read_csv('train_balanced.csv')
+balanced_test= pd.read_csv('test.csv')
+unbalanced_train= pd.read_csv('train_unbalanced.csv')
+unbalanced_test= pd.read_csv('test.csv')
 ```
 
 ```{python}
@@ -784,7 +784,7 @@ selected_columns = x_train.columns[rfe_model.support_]
 list_column= selected_columns.tolist()
 list_column.append('age')
 list_column.append('balance')
-list_column.append('sin_month')
+#list_column.append('sin_month')
 print(f"Columns selected by RE {list_column}")
 
 
@@ -1345,8 +1345,13 @@ Hence, analyzing this kind of marketing dataset has given us valuable insight in
 # Reference
 
 * https://www.kaggle.com/janiobachmann/bank-marketing-dataset
-*(PDF) Data Analysis of a Portuguese marketing campaign using bank ... (no date). Available at: https://www.researchgate.net/publication/339988208_Data_Analysis_of_a_Portuguese_Marketing_Campaign_using_Bank_Marketing_data_Set (Accessed: December 20, 2022). 
-*Bank marketing data set. (n.d.). 1010data.com. Retrieved December 20, 2022, from https://docs.1010data.com/Tutorials/MachineLearningExamples/BankMarketingDataSet_2.html
-*Manda, H., Srinivasan, S., & Rangarao, D. (2021). IBM Cloud Pak for Data: An enterprise platform to operationalize data, analytics, and AI. Packt Publishing.
-*Solving Bank Marketing Calssification Problem - Databricks. (n.d.). Databricks.com. Retrieved December 20, 2022, from https://databricks-prod-cloudfront.cloud.databricks.com/public/4027ec902e239c93eaaa8714f173bcfc/8143187682226564/2297613386094950/3186001515933643/latest.html
-*Solving Bank Marketing Calssification Problem - Databricks. (n.d.). Databricks.com. Retrieved December 20, 2022, from https://databricks-prod-cloudfront.cloud.databricks.com/public/4027ec902e239c93eaaa8714f173bcfc/8143187682226564/2297613386094950/3186001515933643/latest.html
+
+* (PDF) Data Analysis of a Portuguese marketing campaign using bank ... (no date). Available at: https://www.researchgate.net/publication/339988208_Data_Analysis_of_a_Portuguese_Marketing_Campaign_using_Bank_Marketing_data_Set (Accessed: December 20, 2022). 
+
+* Bank marketing data set. (n.d.). 1010data.com. Retrieved December 20, 2022, from https://docs.1010data.com/Tutorials/MachineLearningExamples/BankMarketingDataSet_2.html
+
+* Manda, H., Srinivasan, S., & Rangarao, D. (2021). IBM Cloud Pak for Data: An enterprise platform to operationalize data, analytics, and AI. Packt Publishing.
+
+* Solving Bank Marketing Calssification Problem - Databricks. (n.d.). Databricks.com. Retrieved December 20, 2022, from https://databricks-prod-cloudfront.cloud.databricks.com/public/4027ec902e239c93eaaa8714f173bcfc/8143187682226564/2297613386094950/3186001515933643/latest.html
+
+* Solving Bank Marketing Calssification Problem - Databricks. (n.d.). Databricks.com. Retrieved December 20, 2022, from https://databricks-prod-cloudfront.cloud.databricks.com/public/4027ec902e239c93eaaa8714f173bcfc/8143187682226564/2297613386094950/3186001515933643/latest.html

@@ -685,7 +685,7 @@ data_encode = data_encode.drop(['pdays'],axis=1)
 
 #Checkpoint
 #data_encode.to_csv('Dataset/final_encoded.csv',index=False)
-data_encode =  pd.read_csv('Dataset/final_encoded.csv')
+data_encode =  pd.read_csv('final_encoded.csv')
 
 data_model = data_encode.copy()
 ```
@@ -756,10 +756,10 @@ test_balanced = pd.concat([test_sx, test_sy], axis=1)
 ```{python}
 #| code-fold: true
 #| code-summary: "Show the code"
-balanced_train= pd.read_csv('Dataset/train_balanced.csv')
-balanced_test= pd.read_csv('Dataset/test_balanced.csv')
-unbalanced_train= pd.read_csv('Dataset/train_unbalanced.csv')
-unbalanced_test= pd.read_csv('Dataset/train_unbalanced.csv')
+balanced_train= pd.read_csv('train_balanced.csv')
+balanced_test= pd.read_csv('test.csv')
+unbalanced_train= pd.read_csv('train_unbalanced.csv')
+unbalanced_test= pd.read_csv('test.csv')
 ```
 
 # Scaling numeric variables 
@@ -813,7 +813,7 @@ selected_columns = x_train.columns[rfe_model.support_]
 list_column= selected_columns.tolist()
 list_column.append('age')
 list_column.append('balance')
-list_column.append('sin_month')
+#list_column.append('sin_month')
 print(f"Columns selected by RE {list_column}")
 
 
@@ -868,9 +868,9 @@ print(f"Columns selected by RE {selected_columns.tolist()}")
 list_column= selected_columns.tolist()
 list_column.append('age')
 list_column.append('balance')
-list_column.append('sin_month')
+#list_column.append('sin_month')
 list_column.append('duration')
-list_column.append('cos_month')
+#list_column.append('cos_month')
 
 #balanced dataset 
 bX_train_final = bx_train[list_column]
