@@ -2,7 +2,7 @@
 <html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
 
 <meta charset="utf-8">
-<meta name="generator" content="quarto-1.1.251">
+<meta name="generator" content="quarto-1.2.269">
 
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
@@ -35,14 +35,102 @@ ul.task-list li input[type="checkbox"] {
 <script src="Summary_files/libs/bootstrap/bootstrap.min.js"></script>
 <link href="Summary_files/libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
 <link href="Summary_files/libs/bootstrap/bootstrap.min.css" rel="stylesheet" id="quarto-bootstrap" data-mode="light">
+<style>html{ scroll-behavior: smooth; }</style>
 
 
 </head>
 
-<body class="fullcontent">
+<body>
 
-<div id="quarto-content" class="page-columns page-rows-contents page-layout-article">
-
+<div id="quarto-content" class="page-columns page-rows-contents page-layout-article toc-left">
+<div id="quarto-sidebar-toc-left" class="sidebar toc-left">
+  <nav id="TOC" role="doc-toc" class="toc-active">
+    <h2 id="toc-title">Table of contents</h2>
+   
+  <ul>
+  <li><a href="#introduction" id="toc-introduction" class="nav-link active" data-scroll-target="#introduction"><span class="toc-section-number">1</span>  INTRODUCTION</a>
+  <ul class="collapse">
+  <li><a href="#the-data-set" id="toc-the-data-set" class="nav-link" data-scroll-target="#the-data-set"><span class="toc-section-number">1.1</span>  The Data Set</a></li>
+  <li><a href="#the-smart-questions" id="toc-the-smart-questions" class="nav-link" data-scroll-target="#the-smart-questions"><span class="toc-section-number">1.2</span>  The SMART Questions</a></li>
+  <li><a href="#importing-the-dataset" id="toc-importing-the-dataset" class="nav-link" data-scroll-target="#importing-the-dataset"><span class="toc-section-number">1.3</span>  Importing the dataset</a></li>
+  <li><a href="#basic-information-about-the-data" id="toc-basic-information-about-the-data" class="nav-link" data-scroll-target="#basic-information-about-the-data"><span class="toc-section-number">1.4</span>  Basic Information about the data</a></li>
+  </ul></li>
+  <li><a href="#exploratory-data-analysis-eda" id="toc-exploratory-data-analysis-eda" class="nav-link" data-scroll-target="#exploratory-data-analysis-eda"><span class="toc-section-number">2</span>  Exploratory Data Analysis (EDA)</a>
+  <ul class="collapse">
+  <li><a href="#distribution-of-ytarget-variable" id="toc-distribution-of-ytarget-variable" class="nav-link" data-scroll-target="#distribution-of-ytarget-variable"><span class="toc-section-number">2.1</span>  Distribution of y(target) variable</a></li>
+  <li><a href="#missing-values-and-outliers" id="toc-missing-values-and-outliers" class="nav-link" data-scroll-target="#missing-values-and-outliers"><span class="toc-section-number">2.2</span>  Missing values and Outliers</a>
+  <ul class="collapse">
+  <li><a href="#education" id="toc-education" class="nav-link" data-scroll-target="#education"><span class="toc-section-number">2.2.1</span>  Education</a></li>
+  <li><a href="#contact" id="toc-contact" class="nav-link" data-scroll-target="#contact"><span class="toc-section-number">2.2.2</span>  Contact</a></li>
+  <li><a href="#poutcome" id="toc-poutcome" class="nav-link" data-scroll-target="#poutcome"><span class="toc-section-number">2.2.3</span>  Poutcome</a></li>
+  </ul></li>
+  <li><a href="#outliers" id="toc-outliers" class="nav-link" data-scroll-target="#outliers"><span class="toc-section-number">2.3</span>  Outliers</a></li>
+  </ul></li>
+  <li><a href="#data-cleaning" id="toc-data-cleaning" class="nav-link" data-scroll-target="#data-cleaning"><span class="toc-section-number">3</span>  Data Cleaning</a>
+  <ul class="collapse">
+  <li><a href="#dropping-the-irrelavant-columns-and-missing-values" id="toc-dropping-the-irrelavant-columns-and-missing-values" class="nav-link" data-scroll-target="#dropping-the-irrelavant-columns-and-missing-values"><span class="toc-section-number">3.1</span>  Dropping the irrelavant columns and missing values</a></li>
+  <li><a href="#outlier-removal" id="toc-outlier-removal" class="nav-link" data-scroll-target="#outlier-removal"><span class="toc-section-number">3.2</span>  Outlier removal</a>
+  <ul class="collapse">
+  <li><a href="#balance---outliers" id="toc-balance---outliers" class="nav-link" data-scroll-target="#balance---outliers"><span class="toc-section-number">3.2.1</span>  <em>Balance - Outliers</em></a></li>
+  <li><a href="#duration---outliers" id="toc-duration---outliers" class="nav-link" data-scroll-target="#duration---outliers"><span class="toc-section-number">3.2.2</span>  <em>Duration - Outliers</em></a></li>
+  </ul></li>
+  </ul></li>
+  <li><a href="#data-visualization" id="toc-data-visualization" class="nav-link" data-scroll-target="#data-visualization"><span class="toc-section-number">4</span>  Data Visualization</a>
+  <ul class="collapse">
+  <li><a href="#smart-question-1" id="toc-smart-question-1" class="nav-link" data-scroll-target="#smart-question-1"><span class="toc-section-number">4.1</span>  SMART Question 1 :</a>
+  <ul class="collapse">
+  <li><a href="#number-of-calls-versus-duration-and-affect-on-subscription" id="toc-number-of-calls-versus-duration-and-affect-on-subscription" class="nav-link" data-scroll-target="#number-of-calls-versus-duration-and-affect-on-subscription"><span class="toc-section-number">4.1.1</span>  Number of calls versus Duration and affect on subscription</a></li>
+  </ul></li>
+  <li><a href="#month-wise-subscription" id="toc-month-wise-subscription" class="nav-link" data-scroll-target="#month-wise-subscription"><span class="toc-section-number">4.2</span>  Month wise subscription</a>
+  <ul class="collapse">
+  <li><a href="#smart-question-7-how-are-the-likelihood-of-subscriptions-affected-by-social-and-economic-factors" id="toc-smart-question-7-how-are-the-likelihood-of-subscriptions-affected-by-social-and-economic-factors" class="nav-link" data-scroll-target="#smart-question-7-how-are-the-likelihood-of-subscriptions-affected-by-social-and-economic-factors"><span class="toc-section-number">4.2.1</span>  SMART Question 7: How are the likelihood of subscriptions affected by social and economic factors?</a></li>
+  <li><a href="#smart-question-2" id="toc-smart-question-2" class="nav-link" data-scroll-target="#smart-question-2"><span class="toc-section-number">4.2.2</span>  SMART Question 2</a></li>
+  <li><a href="#age" id="toc-age" class="nav-link" data-scroll-target="#age"><span class="toc-section-number">4.2.3</span>  Age</a></li>
+  <li><a href="#job" id="toc-job" class="nav-link" data-scroll-target="#job"><span class="toc-section-number">4.2.4</span>  Job</a></li>
+  <li><a href="#balance" id="toc-balance" class="nav-link" data-scroll-target="#balance"><span class="toc-section-number">4.2.5</span>  Balance</a></li>
+  </ul></li>
+  </ul></li>
+  <li><a href="#data-encoding" id="toc-data-encoding" class="nav-link" data-scroll-target="#data-encoding"><span class="toc-section-number">5</span>  Data Encoding</a>
+  <ul class="collapse">
+  <li><a href="#one-hot-encoding" id="toc-one-hot-encoding" class="nav-link" data-scroll-target="#one-hot-encoding"><span class="toc-section-number">5.1</span>  One Hot Encoding</a></li>
+  <li><a href="#sin---cos-encoding" id="toc-sin---cos-encoding" class="nav-link" data-scroll-target="#sin---cos-encoding"><span class="toc-section-number">5.2</span>  Sin - Cos encoding</a></li>
+  <li><a href="#dropping-unnecessary-columns-irrelevant-for-modelling" id="toc-dropping-unnecessary-columns-irrelevant-for-modelling" class="nav-link" data-scroll-target="#dropping-unnecessary-columns-irrelevant-for-modelling"><span class="toc-section-number">5.3</span>  Dropping unnecessary columns irrelevant for modelling</a></li>
+  </ul></li>
+  <li><a href="#data-modeling" id="toc-data-modeling" class="nav-link" data-scroll-target="#data-modeling"><span class="toc-section-number">6</span>  Data Modeling</a></li>
+  <li><a href="#splitting-our-dataset" id="toc-splitting-our-dataset" class="nav-link" data-scroll-target="#splitting-our-dataset"><span class="toc-section-number">7</span>  Splitting our Dataset</a>
+  <ul class="collapse">
+  <li><a href="#balancing-our-dataset" id="toc-balancing-our-dataset" class="nav-link" data-scroll-target="#balancing-our-dataset"><span class="toc-section-number">7.1</span>  Balancing Our Dataset</a></li>
+  </ul></li>
+  <li><a href="#scaling-numeric-variables" id="toc-scaling-numeric-variables" class="nav-link" data-scroll-target="#scaling-numeric-variables"><span class="toc-section-number">8</span>  Scaling numeric variables</a></li>
+  <li><a href="#logistic-regression" id="toc-logistic-regression" class="nav-link" data-scroll-target="#logistic-regression"><span class="toc-section-number">9</span>  Logistic Regression</a></li>
+  <li><a href="#balanced-dataset" id="toc-balanced-dataset" class="nav-link" data-scroll-target="#balanced-dataset"><span class="toc-section-number">10</span>  Balanced Dataset</a>
+  <ul class="collapse">
+  <li><a href="#deciding-cut-off-value-for-logistic-regression---unbalance" id="toc-deciding-cut-off-value-for-logistic-regression---unbalance" class="nav-link" data-scroll-target="#deciding-cut-off-value-for-logistic-regression---unbalance"><span class="toc-section-number">10.0.1</span>  Deciding cut off value for logistic regression - Unbalance</a></li>
+  <li><a href="#smart-question-5-the-optimal-cut-off-value-for-classification-of-our-imbalance-dataset." id="toc-smart-question-5-the-optimal-cut-off-value-for-classification-of-our-imbalance-dataset." class="nav-link" data-scroll-target="#smart-question-5-the-optimal-cut-off-value-for-classification-of-our-imbalance-dataset."><span class="toc-section-number">10.0.2</span>  Smart Question 5: The optimal cut off value for classification of our imbalance dataset.</a></li>
+  <li><a href="#smart-question-2.since-the-dataset-is-imbalanced-will-down-samplingup-sampling-or-other-techniques-improve-upon-the-accuracy-of-models." id="toc-smart-question-2.since-the-dataset-is-imbalanced-will-down-samplingup-sampling-or-other-techniques-improve-upon-the-accuracy-of-models." class="nav-link" data-scroll-target="#smart-question-2.since-the-dataset-is-imbalanced-will-down-samplingup-sampling-or-other-techniques-improve-upon-the-accuracy-of-models."><span class="toc-section-number">10.0.3</span>  SMART Question 2.Since the dataset is imbalanced, will down sampling/up sampling or other techniques improve upon the accuracy of models.</a></li>
+  </ul></li>
+  <li><a href="#decision-tree" id="toc-decision-tree" class="nav-link" data-scroll-target="#decision-tree"><span class="toc-section-number">11</span>  Decision Tree</a>
+  <ul class="collapse">
+  <li><a href="#feature-selection" id="toc-feature-selection" class="nav-link" data-scroll-target="#feature-selection"><span class="toc-section-number">11.1</span>  Feature Selection</a></li>
+  <li><a href="#hyperparameter-tuning" id="toc-hyperparameter-tuning" class="nav-link" data-scroll-target="#hyperparameter-tuning"><span class="toc-section-number">11.2</span>  Hyperparameter tuning</a></li>
+  </ul></li>
+  <li><a href="#random-forest" id="toc-random-forest" class="nav-link" data-scroll-target="#random-forest"><span class="toc-section-number">12</span>  Random Forest</a>
+  <ul class="collapse">
+  <li><a href="#feature-selection-1" id="toc-feature-selection-1" class="nav-link" data-scroll-target="#feature-selection-1"><span class="toc-section-number">12.1</span>  Feature Selection</a></li>
+  <li><a href="#hyperparameter-tuning-1" id="toc-hyperparameter-tuning-1" class="nav-link" data-scroll-target="#hyperparameter-tuning-1"><span class="toc-section-number">12.2</span>  Hyperparameter Tuning</a></li>
+  </ul></li>
+  <li><a href="#linear-svc" id="toc-linear-svc" class="nav-link" data-scroll-target="#linear-svc"><span class="toc-section-number">13</span>  Linear SVC</a></li>
+  <li><a href="#svc" id="toc-svc" class="nav-link" data-scroll-target="#svc"><span class="toc-section-number">14</span>  SVC</a></li>
+  <li><a href="#naive-bayes" id="toc-naive-bayes" class="nav-link" data-scroll-target="#naive-bayes"><span class="toc-section-number">15</span>  Naive Bayes</a></li>
+  <li><a href="#knn" id="toc-knn" class="nav-link" data-scroll-target="#knn"><span class="toc-section-number">16</span>  KNN</a></li>
+  <li><a href="#roc--auc-curve" id="toc-roc--auc-curve" class="nav-link" data-scroll-target="#roc--auc-curve"><span class="toc-section-number">17</span>  ROC -AUC Curve</a></li>
+  <li><a href="#precision-recall-curve" id="toc-precision-recall-curve" class="nav-link" data-scroll-target="#precision-recall-curve"><span class="toc-section-number">18</span>  Precision Recall Curve</a></li>
+  <li><a href="#summary" id="toc-summary" class="nav-link" data-scroll-target="#summary"><span class="toc-section-number">19</span>  Summary</a></li>
+  </ul>
+</nav>
+</div>
+<div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
+</div>
 <main class="content" id="quarto-document-content">
 
 <header id="title-block-header" class="quarto-title-block default">
@@ -68,22 +156,23 @@ ul.task-list li input[type="checkbox"] {
       <p class="date">November 21, 2022</p>
     </div>
   </div>
+  
     
   </div>
   
 
 </header>
 
-<section id="introduction" class="level1">
-<h1>INTRODUCTION</h1>
+<section id="introduction" class="level1" data-number="1">
+<h1 data-number="1"><span class="header-section-number">1</span> INTRODUCTION</h1>
 <p>Bank marketing is the practice of attracting and acquiring new customers through traditional media and digital media strategies. The use of these media strategies helps determine what kind of customer is attracted to a certain institutions. This also includes different banking institutions purposefully using different strategies to attract the type of customer they want to do business with.</p>
 <p>Marketing has evolved from a communication role to a revenue generating role. The consumer has evolved from being a passive recipient of marketing messages to an active participant in the marketing process. Technology has evolved from being a means of communication to a means of data collection and analysis. Data analytics has evolved from being a means of understanding the consumer to a means of understanding the consumer and the institution.</p>
 <p>Bank marketing strategy is increasingly focused on digital channels, including social media, video, search and connected TV. As bank and credit union marketers strive to promote brand awareness, they need a new way to assess channel ROI and more accurate data to enable personalized offers. Add to that the growing importance of purpose-driven marketing.</p>
 <p>The relentless pace of digitization is disrupting not only the established order in banking, but bank marketing strategies. Marketers at both traditional institutions and digital disruptors are feeling the pressure.</p>
 <p>Just as bank marketers begin to master one channel, consumers move to another. Many now toggle between devices on a seemingly infinite number of platforms, making it harder than ever for marketers to pin down the right consumers at the right time in the right place.</p>
 <p><img src="expected-marketing-budget-changes-by-channel.png" class="img-fluid"></p>
-<section id="the-data-set" class="level2">
-<h2 class="anchored" data-anchor-id="the-data-set">The Data Set</h2>
+<section id="the-data-set" class="level2" data-number="1.1">
+<h2 data-number="1.1" class="anchored" data-anchor-id="the-data-set"><span class="header-section-number">1.1</span> The Data Set</h2>
 <p>The data set used in this analysis is from a Portuguese bank. The data set contains 41,188 observations and 21 variables. The variables include the following:</p>
 <ol type="1">
 <li><ul>
@@ -154,8 +243,8 @@ ul.task-list li input[type="checkbox"] {
 </ul></li>
 </ol>
 </section>
-<section id="the-smart-questions" class="level2">
-<h2 class="anchored" data-anchor-id="the-smart-questions">The SMART Questions</h2>
+<section id="the-smart-questions" class="level2" data-number="1.2">
+<h2 data-number="1.2" class="anchored" data-anchor-id="the-smart-questions"><span class="header-section-number">1.2</span> The SMART Questions</h2>
 <p>The SMART questions are as follows:</p>
 <p>1.Relationship between subscribing the term deposit and how much the customer is contacted (last contact, Campaign, Pdays, Previous Number of contacts)</p>
 <ol start="2" type="1">
@@ -168,17 +257,15 @@ ul.task-list li input[type="checkbox"] {
 <p>Throughout the paper we would try to answer the questions</p>
 <p>Importing the required libraries</p>
 </section>
-<section id="importing-the-dataset" class="level2">
-<h2 class="anchored" data-anchor-id="importing-the-dataset">Importing the dataset</h2>
+<section id="importing-the-dataset" class="level2" data-number="1.3">
+<h2 data-number="1.3" class="anchored" data-anchor-id="importing-the-dataset"><span class="header-section-number">1.3</span> Importing the dataset</h2>
 </section>
-<section id="basic-information-about-the-data" class="level2">
-<h2 class="anchored" data-anchor-id="basic-information-about-the-data">Basic Information about the data</h2>
+<section id="basic-information-about-the-data" class="level2" data-number="1.4">
+<h2 data-number="1.4" class="anchored" data-anchor-id="basic-information-about-the-data"><span class="header-section-number">1.4</span> Basic Information about the data</h2>
 <div class="cell" data-execution_count="4">
 <div class="cell-output cell-output-stdout">
-<pre><code>Shape of dataset is : (45211, 23)</code></pre>
-</div>
-<div class="cell-output cell-output-stdout">
-<pre><code>&lt;class 'pandas.core.frame.DataFrame'&gt;
+<pre><code>Shape of dataset is : (45211, 23)
+&lt;class 'pandas.core.frame.DataFrame'&gt;
 RangeIndex: 45211 entries, 0 to 45210
 Data columns (total 23 columns):
  #   Column          Non-Null Count  Dtype  
@@ -214,22 +301,22 @@ Columns in dataset
 </div>
 </section>
 </section>
-<section id="exploratory-data-analysis-eda" class="level1">
-<h1>Exploratory Data Analysis (EDA)</h1>
-<section id="distribution-of-ytarget-variable" class="level2">
-<h2 class="anchored" data-anchor-id="distribution-of-ytarget-variable">Distribution of y(target) variable</h2>
+<section id="exploratory-data-analysis-eda" class="level1" data-number="2">
+<h1 data-number="2"><span class="header-section-number">2</span> Exploratory Data Analysis (EDA)</h1>
+<section id="distribution-of-ytarget-variable" class="level2" data-number="2.1">
+<h2 data-number="2.1" class="anchored" data-anchor-id="distribution-of-ytarget-variable"><span class="header-section-number">2.1</span> Distribution of y(target) variable</h2>
 <div class="cell" data-execution_count="6">
 <div class="cell-output cell-output-display">
 <p><img src="Summary_files/figure-html/cell-7-output-1.png" width="611" height="630"></p>
 </div>
 </div>
-<p>Only 11.7% of enteries are for y=1, so our dataset is unbalanced.</p>
+<p>We have 45,211 datapoints, if our model predicts only 0 as output, we would still get 88% accuracy, so our dataset is unbalanced which may gives misleading results. Along with the accuracy, we will also consider precision and recall for evaluation.</p>
 </section>
-<section id="missing-values-and-outliers" class="level2">
-<h2 class="anchored" data-anchor-id="missing-values-and-outliers">Missing values and Outliers</h2>
-<section id="education" class="level3">
-<h3 class="anchored" data-anchor-id="education">Education</h3>
-<p>Here, even though we do not have any missing values but we have ‘unknown’ and ‘other’ as categories, so we will first get rid of them.</p>
+<section id="missing-values-and-outliers" class="level2" data-number="2.2">
+<h2 data-number="2.2" class="anchored" data-anchor-id="missing-values-and-outliers"><span class="header-section-number">2.2</span> Missing values and Outliers</h2>
+<section id="education" class="level3" data-number="2.2.1">
+<h3 data-number="2.2.1" class="anchored" data-anchor-id="education"><span class="header-section-number">2.2.1</span> Education</h3>
+<p>Here, even though we do not have any missing values but we have ‘unknown’ and ‘other’ as categories, so we will first get rid of them. The variables with ‘unknown’ rows are Education and Contact showned below.</p>
 <div class="cell" data-execution_count="7">
 <div class="cell-output cell-output-display" data-execution_count="6">
 <pre><code>Text(0.5, 1.0, 'Type of education Distribution')</code></pre>
@@ -239,8 +326,8 @@ Columns in dataset
 </div>
 </div>
 </section>
-<section id="contact" class="level3">
-<h3 class="anchored" data-anchor-id="contact">Contact</h3>
+<section id="contact" class="level3" data-number="2.2.2">
+<h3 data-number="2.2.2" class="anchored" data-anchor-id="contact"><span class="header-section-number">2.2.2</span> Contact</h3>
 <div class="cell" data-execution_count="8">
 <div class="cell-output cell-output-display" data-execution_count="7">
 <pre><code>Text(0.5, 1.0, 'Type of Contact Distribution')</code></pre>
@@ -253,8 +340,8 @@ Columns in dataset
 <li>since the type of communication(cellular and telephone) is not really a good indicator of subcription, we drop this variable.</li>
 </ul>
 </section>
-<section id="poutcome" class="level3">
-<h3 class="anchored" data-anchor-id="poutcome">Poutcome</h3>
+<section id="poutcome" class="level3" data-number="2.2.3">
+<h3 data-number="2.2.3" class="anchored" data-anchor-id="poutcome"><span class="header-section-number">2.2.3</span> Poutcome</h3>
 <div class="cell" data-execution_count="9">
 <div class="cell-output cell-output-display">
 <p><img src="Summary_files/figure-html/cell-10-output-1.png" width="611" height="630"></p>
@@ -268,11 +355,11 @@ unknown    36959
 dtype: int64</code></pre>
 </div>
 </div>
-<p>There are <em>36959 unknown</em> values and 1840 values with other category. Since, 82% of entries are unknown, 4.07% other, we will directly drop this column.</p>
+<p>There are <em>36959 unknown</em> values(82%) and 1840 values with other(4.07% ) category, we will directly drop these columns.</p>
 </section>
 </section>
-<section id="outliers" class="level2">
-<h2 class="anchored" data-anchor-id="outliers">Outliers</h2>
+<section id="outliers" class="level2" data-number="2.3">
+<h2 data-number="2.3" class="anchored" data-anchor-id="outliers"><span class="header-section-number">2.3</span> Outliers</h2>
 <div class="cell" data-execution_count="10">
 <div class="cell-output cell-output-display">
 <p><img src="Summary_files/figure-html/cell-11-output-1.png" width="605" height="455"></p>
@@ -280,22 +367,21 @@ dtype: int64</code></pre>
 </div>
 <ul>
 <li>There are outliers in duration and balance so we need to get rid of them.</li>
-<li>people who have a high balance, are more likely to subscribe to term deposit.</li>
 </ul>
 </section>
 </section>
-<section id="data-cleaning" class="level1">
-<h1>Data Cleaning</h1>
+<section id="data-cleaning" class="level1" data-number="3">
+<h1 data-number="3"><span class="header-section-number">3</span> Data Cleaning</h1>
 <ul>
 <li>Contact is not useful so we drop it.</li>
-<li>In poutcome, we have a lot of missing values so we drop it.<br>
+<li>In poutcome, we have a lot of ‘unknown’ and ‘other’ values so we drop it.<br>
 </li>
 <li>Day is not giving any relevant infomation so we drop it.</li>
-<li>Removing the unknowns</li>
+<li>Removing the unknowns from ‘job’ and ‘education’ columns.</li>
 <li>Remove the outliers from balance and duration.</li>
 </ul>
-<section id="dropping-the-irrelavant-columns-and-missing-values" class="level2">
-<h2 class="anchored" data-anchor-id="dropping-the-irrelavant-columns-and-missing-values">Dropping the irrelavant columns and missing values</h2>
+<section id="dropping-the-irrelavant-columns-and-missing-values" class="level2" data-number="3.1">
+<h2 data-number="3.1" class="anchored" data-anchor-id="dropping-the-irrelavant-columns-and-missing-values"><span class="header-section-number">3.1</span> Dropping the irrelavant columns and missing values</h2>
 <div class="cell" data-execution_count="11">
 <div class="cell-output cell-output-stdout">
 <pre><code>for job
@@ -307,11 +393,11 @@ dropping rows with value as unknown in education</code></pre>
 </div>
 </div>
 </section>
-<section id="outlier-removal" class="level2">
-<h2 class="anchored" data-anchor-id="outlier-removal">Outlier removal</h2>
+<section id="outlier-removal" class="level2" data-number="3.2">
+<h2 data-number="3.2" class="anchored" data-anchor-id="outlier-removal"><span class="header-section-number">3.2</span> Outlier removal</h2>
 <p>We have outliers in balance and duration, so to get rid of them we would try to remove the enteries few standard deviation away, since from the histograms most of the enteries are around mean only, we are removing the enteries more than 3SD away.</p>
-<section id="balance---outliers" class="level3">
-<h3 class="anchored" data-anchor-id="balance---outliers"><em>Balance - Outliers</em></h3>
+<section id="balance---outliers" class="level3" data-number="3.2.1">
+<h3 data-number="3.2.1" class="anchored" data-anchor-id="balance---outliers"><span class="header-section-number">3.2.1</span> <em>Balance - Outliers</em></h3>
 <div class="cell" data-execution_count="12">
 <div class="cell-output cell-output-stdout">
 <pre><code>removing entries before balance   -7772.283533
@@ -320,8 +406,8 @@ dtype: float64</code></pre>
 </div>
 </div>
 </section>
-<section id="duration---outliers" class="level3">
-<h3 class="anchored" data-anchor-id="duration---outliers"><em>Duration - Outliers</em></h3>
+<section id="duration---outliers" class="level3" data-number="3.2.2">
+<h3 data-number="3.2.2" class="anchored" data-anchor-id="duration---outliers"><span class="header-section-number">3.2.2</span> <em>Duration - Outliers</em></h3>
 <p>Dropping rows where the duration of calls is less than 5sec since that is irrelevant. And also since converting the call duration in minutes rather than seconds makes more sense we would convert it into minutes.</p>
 <p>plotting violen plot for duration and balance after cleaning data</p>
 <div class="cell" data-execution_count="14">
@@ -332,15 +418,16 @@ dtype: float64</code></pre>
 </section>
 </section>
 </section>
-<section id="data-visualization" class="level1">
-<h1>Data Visualization</h1>
-<p>Let’ visualize import relationships now between variables now.</p>
-<section id="smart-question-1" class="level2">
-<h2 class="anchored" data-anchor-id="smart-question-1">SMART Question 1 :</h2>
+<section id="data-visualization" class="level1" data-number="4">
+<h1 data-number="4"><span class="header-section-number">4</span> Data Visualization</h1>
+<p>Let’ visualize important relationships between variables now.</p>
+<section id="smart-question-1" class="level2" data-number="4.1">
+<h2 data-number="4.1" class="anchored" data-anchor-id="smart-question-1"><span class="header-section-number">4.1</span> SMART Question 1 :</h2>
 <p>Relationship between subscribing the term deposit and how much the customer is contacted (last contact, Campaign, Pdays, Previous Number of contacts)</p>
 <p>Answer : Based on last contact info only number of contacts performed during this campaign is contributing a lot towards subscription rates.</p>
-<section id="number-of-calls-versus-duration-and-affect-on-subscription" class="level3">
-<h3 class="anchored" data-anchor-id="number-of-calls-versus-duration-and-affect-on-subscription">Number of calls versus Duration and affect on subscription</h3>
+<p>Suggestion: People who are contacted less than 5 times should be targeted more. Also, they could contact in less frequency in order to attract more target customers. The plot below shows the relationship between the number of calls and duration vs subscription</p>
+<section id="number-of-calls-versus-duration-and-affect-on-subscription" class="level3" data-number="4.1.1">
+<h3 data-number="4.1.1" class="anchored" data-anchor-id="number-of-calls-versus-duration-and-affect-on-subscription"><span class="header-section-number">4.1.1</span> Number of calls versus Duration and affect on subscription</h3>
 <p>Here if we notice, people are more likely to subscribe if the number of calls are less than 5.</p>
 <div class="cell" data-execution_count="15">
 <div class="cell-output cell-output-display">
@@ -356,7 +443,7 @@ dtype: float64</code></pre>
 <li>previous: number of contacts performed before this campaign and for this client (numeric)</li>
 </ul></li>
 </ol>
-<p>No relation with pdays and previous</p>
+<p>We can notice from the plot that there is no relationship between subscription with pdays or previous. The datapoints are distrubuted randomly along the axies.</p>
 <div class="cell" data-execution_count="16">
 <div class="cell-output cell-output-display">
 <p><img src="Summary_files/figure-html/cell-17-output-1.png" width="720" height="676"></p>
@@ -364,8 +451,8 @@ dtype: float64</code></pre>
 </div>
 </section>
 </section>
-<section id="month-wise-subscription" class="level2">
-<h2 class="anchored" data-anchor-id="month-wise-subscription">Month wise subscription</h2>
+<section id="month-wise-subscription" class="level2" data-number="4.2">
+<h2 data-number="4.2" class="anchored" data-anchor-id="month-wise-subscription"><span class="header-section-number">4.2</span> Month wise subscription</h2>
 <div class="cell" data-execution_count="17">
 <div class="cell-output cell-output-display" data-execution_count="16">
 <pre><code>Text(0.5, 0, 'Month')</code></pre>
@@ -374,40 +461,63 @@ dtype: float64</code></pre>
 <p><img src="Summary_files/figure-html/cell-18-output-2.png" width="812" height="529"></p>
 </div>
 </div>
-<p>Maximum percentage of people have subscribed in the month of March but bank is contacting people more in the month of May. So it’s better to contact customer’s based on the subcription rate plot.</p>
+<p>Maximum percentage of people have subscribed in the month of March but bank is contacting people more in the month of May.</p>
+<p><strong>Suggestion</strong>:So it’s better to contact customer’s based on the subcription rate plot.</p>
+<section id="smart-question-7-how-are-the-likelihood-of-subscriptions-affected-by-social-and-economic-factors" class="level3" data-number="4.2.1">
+<h3 data-number="4.2.1" class="anchored" data-anchor-id="smart-question-7-how-are-the-likelihood-of-subscriptions-affected-by-social-and-economic-factors"><span class="header-section-number">4.2.1</span> SMART Question 7: How are the likelihood of subscriptions affected by social and economic factors?</h3>
+<div class="cell" data-execution_count="18">
+<div class="cell-output cell-output-stdout">
+<pre><code>   month  cons.conf.idx  emp.var.rate  euribor3m  nr.employed
+0    jan           1310          1310       1310         1310
+1    feb           2492          2492       2492         2492
+2    mar            439           439        439          439
+3    apr           2772          2772       2772         2772
+4    may          13050         13050      13050        13050
+5    jun           4874          4874       4874         4874
+6    jul           6550          6550       6550         6550
+7    aug           5924          5924       5924         5924
+8    sep            514           514        514          514
+9    oct            661           661        661          661
+10   nov           3679          3679       3679         3679
+11   dec            195           195        195          195</code></pre>
+</div>
+</div>
+<p><strong>Answer</strong> : Based on the above table we can see that there is no distinguishable difference in the month of march or may from rest of all the month, so social and economic factor <strong>do not have major influence</strong> on the outcome.</p>
 </section>
-<section id="smart-question-2" class="level2">
-<h2 class="anchored" data-anchor-id="smart-question-2">SMART Question 2</h2>
+<section id="smart-question-2" class="level3" data-number="4.2.2">
+<h3 data-number="4.2.2" class="anchored" data-anchor-id="smart-question-2"><span class="header-section-number">4.2.2</span> SMART Question 2</h3>
 <p>Find out the <strong>financially stable</strong> population? Will that affect the outcome?</p>
 <p>We will try to find the financially stable population based on age, jobs and balance.</p>
-<section id="age" class="level3">
-<h3 class="anchored" data-anchor-id="age">Age</h3>
-<p>Elder people might be more financially stable.</p>
-<div class="cell" data-execution_count="19">
+</section>
+<section id="age" class="level3" data-number="4.2.3">
+<h3 data-number="4.2.3" class="anchored" data-anchor-id="age"><span class="header-section-number">4.2.3</span> Age</h3>
+<p>Elder people might be more financially stable since they are subscriped to the term deposit more.</p>
+<div class="cell" data-execution_count="20">
 <div class="cell-output cell-output-display">
-<p><img src="Summary_files/figure-html/cell-20-output-1.png" width="597" height="455"></p>
+<p><img src="Summary_files/figure-html/cell-21-output-1.png" width="597" height="455"></p>
 </div>
 </div>
 <ul>
 <li>People who are old are more likely to subscribe to term deposit.</li>
 </ul>
 </section>
-<section id="job" class="level3">
-<h3 class="anchored" data-anchor-id="job">Job</h3>
-<div class="cell" data-execution_count="20">
-<div class="cell-output cell-output-display">
-<p><img src="Summary_files/figure-html/cell-21-output-1.png" width="687" height="455"></p>
-</div>
-<div class="cell-output cell-output-display">
-<p><img src="Summary_files/figure-html/cell-21-output-2.png" width="701" height="455"></p>
-</div>
-</div>
-<p>People in blue color and management jobs are contacted more, which should not be the case. Since they have less subscription rates. Unlike popular assumption, students, retired and unemployment seem to have a high subscription rates. Even though they are contacted very less.</p>
-</section>
-<section id="balance" class="level3">
-<h3 class="anchored" data-anchor-id="balance">Balance</h3>
-<p>Checking the subscriptions in each balance groups</p>
+<section id="job" class="level3" data-number="4.2.4">
+<h3 data-number="4.2.4" class="anchored" data-anchor-id="job"><span class="header-section-number">4.2.4</span> Job</h3>
 <div class="cell" data-execution_count="21">
+<div class="cell-output cell-output-display">
+<p><img src="Summary_files/figure-html/cell-22-output-1.png" width="687" height="455"></p>
+</div>
+<div class="cell-output cell-output-display">
+<p><img src="Summary_files/figure-html/cell-22-output-2.png" width="701" height="455"></p>
+</div>
+</div>
+<p>People in blue collar and management jobs are contacted more, which should not be the case. Since they have less subscription rates. Unlike popular assumption, students, retired and unemployment seem to have a high subscription rates. Even though they are contacted very less.</p>
+<p><strong>suggestion</strong>: The high subscripted rate group(students, retired and unemployment) should be contacted more.</p>
+</section>
+<section id="balance" class="level3" data-number="4.2.5">
+<h3 data-number="4.2.5" class="anchored" data-anchor-id="balance"><span class="header-section-number">4.2.5</span> Balance</h3>
+<p>Checking the subscriptions in each balance groups</p>
+<div class="cell" data-execution_count="22">
 <div class="cell-output cell-output-stdout">
 <pre><code>           balGroup  % Contacted  % Subscription
 0       low balance    60.339143       10.503513
@@ -421,69 +531,70 @@ dtype: float64</code></pre>
 3      high balance    13.709374         16.715341</code></pre>
 </div>
 <div class="cell-output cell-output-display">
-<p><img src="Summary_files/figure-html/cell-22-output-2.png" width="569" height="558"></p>
+<p><img src="Summary_files/figure-html/cell-23-output-2.png" width="569" height="558"></p>
 </div>
 </div>
-<p>People with moderate to high balance, are contacted less but they have high subscription rates so bank should target them more.</p>
+<p><strong>suggestion</strong>:People with moderate to high balance, are contacted less but they have high subscription rates so bank should target them more.</p>
 <p>It might be possible that balance group and jobs are telling the same information since some jobs might have high salary and thus balance groups might be depicting jobs only, so we will try to look at them together.</p>
 <p>Balance Group versus Job</p>
-<div class="cell" data-execution_count="22">
-<div class="cell-output cell-output-display" data-execution_count="21">
+<div class="cell" data-execution_count="23">
+<div class="cell-output cell-output-display" data-execution_count="22">
 <pre><code>Text(0.5, 1.0, 'Contact for each balance group in job category')</code></pre>
 </div>
 <div class="cell-output cell-output-display">
-<p><img src="Summary_files/figure-html/cell-23-output-2.png" width="792" height="606"></p>
+<p><img src="Summary_files/figure-html/cell-24-output-2.png" width="792" height="606"></p>
 </div>
 <div class="cell-output cell-output-display">
-<p><img src="Summary_files/figure-html/cell-23-output-3.png" width="809" height="606"></p>
+<p><img src="Summary_files/figure-html/cell-24-output-3.png" width="809" height="606"></p>
 </div>
 </div>
-<p>Only the low balance groups are targeted in each category even though moderate to high balance category are more likely to subscribe. Student and Retired are more likely to subscribe and usually have moderate to high balance.</p>
+<p>Student and Retired are more likely to subscribe and usually have moderate to high balance.</p>
+<p>We found from the second bar chart that only the low balance groups are targeted in each category even though moderate to high balance category are more likely to subscribe.</p>
 </section>
 </section>
 </section>
-<section id="data-encoding" class="level1">
-<h1>Data Encoding</h1>
-<section id="one-hot-encoding" class="level2">
-<h2 class="anchored" data-anchor-id="one-hot-encoding">One Hot Encoding</h2>
+<section id="data-encoding" class="level1" data-number="5">
+<h1 data-number="5"><span class="header-section-number">5</span> Data Encoding</h1>
+<section id="one-hot-encoding" class="level2" data-number="5.1">
+<h2 data-number="5.1" class="anchored" data-anchor-id="one-hot-encoding"><span class="header-section-number">5.1</span> One Hot Encoding</h2>
+<p>We would encode ‘housing’,‘loan’,‘default’,‘job’,‘education’ and ‘marital’ as they are all categorical variables.</p>
 </section>
-<section id="sin---cos-encoding" class="level2">
-<h2 class="anchored" data-anchor-id="sin---cos-encoding">Sin - Cos encoding</h2>
-<p>Transforming month into sin and cos so that there cyclic nature (jan-dec are as close as jan-feb) is retained which is usually lost in label encoding.</p>
-<div class="cell" data-execution_count="25">
-<div class="cell-output cell-output-display" data-execution_count="24">
+<section id="sin---cos-encoding" class="level2" data-number="5.2">
+<h2 data-number="5.2" class="anchored" data-anchor-id="sin---cos-encoding"><span class="header-section-number">5.2</span> Sin - Cos encoding</h2>
+<p>Transforming month into sin and cos so that there cyclic nature (jan-dec are as close as jan-feb) is retained which is usually lost in label encoding. Unlike one hot encoding, the dimension will reduce from 12(month_jan, month_feb … month_dec) to 2(sin_month , cos_month)</p>
+<div class="cell" data-execution_count="26">
+<div class="cell-output cell-output-display" data-execution_count="25">
 <pre><code>&lt;AxesSubplot: xlabel='sin_month', ylabel='cos_month'&gt;</code></pre>
 </div>
 <div class="cell-output cell-output-display">
-<p><img src="Summary_files/figure-html/cell-26-output-2.png" width="610" height="435"></p>
+<p><img src="Summary_files/figure-html/cell-27-output-2.png" width="610" height="435"></p>
 </div>
 </div>
 </section>
-<section id="dropping-unnecessary-columns-irrelevant-for-modelling" class="level2">
-<h2 class="anchored" data-anchor-id="dropping-unnecessary-columns-irrelevant-for-modelling">Dropping unnecessary columns irrelevant for modelling</h2>
+<section id="dropping-unnecessary-columns-irrelevant-for-modelling" class="level2" data-number="5.3">
+<h2 data-number="5.3" class="anchored" data-anchor-id="dropping-unnecessary-columns-irrelevant-for-modelling"><span class="header-section-number">5.3</span> Dropping unnecessary columns irrelevant for modelling</h2>
+<p>Here we dropped the ‘month’ column as they are encoded. Also, we dropped irrelvant variables ‘pdays’ and enconomic factors(‘cons.conf.idx’, ‘emp.var.rate’, ‘euribor3m’, ‘nr.employed’,‘cons.price.idx’) for modelling.</p>
 </section>
 </section>
-<section id="data-modeling" class="level1">
-<h1>Data Modeling</h1>
+<section id="data-modeling" class="level1" data-number="6">
+<h1 data-number="6"><span class="header-section-number">6</span> Data Modeling</h1>
 </section>
-<section id="splitting-our-dataset" class="level1">
-<h1>Splitting our Dataset</h1>
-<section id="balancing-our-dataset" class="level2">
-<h2 class="anchored" data-anchor-id="balancing-our-dataset">Balancing Our Dataset</h2>
-<ul>
-<li>Upsampling using SMOTE</li>
-<li>Sin and cos transformation from month_int.</li>
-</ul>
+<section id="splitting-our-dataset" class="level1" data-number="7">
+<h1 data-number="7"><span class="header-section-number">7</span> Splitting our Dataset</h1>
+<p>We are splitting our dataset in 1:4 ratio for training and testing set.</p>
+<section id="balancing-our-dataset" class="level2" data-number="7.1">
+<h2 data-number="7.1" class="anchored" data-anchor-id="balancing-our-dataset"><span class="header-section-number">7.1</span> Balancing Our Dataset</h2>
+<p>We tried to balance our dataset using following methods: * Upsampling using SMOTE * Sin and cos transformation from month_int.</p>
 </section>
 </section>
-<section id="scaling-numeric-variables" class="level1">
-<h1>Scaling numeric variables</h1>
-<p>Scaling age, balance, duration so that our algorithms perform better and all variables are treated equally.</p>
+<section id="scaling-numeric-variables" class="level1" data-number="8">
+<h1 data-number="8"><span class="header-section-number">8</span> Scaling numeric variables</h1>
+<p>Scaling age, balance, duration so that our algorithms perform better and all variables are treated equally. Since all three variables are in different scales, so we transform them into same standard.</p>
 </section>
-<section id="logistic-regression" class="level1">
-<h1>Logistic Regression</h1>
+<section id="logistic-regression" class="level1" data-number="9">
+<h1 data-number="9"><span class="header-section-number">9</span> Logistic Regression</h1>
 <p>Performing Logistic Regression on both balanced and unbalanced dataset. RFE is used in selecting the most important features ## Unbalanced Dataset</p>
-<div class="cell" data-execution_count="33">
+<div class="cell" data-execution_count="34">
 <div class="cell-output cell-output-stdout">
 <pre><code>Columns selected by RE ['duration', 'housing_no', 'housing_yes', 'loan_no', 'loan_yes', 'job_admin.', 'job_blue-collar', 'job_entrepreneur', 'job_housemaid', 'job_retired', 'job_self-employed', 'job_student', 'education_primary', 'education_tertiary', 'cos_month', 'age', 'balance', 'sin_month']</code></pre>
 </div>
@@ -497,8 +608,9 @@ dtype: float64</code></pre>
 <li>Education</li>
 <li>cos_month</li>
 </ul>
+<p>From other features selection techniques and EDA, we can see that ‘age’ and ‘balance’ also contrubuted to the subscrption, so we added up these variables as well.</p>
 <p>Applying model with selected features</p>
-<div class="cell" data-execution_count="34">
+<div class="cell" data-execution_count="35">
 <div class="cell-output cell-output-stdout">
 <pre><code>Accuracy for training set 0.8905146019783325
 Accuracy for testing set 0.8905146019783325
@@ -516,37 +628,37 @@ weighted avg       0.87      0.89      0.87     33968
 </code></pre>
 </div>
 </div>
-<p>Here, the accuracy is 89% but the precision(0.59) and recall rate value(0.20) is low.</p>
+<p>Here, the accuracy is 89% but the precision(0.59) and recall rate value(0.20) is low. And we also check on the balanced dataset since the low recall rate might be caused because of the less number of y = 1 value.</p>
 </section>
-<section id="balanced-dataset" class="level1">
-<h1>Balanced Dataset</h1>
-<div class="cell" data-execution_count="35">
+<section id="balanced-dataset" class="level1" data-number="10">
+<h1 data-number="10"><span class="header-section-number">10</span> Balanced Dataset</h1>
+<div class="cell" data-execution_count="36">
 <div class="cell-output cell-output-stdout">
 <pre><code>Columns selected by RE ['housing_yes', 'loan_yes', 'job_blue-collar', 'job_entrepreneur', 'job_housemaid', 'job_management', 'job_self-employed', 'job_services', 'job_technician', 'job_unemployed', 'education_primary', 'education_secondary', 'marital_divorced', 'marital_married', 'marital_single']</code></pre>
 </div>
 <div class="cell-output cell-output-stdout">
-<pre><code>Accuracy for training set 0.847192620221127
-Accuracy for testing set 0.8590510366826156
+<pre><code>Accuracy for training set 0.8844411882243239
+Accuracy for testing set 0.8215379180405087
 Confusion matrix 
-[[6785  739]
- [1382 6142]]
+[[25329  4699]
+ [ 1363  2577]]
               precision    recall  f1-score   support
 
-           0       0.83      0.90      0.86      7524
-           1       0.89      0.82      0.85      7524
+           0       0.95      0.84      0.89     30028
+           1       0.35      0.65      0.46      3940
 
-    accuracy                           0.86     15048
-   macro avg       0.86      0.86      0.86     15048
-weighted avg       0.86      0.86      0.86     15048
+    accuracy                           0.82     33968
+   macro avg       0.65      0.75      0.68     33968
+weighted avg       0.88      0.82      0.84     33968
 </code></pre>
 </div>
 </div>
-<p>Here, important features are * Housing * Loan * Job * Education * Marital Status</p>
-<p>Here even though the precision and recall have improved, and accuracy has dropped down, but the important relationships are lost, hence we would move ahead with unbalanced dataset only.</p>
-<section id="deciding-cut-off-value-for-logistic-regression" class="level3">
-<h3 class="anchored" data-anchor-id="deciding-cut-off-value-for-logistic-regression">Deciding cut off value for logistic regression</h3>
+<p>Here, important features are * Housing * Loan * Job * Education * Marital Status We also added the important features from unbalaced dataset * Duration * Age * Month * Balance</p>
+<p>Here even though the precision and recall have improved, and accuracy has dropped down, but the important relationships are lost since the training data now is artificially generated datapoints. We will try to find the optimal cut-off value for originally dataset and compare it with the balance model.</p>
+<section id="deciding-cut-off-value-for-logistic-regression---unbalance" class="level3" data-number="10.0.1">
+<h3 data-number="10.0.1" class="anchored" data-anchor-id="deciding-cut-off-value-for-logistic-regression---unbalance"><span class="header-section-number">10.0.1</span> Deciding cut off value for logistic regression - Unbalance</h3>
 <p>But to have good values for cut-off we would try to find a cutoff where the precision and recall values are decent</p>
-<div class="cell" data-execution_count="36">
+<div class="cell" data-execution_count="37">
 <div class="cell-output cell-output-stdout">
 <pre><code>
 Based on plot we would choose 0.25 as cut off 
@@ -565,29 +677,30 @@ weighted avg       0.88      0.88      0.88     33968
 </code></pre>
 </div>
 <div class="cell-output cell-output-display">
-<p><img src="Summary_files/figure-html/cell-37-output-2.png" width="593" height="455"></p>
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="Summary_files/figure-html/cell-38-output-2.png" width="593" height="455" class="figure-img"></p>
+<p></p><figcaption class="figure-caption">Optimal Cutoff at 0.25</figcaption><p></p>
+</figure>
 </div>
 </div>
-<p>Here as after applying feature selection, finding optimized cut-off, we are able to achieve</p>
-<p>Accuracy for testing set 0.8800341497880358 Confusion matrix [[28085 1943] [ 2132 1808]] precision recall f1-score support</p>
-<pre><code>       0       0.93      0.94      0.93     30028
-       1       0.48      0.46      0.47      3940
-
-accuracy                           0.88     33968</code></pre>
-<p>If we notice, we have the maximum f1 score achieved here.</p>
-<div class="cell" data-execution_count="37">
-<div class="cell-output cell-output-display">
-<p><img src="Summary_files/figure-html/cell-38-output-1.png" width="593" height="455"></p>
 </div>
-</div>
-<p>Average weighted precision achieved across all threshold is 0.45.</p>
+<p>Here as after applying feature selection, finding optimized cut-off, we are able to achieve higher accuracy with optimal precision and recall. Resulting from the comparison, we would continue our modellings with unbalance dataset.</p>
+</section>
+<section id="smart-question-5-the-optimal-cut-off-value-for-classification-of-our-imbalance-dataset." class="level3" data-number="10.0.2">
+<h3 data-number="10.0.2" class="anchored" data-anchor-id="smart-question-5-the-optimal-cut-off-value-for-classification-of-our-imbalance-dataset."><span class="header-section-number">10.0.2</span> Smart Question 5: The optimal cut off value for classification of our imbalance dataset.</h3>
+<p><strong>Answer</strong>: The optimal cut off value for our imbalance dataset is 0.25 as the precision- recall chart indicated.</p>
+</section>
+<section id="smart-question-2.since-the-dataset-is-imbalanced-will-down-samplingup-sampling-or-other-techniques-improve-upon-the-accuracy-of-models." class="level3" data-number="10.0.3">
+<h3 data-number="10.0.3" class="anchored" data-anchor-id="smart-question-2.since-the-dataset-is-imbalanced-will-down-samplingup-sampling-or-other-techniques-improve-upon-the-accuracy-of-models."><span class="header-section-number">10.0.3</span> SMART Question 2.Since the dataset is imbalanced, will down sampling/up sampling or other techniques improve upon the accuracy of models.</h3>
+<p><strong>Answer</strong>: As observed from above there is a slight improvement in accuracy, precision and recall after we apply SMOTE, but that improvement can also be acheived by adjusting the cut off value as well. So, we should always try adjusting cut-off first, before upsampling.</p>
 <p>For ROC - AUC curve refer (<a href="#fig-roc-curve">Figure&nbsp;1</a>). For precision recall curve refer(<a href="#fig-pr-curve">Figure&nbsp;2</a>).</p>
 </section>
 </section>
-<section id="decision-tree" class="level1">
-<h1>Decision Tree</h1>
-<section id="feature-selection" class="level2">
-<h2 class="anchored" data-anchor-id="feature-selection">Feature Selection</h2>
+<section id="decision-tree" class="level1" data-number="11">
+<h1 data-number="11"><span class="header-section-number">11</span> Decision Tree</h1>
+<section id="feature-selection" class="level2" data-number="11.1">
+<h2 data-number="11.1" class="anchored" data-anchor-id="feature-selection"><span class="header-section-number">11.1</span> Feature Selection</h2>
 <div class="cell" data-execution_count="38">
 <div class="cell-output cell-output-stdout">
 <pre><code>Feature 0 variable age score 0.12
@@ -595,16 +708,14 @@ Feature 1 variable balance score 0.16
 Feature 2 variable duration score 0.33
 Feature 3 variable campaign score 0.04
 Feature 4 variable previous score 0.04
-Feature 5 variable housing_no score 0.02
-Feature 6 variable housing_yes score 0.03
-Feature 11 variable job_admin. score 0.01
+Feature 5 variable housing_no score 0.04
 Feature 20 variable job_technician score 0.01
-Feature 23 variable education_secondary score 0.01
 Feature 24 variable education_tertiary score 0.01
+Feature 26 variable marital_married score 0.01
 Feature 28 variable sin_month score 0.09
 Feature 29 variable cos_month score 0.03
 Important features from decision treee are : 
-['age', 'balance', 'duration', 'campaign', 'previous', 'housing_no', 'housing_yes', 'job_admin.', 'job_technician', 'education_secondary', 'education_tertiary', 'sin_month', 'cos_month']</code></pre>
+['age', 'balance', 'duration', 'campaign', 'previous', 'housing_no', 'job_technician', 'education_tertiary', 'marital_married', 'sin_month', 'cos_month']</code></pre>
 </div>
 <div class="cell-output cell-output-display">
 <p><img src="Summary_files/figure-html/cell-39-output-2.png" width="581" height="415"></p>
@@ -625,41 +736,43 @@ Important features from decision treee are :
 </ul>
 <p>We have all the important features from EDA here</p>
 </section>
-<section id="hyperparameter-tuning" class="level2">
-<h2 class="anchored" data-anchor-id="hyperparameter-tuning">Hyperparameter tuning</h2>
+<section id="hyperparameter-tuning" class="level2" data-number="11.2">
+<h2 data-number="11.2" class="anchored" data-anchor-id="hyperparameter-tuning"><span class="header-section-number">11.2</span> Hyperparameter tuning</h2>
+<p>For tuning the hyperparameter’s we will use GridSearch CV.</p>
 <div class="cell" data-execution_count="39">
 <div class="cell-output cell-output-stdout">
 <pre><code>Fitting 5 folds for each of 168 candidates, totalling 840 fits</code></pre>
 </div>
 <div class="cell-output cell-output-stdout">
 <pre><code>Best parameters from Grid Search CV : 
-{'criterion': 'entropy', 'max_depth': 8, 'max_features': 0.8, 'splitter': 'best'}</code></pre>
+{'criterion': 'gini', 'max_depth': 8, 'max_features': 0.6, 'splitter': 'best'}</code></pre>
 </div>
 </div>
+<p>Training model based on the parameters we got from Grid SearchCV.</p>
 <div class="cell" data-execution_count="40">
 <div class="cell-output cell-output-stdout">
-<pre><code>0.9112399905793688
-[[29109   919]
- [ 2096  1844]]
+<pre><code>0.9086198775317946
+[[28801  1227]
+ [ 1877  2063]]
               precision    recall  f1-score   support
 
-           0       0.93      0.97      0.95     30028
-           1       0.67      0.47      0.55      3940
+           0       0.94      0.96      0.95     30028
+           1       0.63      0.52      0.57      3940
 
     accuracy                           0.91     33968
-   macro avg       0.80      0.72      0.75     33968
-weighted avg       0.90      0.91      0.90     33968
+   macro avg       0.78      0.74      0.76     33968
+weighted avg       0.90      0.91      0.91     33968
 </code></pre>
 </div>
 </div>
-<p>Here we are able to achieve better accuracy,precision and recall rate.</p>
+<p>From the decision tree we have better precision, recall, accuracy and thus better f1 score. Hence, decision tree is performing better than logistic regression.</p>
 <p>AUC Curve : <a href="#fig-roc-curve">Figure&nbsp;1</a> Precision Recall Curve : <a href="#fig-pr-curve">Figure&nbsp;2</a></p>
 </section>
 </section>
-<section id="random-forest" class="level1">
-<h1>Random Forest</h1>
-<section id="feature-selection-1" class="level2">
-<h2 class="anchored" data-anchor-id="feature-selection-1">Feature Selection</h2>
+<section id="random-forest" class="level1" data-number="12">
+<h1 data-number="12"><span class="header-section-number">12</span> Random Forest</h1>
+<section id="feature-selection-1" class="level2" data-number="12.1">
+<h2 data-number="12.1" class="anchored" data-anchor-id="feature-selection-1"><span class="header-section-number">12.1</span> Feature Selection</h2>
 <div class="cell" data-execution_count="41">
 <div class="cell-output cell-output-stdout">
 <pre><code>Important features from random forest :
@@ -670,8 +783,8 @@ weighted avg       0.90      0.91      0.90     33968
 </div>
 </div>
 </section>
-<section id="hyperparameter-tuning-1" class="level2">
-<h2 class="anchored" data-anchor-id="hyperparameter-tuning-1">Hyperparameter Tuning</h2>
+<section id="hyperparameter-tuning-1" class="level2" data-number="12.2">
+<h2 data-number="12.2" class="anchored" data-anchor-id="hyperparameter-tuning-1"><span class="header-section-number">12.2</span> Hyperparameter Tuning</h2>
 <div class="cell" data-execution_count="42">
 <div class="cell-output cell-output-stdout">
 <pre><code>Fitting 3 folds for each of 32 candidates, totalling 96 fits</code></pre>
@@ -698,13 +811,34 @@ weighted avg       1.00      1.00      1.00     33968
 </div>
 </div>
 <p>We are getting best performance from Random Forest but we are not sure why we are getting such idealistic results so we would also apply cross validation to test our results</p>
+<div class="cell" data-execution_count="44">
+<div class="cell-output cell-output-display" data-execution_count="43">
+<pre><code>{'Training Accuracy scores': array([1., 1., 1., 1., 1.]),
+ 'Mean Training Accuracy': 100.0,
+ 'Training Precision scores': array([1., 1., 1., 1., 1.]),
+ 'Mean Training Precision': 1.0,
+ 'Training Recall scores': array([1., 1., 1., 1., 1.]),
+ 'Mean Training Recall': 1.0,
+ 'Training F1 scores': array([1., 1., 1., 1., 1.]),
+ 'Mean Training F1 Score': 1.0,
+ 'Validation Accuracy scores': array([0.89917574, 0.90005888, 0.90020606, 0.90122185, 0.89562785]),
+ 'Mean Validation Accuracy': 89.92580762348608,
+ 'Validation Precision scores': array([0.60078278, 0.61377871, 0.61410788, 0.62689805, 0.59250585]),
+ 'Mean Validation Precision': 0.6096146541684841,
+ 'Validation Recall scores': array([0.38959391, 0.37309645, 0.37563452, 0.36675127, 0.32106599]),
+ 'Mean Validation Recall': 0.36522842639593905,
+ 'Validation F1 scores': array([0.47267129, 0.4640884 , 0.46614173, 0.46277022, 0.41646091]),
+ 'Mean Validation F1 Score': 0.4564265074401127}</code></pre>
+</div>
+</div>
+<p>After applying cross validation, we are getting some what real estimates.</p>
 <p>AUC Curve : <a href="#fig-roc-curve">Figure&nbsp;1</a> Precision Recall Curve : <a href="#fig-pr-curve">Figure&nbsp;2</a></p>
 </section>
 </section>
-<section id="linear-svc" class="level1">
-<h1>Linear SVC</h1>
-<p>Finding a linear hyperplane that tries to separate two classes</p>
-<div class="cell" data-execution_count="44">
+<section id="linear-svc" class="level1" data-number="13">
+<h1 data-number="13"><span class="header-section-number">13</span> Linear SVC</h1>
+<p>Finding a linear hyperplane that tries to separate two classes.</p>
+<div class="cell" data-execution_count="45">
 <div class="cell-output cell-output-stdout">
 <pre><code>0.8908384361752237
 [[29649   379]
@@ -721,10 +855,10 @@ weighted avg       0.87      0.89      0.86     33968
 </div>
 </div>
 </section>
-<section id="svc" class="level1">
-<h1>SVC</h1>
+<section id="svc" class="level1" data-number="14">
+<h1 data-number="14"><span class="header-section-number">14</span> SVC</h1>
 <p>Finding a complex hyperplane that tries to separate the classes.</p>
-<div class="cell" data-execution_count="45">
+<div class="cell" data-execution_count="46">
 <div class="cell-output cell-output-stdout">
 <pre><code>0.8952837965143665
 [[29832   196]
@@ -741,9 +875,9 @@ weighted avg       0.88      0.90      0.86     33968
 </div>
 </div>
 </section>
-<section id="naive-bayes" class="level1">
-<h1>Naive Bayes</h1>
-<div class="cell" data-execution_count="46">
+<section id="naive-bayes" class="level1" data-number="15">
+<h1 data-number="15"><span class="header-section-number">15</span> Naive Bayes</h1>
+<div class="cell" data-execution_count="47">
 <div class="cell-output cell-output-stdout">
 <pre><code>Fitting 10 folds for each of 100 candidates, totalling 1000 fits</code></pre>
 </div>
@@ -752,7 +886,7 @@ weighted avg       0.88      0.90      0.86     33968
 Model score is 0.8844500706547339</code></pre>
 </div>
 <div class="cell-output cell-output-display">
-<p><img src="Summary_files/figure-html/cell-47-output-3.png" width="1260" height="620"></p>
+<p><img src="Summary_files/figure-html/cell-48-output-3.png" width="1260" height="620"></p>
 </div>
 <div class="cell-output cell-output-stdout">
 <pre><code>test set evaluation: 
@@ -770,29 +904,29 @@ weighted avg       0.86      0.88      0.87     33968
 </code></pre>
 </div>
 </div>
-<p>As we can see from the graph for Yes(1/have subscribed) the probabilities are coming both sides which is not correct.</p>
+<p>As we can see from the graph for Yes(1/have subscribed) the probabilities are coming both sides( for 0 as well as for 1) which is not correct.</p>
 <p>AUC Curve : <a href="#fig-roc-curve">Figure&nbsp;1</a> Precision Recall Curve : <a href="#fig-pr-curve">Figure&nbsp;2</a></p>
 </section>
-<section id="knn" class="level1">
-<h1>KNN</h1>
-<div class="cell" data-execution_count="48">
+<section id="knn" class="level1" data-number="16">
+<h1 data-number="16"><span class="header-section-number">16</span> KNN</h1>
+<div class="cell" data-execution_count="49">
 <div class="cell-output cell-output-stdout">
 <pre><code>Maximum accuracy:- 1.0 at K = 0</code></pre>
 </div>
 <div class="cell-output cell-output-display">
-<p><img src="Summary_files/figure-html/cell-49-output-2.png" width="824" height="529"></p>
+<p><img src="Summary_files/figure-html/cell-50-output-2.png" width="824" height="529"></p>
 </div>
 </div>
-<div class="cell" data-execution_count="49">
+<div class="cell" data-execution_count="50">
 <div class="cell-output cell-output-stdout">
 <pre><code>Maximum Precision:- 1.0 at K = 0</code></pre>
 </div>
 <div class="cell-output cell-output-display">
-<p><img src="Summary_files/figure-html/cell-50-output-2.png" width="593" height="455"></p>
+<p><img src="Summary_files/figure-html/cell-51-output-2.png" width="593" height="455"></p>
 </div>
 </div>
 <p>Based on the above plot, optimal k value is 3</p>
-<div class="cell" data-execution_count="50">
+<div class="cell" data-execution_count="51">
 <div class="cell-output cell-output-stdout">
 <pre><code>Train set accuracy 0.9294630240226095
 Test set accuracy 0.9294630240226095
@@ -811,9 +945,9 @@ weighted avg       0.92      0.93      0.92     33968
 </div>
 <p>AUC Curve : <a href="#fig-roc-curve">Figure&nbsp;1</a> Precision Recall Curve : <a href="#fig-pr-curve">Figure&nbsp;2</a></p>
 </section>
-<section id="roc--auc-curve" class="level1">
-<h1>ROC -AUC Curve</h1>
-<div class="cell" data-execution_count="51">
+<section id="roc--auc-curve" class="level1" data-number="17">
+<h1 data-number="17"><span class="header-section-number">17</span> ROC -AUC Curve</h1>
+<div class="cell" data-execution_count="52">
 <div class="cell-output cell-output-display">
 <div id="fig-roc-curve" class="quarto-figure quarto-figure-center anchored">
 <figure class="figure">
@@ -824,9 +958,9 @@ weighted avg       0.92      0.93      0.92     33968
 </div>
 </div>
 </section>
-<section id="precision-recall-curve" class="level1">
-<h1>Precision Recall Curve</h1>
-<div class="cell" data-execution_count="52">
+<section id="precision-recall-curve" class="level1" data-number="18">
+<h1 data-number="18"><span class="header-section-number">18</span> Precision Recall Curve</h1>
+<div class="cell" data-execution_count="53">
 <div class="cell-output cell-output-display">
 <div id="fig-pr-curve" class="quarto-figure quarto-figure-center anchored">
 <figure class="figure">
@@ -838,8 +972,8 @@ weighted avg       0.92      0.93      0.92     33968
 </div>
 <p>As per the ROC Curve and Precision Recall curve, Random Forest Classifier is performing best. Second best is KNN.</p>
 </section>
-<section id="summary" class="level1">
-<h1>Summary</h1>
+<section id="summary" class="level1" data-number="19">
+<h1 data-number="19"><span class="header-section-number">19</span> Summary</h1>
 <div id="tbl-letters" class="anchored">
 <table class="table">
 <caption>Table&nbsp;1: Summary of Models</caption>
@@ -951,7 +1085,24 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
     button.classList.add('code-copy-button-checked');
     var currentTitle = button.getAttribute("title");
     button.setAttribute("title", "Copied!");
+    let tooltip;
+    if (window.bootstrap) {
+      button.setAttribute("data-bs-toggle", "tooltip");
+      button.setAttribute("data-bs-placement", "left");
+      button.setAttribute("data-bs-title", "Copied!");
+      tooltip = new bootstrap.Tooltip(button, 
+        { trigger: "manual", 
+          customClass: "code-copy-button-tooltip",
+          offset: [0, -8]});
+      tooltip.show();    
+    }
     setTimeout(function() {
+      if (tooltip) {
+        tooltip.hide();
+        button.removeAttribute("data-bs-title");
+        button.removeAttribute("data-bs-toggle");
+        button.removeAttribute("data-bs-placement");
+      }
       button.setAttribute("title", currentTitle);
       button.classList.remove('code-copy-button-checked');
     }, 1000);
@@ -987,24 +1138,42 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
       return note.innerHTML;
     });
   }
+  const findCites = (el) => {
+    const parentEl = el.parentElement;
+    if (parentEl) {
+      const cites = parentEl.dataset.cites;
+      if (cites) {
+        return {
+          el,
+          cites: cites.split(' ')
+        };
+      } else {
+        return findCites(el.parentElement)
+      }
+    } else {
+      return undefined;
+    }
+  };
   var bibliorefs = window.document.querySelectorAll('a[role="doc-biblioref"]');
   for (var i=0; i<bibliorefs.length; i++) {
     const ref = bibliorefs[i];
-    const cites = ref.parentNode.getAttribute('data-cites').split(' ');
-    tippyHover(ref, function() {
-      var popup = window.document.createElement('div');
-      cites.forEach(function(cite) {
-        var citeDiv = window.document.createElement('div');
-        citeDiv.classList.add('hanging-indent');
-        citeDiv.classList.add('csl-entry');
-        var biblioDiv = window.document.getElementById('ref-' + cite);
-        if (biblioDiv) {
-          citeDiv.innerHTML = biblioDiv.innerHTML;
-        }
-        popup.appendChild(citeDiv);
+    const citeInfo = findCites(ref);
+    if (citeInfo) {
+      tippyHover(citeInfo.el, function() {
+        var popup = window.document.createElement('div');
+        citeInfo.cites.forEach(function(cite) {
+          var citeDiv = window.document.createElement('div');
+          citeDiv.classList.add('hanging-indent');
+          citeDiv.classList.add('csl-entry');
+          var biblioDiv = window.document.getElementById('ref-' + cite);
+          if (biblioDiv) {
+            citeDiv.innerHTML = biblioDiv.innerHTML;
+          }
+          popup.appendChild(citeDiv);
+        });
+        return popup.innerHTML;
       });
-      return popup.innerHTML;
-    });
+    }
   }
 });
 </script>
@@ -1012,4 +1181,5 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
 
 
 
+<script src="Summary_files/libs/quarto-html/zenscroll-min.js"></script>
 </body></html>

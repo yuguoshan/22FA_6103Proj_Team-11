@@ -376,6 +376,7 @@ plt.show()
 
 
 ## Month wise subscription
+
 ```{python}
 #| code-fold: true
 #| code-summary: "Show the code"
@@ -438,7 +439,19 @@ Maximum percentage of people have subscribed in the month of March but bank is c
 
 **Suggestion**:So it's better to contact customer's based on the subcription rate plot. 
 
-## SMART Question 2
+ 
+### SMART Question 7: How are the likelihood of subscriptions affected by social and economic factors?
+```{python}
+month_social_economic = clean_data[['month','cons.conf.idx','emp.var.rate','euribor3m','nr.employed']].groupby(['month']).count().reset_index()
+month_list= ['jan','feb','mar','apr','may','jun','jul','aug','sep','oct','nov','dec']
+month_pd = pd.DataFrame(month_list,columns=['month'])
+month_pd = month_pd.merge(month_social_economic,on='month')
+print(month_pd)
+```
+
+**Answer** : Based on the above table we can see that there is no distinguishable difference in the month of march or may from rest of all the month, so social and economic factor **do not have major influence** on the outcome. 
+
+### SMART Question 2
 Find out the **financially stable** population? Will that affect the outcome?
 ```{python}
 #| code-fold: true
@@ -895,7 +908,10 @@ Here as after applying feature selection, finding optimized cut-off, we are able
 
 ### Smart Question 5: The optimal cut off value for classification of our imbalance dataset.
 
-Ansewer: The optimal cut off value for our imbalance dataset is 0.25 as the precision- recall chart indicated.
+**Answer**: The optimal cut off value for our imbalance dataset is 0.25 as the precision- recall chart indicated.
+
+### SMART Question 2.Since the dataset is imbalanced, will down sampling/up sampling or other techniques improve upon the accuracy of models.
+**Answer**: As observed from above there is a slight improvement in accuracy, precision and recall after we apply SMOTE, but that improvement can also be acheived by adjusting the cut off value as well. So, we should always try adjusting cut-off first, before upsampling. 
 
 For ROC - AUC curve refer (@fig-roc-curve). 
 For precision recall curve refer(@fig-pr-curve). 
@@ -1104,7 +1120,7 @@ Precision Recall Curve : @fig-pr-curve
 
 # Linear SVC 
 
-Finding a linear hyperplane that tries to separate two classes
+Finding a linear hyperplane that tries to separate two classes.
 ```{python}
 
 svc_linear = LinearSVC(C=1.0, class_weight=None, dual=True, fit_intercept=True,
@@ -1172,8 +1188,7 @@ def modelEvaluation(model,x,y):
 modelEvaluation(modelNB,x_test,y_test)
 ```
 
-As we can see from the graph for Yes(1/have subscribed) the probabilities are coming both sides which is not correct.
-
+As we can see from the graph for Yes(1/have subscribed) the probabilities are coming both sides( for 0 as well as for 1) which is not correct.
 
 AUC Curve : @fig-roc-curve
 Precision Recall Curve : @fig-pr-curve
