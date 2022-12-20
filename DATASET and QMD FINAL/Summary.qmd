@@ -5,6 +5,15 @@ date: "November 21, 2022"
 subtitle : "The George Washington University (DATS 6103: An Introduction to Data Mining)"
 execute:
   echo: false
+format:
+  html:
+    smooth-scroll: true
+    toc-location: left
+    code-fold: true
+    number-sections: true
+    toc: true
+    toc-depth: 3
+    toc-float: true
 html: 
     code-tools:
       source: true
@@ -815,8 +824,10 @@ list_column.append('sin_month')
 list_column.append('duration')
 list_column.append('cos_month')
 
+#balanced dataset 
 bX_train_final = bx_train[list_column]
 bX_test_final = bx_test[list_column]
+#unbalanced test dataset
 ubx_test_final = x_test[list_column]
 
 lr_b = LogisticRegression(random_state=123)
@@ -930,6 +941,9 @@ Features selected from this algorithm are
 We have all the important features from EDA here
 
 ## Hyperparameter tuning
+
+For tuning the hyperparameter's we will use GridSearch CV. 
+
 ```{python}
 #| code-fold: true
 #| code-summary: "Show the code"
@@ -956,6 +970,7 @@ print(f"Best parameters from Grid Search CV : \n{clf.best_params_}")
 
 ```
 
+Training model based on the parameters we got from Grid SearchCV.
 ```{python}
 #| code-fold: true
 #| code-summary: "Show the code"
@@ -968,8 +983,9 @@ print(classification_report(y_test, dtcprediction))
 
 ```
 
-Here we are able to achieve better accuracy,precision and recall rate.
- 
+From the decision tree we have better precision, recall, accuracy and thus better f1 score. Hence, decision tree is performing better than logistic regression.  
+
+
 
 AUC Curve : @fig-roc-curve
 Precision Recall Curve : @fig-pr-curve
@@ -1029,10 +1045,65 @@ print(classification_report(y_test, rfcpredictions ))
 
 We are getting best performance from Random Forest but we are not sure why we are getting such idealistic results so we would also apply cross validation to test our results 
 
+```{python}
+# from sklearn.model_selection import cross_val_score
+# scores = cross_val_score(rfc, x_train_rf, y_train, cv=5)
+# print(scores)
+
+# K-Fold Cross-Validation
+from sklearn.model_selection import cross_validate
+def cross_validation(model, _X, _y, _cv=5):
+      '''Function to perform 5 Folds Cross-Validation
+       Parameters
+       ----------
+      model: Python Class, default=None
+              This is the machine learning algorithm to be used for training.
+      _X: array
+           This is the matrix of features.
+      _y: array
+           This is the target variable.
+      _cv: int, default=5
+          Determines the number of folds for cross-validation.
+       Returns
+       -------
+       The function returns a dictionary containing the metrics 'accuracy', 'precision',
+       'recall', 'f1' for both training set and validation set.
+      '''
+      _scoring = ['accuracy', 'precision', 'recall', 'f1']
+      results = cross_validate(estimator=model,
+                               X=_X,
+                               y=_y,
+                               cv=_cv,
+                               scoring=_scoring,
+                               return_train_score=True)
+      
+      return {"Training Accuracy scores": results['train_accuracy'],
+              "Mean Training Accuracy": results['train_accuracy'].mean()*100,
+              "Training Precision scores": results['train_precision'],
+              "Mean Training Precision": results['train_precision'].mean(),
+              "Training Recall scores": results['train_recall'],
+              "Mean Training Recall": results['train_recall'].mean(),
+              "Training F1 scores": results['train_f1'],
+              "Mean Training F1 Score": results['train_f1'].mean(),
+              "Validation Accuracy scores": results['test_accuracy'],
+              "Mean Validation Accuracy": results['test_accuracy'].mean()*100,
+              "Validation Precision scores": results['test_precision'],
+              "Mean Validation Precision": results['test_precision'].mean(),
+              "Validation Recall scores": results['test_recall'],
+              "Mean Validation Recall": results['test_recall'].mean(),
+              "Validation F1 scores": results['test_f1'],
+              "Mean Validation F1 Score": results['test_f1'].mean()
+              }
+cross_validation(rfc, x_train_rf, y_train, _cv=5)
+```
+
+After applying cross validation, we are getting some what real estimates. 
+
 AUC Curve : @fig-roc-curve
 Precision Recall Curve : @fig-pr-curve
 
 # Linear SVC 
+
 Finding a linear hyperplane that tries to separate two classes
 ```{python}
 
