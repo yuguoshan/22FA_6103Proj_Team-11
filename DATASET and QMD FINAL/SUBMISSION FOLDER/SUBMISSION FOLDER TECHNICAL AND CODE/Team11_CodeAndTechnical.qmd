@@ -1199,7 +1199,7 @@ Precision Recall Curve : @fig-pr-curve
 
 ```{python}
 #|label : fig-roc-curve
-#| fig-cap: "AUC ROC Curve for all Modeld"
+#| fig-cap: "AUC ROC Curve for all Models"
 from sklearn.metrics import roc_auc_score, roc_curve
 
 # Instantiate the classfiers and make a list
@@ -1254,7 +1254,7 @@ plt.show()
 # Precision Recall Curve 
 ```{python}
 #|label : fig-pr-curve
-#| fig-cap: "Precision Recall Curve for all Modeld"
+#| fig-cap: "Precision Recall Curve for all Models"
 #Logistic Regression
 lr_probs = lr.predict_proba(X_test_final)
 lr_probs = lr_probs[:, 1]
@@ -1355,3 +1355,7 @@ Hence, analyzing this kind of marketing dataset has given us valuable insight in
 * Solving Bank Marketing Calssification Problem - Databricks. (n.d.). Databricks.com. Retrieved December 20, 2022, from https://databricks-prod-cloudfront.cloud.databricks.com/public/4027ec902e239c93eaaa8714f173bcfc/8143187682226564/2297613386094950/3186001515933643/latest.html
 
 * Solving Bank Marketing Calssification Problem - Databricks. (n.d.). Databricks.com. Retrieved December 20, 2022, from https://databricks-prod-cloudfront.cloud.databricks.com/public/4027ec902e239c93eaaa8714f173bcfc/8143187682226564/2297613386094950/3186001515933643/latest.html
+
+* Bank Marketing Data Set. (n.d.). UCI Machine Learning Repository. Retrieved December 20, 2022, from https://archive.ics.uci.edu/ml/datasets/Bank+Marketing
+
+* https://tradingeconomics.com/

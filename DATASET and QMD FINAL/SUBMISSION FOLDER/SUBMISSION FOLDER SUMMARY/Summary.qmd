@@ -1288,7 +1288,7 @@ Precision Recall Curve : @fig-pr-curve
 
 ```{python}
 #|label : fig-roc-curve
-#| fig-cap: "AUC ROC Curve for all Modeld"
+#| fig-cap: "AUC ROC Curve for all Models"
 from sklearn.metrics import roc_auc_score, roc_curve
 
 # Instantiate the classfiers and make a list
@@ -1343,7 +1343,7 @@ plt.show()
 # Precision Recall Curve 
 ```{python}
 #|label : fig-pr-curve
-#| fig-cap: "Precision Recall Curve for all Modeld"
+#| fig-cap: "Precision Recall Curve for all Models"
 #Logistic Regression
 lr_probs = lr.predict_proba(X_test_final)
 lr_probs = lr_probs[:, 1]
@@ -1434,10 +1434,20 @@ Hence, analyzing this kind of marketing dataset has given us valuable insight in
 # Reference
 
 * https://www.kaggle.com/janiobachmann/bank-marketing-dataset
-*(PDF) Data Analysis of a Portuguese marketing campaign using bank ... (no date). Available at: https://www.researchgate.net/publication/339988208_Data_Analysis_of_a_Portuguese_Marketing_Campaign_using_Bank_Marketing_data_Set (Accessed: December 20, 2022). 
-*Bank marketing data set. (n.d.). 1010data.com. Retrieved December 20, 2022, from https://docs.1010data.com/Tutorials/MachineLearningExamples/BankMarketingDataSet_2.html
-*Manda, H., Srinivasan, S., & Rangarao, D. (2021). IBM Cloud Pak for Data: An enterprise platform to operationalize data, analytics, and AI. Packt Publishing.
-*Solving Bank Marketing Calssification Problem - Databricks. (n.d.). Databricks.com. Retrieved December 20, 2022, from https://databricks-prod-cloudfront.cloud.databricks.com/public/4027ec902e239c93eaaa8714f173bcfc/8143187682226564/2297613386094950/3186001515933643/latest.html
-*Solving Bank Marketing Calssification Problem - Databricks. (n.d.). Databricks.com. Retrieved December 20, 2022, from https://databricks-prod-cloudfront.cloud.databricks.com/public/4027ec902e239c93eaaa8714f173bcfc/8143187682226564/2297613386094950/3186001515933643/latest.html
+
+* (PDF) Data Analysis of a Portuguese marketing campaign using bank ... (no date). Available at: https://www.researchgate.net/publication/339988208_Data_Analysis_of_a_Portuguese_Marketing_Campaign_using_Bank_Marketing_data_Set (Accessed: December 20, 2022). 
+
+* Bank marketing data set. (n.d.). 1010data.com. Retrieved December 20, 2022, from https://docs.1010data.com/Tutorials/MachineLearningExamples/BankMarketingDataSet_2.html
+
+* Manda, H., Srinivasan, S., & Rangarao, D. (2021). IBM Cloud Pak for Data: An enterprise platform to operationalize data, analytics, and AI. Packt Publishing.
+
+* Solving Bank Marketing Calssification Problem - Databricks. (n.d.). Databricks.com. Retrieved December 20, 2022, from https://databricks-prod-cloudfront.cloud.databricks.com/public/4027ec902e239c93eaaa8714f173bcfc/8143187682226564/2297613386094950/3186001515933643/latest.html
+
+* Solving Bank Marketing Calssification Problem - Databricks. (n.d.). Databricks.com. Retrieved December 20, 2022, from https://databricks-prod-cloudfront.cloud.databricks.com/public/4027ec902e239c93eaaa8714f173bcfc/8143187682226564/2297613386094950/3186001515933643/latest.html
+
+* Bank Marketing Data Set. (n.d.). UCI Machine Learning Repository. Retrieved December 20, 2022, from https://archive.ics.uci.edu/ml/datasets/Bank+Marketing
+
+* https://tradingeconomics.com/
+
 
 
