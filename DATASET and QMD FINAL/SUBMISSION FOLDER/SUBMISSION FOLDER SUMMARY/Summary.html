@@ -108,7 +108,7 @@ ul.task-list li input[type="checkbox"] {
   <ul class="collapse">
   <li><a href="#deciding-cut-off-value-for-logistic-regression---unbalance" id="toc-deciding-cut-off-value-for-logistic-regression---unbalance" class="nav-link" data-scroll-target="#deciding-cut-off-value-for-logistic-regression---unbalance"><span class="toc-section-number">9.0.1</span>  Deciding cut off value for logistic regression - Unbalance</a></li>
   <li><a href="#smart-question-5-the-optimal-cut-off-value-for-classification-of-our-imbalance-dataset." id="toc-smart-question-5-the-optimal-cut-off-value-for-classification-of-our-imbalance-dataset." class="nav-link" data-scroll-target="#smart-question-5-the-optimal-cut-off-value-for-classification-of-our-imbalance-dataset."><span class="toc-section-number">9.0.2</span>  Smart Question 5: The optimal cut off value for classification of our imbalance dataset.</a></li>
-  <li><a href="#smart-question-2.since-the-dataset-is-imbalanced-will-down-samplingup-sampling-or-other-techniques-improve-upon-the-accuracy-of-models." id="toc-smart-question-2.since-the-dataset-is-imbalanced-will-down-samplingup-sampling-or-other-techniques-improve-upon-the-accuracy-of-models." class="nav-link" data-scroll-target="#smart-question-2.since-the-dataset-is-imbalanced-will-down-samplingup-sampling-or-other-techniques-improve-upon-the-accuracy-of-models."><span class="toc-section-number">9.0.3</span>  SMART Question 2.Since the dataset is imbalanced, will down sampling/up sampling or other techniques improve upon the accuracy of models.</a></li>
+  <li><a href="#smart-question-2-since-the-dataset-is-imbalanced-will-down-samplingup-sampling-or-other-techniques-improve-upon-the-accuracy-of-models." id="toc-smart-question-2-since-the-dataset-is-imbalanced-will-down-samplingup-sampling-or-other-techniques-improve-upon-the-accuracy-of-models." class="nav-link" data-scroll-target="#smart-question-2-since-the-dataset-is-imbalanced-will-down-samplingup-sampling-or-other-techniques-improve-upon-the-accuracy-of-models."><span class="toc-section-number">9.0.3</span>  SMART Question 2: Since the dataset is imbalanced, will down sampling/up sampling or other techniques improve upon the accuracy of models.</a></li>
   </ul></li>
   <li><a href="#decision-tree" id="toc-decision-tree" class="nav-link" data-scroll-target="#decision-tree"><span class="toc-section-number">10</span>  Decision Tree</a>
   <ul class="collapse">
@@ -619,7 +619,11 @@ dtype: float64</code></pre>
 </section>
 <section id="balancing-our-dataset" class="level2" data-number="6.2">
 <h2 data-number="6.2" class="anchored" data-anchor-id="balancing-our-dataset"><span class="header-section-number">6.2</span> Balancing Our Dataset</h2>
-<p>We tried to balance our dataset using following methods: * Upsampling using SMOTE * Sin and cos transformation from month_int.</p>
+<p>We tried to balance our dataset using following methods:</p>
+<ul>
+<li>Upsampling using SMOTE</li>
+<li>Sin and cos transformation from month_int.</li>
+</ul>
 </section>
 </section>
 <section id="scaling-numeric-variables" class="level1" data-number="7">
@@ -631,7 +635,7 @@ dtype: float64</code></pre>
 <p>Performing Logistic Regression on both balanced and unbalanced dataset. RFE is used in selecting the most important features ## Unbalanced Dataset</p>
 <div class="cell" data-execution_count="37">
 <div class="cell-output cell-output-stdout">
-<pre><code>Columns selected by RE ['duration', 'euribor3m', 'cons.price.idx', 'job_blue-collar', 'job_retired', 'job_student', 'education_primary', 'education_tertiary', 'housing_no', 'housing_yes', 'loan_no', 'loan_yes', 'poutcome_failure', 'poutcome_success', 'month_apr', 'month_aug', 'month_dec', 'month_feb', 'month_jan', 'month_jul', 'month_jun', 'month_mar', 'month_nov', 'month_oct', 'age', 'balance']</code></pre>
+<pre><code>Columns selected by RE ['duration', 'euribor3m', 'cons.price.idx', 'job_blue-collar', 'job_retired', 'job_student', 'education_primary', 'education_tertiary', 'marital_single', 'housing_no', 'housing_yes', 'loan_no', 'loan_yes', 'poutcome_failure', 'poutcome_success', 'month_apr', 'month_aug', 'month_feb', 'month_jan', 'month_jul', 'month_jun', 'month_mar', 'month_nov', 'month_oct', 'age', 'balance']</code></pre>
 </div>
 </div>
 <p>As we can see from RFE, the most relevant features are :</p>
@@ -647,15 +651,15 @@ dtype: float64</code></pre>
 <p>Applying model with selected features</p>
 <div class="cell" data-execution_count="38">
 <div class="cell-output cell-output-stdout">
-<pre><code>Accuracy for training set 0.8714696652719666
-Accuracy for testing set 0.8704672245467224
+<pre><code>Accuracy for training set 0.8717311715481172
+Accuracy for testing set 0.8713389121338913
 Confusion matrix 
-[[4750  157]
- [ 586  243]]
+[[4759  148]
+ [ 590  239]]
               precision    recall  f1-score   support
 
            0       0.89      0.97      0.93      4907
-           1       0.61      0.29      0.40       829
+           1       0.62      0.29      0.39       829
 
     accuracy                           0.87      5736
    macro avg       0.75      0.63      0.66      5736
@@ -672,15 +676,15 @@ weighted avg       0.85      0.87      0.85      5736
 <pre><code>Columns selected by RE ['duration', 'cons.price.idx', 'job_admin.', 'job_blue-collar', 'job_management', 'job_self-employed', 'job_services', 'job_technician', 'job_unemployed', 'education_primary', 'education_secondary', 'education_tertiary', 'marital_divorced', 'marital_married', 'marital_single', 'housing_no', 'housing_yes', 'loan_yes', 'poutcome_failure', 'month_apr', 'month_aug', 'month_jul', 'month_may', 'month_nov']</code></pre>
 </div>
 <div class="cell-output cell-output-stdout">
-<pre><code>Accuracy for training set 0.9059650552697265
-Accuracy for testing set 0.8519874476987448
+<pre><code>Accuracy for training set 0.9064744536702155
+Accuracy for testing set 0.8516387726638772
 Confusion matrix 
-[[4451  456]
- [ 393  436]]
+[[4440  467]
+ [ 384  445]]
               precision    recall  f1-score   support
 
-           0       0.92      0.91      0.91      4907
-           1       0.49      0.53      0.51       829
+           0       0.92      0.90      0.91      4907
+           1       0.49      0.54      0.51       829
 
     accuracy                           0.85      5736
    macro avg       0.70      0.72      0.71      5736
@@ -688,7 +692,8 @@ weighted avg       0.86      0.85      0.85      5736
 </code></pre>
 </div>
 </div>
-<p>Here, important features are * Housing * Loan * Job * Education * Marital Status We also added the important features from unbalaced dataset * Duration * Age * Month * Balance</p>
+<p>Here, important features are * Housing * Loan * Job * Education * Marital Status</p>
+<p>We also added the important features from unbalaced dataset * Duration * Age * Month * Balance</p>
 <p>Here even though the precision and recall have improved, and accuracy has dropped down, but the important relationships are lost since the training data now is artificially generated datapoints. We will try to find the optimal cut-off value for original dataset and compare it with the model for balanced data.</p>
 <section id="deciding-cut-off-value-for-logistic-regression---unbalance" class="level3" data-number="9.0.1">
 <h3 data-number="9.0.1" class="anchored" data-anchor-id="deciding-cut-off-value-for-logistic-regression---unbalance"><span class="header-section-number">9.0.1</span> Deciding cut off value for logistic regression - Unbalance</h3>
@@ -697,14 +702,14 @@ weighted avg       0.86      0.85      0.85      5736
 <div class="cell-output cell-output-stdout">
 <pre><code>
 Based on plot we would choose 0.25 as cut off 
-Accuracy for testing set 0.8594839609483961
+Accuracy for testing set 0.8589609483960948
 Confusion matrix 
 [[4447  460]
- [ 346  483]]
+ [ 349  480]]
               precision    recall  f1-score   support
 
            0       0.93      0.91      0.92      4907
-           1       0.51      0.58      0.55       829
+           1       0.51      0.58      0.54       829
 
     accuracy                           0.86      5736
    macro avg       0.72      0.74      0.73      5736
@@ -726,10 +731,11 @@ weighted avg       0.87      0.86      0.86      5736
 <h3 data-number="9.0.2" class="anchored" data-anchor-id="smart-question-5-the-optimal-cut-off-value-for-classification-of-our-imbalance-dataset."><span class="header-section-number">9.0.2</span> Smart Question 5: The optimal cut off value for classification of our imbalance dataset.</h3>
 <p><strong>Answer</strong>: The optimal cut off value for our imbalance dataset is 0.25 as the precision- recall chart indicated.</p>
 </section>
-<section id="smart-question-2.since-the-dataset-is-imbalanced-will-down-samplingup-sampling-or-other-techniques-improve-upon-the-accuracy-of-models." class="level3" data-number="9.0.3">
-<h3 data-number="9.0.3" class="anchored" data-anchor-id="smart-question-2.since-the-dataset-is-imbalanced-will-down-samplingup-sampling-or-other-techniques-improve-upon-the-accuracy-of-models."><span class="header-section-number">9.0.3</span> SMART Question 2.Since the dataset is imbalanced, will down sampling/up sampling or other techniques improve upon the accuracy of models.</h3>
+<section id="smart-question-2-since-the-dataset-is-imbalanced-will-down-samplingup-sampling-or-other-techniques-improve-upon-the-accuracy-of-models." class="level3" data-number="9.0.3">
+<h3 data-number="9.0.3" class="anchored" data-anchor-id="smart-question-2-since-the-dataset-is-imbalanced-will-down-samplingup-sampling-or-other-techniques-improve-upon-the-accuracy-of-models."><span class="header-section-number">9.0.3</span> SMART Question 2: Since the dataset is imbalanced, will down sampling/up sampling or other techniques improve upon the accuracy of models.</h3>
 <p><strong>Answer</strong>: As observed from above there is a slight improvement in accuracy, precision and recall after we apply SMOTE, but that improvement can also be acheived by adjusting the cut off value as well. So, we should always try adjusting cut-off first, before upsampling.</p>
-<p>For ROC - AUC curve refer (<a href="#fig-roc-curve">Figure&nbsp;1</a>). For precision recall curve refer(<a href="#fig-pr-curve">Figure&nbsp;2</a>).</p>
+<p>For ROC - AUC curve refer (<a href="#fig-roc-curve">Figure&nbsp;1</a>).<br>
+For precision recall curve refer(<a href="#fig-pr-curve">Figure&nbsp;2</a>).</p>
 </section>
 </section>
 <section id="decision-tree" class="level1" data-number="10">
@@ -743,19 +749,17 @@ Feature 1 variable balance score 0.10
 Feature 2 variable day score 0.09
 Feature 3 variable duration score 0.28
 Feature 4 variable campaign score 0.03
-Feature 5 variable pdays score 0.06
+Feature 5 variable pdays score 0.07
 Feature 6 variable previous score 0.01
-Feature 7 variable cons.conf.idx score 0.02
+Feature 7 variable cons.conf.idx score 0.01
 Feature 8 variable emp.var.rate score 0.03
 Feature 9 variable euribor3m score 0.02
-Feature 11 variable cons.price.idx score 0.02
-Feature 24 variable education_secondary score 0.01
-Feature 29 variable housing_no score 0.02
+Feature 11 variable cons.price.idx score 0.03
+Feature 29 variable housing_no score 0.03
 Feature 30 variable housing_yes score 0.01
 Feature 35 variable poutcome_failure score 0.05
-Feature 43 variable month_jun score 0.01
 Important features from decision treee are : 
-['age', 'balance', 'day', 'duration', 'campaign', 'pdays', 'previous', 'cons.conf.idx', 'emp.var.rate', 'euribor3m', 'cons.price.idx', 'education_secondary', 'housing_no', 'housing_yes', 'poutcome_failure', 'month_jun']</code></pre>
+['age', 'balance', 'day', 'duration', 'campaign', 'pdays', 'previous', 'cons.conf.idx', 'emp.var.rate', 'euribor3m', 'cons.price.idx', 'housing_no', 'housing_yes', 'poutcome_failure']</code></pre>
 </div>
 <div class="cell-output cell-output-display">
 <p><img src="Summary_files/figure-html/cell-42-output-2.png" width="581" height="415"></p>
@@ -791,22 +795,23 @@ Important features from decision treee are :
 <p>Training model based on the parameters we got from Grid SearchCV.</p>
 <div class="cell" data-execution_count="43">
 <div class="cell-output cell-output-stdout">
-<pre><code>0.8751743375174338
-[[4648  259]
- [ 457  372]]
+<pre><code>0.8844142259414226
+[[4674  233]
+ [ 430  399]]
               precision    recall  f1-score   support
 
-           0       0.91      0.95      0.93      4907
-           1       0.59      0.45      0.51       829
+           0       0.92      0.95      0.93      4907
+           1       0.63      0.48      0.55       829
 
     accuracy                           0.88      5736
-   macro avg       0.75      0.70      0.72      5736
-weighted avg       0.86      0.88      0.87      5736
+   macro avg       0.77      0.72      0.74      5736
+weighted avg       0.87      0.88      0.88      5736
 </code></pre>
 </div>
 </div>
 <p>From the decision tree we have better precision, recall, accuracy and thus better f1 score. Hence, decision tree is performing better than logistic regression.</p>
-<p>AUC Curve : <a href="#fig-roc-curve">Figure&nbsp;1</a> Precision Recall Curve : <a href="#fig-pr-curve">Figure&nbsp;2</a></p>
+<p>AUC Curve : <a href="#fig-roc-curve">Figure&nbsp;1</a><br>
+Precision Recall Curve : <a href="#fig-pr-curve">Figure&nbsp;2</a></p>
 </section>
 </section>
 <section id="random-forest" class="level1" data-number="11">
@@ -829,82 +834,20 @@ weighted avg       0.86      0.88      0.87      5736
 <div class="cell-output cell-output-stdout">
 <pre><code>Fitting 3 folds for each of 32 candidates, totalling 96 fits</code></pre>
 </div>
-<div class="cell-output cell-output-stdout">
-<pre><code>[CV] END bootstrap=True, max_depth=80, max_features=2, n_estimators=200; total time=   2.5s
-[CV] END bootstrap=True, max_depth=80, max_features=2, n_estimators=1000; total time=  12.9s</code></pre>
-</div>
-<div class="cell-output cell-output-stdout">
-<pre><code>[CV] END bootstrap=True, max_depth=80, max_features=2, n_estimators=100; total time=   1.3s
-[CV] END bootstrap=True, max_depth=80, max_features=2, n_estimators=300; total time=   3.8s
-[CV] END bootstrap=True, max_depth=80, max_features=3, n_estimators=200; total time=   3.0s
-[CV] END bootstrap=True, max_depth=80, max_features=3, n_estimators=1000; total time=  16.3s</code></pre>
-</div>
-<div class="cell-output cell-output-stdout">
-<pre><code>[CV] END bootstrap=True, max_depth=80, max_features=2, n_estimators=100; total time=   1.2s
-[CV] END bootstrap=True, max_depth=80, max_features=2, n_estimators=200; total time=   2.6s
-[CV] END bootstrap=True, max_depth=80, max_features=3, n_estimators=100; total time=   1.6s
-[CV] END bootstrap=True, max_depth=80, max_features=3, n_estimators=200; total time=   2.9s
-[CV] END bootstrap=True, max_depth=80, max_features=3, n_estimators=1000; total time=  16.3s</code></pre>
-</div>
-<div class="cell-output cell-output-stdout">
-<pre><code>[CV] END bootstrap=True, max_depth=80, max_features=2, n_estimators=200; total time=   2.7s
-[CV] END bootstrap=True, max_depth=80, max_features=3, n_estimators=100; total time=   1.6s
-[CV] END bootstrap=True, max_depth=80, max_features=3, n_estimators=100; total time=   1.6s
-[CV] END bootstrap=True, max_depth=80, max_features=3, n_estimators=300; total time=   4.7s
-[CV] END bootstrap=True, max_depth=80, max_features=3, n_estimators=1000; total time=  16.3s</code></pre>
-</div>
-<div class="cell-output cell-output-stdout">
-<pre><code>[CV] END bootstrap=True, max_depth=80, max_features=2, n_estimators=100; total time=   1.3s
-[CV] END bootstrap=True, max_depth=80, max_features=2, n_estimators=300; total time=   3.7s
-[CV] END bootstrap=True, max_depth=80, max_features=3, n_estimators=200; total time=   3.0s
-[CV] END bootstrap=True, max_depth=80, max_features=3, n_estimators=300; total time=   4.5s
-[CV] END bootstrap=True, max_depth=90, max_features=2, n_estimators=100; total time=   1.3s
-[CV] END bootstrap=True, max_depth=90, max_features=2, n_estimators=200; total time=   3.0s
-[CV] END bootstrap=True, max_depth=90, max_features=2, n_estimators=300; total time=   3.9s
-[CV] END bootstrap=True, max_depth=90, max_features=2, n_estimators=1000; total time=  13.1s</code></pre>
-</div>
-<div class="cell-output cell-output-stdout">
-<pre><code>[CV] END bootstrap=True, max_depth=90, max_features=3, n_estimators=300; total time=   4.5s
-[CV] END bootstrap=True, max_depth=100, max_features=2, n_estimators=100; total time=   1.4s
-[CV] END bootstrap=True, max_depth=100, max_features=2, n_estimators=200; total time=   2.8s
-[CV] END bootstrap=True, max_depth=100, max_features=2, n_estimators=1000; total time=  13.7s</code></pre>
-</div>
-<div class="cell-output cell-output-stdout">
-<pre><code>[CV] END bootstrap=True, max_depth=90, max_features=3, n_estimators=300; total time=   4.8s
-[CV] END bootstrap=True, max_depth=100, max_features=2, n_estimators=200; total time=   2.8s
-[CV] END bootstrap=True, max_depth=100, max_features=2, n_estimators=300; total time=   4.1s
-[CV] END bootstrap=True, max_depth=100, max_features=3, n_estimators=100; total time=   1.6s
-[CV] END bootstrap=True, max_depth=100, max_features=3, n_estimators=100; total time=   1.6s
-[CV] END bootstrap=True, max_depth=100, max_features=3, n_estimators=200; total time=   3.0s
-[CV] END bootstrap=True, max_depth=100, max_features=3, n_estimators=300; total time=   4.7s
-[CV] END bootstrap=True, max_depth=110, max_features=2, n_estimators=100; total time=   1.3s
-[CV] END bootstrap=True, max_depth=110, max_features=2, n_estimators=200; total time=   2.5s
-[CV] END bootstrap=True, max_depth=110, max_features=2, n_estimators=1000; total time=  13.0s</code></pre>
-</div>
-<div class="cell-output cell-output-stdout">
-<pre><code>[CV] END bootstrap=True, max_depth=100, max_features=2, n_estimators=300; total time=   4.1s
-[CV] END bootstrap=True, max_depth=100, max_features=3, n_estimators=100; total time=   1.5s
-[CV] END bootstrap=True, max_depth=100, max_features=3, n_estimators=200; total time=   3.1s
-[CV] END bootstrap=True, max_depth=100, max_features=3, n_estimators=300; total time=   4.9s
-[CV] END bootstrap=True, max_depth=110, max_features=2, n_estimators=100; total time=   1.3s
-[CV] END bootstrap=True, max_depth=110, max_features=2, n_estimators=200; total time=   2.4s
-[CV] END bootstrap=True, max_depth=110, max_features=2, n_estimators=1000; total time=  12.8s
-[CV] END bootstrap=True, max_depth=110, max_features=3, n_estimators=1000; total time=  12.6s</code></pre>
-</div>
 <div class="cell-output cell-output-display" data-execution_count="44">
-<pre><code>{'bootstrap': True, 'max_depth': 110, 'max_features': 3, 'n_estimators': 300}</code></pre>
+<pre><code>{'bootstrap': True, 'max_depth': 100, 'max_features': 3, 'n_estimators': 1000}</code></pre>
 </div>
 </div>
 <div class="cell" data-execution_count="46">
 <div class="cell-output cell-output-stdout">
 <pre><code>Training accuracy 1.0
-Testing set accuracy 0.8872036262203626
-[[4715  192]
- [ 455  374]]
+Testing set accuracy 0.8868549511854951
+[[4714  193]
+ [ 456  373]]
               precision    recall  f1-score   support
 
            0       0.91      0.96      0.94      4907
-           1       0.66      0.45      0.54       829
+           1       0.66      0.45      0.53       829
 
     accuracy                           0.89      5736
    macro avg       0.79      0.71      0.74      5736
@@ -923,18 +866,19 @@ weighted avg       0.88      0.89      0.88      5736
  'Mean Training Recall': 1.0,
  'Training F1 scores': array([1., 1., 1., 1., 1.]),
  'Mean Training F1 Score': 1.0,
- 'Validation Accuracy scores': array([0.88385269, 0.88189148, 0.88777511, 0.88603182, 0.89189189]),
- 'Mean Validation Accuracy': 88.62885984699017,
- 'Validation Precision scores': array([0.63752665, 0.64508393, 0.66517857, 0.65350877, 0.68122271]),
- 'Mean Validation Precision': 0.6565041272175438,
- 'Validation Recall scores': array([0.45166163, 0.40573152, 0.4494721 , 0.4494721 , 0.47129909]),
- 'Mean Validation Recall': 0.44552728830319016,
- 'Validation F1 scores': array([0.52873563, 0.49814815, 0.53645365, 0.53261841, 0.55714286]),
- 'Mean Validation F1 Score': 0.5306197384266925}</code></pre>
+ 'Validation Accuracy scores': array([0.88472434, 0.88080192, 0.89322292, 0.88494225, 0.89232781]),
+ 'Mean Validation Accuracy': 88.72038495450722,
+ 'Validation Precision scores': array([0.64488017, 0.64427861, 0.6935123 , 0.64835165, 0.68103448]),
+ 'Mean Validation Precision': 0.6624114433235884,
+ 'Validation Recall scores': array([0.44712991, 0.39064857, 0.46757164, 0.44494721, 0.47734139]),
+ 'Mean Validation Recall': 0.44552774398162703,
+ 'Validation F1 scores': array([0.52809991, 0.48638498, 0.55855856, 0.52772809, 0.56127886]),
+ 'Mean Validation F1 Score': 0.5324100789957235}</code></pre>
 </div>
 </div>
 <p>After applying cross validation, we are getting some what real estimates.</p>
-<p>AUC Curve : <a href="#fig-roc-curve">Figure&nbsp;1</a> Precision Recall Curve : <a href="#fig-pr-curve">Figure&nbsp;2</a></p>
+<p>AUC Curve : <a href="#fig-roc-curve">Figure&nbsp;1</a><br>
+Precision Recall Curve : <a href="#fig-pr-curve">Figure&nbsp;2</a></p>
 </section>
 </section>
 <section id="linear-svc" class="level1" data-number="12">
@@ -979,6 +923,7 @@ weighted avg       0.73      0.86      0.79      5736
 </section>
 <section id="naive-bayes" class="level1" data-number="14">
 <h1 data-number="14"><span class="header-section-number">14</span> Naive Bayes</h1>
+<p>Naive Bayes a naive assumption that all the features are independent of each other and thus by reducing the complexity of computing conditional probabilities it evaluates the probability of 0 and 1.</p>
 <div class="cell" data-execution_count="50">
 <div class="cell-output cell-output-stdout">
 <pre><code>Fitting 10 folds for each of 100 candidates, totalling 1000 fits</code></pre>
@@ -1007,7 +952,8 @@ weighted avg       0.81      0.86      0.80      5736
 </div>
 </div>
 <p>As we can see from the graph for Yes(1/have subscribed) the probabilities are coming both sides( for 0 as well as for 1) which is not correct.</p>
-<p>AUC Curve : <a href="#fig-roc-curve">Figure&nbsp;1</a> Precision Recall Curve : <a href="#fig-pr-curve">Figure&nbsp;2</a></p>
+<p>AUC Curve : <a href="#fig-roc-curve">Figure&nbsp;1</a><br>
+Precision Recall Curve : <a href="#fig-pr-curve">Figure&nbsp;2</a></p>
 </section>
 <section id="knn" class="level1" data-number="15">
 <h1 data-number="15"><span class="header-section-number">15</span> KNN</h1>
@@ -1046,7 +992,8 @@ weighted avg       0.85      0.87      0.86      5736
 </code></pre>
 </div>
 </div>
-<p>AUC Curve : <a href="#fig-roc-curve">Figure&nbsp;1</a> Precision Recall Curve : <a href="#fig-pr-curve">Figure&nbsp;2</a></p>
+<p>AUC Curve : <a href="#fig-roc-curve">Figure&nbsp;1</a><br>
+Precision Recall Curve : <a href="#fig-pr-curve">Figure&nbsp;2</a></p>
 </section>
 <section id="roc--auc-curve" class="level1" data-number="16">
 <h1 data-number="16"><span class="header-section-number">16</span> ROC -AUC Curve</h1>
@@ -1055,7 +1002,7 @@ weighted avg       0.85      0.87      0.86      5736
 <div id="fig-roc-curve" class="quarto-figure quarto-figure-center anchored">
 <figure class="figure">
 <p><img src="Summary_files/figure-html/fig-roc-curve-output-1.png" width="671" height="535" class="figure-img"></p>
-<p></p><figcaption class="figure-caption">Figure&nbsp;1: AUC ROC Curve for all Modeld</figcaption><p></p>
+<p></p><figcaption class="figure-caption">Figure&nbsp;1: AUC ROC Curve for all Models</figcaption><p></p>
 </figure>
 </div>
 </div>
@@ -1063,17 +1010,19 @@ weighted avg       0.85      0.87      0.86      5736
 </section>
 <section id="precision-recall-curve" class="level1" data-number="17">
 <h1 data-number="17"><span class="header-section-number">17</span> Precision Recall Curve</h1>
+<p>In imbalance problem since we have a high number of Negatives, this makes the False Posiitve Rate as low, resulting in the shift of ROC AUC Curve towards left, which is slightly misleading.</p>
+<p>So in imbalance problem we usually make sure to look at precision recall curve as well.</p>
 <div class="cell" data-execution_count="56">
 <div class="cell-output cell-output-display">
 <div id="fig-pr-curve" class="quarto-figure quarto-figure-center anchored">
 <figure class="figure">
 <p><img src="Summary_files/figure-html/fig-pr-curve-output-1.png" width="593" height="435" class="figure-img"></p>
-<p></p><figcaption class="figure-caption">Figure&nbsp;2: Precision Recall Curve for all Modeld</figcaption><p></p>
+<p></p><figcaption class="figure-caption">Figure&nbsp;2: Precision Recall Curve for all Models</figcaption><p></p>
 </figure>
 </div>
 </div>
 </div>
-<p>As per the ROC Curve and Precision Recall curve, Random Forest Classifier is performing best. Second best is KNN. Since we have unrealistic results from Random Forest, we would suggest using KNN for our model.</p>
+<p>As per the ROC Curve and Precision Recall curve, KNN is performing best. But after combining these results with precision recall curve, we suggest using Random Forest for our problem.</p>
 </section>
 <section id="summary" class="level1" data-number="18">
 <h1 data-number="18"><span class="header-section-number">18</span> Summary</h1>
@@ -1091,48 +1040,55 @@ weighted avg       0.85      0.87      0.86      5736
 </thead>
 <tbody>
 <tr class="odd">
-<td>Logistic</td>
+<td>Logistic(Cutoff=0.25)</td>
 <td>0.88</td>
-<td>0.46</td>
-<td>0.48</td>
+<td>0.51</td>
+<td>0.58</td>
 <td>0.872</td>
 </tr>
 <tr class="even">
+<td>Logistic (Balanced-Train)</td>
+<td>0.85</td>
+<td>0.49</td>
+<td>0.54</td>
+<td></td>
+</tr>
+<tr class="odd">
 <td>Decision Tree</td>
 <td>0.91</td>
 <td>0.66</td>
 <td>0.47</td>
 <td>0.923</td>
 </tr>
-<tr class="odd">
-<td>Random Forest</td>
-<td>1</td>
-<td>1</td>
-<td>1</td>
-<td>1</td>
-</tr>
 <tr class="even">
+<td>Random Forest</td>
+<td>0.88</td>
+<td>0.66</td>
+<td>0.46</td>
+<td>0.913</td>
+</tr>
+<tr class="odd">
 <td>SVC</td>
 <td>0.89</td>
 <td>0.75</td>
 <td>0.15</td>
 <td></td>
 </tr>
-<tr class="odd">
+<tr class="even">
 <td>Linear SVC</td>
 <td>0.89</td>
 <td>0.62</td>
 <td>0.16</td>
 <td></td>
 </tr>
-<tr class="even">
+<tr class="odd">
 <td>Gaussian Bayes</td>
 <td>0.88</td>
 <td>0.50</td>
 <td>0.25</td>
 <td>0.841</td>
 </tr>
-<tr class="odd">
+<tr class="even">
 <td>KNN</td>
 <td>0.92</td>
 <td>0.78</td>
@@ -1159,7 +1115,14 @@ weighted avg       0.85      0.87      0.86      5736
 <section id="reference" class="level1" data-number="20">
 <h1 data-number="20"><span class="header-section-number">20</span> Reference</h1>
 <ul>
-<li>https://www.kaggle.com/janiobachmann/bank-marketing-dataset <em>(PDF) Data Analysis of a Portuguese marketing campaign using bank … (no date). Available at: https://www.researchgate.net/publication/339988208_Data_Analysis_of_a_Portuguese_Marketing_Campaign_using_Bank_Marketing_data_Set (Accessed: December 20, 2022). </em>Bank marketing data set. (n.d.). 1010data.com. Retrieved December 20, 2022, from https://docs.1010data.com/Tutorials/MachineLearningExamples/BankMarketingDataSet_2.html <em>Manda, H., Srinivasan, S., &amp; Rangarao, D. (2021). IBM Cloud Pak for Data: An enterprise platform to operationalize data, analytics, and AI. Packt Publishing. </em>Solving Bank Marketing Calssification Problem - Databricks. (n.d.). Databricks.com. Retrieved December 20, 2022, from https://databricks-prod-cloudfront.cloud.databricks.com/public/4027ec902e239c93eaaa8714f173bcfc/8143187682226564/2297613386094950/3186001515933643/latest.html *Solving Bank Marketing Calssification Problem - Databricks. (n.d.). Databricks.com. Retrieved December 20, 2022, from https://databricks-prod-cloudfront.cloud.databricks.com/public/4027ec902e239c93eaaa8714f173bcfc/8143187682226564/2297613386094950/3186001515933643/latest.html</li>
+<li><p>https://www.kaggle.com/janiobachmann/bank-marketing-dataset</p></li>
+<li><p>(PDF) Data Analysis of a Portuguese marketing campaign using bank … (no date). Available at: https://www.researchgate.net/publication/339988208_Data_Analysis_of_a_Portuguese_Marketing_Campaign_using_Bank_Marketing_data_Set (Accessed: December 20, 2022).</p></li>
+<li><p>Bank marketing data set. (n.d.). 1010data.com. Retrieved December 20, 2022, from https://docs.1010data.com/Tutorials/MachineLearningExamples/BankMarketingDataSet_2.html</p></li>
+<li><p>Manda, H., Srinivasan, S., &amp; Rangarao, D. (2021). IBM Cloud Pak for Data: An enterprise platform to operationalize data, analytics, and AI. Packt Publishing.</p></li>
+<li><p>Solving Bank Marketing Calssification Problem - Databricks. (n.d.). Databricks.com. Retrieved December 20, 2022, from https://databricks-prod-cloudfront.cloud.databricks.com/public/4027ec902e239c93eaaa8714f173bcfc/8143187682226564/2297613386094950/3186001515933643/latest.html</p></li>
+<li><p>Solving Bank Marketing Calssification Problem - Databricks. (n.d.). Databricks.com. Retrieved December 20, 2022, from https://databricks-prod-cloudfront.cloud.databricks.com/public/4027ec902e239c93eaaa8714f173bcfc/8143187682226564/2297613386094950/3186001515933643/latest.html</p></li>
+<li><p>Bank Marketing Data Set. (n.d.). UCI Machine Learning Repository. Retrieved December 20, 2022, from https://archive.ics.uci.edu/ml/datasets/Bank+Marketing</p></li>
+<li><p>https://tradingeconomics.com/</p></li>
 </ul>
 </section>
 
