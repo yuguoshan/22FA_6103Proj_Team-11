@@ -308,6 +308,8 @@ for i in clean_data.columns:
                 if clean_data[i].value_counts()[idx] < 15000:
                     print(f"dropping rows with value as {name} in {i}")
                     clean_data = clean_data[clean_data[i] != name]
+                      
+                      
 ```
 ## Dropping the rows 
 
