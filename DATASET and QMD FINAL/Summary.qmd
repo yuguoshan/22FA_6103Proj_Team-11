@@ -547,7 +547,7 @@ balanceGroupInfo.plot(x='balanceGroup', kind='bar', stacked=False,
 plt.show()
 ```
 
-People with moderate to high balance, are contacted less but they have high subscription rates so bank should target them more. 
+**suggestion**:People with moderate to high balance, are contacted less but they have high subscription rates so bank should target them more. 
 
 It might be possible that balance group and jobs are telling the same information since some jobs might have high salary and thus balance groups might be depicting jobs only, so we will try to look at them together.
 
@@ -570,8 +570,10 @@ job_balance_count1 = job_balance_count1.plot(kind='bar',figsize = (10,6))
 plt.title('Contact for each balance group in job category')
 ```
 
-Only the low balance groups are targeted in each category even though moderate to high balance category are more likely to subscribe.
 Student and Retired are more likely to subscribe and usually have moderate to high balance. 
+
+We found from the second bar chart that only the low balance groups are targeted in each category even though moderate to high balance category are more likely to subscribe.
+
 
 # Data Encoding
 ```{python}
@@ -582,6 +584,7 @@ data_encode = data_vis.copy()
 
 
 ## One Hot Encoding 
+We would encode 'housing','loan','default','job','education' and 'marital' as they are all categorical variables.
 ```{python}
 #| code-fold: true
 #| code-summary: "Show the code"
@@ -594,7 +597,7 @@ data_encode = pd.get_dummies(data_encode, columns = ['marital'])
 ```
 
 ## Sin - Cos encoding
-Transforming month into sin and cos so that there cyclic nature (jan-dec are as close as jan-feb) is retained which is usually lost in label encoding.
+Transforming month into sin and cos so that there cyclic nature (jan-dec are as close as jan-feb) is retained which is usually lost in label encoding. Unlike one hot encoding, the dimension will reduce from 12(month_jan, month_feb ... month_dec) to 2(sin_month , cos_month)
 
 ```{python}
 #| code-fold: true
@@ -614,7 +617,7 @@ sns.scatterplot(data=data_encode,x='sin_month',y='cos_month')
 ``` 
 
 ## Dropping unnecessary columns irrelevant for modelling 
-
+Here we dropped the 'month' column as they are encoded. Also, we dropped irrelvant variables 'pdays' and enconomic factors('cons.conf.idx', 'emp.var.rate', 'euribor3m', 'nr.employed','cons.price.idx') for modelling. 
 ```{python}
 #| code-fold: true
 #| code-summary: "Show the code"
@@ -640,6 +643,7 @@ data_model=data_model.drop(['cons.conf.idx', 'emp.var.rate', 'euribor3m', 'nr.em
 
 # Data Modeling 
 # Splitting our Dataset 
+We are splitting our dataset in 1:4 ratio for training and testing set.
 ```{python}
 #| code-fold: true
 #| code-summary: "Show the code"
@@ -652,7 +656,7 @@ x_train,x_test,y_train,y_test = train_test_split(x,y,test_size=0.2)
 ```
 
 ## Balancing Our Dataset
-
+We tried to balance our dataset using following methods:
 * Upsampling using SMOTE 
 * Sin and cos transformation from month_int. 
 ```{python}
