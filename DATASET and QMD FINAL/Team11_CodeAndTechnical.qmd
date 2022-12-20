@@ -63,6 +63,19 @@ The data set used in this analysis is from a Portuguese bank. The data set conta
 
 The SMART questions are as follows:
 
+1.Relationship between subscribing the term deposit and how much the customer
+is contacted (last contact, Campaign, Pdays, Previous Number of contacts)
+2.Since the dataset is imbalanced, will down sampling/up sampling or other
+techniques improve upon the accuracy of models. 3.Marital status, age, job, and loan to find out the financially stable population?Will
+that affect the outcome?
+4.Effect of dimensionality reduction on accuracy of the model.
+5.The optimal cut off value for classification of our imbalance dataset. 
+6.Modeling to estimate the potential population who would subscribe to termdeposit. 7. How are the likelihood of subscriptions affected by social and economic factors?
+
+As per the comments, 2 and 6 are more of analysis than comments so they would be covered in our analysis. 
+
+Throughout the paper we would try to answer the questions 
+
 ## Importing the libraries
 
 ```{python}
@@ -100,9 +113,7 @@ import seaborn as sns
 from sklearn import preprocessing
 warnings.filterwarnings('ignore')
 sns.set_theme(style="whitegrid")
-```
 
-```{python}
 from sklearn.model_selection import train_test_split
 from imblearn.over_sampling import SMOTE
 from sklearn.ensemble import RandomForestClassifier
@@ -111,9 +122,7 @@ from sklearn.naive_bayes import GaussianNB
 from sklearn.neighbors import KNeighborsClassifier
 from sklearn.preprocessing import scale
 from sklearn.cluster import KMeans
-```
 
-```{python}
 from sklearn.linear_model import LogisticRegression
 from sklearn import metrics
 from sklearn.metrics import accuracy_score
@@ -133,20 +142,19 @@ df = pd.read_csv(inputFile)
 ## Basic Information about the data
 
 ```{python}
-print(df.shape)
-print(df.head())
-print(df.tail())
-print(df.columns)
-print(df.shape)
-print(df.dtypes)
-print(df.isnull().sum())
-print(df.isnull().sum().sum())
-print(df.info())
-print(df.describe())
+#| code-fold: true
+#| code-summary: "Show the code"
+
+print(f"Shape of dataset is : {df.shape}")
+print(f"Columns in dataset \n {df.info()}")
+
 ```
 
 
 # Exploratory Data Analysis (EDA)
+
+Here we would explore the variables which might be important for subscription of term deposits. 
+
 ## Analysing the variables 
 ### Job Description
 
@@ -158,7 +166,7 @@ plt.title("Type of Job Distribution")
 ```
 
 People in management, technical are more likely to subscibe to the term deposit  
-
+So we will explore them later.
 
 ### Marital 
 ```{python}
@@ -168,6 +176,8 @@ sns.countplot(data=df,y='marital',hue='y')
 plt.title("Type of marital Distribution")
 ```
 
+Married and Single are more likely to subscribe for term deposits rather than divorced. But this might also be because of less number of people being divorced in total. 
+
 ```{python}
 # EDUCATION 
 plt.figure(figsize = (8, 5))
@@ -175,25 +185,32 @@ sns.countplot(data=df,y='education',hue='y')
 plt.title("Type of education Distribution")
 ```
 
+There are unknown values in education that we need to get rid of. 
+
 ### Loan
+
+```{python}
+# Loan
+sns.countplot(data=df,y='loan',hue='y')
+plt.title("Type of loan Distribution")
+```
+
+```{python}
+# Housing Loan
+sns.countplot(data=df,y='housing',hue='y')
+plt.title("Type of housing Distribution")
+```
+
+People with housing loans are less likely to subscribe to term deposit but the difference here is not huge. 
+
 ```{python}
 # DEFAULT
 sns.countplot(data=df,y='default',hue='y')
 plt.title("Type of default Distribution")
 ```
 
-So people who do not paid back there loans and have credits, have not subcribed to the term deposit. 
+So people who have not paid back there loans and have credits, have not subcribed to the term deposit. 
 
-```{python}
-# HOUSING
-sns.countplot(data=df,y='housing',hue='y')
-plt.title("Type of housing Distribution")
-```
-```{python}
-# LOAN
-sns.countplot(data=df,y='loan',hue='y')
-plt.title("Type of Loan Distribution")
-```
 
 * people who have loans are subscribing to term deposit less. 
 
@@ -272,8 +289,6 @@ plt.show()
 * No outliers 
 * People who are old are more likely to subscribe to term deposit. 
 
-
-### Day 
 
 # Summary  
 ## Data Cleaning 
@@ -449,6 +464,18 @@ plt.xlabel('Month')
 
 Maximum percentage of people have subscribed in the month of March but bank is contacting people more in the month of May. 
 So it's better to contact customer's based on the subcription rate plot. 
+
+### Social and economic Factors in month 
+ 
+```{python}
+month_social_economic = clean_data[['month','cons.conf.idx','emp.var.rate','euribor3m','nr.employed']].groupby(['month']).count().reset_index()
+month_list= ['jan','feb','mar','apr','may','jun','jul','aug','sep','oct','nov','dec']
+month_pd = pd.DataFrame(month_list,columns=['month'])
+month_pd = month_pd.merge(month_social_economic,on='month')
+print(month_pd)
+```
+
+Based on the above table we can see that there is no distinguishable difference in the month of march or may from rest of all the month, so social and economic factor **do not have major influence** on the outcome. 
 
 # Checking the Financially stable population
 ```{python}

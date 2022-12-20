@@ -317,6 +317,8 @@ plt.show()
 # Data Visualization 
 Let' visualize important relationships between variables now. 
 
+
+
 ## SMART Question 1 :
 Relationship between subscribing the term deposit and how much the customer is contacted (last contact, Campaign, Pdays, Previous Number of contacts)
 
@@ -462,7 +464,35 @@ Find out the **financially stable** population? Will that affect the outcome?
 data_vis = clean_data.copy()
 ```
 
-We will try to find the financially stable population based on age, jobs and balance. 
+We will try to find the financially stable population based on age, jobs, loan and balance. 
+
+
+### Loan
+
+```{python}
+# Loan
+sns.countplot(data=df,y='loan',hue='y')
+plt.title("Type of loan Distribution")
+```
+
+```{python}
+# Housing Loan
+sns.countplot(data=df,y='housing',hue='y')
+plt.title("Type of housing Distribution")
+```
+
+People with housing loans are less likely to subscribe to term deposit but the difference here is not huge. 
+
+```{python}
+# DEFAULT
+sns.countplot(data=df,y='default',hue='y')
+plt.title("Type of default Distribution")
+```
+
+So people who have not paid back there loans and have credits, have not subcribed to the term deposit. 
+
+
+* people who have loans are subscribing to term deposit less. 
 
 ### Age
 Elder people might be more financially stable since they are subscriped to the term deposit more.
@@ -669,7 +699,7 @@ data_model=data_model.drop(['cons.conf.idx', 'emp.var.rate', 'euribor3m', 'nr.em
 ```
 
 # Data Modeling 
-# Splitting our Dataset 
+## Splitting our Dataset 
 We are splitting our dataset in 1:4 ratio for training and testing set.
 ```{python}
 #| code-fold: true
