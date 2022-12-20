@@ -1,0 +1,1533 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
+
+<meta charset="utf-8">
+<meta name="generator" content="quarto-1.1.251">
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+
+<meta name="author" content="TEAM 11: Anjali Mudgal , Guoshan Yu and Medhasweta Sen">
+<meta name="dcterms.date" content="2022-11-21">
+
+<title>AN ANALYSIS OF PORTUGUESE BANK MARKETING DATA</title>
+<style>
+code{white-space: pre-wrap;}
+span.smallcaps{font-variant: small-caps;}
+div.columns{display: flex; gap: min(4vw, 1.5em);}
+div.column{flex: auto; overflow-x: auto;}
+div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+ul.task-list{list-style: none;}
+ul.task-list li input[type="checkbox"] {
+  width: 0.8em;
+  margin: 0 0.8em 0.2em -1.6em;
+  vertical-align: middle;
+}
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+    color: #aaaaaa;
+  }
+pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
+code span.al { color: #ff0000; font-weight: bold; } /* Alert */
+code span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
+code span.at { color: #7d9029; } /* Attribute */
+code span.bn { color: #40a070; } /* BaseN */
+code span.bu { color: #008000; } /* BuiltIn */
+code span.cf { color: #007020; font-weight: bold; } /* ControlFlow */
+code span.ch { color: #4070a0; } /* Char */
+code span.cn { color: #880000; } /* Constant */
+code span.co { color: #60a0b0; font-style: italic; } /* Comment */
+code span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } /* CommentVar */
+code span.do { color: #ba2121; font-style: italic; } /* Documentation */
+code span.dt { color: #902000; } /* DataType */
+code span.dv { color: #40a070; } /* DecVal */
+code span.er { color: #ff0000; font-weight: bold; } /* Error */
+code span.ex { } /* Extension */
+code span.fl { color: #40a070; } /* Float */
+code span.fu { color: #06287e; } /* Function */
+code span.im { color: #008000; font-weight: bold; } /* Import */
+code span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
+code span.kw { color: #007020; font-weight: bold; } /* Keyword */
+code span.op { color: #666666; } /* Operator */
+code span.ot { color: #007020; } /* Other */
+code span.pp { color: #bc7a00; } /* Preprocessor */
+code span.sc { color: #4070a0; } /* SpecialChar */
+code span.ss { color: #bb6688; } /* SpecialString */
+code span.st { color: #4070a0; } /* String */
+code span.va { color: #19177c; } /* Variable */
+code span.vs { color: #4070a0; } /* VerbatimString */
+code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
+</style>
+
+
+<script src="TechnicalFile_files/libs/clipboard/clipboard.min.js"></script>
+<script src="TechnicalFile_files/libs/quarto-html/quarto.js"></script>
+<script src="TechnicalFile_files/libs/quarto-html/popper.min.js"></script>
+<script src="TechnicalFile_files/libs/quarto-html/tippy.umd.min.js"></script>
+<script src="TechnicalFile_files/libs/quarto-html/anchor.min.js"></script>
+<link href="TechnicalFile_files/libs/quarto-html/tippy.css" rel="stylesheet">
+<link href="TechnicalFile_files/libs/quarto-html/quarto-syntax-highlighting.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+<script src="TechnicalFile_files/libs/bootstrap/bootstrap.min.js"></script>
+<link href="TechnicalFile_files/libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
+<link href="TechnicalFile_files/libs/bootstrap/bootstrap.min.css" rel="stylesheet" id="quarto-bootstrap" data-mode="light">
+<style>html{ scroll-behavior: smooth; }</style>
+
+
+</head>
+
+<body>
+
+<div id="quarto-content" class="page-columns page-rows-contents page-layout-article toc-left">
+<div id="quarto-sidebar-toc-left" class="sidebar toc-left">
+  <nav id="TOC" role="doc-toc" class="toc-active">
+    <h2 id="toc-title">Table of contents</h2>
+   
+  <ul>
+  <li><a href="#introduction" id="toc-introduction" class="nav-link active" data-scroll-target="#introduction"><span class="toc-section-number">1</span>  INTRODUCTION:</a>
+  <ul class="collapse">
+  <li><a href="#the-data-set" id="toc-the-data-set" class="nav-link" data-scroll-target="#the-data-set"><span class="toc-section-number">1.1</span>  THE DATA SET:</a></li>
+  <li><a href="#the-problem-statements" id="toc-the-problem-statements" class="nav-link" data-scroll-target="#the-problem-statements"><span class="toc-section-number">1.2</span>  THE PROBLEM STATEMENTS:</a></li>
+  <li><a href="#importing-relevent-libraries" id="toc-importing-relevent-libraries" class="nav-link" data-scroll-target="#importing-relevent-libraries"><span class="toc-section-number">1.3</span>  IMPORTING RELEVENT LIBRARIES:</a></li>
+  <li><a href="#importing-the-data" id="toc-importing-the-data" class="nav-link" data-scroll-target="#importing-the-data"><span class="toc-section-number">1.4</span>  IMPORTING THE DATA:</a></li>
+  <li><a href="#basic-information-regarding-the-dataset" id="toc-basic-information-regarding-the-dataset" class="nav-link" data-scroll-target="#basic-information-regarding-the-dataset"><span class="toc-section-number">1.5</span>  BASIC INFORMATION REGARDING THE DATASET:</a></li>
+  </ul></li>
+  <li><a href="#exploratory-data-analysis-eda" id="toc-exploratory-data-analysis-eda" class="nav-link" data-scroll-target="#exploratory-data-analysis-eda"><span class="toc-section-number">2</span>  Exploratory Data Analysis (EDA)</a>
+  <ul class="collapse">
+  <li><a href="#analysing-the-variables" id="toc-analysing-the-variables" class="nav-link" data-scroll-target="#analysing-the-variables"><span class="toc-section-number">2.1</span>  Analysing the variables</a>
+  <ul class="collapse">
+  <li><a href="#job-description" id="toc-job-description" class="nav-link" data-scroll-target="#job-description"><span class="toc-section-number">2.1.1</span>  Job Description</a></li>
+  <li><a href="#marital" id="toc-marital" class="nav-link" data-scroll-target="#marital"><span class="toc-section-number">2.1.2</span>  Marital</a></li>
+  <li><a href="#loan" id="toc-loan" class="nav-link" data-scroll-target="#loan"><span class="toc-section-number">2.1.3</span>  Loan</a></li>
+  <li><a href="#contact" id="toc-contact" class="nav-link" data-scroll-target="#contact"><span class="toc-section-number">2.1.4</span>  Contact</a></li>
+  <li><a href="#term-deposit" id="toc-term-deposit" class="nav-link" data-scroll-target="#term-deposit"><span class="toc-section-number">2.1.5</span>  Term Deposit</a></li>
+  </ul></li>
+  <li><a href="#age-duration-and-balance" id="toc-age-duration-and-balance" class="nav-link" data-scroll-target="#age-duration-and-balance"><span class="toc-section-number">2.2</span>  Age, duration and balance</a>
+  <ul class="collapse">
+  <li><a href="#day" id="toc-day" class="nav-link" data-scroll-target="#day"><span class="toc-section-number">2.2.1</span>  Day</a></li>
+  </ul></li>
+  </ul></li>
+  <li><a href="#summary" id="toc-summary" class="nav-link" data-scroll-target="#summary"><span class="toc-section-number">3</span>  Summary</a>
+  <ul class="collapse">
+  <li><a href="#data-cleaning" id="toc-data-cleaning" class="nav-link" data-scroll-target="#data-cleaning"><span class="toc-section-number">3.1</span>  Data Cleaning</a></li>
+  <li><a href="#data-visualization" id="toc-data-visualization" class="nav-link" data-scroll-target="#data-visualization"><span class="toc-section-number">3.2</span>  Data Visualization</a></li>
+  </ul></li>
+  <li><a href="#data-cleaning-1" id="toc-data-cleaning-1" class="nav-link" data-scroll-target="#data-cleaning-1"><span class="toc-section-number">4</span>  Data Cleaning</a>
+  <ul class="collapse">
+  <li><a href="#dropping-the-column" id="toc-dropping-the-column" class="nav-link" data-scroll-target="#dropping-the-column"><span class="toc-section-number">4.1</span>  Dropping the column</a></li>
+  <li><a href="#removing-unknown-from-job-and-education" id="toc-removing-unknown-from-job-and-education" class="nav-link" data-scroll-target="#removing-unknown-from-job-and-education"><span class="toc-section-number">4.2</span>  Removing unknown from job and education</a></li>
+  <li><a href="#dropping-the-rows" id="toc-dropping-the-rows" class="nav-link" data-scroll-target="#dropping-the-rows"><span class="toc-section-number">4.3</span>  Dropping the rows</a>
+  <ul class="collapse">
+  <li><a href="#dropping-the-rows-where-values-are-3sd-away" id="toc-dropping-the-rows-where-values-are-3sd-away" class="nav-link" data-scroll-target="#dropping-the-rows-where-values-are-3sd-away"><span class="toc-section-number">4.3.1</span>  Dropping the rows where values are 3SD away</a></li>
+  <li><a href="#dropping-rows-where-the-duration-of-calls-is-less-than-5sec-since-that-is-irrelevant" id="toc-dropping-rows-where-the-duration-of-calls-is-less-than-5sec-since-that-is-irrelevant" class="nav-link" data-scroll-target="#dropping-rows-where-the-duration-of-calls-is-less-than-5sec-since-that-is-irrelevant"><span class="toc-section-number">4.3.2</span>  Dropping rows where the duration of calls is less than 5sec since that is irrelevant</a></li>
+  </ul></li>
+  </ul></li>
+  <li><a href="#data-visualization-1" id="toc-data-visualization-1" class="nav-link" data-scroll-target="#data-visualization-1"><span class="toc-section-number">5</span>  Data Visualization</a>
+  <ul class="collapse">
+  <li><a href="#contact-versus-subscription-month-wise" id="toc-contact-versus-subscription-month-wise" class="nav-link" data-scroll-target="#contact-versus-subscription-month-wise"><span class="toc-section-number">5.0.1</span>  Contact versus Subscription month wise</a></li>
+  <li><a href="#number-of-calls-versus-duration-and-affect-on-subscription" id="toc-number-of-calls-versus-duration-and-affect-on-subscription" class="nav-link" data-scroll-target="#number-of-calls-versus-duration-and-affect-on-subscription"><span class="toc-section-number">5.0.2</span>  Number of calls versus Duration and affect on subscription</a></li>
+  <li><a href="#smart-question" id="toc-smart-question" class="nav-link" data-scroll-target="#smart-question"><span class="toc-section-number">5.0.3</span>  Smart Question</a></li>
+  <li><a href="#month-wise-subscription" id="toc-month-wise-subscription" class="nav-link" data-scroll-target="#month-wise-subscription"><span class="toc-section-number">5.0.4</span>  Month wise subscription</a></li>
+  </ul></li>
+  <li><a href="#checking-the-financially-stable-population" id="toc-checking-the-financially-stable-population" class="nav-link" data-scroll-target="#checking-the-financially-stable-population"><span class="toc-section-number">6</span>  Checking the Financially stable population</a>
+  <ul class="collapse">
+  <li><a href="#job" id="toc-job" class="nav-link" data-scroll-target="#job"><span class="toc-section-number">6.1</span>  Job</a></li>
+  <li><a href="#balance" id="toc-balance" class="nav-link" data-scroll-target="#balance"><span class="toc-section-number">6.2</span>  Balance</a></li>
+  <li><a href="#loan-1" id="toc-loan-1" class="nav-link" data-scroll-target="#loan-1"><span class="toc-section-number">6.3</span>  Loan</a></li>
+  </ul></li>
+  <li><a href="#getting-data-ready-for-modelling" id="toc-getting-data-ready-for-modelling" class="nav-link" data-scroll-target="#getting-data-ready-for-modelling"><span class="toc-section-number">7</span>  Getting Data Ready for Modelling</a>
+  <ul class="collapse">
+  <li><a href="#encoding" id="toc-encoding" class="nav-link" data-scroll-target="#encoding"><span class="toc-section-number">7.1</span>  Encoding</a>
+  <ul class="collapse">
+  <li><a href="#dropping-the-unecessary-varibles-for-modelling" id="toc-dropping-the-unecessary-varibles-for-modelling" class="nav-link" data-scroll-target="#dropping-the-unecessary-varibles-for-modelling"><span class="toc-section-number">7.1.1</span>  Dropping the unecessary varibles for modelling</a></li>
+  </ul></li>
+  </ul></li>
+  <li><a href="#splitting-our-dataset" id="toc-splitting-our-dataset" class="nav-link" data-scroll-target="#splitting-our-dataset"><span class="toc-section-number">8</span>  Splitting our Dataset</a></li>
+  <li><a href="#balancing-our-dataset" id="toc-balancing-our-dataset" class="nav-link" data-scroll-target="#balancing-our-dataset"><span class="toc-section-number">9</span>  Balancing Our Dataset</a></li>
+  </ul>
+</nav>
+</div>
+<div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
+</div>
+<main class="content" id="quarto-document-content">
+
+<header id="title-block-header" class="quarto-title-block default">
+<div class="quarto-title">
+<h1 class="title">AN ANALYSIS OF PORTUGUESE BANK MARKETING DATA</h1>
+<p class="subtitle lead">The George Washington University (DATS 6103: An Introduction to Data Mining)</p>
+</div>
+
+
+
+<div class="quarto-title-meta">
+
+    <div>
+    <div class="quarto-title-meta-heading">Author</div>
+    <div class="quarto-title-meta-contents">
+             <p>TEAM 11: Anjali Mudgal , Guoshan Yu and Medhasweta Sen </p>
+          </div>
+  </div>
+    
+    <div>
+    <div class="quarto-title-meta-heading">Published</div>
+    <div class="quarto-title-meta-contents">
+      <p class="date">November 21, 2022</p>
+    </div>
+  </div>
+    
+  </div>
+  
+
+</header>
+
+<section id="introduction" class="level1" data-number="1">
+<h1 data-number="1"><span class="header-section-number">1</span> INTRODUCTION:</h1>
+<p>Bank marketing is the practice of attracting and acquiring new customers through traditional media and digital media strategies. The use of these media strategies helps determine what kind of customer is attracted to a certain institutions. This also includes different banking institutions purposefully using different strategies to attract the type of customer they want to do business with.</p>
+<p>As a discipline, marketing has evolved over the past few decades to become what it is today. Earlier, marketing strategies were primarily a means of spreading brand awareness. Today, marketing has been reinvented to fit a much bigger role. Creating both value and revenue to the institution. It is a big step up from its previous communication role, no doubt. One that was necessitated by the evolution of three factors: the consumer, the technology, and data analytics.</p>
+<p>Marketing has evolved from a communication role to a revenue generating role. The consumer has evolved from being a passive recipient of marketing messages to an active participant in the marketing process. Technology has evolved from being a means of communication to a means of data collection and analysis. Data analytics has evolved from being a means of understanding the consumer to a means of understanding the consumer and the institution.</p>
+<p>Bank marketing strategy is increasingly focused on digital channels, including social media, video, search and connected TV. As bank and credit union marketers strive to promote brand awareness, they need a new way to assess channel ROI and more accurate data to enable personalized offers. Add to that the growing importance of purpose-driven marketing.</p>
+<p>The relentless pace of digitization is disrupting not only the established order in banking, but bank marketing strategies. Marketers at both traditional institutions and digital disruptors are feeling the pressure.</p>
+<p>Just as bank marketers begin to master one channel, consumers move to another. Many now toggle between devices on a seemingly infinite number of platforms, making it harder than ever for marketers to pin down the right consumers at the right time in the right place.</p>
+<p><img src="expected-marketing-budget-changes-by-channel.png" class="img-fluid"></p>
+<section id="the-data-set" class="level2" data-number="1.1">
+<h2 data-number="1.1" class="anchored" data-anchor-id="the-data-set"><span class="header-section-number">1.1</span> THE DATA SET:</h2>
+<p>The data set used in this analysis is from a Portuguese bank. The data set contains 41,188 observations and 21 variables. The variables include the following:</p>
+<ol type="1">
+<li><ul>
+<li>age (numeric)</li>
+</ul></li>
+<li><ul>
+<li>job : type of job (categorical: ‘admin.’,‘blue-collar’,‘entrepreneur’,‘housemaid’,‘management’,‘retired’,‘self-employed’,‘services’,‘student’,‘technician’,‘unemployed’,‘unknown’)</li>
+</ul></li>
+<li><ul>
+<li>marital : marital status (categorical: ‘divorced’,‘married’,‘single’,‘unknown’; note: ‘divorced’ means divorced or widowed)</li>
+</ul></li>
+<li><ul>
+<li>education (categorical: ‘basic.4y’,‘basic.6y’,‘basic.9y’,‘high.school’,‘illiterate’,‘professional.course’,‘university.degree’,‘unknown’)</li>
+</ul></li>
+<li><ul>
+<li>default: has credit in default? (categorical: ‘no’,‘yes’,‘unknown’)</li>
+</ul></li>
+<li><ul>
+<li>housing: has housing loan? (categorical: ‘no’,‘yes’,‘unknown’)</li>
+</ul></li>
+<li><ul>
+<li>loan: has personal loan? (categorical: ‘no’,‘yes’,‘unknown’)</li>
+</ul></li>
+<li><ul>
+<li>contact: contact communication type (categorical: ‘cellular’,‘telephone’)</li>
+</ul></li>
+<li><ul>
+<li>month: last contact month of year (categorical: ‘jan’, ‘feb’, ‘mar’, …, ‘nov’, ‘dec’)</li>
+</ul></li>
+<li><ul>
+<li>day_of_week: last contact day of the week (categorical: ‘mon’,‘tue’,‘wed’,‘thu’,‘fri’)</li>
+</ul></li>
+<li><ul>
+<li>duration: last contact duration, in seconds (numeric). Important note: this attribute highly affects the output target (e.g., if duration=0 then y=‘no’). Yet, the duration is not known before a call is performed. Also, after the end of the call y is obviously known. Thus, this input should only be included for benchmark purposes and should be discarded if the intention is to have a realistic predictive model.</li>
+</ul></li>
+<li><ul>
+<li>campaign: number of contacts performed during this campaign and for this client (numeric, includes last contact)</li>
+</ul></li>
+<li><ul>
+<li>pdays: number of days that passed by after the client was last contacted from a previous campaign (numeric; 999 means client was not previously contacted)</li>
+</ul></li>
+<li><ul>
+<li>previous: number of contacts performed before this campaign and for this client (numeric)</li>
+</ul></li>
+<li><ul>
+<li>poutcome: outcome of the previous marketing campaign (categorical: ‘failure’,‘nonexistent’,‘success’)</li>
+</ul></li>
+<li><ul>
+<li>emp.var.rate: employment variation rate - quarterly indicator (numeric)</li>
+</ul></li>
+<li><ul>
+<li>cons.price.idx: consumer price index - monthly indicator (numeric)</li>
+</ul></li>
+<li><ul>
+<li>cons.conf.idx: consumer confidence index - monthly indicator (numeric)</li>
+</ul></li>
+<li><ul>
+<li>euribor3m: euribor 3 month rate - daily indicator (numeric)</li>
+</ul></li>
+<li><ul>
+<li>nr.employed: number of employees - quarterly indicator (numeric)</li>
+</ul></li>
+<li><ul>
+<li>balance - average yearly balance, in euros (numeric)</li>
+</ul></li>
+<li><ul>
+<li>y - has the client subscribed a term deposit? (binary: ‘yes’,‘no’)</li>
+</ul></li>
+</ol>
+</section>
+<section id="the-problem-statements" class="level2" data-number="1.2">
+<h2 data-number="1.2" class="anchored" data-anchor-id="the-problem-statements"><span class="header-section-number">1.2</span> THE PROBLEM STATEMENTS:</h2>
+<p><img src="maxresdefault.jpg" class="img-fluid"></p>
+<p>The SMART questions are as follows:</p>
+<ol type="1">
+<li><p>Relationship between subscribing the term deposit and how much the customer is contacted (last contact, Campaign, Pdays, Previous Number of contacts)</p></li>
+<li><p>Find out the financially stable population? Will that affect the outcome?</p></li>
+<li><p>Effect of dimensionality reduction on accuracy of the model.</p></li>
+<li><p>How are the likelihood of subscriptions affected by social and economic factors?</p></li>
+</ol>
+</section>
+<section id="importing-relevent-libraries" class="level2" data-number="1.3">
+<h2 data-number="1.3" class="anchored" data-anchor-id="importing-relevent-libraries"><span class="header-section-number">1.3</span> IMPORTING RELEVENT LIBRARIES:</h2>
+<div class="cell" data-execution_count="1">
+<details>
+<summary>Code</summary>
+<div class="sourceCode cell-code" id="cb1"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> numpy <span class="im">as</span> np </span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> pandas <span class="im">as</span> pd </span>
+<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> os </span>
+<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> matplotlib.pyplot <span class="im">as</span> plt</span>
+<span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a><span class="op">%</span>matplotlib inline</span>
+<span id="cb1-6"><a href="#cb1-6" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> warnings</span>
+<span id="cb1-7"><a href="#cb1-7" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> scipy.stats <span class="im">import</span> zscore</span>
+<span id="cb1-8"><a href="#cb1-8" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> seaborn <span class="im">as</span> sns</span>
+<span id="cb1-9"><a href="#cb1-9" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> scipy.stats <span class="im">as</span> stats</span>
+<span id="cb1-10"><a href="#cb1-10" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> statsmodels.api <span class="im">as</span> sm</span>
+<span id="cb1-11"><a href="#cb1-11" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> statsmodels.formula.api <span class="im">as</span> smf</span>
+<span id="cb1-12"><a href="#cb1-12" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> statsmodels.stats.api <span class="im">as</span> sms</span>
+<span id="cb1-13"><a href="#cb1-13" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> statsmodels.stats.multicomp <span class="im">as</span> mc</span>
+<span id="cb1-14"><a href="#cb1-14" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> statsmodels.stats.outliers_influence <span class="im">as</span> influence</span>
+<span id="cb1-15"><a href="#cb1-15" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> statsmodels.stats.diagnostic <span class="im">as</span> diag</span>
+<span id="cb1-16"><a href="#cb1-16" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> statsmodels.stats.stattools <span class="im">as</span> stattools</span>
+<span id="cb1-17"><a href="#cb1-17" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> statsmodels.stats.anova <span class="im">as</span> anova</span>
+<span id="cb1-18"><a href="#cb1-18" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> statsmodels.stats.weightstats <span class="im">as</span> weightstats</span>
+<span id="cb1-19"><a href="#cb1-19" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> statsmodels.stats.libqsturng <span class="im">as</span> libqsturng</span>
+<span id="cb1-20"><a href="#cb1-20" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> statsmodels.stats.power <span class="im">as</span> power</span>
+<span id="cb1-21"><a href="#cb1-21" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> statsmodels.stats.proportion <span class="im">as</span> proportion</span>
+<span id="cb1-22"><a href="#cb1-22" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> statsmodels.stats.contingency_tables <span class="im">as</span> contingency_tables</span>
+<span id="cb1-23"><a href="#cb1-23" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> statsmodels.stats.multitest <span class="im">as</span> multitest</span>
+<span id="cb1-24"><a href="#cb1-24" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> statsmodels.stats.diagnostic <span class="im">as</span> diagnostic</span>
+<span id="cb1-25"><a href="#cb1-25" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> statsmodels.stats.correlation_tools <span class="im">as</span> correlation_tools</span>
+<span id="cb1-26"><a href="#cb1-26" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> statsmodels.formula.api <span class="im">import</span> ols</span>
+<span id="cb1-27"><a href="#cb1-27" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> researchpy <span class="im">as</span> rp</span>
+<span id="cb1-28"><a href="#cb1-28" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> scipy.stats <span class="im">as</span> stats</span>
+<span id="cb1-29"><a href="#cb1-29" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> seaborn <span class="im">as</span> sns</span>
+<span id="cb1-30"><a href="#cb1-30" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> sklearn <span class="im">import</span> preprocessing</span>
+<span id="cb1-31"><a href="#cb1-31" aria-hidden="true" tabindex="-1"></a>warnings.filterwarnings(<span class="st">'ignore'</span>)</span>
+<span id="cb1-32"><a href="#cb1-32" aria-hidden="true" tabindex="-1"></a>sns.set_theme(style<span class="op">=</span><span class="st">"whitegrid"</span>)</span>
+<span id="cb1-33"><a href="#cb1-33" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> sklearn.model_selection <span class="im">import</span> train_test_split</span>
+<span id="cb1-34"><a href="#cb1-34" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> imblearn.over_sampling <span class="im">import</span> SMOTE</span>
+<span id="cb1-35"><a href="#cb1-35" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> sklearn.ensemble <span class="im">import</span> RandomForestClassifier</span>
+<span id="cb1-36"><a href="#cb1-36" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> sklearn.svm <span class="im">import</span> SVC, LinearSVC</span>
+<span id="cb1-37"><a href="#cb1-37" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> sklearn.naive_bayes <span class="im">import</span> GaussianNB</span>
+<span id="cb1-38"><a href="#cb1-38" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> sklearn.neighbors <span class="im">import</span> KNeighborsClassifier</span>
+<span id="cb1-39"><a href="#cb1-39" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> sklearn.preprocessing <span class="im">import</span> scale</span>
+<span id="cb1-40"><a href="#cb1-40" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> sklearn.cluster <span class="im">import</span> KMeans</span>
+<span id="cb1-41"><a href="#cb1-41" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> sklearn.linear_model <span class="im">import</span> LogisticRegression</span>
+<span id="cb1-42"><a href="#cb1-42" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> sklearn <span class="im">import</span> metrics</span>
+<span id="cb1-43"><a href="#cb1-43" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> sklearn.metrics <span class="im">import</span> accuracy_score</span>
+<span id="cb1-44"><a href="#cb1-44" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> sklearn.metrics <span class="im">import</span> confusion_matrix </span>
+<span id="cb1-45"><a href="#cb1-45" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> sklearn.metrics <span class="im">import</span> classification_report</span>
+<span id="cb1-46"><a href="#cb1-46" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> sklearn.feature_selection <span class="im">import</span> RFE</span>
+<span id="cb1-47"><a href="#cb1-47" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> sklearn.tree <span class="im">import</span> DecisionTreeClassifier</span>
+<span id="cb1-48"><a href="#cb1-48" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> matplotlib <span class="im">import</span> pyplot</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+</div>
+</section>
+<section id="importing-the-data" class="level2" data-number="1.4">
+<h2 data-number="1.4" class="anchored" data-anchor-id="importing-the-data"><span class="header-section-number">1.4</span> IMPORTING THE DATA:</h2>
+<div class="cell" data-execution_count="2">
+<details>
+<summary>Code</summary>
+<div class="sourceCode cell-code" id="cb2"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a>inputFile <span class="op">=</span> <span class="st">"primary.csv"</span></span>
+<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a>df <span class="op">=</span> pd.read_csv(inputFile)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+</div>
+</section>
+<section id="basic-information-regarding-the-dataset" class="level2" data-number="1.5">
+<h2 data-number="1.5" class="anchored" data-anchor-id="basic-information-regarding-the-dataset"><span class="header-section-number">1.5</span> BASIC INFORMATION REGARDING THE DATASET:</h2>
+<div class="cell" data-execution_count="3">
+<details>
+<summary>Code</summary>
+<div class="sourceCode cell-code" id="cb3"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(df.shape)</span>
+<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(df.head())</span>
+<span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(df.tail())</span>
+<span id="cb3-4"><a href="#cb3-4" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(df.columns)</span>
+<span id="cb3-5"><a href="#cb3-5" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(df.shape)</span>
+<span id="cb3-6"><a href="#cb3-6" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(df.dtypes)</span>
+<span id="cb3-7"><a href="#cb3-7" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(df.isnull().<span class="bu">sum</span>())</span>
+<span id="cb3-8"><a href="#cb3-8" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(df.isnull().<span class="bu">sum</span>().<span class="bu">sum</span>())</span>
+<span id="cb3-9"><a href="#cb3-9" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(df.info())</span>
+<span id="cb3-10"><a href="#cb3-10" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(df.describe())</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+<div class="cell-output cell-output-stdout">
+<pre><code>(45211, 23)
+   age           job  marital  education default  balance housing loan  \
+0   58    management  married   tertiary      no     2143     yes   no   
+1   44    technician   single  secondary      no       29     yes   no   
+2   33  entrepreneur  married  secondary      no        2     yes  yes   
+3   47   blue-collar  married    unknown      no     1506     yes   no   
+4   33       unknown   single    unknown      no        1      no   no   
+
+   contact  day  ... pdays  previous  poutcome  y  month_int cons.conf.idx  \
+0  unknown    5  ...    -1         0   unknown  0          5         -36.4   
+1  unknown    5  ...    -1         0   unknown  0          5         -36.4   
+2  unknown    5  ...    -1         0   unknown  0          5         -36.4   
+3  unknown    5  ...    -1         0   unknown  0          5         -36.4   
+4  unknown    5  ...    -1         0   unknown  0          5         -36.4   
+
+   emp.var.rate  euribor3m  nr.employed  cons.price.idx  
+0           1.1      4.857       5191.0          93.994  
+1           1.1      4.857       5191.0          93.994  
+2           1.1      4.857       5191.0          93.994  
+3           1.1      4.857       5191.0          93.994  
+4           1.1      4.857       5191.0          93.994  
+
+[5 rows x 23 columns]
+       age           job   marital  education default  balance housing loan  \
+45206   51    technician   married   tertiary      no      825      no   no   
+45207   71       retired  divorced    primary      no     1729      no   no   
+45208   72       retired   married  secondary      no     5715      no   no   
+45209   57   blue-collar   married  secondary      no      668      no   no   
+45210   37  entrepreneur   married  secondary      no     2971      no   no   
+
+         contact  day  ... pdays  previous  poutcome  y  month_int  \
+45206   cellular   17  ...    -1         0   unknown  1         11   
+45207   cellular   17  ...    -1         0   unknown  1         11   
+45208   cellular   17  ...   184         3   success  1         11   
+45209  telephone   17  ...    -1         0   unknown  0         11   
+45210   cellular   17  ...   188        11     other  0         11   
+
+      cons.conf.idx  emp.var.rate  euribor3m  nr.employed  cons.price.idx  
+45206         -42.0          -0.1      4.733       5195.8            93.2  
+45207         -42.0          -0.1      4.733       5195.8            93.2  
+45208         -42.0          -0.1      4.733       5195.8            93.2  
+45209         -42.0          -0.1      4.733       5195.8            93.2  
+45210         -42.0          -0.1      4.733       5195.8            93.2  
+
+[5 rows x 23 columns]
+Index(['age', 'job', 'marital', 'education', 'default', 'balance', 'housing',
+       'loan', 'contact', 'day', 'month', 'duration', 'campaign', 'pdays',
+       'previous', 'poutcome', 'y', 'month_int', 'cons.conf.idx',
+       'emp.var.rate', 'euribor3m', 'nr.employed', 'cons.price.idx'],
+      dtype='object')
+(45211, 23)
+age                 int64
+job                object
+marital            object
+education          object
+default            object
+balance             int64
+housing            object
+loan               object
+contact            object
+day                 int64
+month              object
+duration            int64
+campaign            int64
+pdays               int64
+previous            int64
+poutcome           object
+y                   int64
+month_int           int64
+cons.conf.idx     float64
+emp.var.rate      float64
+euribor3m         float64
+nr.employed       float64
+cons.price.idx    float64
+dtype: object
+age               0
+job               0
+marital           0
+education         0
+default           0
+balance           0
+housing           0
+loan              0
+contact           0
+day               0
+month             0
+duration          0
+campaign          0
+pdays             0
+previous          0
+poutcome          0
+y                 0
+month_int         0
+cons.conf.idx     0
+emp.var.rate      0
+euribor3m         0
+nr.employed       0
+cons.price.idx    0
+dtype: int64
+0
+&lt;class 'pandas.core.frame.DataFrame'&gt;
+RangeIndex: 45211 entries, 0 to 45210
+Data columns (total 23 columns):
+ #   Column          Non-Null Count  Dtype  
+---  ------          --------------  -----  
+ 0   age             45211 non-null  int64  
+ 1   job             45211 non-null  object 
+ 2   marital         45211 non-null  object 
+ 3   education       45211 non-null  object 
+ 4   default         45211 non-null  object 
+ 5   balance         45211 non-null  int64  
+ 6   housing         45211 non-null  object 
+ 7   loan            45211 non-null  object 
+ 8   contact         45211 non-null  object 
+ 9   day             45211 non-null  int64  
+ 10  month           45211 non-null  object 
+ 11  duration        45211 non-null  int64  
+ 12  campaign        45211 non-null  int64  
+ 13  pdays           45211 non-null  int64  
+ 14  previous        45211 non-null  int64  
+ 15  poutcome        45211 non-null  object 
+ 16  y               45211 non-null  int64  
+ 17  month_int       45211 non-null  int64  
+ 18  cons.conf.idx   45211 non-null  float64
+ 19  emp.var.rate    45211 non-null  float64
+ 20  euribor3m       45211 non-null  float64
+ 21  nr.employed     45211 non-null  float64
+ 22  cons.price.idx  45211 non-null  float64
+dtypes: float64(5), int64(9), object(9)
+memory usage: 7.9+ MB
+None
+                age        balance           day      duration      campaign  \
+count  45211.000000   45211.000000  45211.000000  45211.000000  45211.000000   
+mean      40.936210    1362.272058     15.806419    258.163080      2.763841   
+std       10.618762    3044.765829      8.322476    257.527812      3.098021   
+min       18.000000   -8019.000000      1.000000      0.000000      1.000000   
+25%       33.000000      72.000000      8.000000    103.000000      1.000000   
+50%       39.000000     448.000000     16.000000    180.000000      2.000000   
+75%       48.000000    1428.000000     21.000000    319.000000      3.000000   
+max       95.000000  102127.000000     31.000000   4918.000000     63.000000   
+
+              pdays      previous             y     month_int  cons.conf.idx  \
+count  45211.000000  45211.000000  45211.000000  45211.000000   45211.000000   
+mean      40.197828      0.580323      0.116985      6.144655     -27.792928   
+std      100.128746      2.303441      0.321406      2.408034      37.807116   
+min       -1.000000      0.000000      0.000000      1.000000     -50.000000   
+25%       -1.000000      0.000000      0.000000      5.000000     -42.000000   
+50%       -1.000000      0.000000      0.000000      6.000000     -36.400000   
+75%       -1.000000      0.000000      0.000000      8.000000     -36.400000   
+max      871.000000    275.000000      1.000000     12.000000      92.160000   
+
+       emp.var.rate     euribor3m   nr.employed  cons.price.idx  
+count  45211.000000  45211.000000  45211.000000    45211.000000  
+mean       0.818338      4.389787   5167.578859       93.623608  
+std        1.004594      1.099787    104.885694        0.639706  
+min       -3.400000      0.819000   4851.000000       92.111000  
+25%        1.100000      4.733000   5191.000000       93.200000  
+50%        1.100000      4.857000   5195.800000       93.918000  
+75%        1.400000      4.955000   5228.100000       93.994000  
+max        1.400000      5.045000   5228.100000       94.465000  </code></pre>
+</div>
+</div>
+</section>
+</section>
+<section id="exploratory-data-analysis-eda" class="level1" data-number="2">
+<h1 data-number="2"><span class="header-section-number">2</span> Exploratory Data Analysis (EDA)</h1>
+<section id="analysing-the-variables" class="level2" data-number="2.1">
+<h2 data-number="2.1" class="anchored" data-anchor-id="analysing-the-variables"><span class="header-section-number">2.1</span> Analysing the variables</h2>
+<section id="job-description" class="level3" data-number="2.1.1">
+<h3 data-number="2.1.1" class="anchored" data-anchor-id="job-description"><span class="header-section-number">2.1.1</span> Job Description</h3>
+<div class="cell" data-execution_count="4">
+<details>
+<summary>Code</summary>
+<div class="sourceCode cell-code" id="cb5"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="co"># JOB</span></span>
+<span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a>plt.figure(figsize <span class="op">=</span> (<span class="dv">8</span>, <span class="dv">5</span>))</span>
+<span id="cb5-3"><a href="#cb5-3" aria-hidden="true" tabindex="-1"></a>sns.countplot(data<span class="op">=</span>df,y<span class="op">=</span><span class="st">'job'</span>,hue<span class="op">=</span><span class="st">'y'</span>)</span>
+<span id="cb5-4"><a href="#cb5-4" aria-hidden="true" tabindex="-1"></a>plt.title(<span class="st">"Type of Job Distribution"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+<div class="cell-output cell-output-display" data-execution_count="4">
+<pre><code>Text(0.5, 1.0, 'Type of Job Distribution')</code></pre>
+</div>
+<div class="cell-output cell-output-display">
+<p><img src="TechnicalFile_files/figure-html/cell-5-output-2.png" width="738" height="455"></p>
+</div>
+</div>
+<p>People in management, technical are more likely to subscibe to the term deposit</p>
+</section>
+<section id="marital" class="level3" data-number="2.1.2">
+<h3 data-number="2.1.2" class="anchored" data-anchor-id="marital"><span class="header-section-number">2.1.2</span> Marital</h3>
+<div class="cell" data-execution_count="5">
+<details>
+<summary>Code</summary>
+<div class="sourceCode cell-code" id="cb7"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a><span class="co"># MARITAL</span></span>
+<span id="cb7-2"><a href="#cb7-2" aria-hidden="true" tabindex="-1"></a>plt.figure(figsize <span class="op">=</span> (<span class="dv">8</span>, <span class="dv">5</span>))</span>
+<span id="cb7-3"><a href="#cb7-3" aria-hidden="true" tabindex="-1"></a>sns.countplot(data<span class="op">=</span>df,y<span class="op">=</span><span class="st">'marital'</span>,hue<span class="op">=</span><span class="st">'y'</span>)</span>
+<span id="cb7-4"><a href="#cb7-4" aria-hidden="true" tabindex="-1"></a>plt.title(<span class="st">"Type of marital Distribution"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+<div class="cell-output cell-output-display" data-execution_count="5">
+<pre><code>Text(0.5, 1.0, 'Type of marital Distribution')</code></pre>
+</div>
+<div class="cell-output cell-output-display">
+<p><img src="TechnicalFile_files/figure-html/cell-6-output-2.png" width="707" height="455"></p>
+</div>
+</div>
+<div class="cell" data-execution_count="6">
+<details>
+<summary>Code</summary>
+<div class="sourceCode cell-code" id="cb9"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a><span class="co"># EDUCATION </span></span>
+<span id="cb9-2"><a href="#cb9-2" aria-hidden="true" tabindex="-1"></a>plt.figure(figsize <span class="op">=</span> (<span class="dv">8</span>, <span class="dv">5</span>))</span>
+<span id="cb9-3"><a href="#cb9-3" aria-hidden="true" tabindex="-1"></a>sns.countplot(data<span class="op">=</span>df,y<span class="op">=</span><span class="st">'education'</span>,hue<span class="op">=</span><span class="st">'y'</span>)</span>
+<span id="cb9-4"><a href="#cb9-4" aria-hidden="true" tabindex="-1"></a>plt.title(<span class="st">"Type of education Distribution"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+<div class="cell-output cell-output-display" data-execution_count="6">
+<pre><code>Text(0.5, 1.0, 'Type of education Distribution')</code></pre>
+</div>
+<div class="cell-output cell-output-display">
+<p><img src="TechnicalFile_files/figure-html/cell-7-output-2.png" width="715" height="455"></p>
+</div>
+</div>
+</section>
+<section id="loan" class="level3" data-number="2.1.3">
+<h3 data-number="2.1.3" class="anchored" data-anchor-id="loan"><span class="header-section-number">2.1.3</span> Loan</h3>
+<div class="cell" data-execution_count="7">
+<details>
+<summary>Code</summary>
+<div class="sourceCode cell-code" id="cb11"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a><span class="co"># DEFAULT</span></span>
+<span id="cb11-2"><a href="#cb11-2" aria-hidden="true" tabindex="-1"></a>sns.countplot(data<span class="op">=</span>df,y<span class="op">=</span><span class="st">'default'</span>,hue<span class="op">=</span><span class="st">'y'</span>)</span>
+<span id="cb11-3"><a href="#cb11-3" aria-hidden="true" tabindex="-1"></a>plt.title(<span class="st">"Type of default Distribution"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+<div class="cell-output cell-output-display" data-execution_count="7">
+<pre><code>Text(0.5, 1.0, 'Type of default Distribution')</code></pre>
+</div>
+<div class="cell-output cell-output-display">
+<p><img src="TechnicalFile_files/figure-html/cell-8-output-2.png" width="602" height="455"></p>
+</div>
+</div>
+<p>So people who do not paid back there loans and have credits, have not subcribed to the term deposit.</p>
+<div class="cell" data-execution_count="8">
+<details>
+<summary>Code</summary>
+<div class="sourceCode cell-code" id="cb13"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true" tabindex="-1"></a><span class="co"># HOUSING</span></span>
+<span id="cb13-2"><a href="#cb13-2" aria-hidden="true" tabindex="-1"></a>sns.countplot(data<span class="op">=</span>df,y<span class="op">=</span><span class="st">'housing'</span>,hue<span class="op">=</span><span class="st">'y'</span>)</span>
+<span id="cb13-3"><a href="#cb13-3" aria-hidden="true" tabindex="-1"></a>plt.title(<span class="st">"Type of housing Distribution"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+<div class="cell-output cell-output-display" data-execution_count="8">
+<pre><code>Text(0.5, 1.0, 'Type of housing Distribution')</code></pre>
+</div>
+<div class="cell-output cell-output-display">
+<p><img src="TechnicalFile_files/figure-html/cell-9-output-2.png" width="595" height="455"></p>
+</div>
+</div>
+<div class="cell" data-execution_count="9">
+<details>
+<summary>Code</summary>
+<div class="sourceCode cell-code" id="cb15"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb15-1"><a href="#cb15-1" aria-hidden="true" tabindex="-1"></a><span class="co"># LOAN</span></span>
+<span id="cb15-2"><a href="#cb15-2" aria-hidden="true" tabindex="-1"></a>sns.countplot(data<span class="op">=</span>df,y<span class="op">=</span><span class="st">'loan'</span>,hue<span class="op">=</span><span class="st">'y'</span>)</span>
+<span id="cb15-3"><a href="#cb15-3" aria-hidden="true" tabindex="-1"></a>plt.title(<span class="st">"Type of Loan Distribution"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+<div class="cell-output cell-output-display" data-execution_count="9">
+<pre><code>Text(0.5, 1.0, 'Type of Loan Distribution')</code></pre>
+</div>
+<div class="cell-output cell-output-display">
+<p><img src="TechnicalFile_files/figure-html/cell-10-output-2.png" width="595" height="455"></p>
+</div>
+</div>
+<ul>
+<li>people who have loans are subscribing to term deposit less.</li>
+</ul>
+</section>
+<section id="contact" class="level3" data-number="2.1.4">
+<h3 data-number="2.1.4" class="anchored" data-anchor-id="contact"><span class="header-section-number">2.1.4</span> Contact</h3>
+<div class="cell" data-execution_count="10">
+<details>
+<summary>Code</summary>
+<div class="sourceCode cell-code" id="cb17"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb17-1"><a href="#cb17-1" aria-hidden="true" tabindex="-1"></a><span class="co"># CONTACT</span></span>
+<span id="cb17-2"><a href="#cb17-2" aria-hidden="true" tabindex="-1"></a>sns.countplot(data<span class="op">=</span>df,y<span class="op">=</span><span class="st">'contact'</span>,hue<span class="op">=</span><span class="st">'y'</span>)</span>
+<span id="cb17-3"><a href="#cb17-3" aria-hidden="true" tabindex="-1"></a>plt.title(<span class="st">"Type of Contact Distribution"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+<div class="cell-output cell-output-display" data-execution_count="10">
+<pre><code>Text(0.5, 1.0, 'Type of Contact Distribution')</code></pre>
+</div>
+<div class="cell-output cell-output-display">
+<p><img src="TechnicalFile_files/figure-html/cell-11-output-2.png" width="637" height="455"></p>
+</div>
+</div>
+<ul>
+<li>since the type of communication(cellular and telephone) is not really a good indicator of subcription, we drop this variable.</li>
+</ul>
+<section id="month" class="level4" data-number="2.1.4.1">
+<h4 data-number="2.1.4.1" class="anchored" data-anchor-id="month"><span class="header-section-number">2.1.4.1</span> Month</h4>
+<div class="cell" data-execution_count="11">
+<details>
+<summary>Code</summary>
+<div class="sourceCode cell-code" id="cb19"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb19-1"><a href="#cb19-1" aria-hidden="true" tabindex="-1"></a><span class="co"># MONTH</span></span>
+<span id="cb19-2"><a href="#cb19-2" aria-hidden="true" tabindex="-1"></a>sns.countplot(x <span class="op">=</span><span class="st">'month'</span>,hue<span class="op">=</span><span class="st">'y'</span>, data <span class="op">=</span> df)</span>
+<span id="cb19-3"><a href="#cb19-3" aria-hidden="true" tabindex="-1"></a>plt.title(<span class="st">"Type of Months Distribution"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+<div class="cell-output cell-output-display" data-execution_count="11">
+<pre><code>Text(0.5, 1.0, 'Type of Months Distribution')</code></pre>
+</div>
+<div class="cell-output cell-output-display">
+<p><img src="TechnicalFile_files/figure-html/cell-12-output-2.png" width="613" height="455"></p>
+</div>
+</div>
+<div class="cell" data-execution_count="12">
+<details>
+<summary>Code</summary>
+<div class="sourceCode cell-code" id="cb21"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb21-1"><a href="#cb21-1" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> pieChart(x_var,title):</span>
+<span id="cb21-2"><a href="#cb21-2" aria-hidden="true" tabindex="-1"></a>    yesNo <span class="op">=</span> df.groupby(x_var).size()</span>
+<span id="cb21-3"><a href="#cb21-3" aria-hidden="true" tabindex="-1"></a>    yesNo.plot(kind<span class="op">=</span><span class="st">'pie'</span>, title<span class="op">=</span>title, figsize<span class="op">=</span>[<span class="dv">8</span>,<span class="dv">8</span>],</span>
+<span id="cb21-4"><a href="#cb21-4" aria-hidden="true" tabindex="-1"></a>          autopct<span class="op">=</span><span class="kw">lambda</span> p: <span class="st">'</span><span class="sc">{:.2f}</span><span class="st">%(</span><span class="sc">{:.0f}</span><span class="st">)'</span>.<span class="bu">format</span>(p,(p<span class="op">/</span><span class="dv">100</span>)<span class="op">*</span>yesNo.<span class="bu">sum</span>()))</span>
+<span id="cb21-5"><a href="#cb21-5" aria-hidden="true" tabindex="-1"></a>    plt.show()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+</div>
+</section>
+</section>
+<section id="term-deposit" class="level3" data-number="2.1.5">
+<h3 data-number="2.1.5" class="anchored" data-anchor-id="term-deposit"><span class="header-section-number">2.1.5</span> Term Deposit</h3>
+<p>Distribution of y(target) variable</p>
+<div class="cell" data-execution_count="13">
+<details>
+<summary>Code</summary>
+<div class="sourceCode cell-code" id="cb22"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb22-1"><a href="#cb22-1" aria-hidden="true" tabindex="-1"></a>pieChart(<span class="st">'y'</span>,<span class="st">'Percentage of yes and no target(term deposit)in dataset'</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+<div class="cell-output cell-output-display">
+<p><img src="TechnicalFile_files/figure-html/cell-14-output-1.png" width="611" height="630"></p>
+</div>
+</div>
+<p>only 11.7% of enteries are for y=1, so our dataset is unbalanced.</p>
+<div class="cell" data-execution_count="14">
+<details>
+<summary>Code</summary>
+<div class="sourceCode cell-code" id="cb23"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb23-1"><a href="#cb23-1" aria-hidden="true" tabindex="-1"></a><span class="co"># POUTCOME</span></span>
+<span id="cb23-2"><a href="#cb23-2" aria-hidden="true" tabindex="-1"></a>pieChart(<span class="st">'poutcome'</span>,<span class="st">'Distribution of poutcome in dataset'</span>)</span>
+<span id="cb23-3"><a href="#cb23-3" aria-hidden="true" tabindex="-1"></a>df.poutcome.value_counts()</span>
+<span id="cb23-4"><a href="#cb23-4" aria-hidden="true" tabindex="-1"></a>df.groupby(<span class="st">'poutcome'</span>).size()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+<div class="cell-output cell-output-display">
+<p><img src="TechnicalFile_files/figure-html/cell-15-output-1.png" width="611" height="630"></p>
+</div>
+<div class="cell-output cell-output-display" data-execution_count="14">
+<pre><code>poutcome
+failure     4901
+other       1840
+success     1511
+unknown    36959
+dtype: int64</code></pre>
+</div>
+</div>
+<p>There are <em>36959 unknown</em> values and 1840 values with other category. Since, 82% of entries are unknown, 4.07% other, we will directly drop this column.</p>
+</section>
+</section>
+<section id="age-duration-and-balance" class="level2" data-number="2.2">
+<h2 data-number="2.2" class="anchored" data-anchor-id="age-duration-and-balance"><span class="header-section-number">2.2</span> Age, duration and balance</h2>
+<div class="cell" data-execution_count="15">
+<details>
+<summary>Code</summary>
+<div class="sourceCode cell-code" id="cb25"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb25-1"><a href="#cb25-1" aria-hidden="true" tabindex="-1"></a><span class="co"># plotting violen plot for duration and balance </span></span>
+<span id="cb25-2"><a href="#cb25-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb25-3"><a href="#cb25-3" aria-hidden="true" tabindex="-1"></a>f, axes <span class="op">=</span> plt.subplots(<span class="dv">1</span>, <span class="dv">2</span>,sharex<span class="op">=</span><span class="va">True</span>)</span>
+<span id="cb25-4"><a href="#cb25-4" aria-hidden="true" tabindex="-1"></a>axes[<span class="dv">0</span>].set_title(<span class="st">'For duration'</span>)</span>
+<span id="cb25-5"><a href="#cb25-5" aria-hidden="true" tabindex="-1"></a>sns.violinplot( x<span class="op">=</span><span class="st">'y'</span>,y<span class="op">=</span><span class="st">'duration'</span>,  split<span class="op">=</span><span class="va">True</span>, inner<span class="op">=</span><span class="st">"quart"</span>, ax<span class="op">=</span>axes[<span class="dv">0</span>], data<span class="op">=</span>df)</span>
+<span id="cb25-6"><a href="#cb25-6" aria-hidden="true" tabindex="-1"></a>axes[<span class="dv">1</span>].set_title(<span class="st">'For balance'</span>)</span>
+<span id="cb25-7"><a href="#cb25-7" aria-hidden="true" tabindex="-1"></a>sns.violinplot( x<span class="op">=</span><span class="st">'y'</span>,y<span class="op">=</span><span class="st">'balance'</span>,  split<span class="op">=</span><span class="va">True</span>, inner<span class="op">=</span><span class="st">"quart"</span>, ax<span class="op">=</span>axes[<span class="dv">1</span>], data<span class="op">=</span>df)</span>
+<span id="cb25-8"><a href="#cb25-8" aria-hidden="true" tabindex="-1"></a>sns.despine(left<span class="op">=</span><span class="va">True</span>)</span>
+<span id="cb25-9"><a href="#cb25-9" aria-hidden="true" tabindex="-1"></a>plt.show()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+<div class="cell-output cell-output-display">
+<p><img src="TechnicalFile_files/figure-html/cell-16-output-1.png" width="605" height="455"></p>
+</div>
+</div>
+<ul>
+<li>There are outliers in duration and balance so we need to get rid of them.</li>
+<li>people who have a high balance, are more likely to subscribe to term deposit.</li>
+</ul>
+<div class="cell" data-execution_count="16">
+<details>
+<summary>Code</summary>
+<div class="sourceCode cell-code" id="cb26"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb26-1"><a href="#cb26-1" aria-hidden="true" tabindex="-1"></a>sns.violinplot( x<span class="op">=</span><span class="st">'y'</span>,y<span class="op">=</span><span class="st">'age'</span>,  split<span class="op">=</span><span class="va">True</span>, inner<span class="op">=</span><span class="st">"quart"</span>, data<span class="op">=</span>df)</span>
+<span id="cb26-2"><a href="#cb26-2" aria-hidden="true" tabindex="-1"></a>plt.title(<span class="st">'Age distribution for each response variable'</span>)</span>
+<span id="cb26-3"><a href="#cb26-3" aria-hidden="true" tabindex="-1"></a>plt.show()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+<div class="cell-output cell-output-display">
+<p><img src="TechnicalFile_files/figure-html/cell-17-output-1.png" width="597" height="455"></p>
+</div>
+</div>
+<ul>
+<li>No outliers</li>
+<li>People who are old are more likely to subscribe to term deposit.</li>
+</ul>
+<section id="day" class="level3" data-number="2.2.1">
+<h3 data-number="2.2.1" class="anchored" data-anchor-id="day"><span class="header-section-number">2.2.1</span> Day</h3>
+</section>
+</section>
+</section>
+<section id="summary" class="level1" data-number="3">
+<h1 data-number="3"><span class="header-section-number">3</span> Summary</h1>
+<section id="data-cleaning" class="level2" data-number="3.1">
+<h2 data-number="3.1" class="anchored" data-anchor-id="data-cleaning"><span class="header-section-number">3.1</span> Data Cleaning</h2>
+<ul>
+<li>Contact is not useful so we drop it.</li>
+<li>In poutcome, we have a lot of missing values so we drop it.<br>
+</li>
+<li>Day is not giving any relevant infomation so we drop it.</li>
+<li>Removing the unknowns</li>
+<li>Remove the outliers from balance and duration.</li>
+</ul>
+</section>
+<section id="data-visualization" class="level2" data-number="3.2">
+<h2 data-number="3.2" class="anchored" data-anchor-id="data-visualization"><span class="header-section-number">3.2</span> Data Visualization</h2>
+</section>
+</section>
+<section id="data-cleaning-1" class="level1" data-number="4">
+<h1 data-number="4"><span class="header-section-number">4</span> Data Cleaning</h1>
+<section id="dropping-the-column" class="level2" data-number="4.1">
+<h2 data-number="4.1" class="anchored" data-anchor-id="dropping-the-column"><span class="header-section-number">4.1</span> Dropping the column</h2>
+<div class="cell" data-execution_count="17">
+<details>
+<summary>Code</summary>
+<div class="sourceCode cell-code" id="cb27"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb27-1"><a href="#cb27-1" aria-hidden="true" tabindex="-1"></a>clean_data <span class="op">=</span> df.drop([<span class="st">'contact'</span>,<span class="st">'poutcome'</span>,<span class="st">'day'</span>],axis<span class="op">=</span><span class="dv">1</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+</div>
+</section>
+<section id="removing-unknown-from-job-and-education" class="level2" data-number="4.2">
+<h2 data-number="4.2" class="anchored" data-anchor-id="removing-unknown-from-job-and-education"><span class="header-section-number">4.2</span> Removing unknown from job and education</h2>
+<div class="cell" data-execution_count="18">
+<details>
+<summary>Code</summary>
+<div class="sourceCode cell-code" id="cb28"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb28-1"><a href="#cb28-1" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> i <span class="kw">in</span> clean_data.columns:</span>
+<span id="cb28-2"><a href="#cb28-2" aria-hidden="true" tabindex="-1"></a>    <span class="cf">if</span> clean_data[i].dtype <span class="op">==</span> np.int64:</span>
+<span id="cb28-3"><a href="#cb28-3" aria-hidden="true" tabindex="-1"></a>        <span class="cf">pass</span></span>
+<span id="cb28-4"><a href="#cb28-4" aria-hidden="true" tabindex="-1"></a>    <span class="cf">else</span>:</span>
+<span id="cb28-5"><a href="#cb28-5" aria-hidden="true" tabindex="-1"></a>        </span>
+<span id="cb28-6"><a href="#cb28-6" aria-hidden="true" tabindex="-1"></a>        <span class="co"># printing names and count using loop.</span></span>
+<span id="cb28-7"><a href="#cb28-7" aria-hidden="true" tabindex="-1"></a>        <span class="cf">for</span> idx, name <span class="kw">in</span> <span class="bu">enumerate</span>(clean_data[i].value_counts().index.tolist()):</span>
+<span id="cb28-8"><a href="#cb28-8" aria-hidden="true" tabindex="-1"></a>            <span class="cf">if</span> name <span class="op">==</span> <span class="st">'unknown'</span> <span class="kw">or</span> name <span class="op">==</span> <span class="st">'other'</span>:</span>
+<span id="cb28-9"><a href="#cb28-9" aria-hidden="true" tabindex="-1"></a>                <span class="bu">print</span>(<span class="ss">f"for </span><span class="sc">{</span>i<span class="sc">}</span><span class="ss">"</span>)</span>
+<span id="cb28-10"><a href="#cb28-10" aria-hidden="true" tabindex="-1"></a>                <span class="bu">print</span>(<span class="ss">f"</span><span class="sc">{</span>name<span class="sc">}</span><span class="ss"> : </span><span class="sc">{</span>clean_data[i]<span class="sc">.</span>value_counts()[idx]<span class="sc">}</span><span class="ss">"</span>)</span>
+<span id="cb28-11"><a href="#cb28-11" aria-hidden="true" tabindex="-1"></a>                <span class="cf">if</span> clean_data[i].value_counts()[idx] <span class="op">&lt;</span> <span class="dv">15000</span>:</span>
+<span id="cb28-12"><a href="#cb28-12" aria-hidden="true" tabindex="-1"></a>                    <span class="bu">print</span>(<span class="ss">f"dropping rows with value as </span><span class="sc">{</span>name<span class="sc">}</span><span class="ss"> in </span><span class="sc">{</span>i<span class="sc">}</span><span class="ss">"</span>)</span>
+<span id="cb28-13"><a href="#cb28-13" aria-hidden="true" tabindex="-1"></a>                    clean_data <span class="op">=</span> clean_data[clean_data[i] <span class="op">!=</span> name]</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+<div class="cell-output cell-output-stdout">
+<pre><code>for job
+unknown : 288
+dropping rows with value as unknown in job
+for education
+unknown : 1730
+dropping rows with value as unknown in education</code></pre>
+</div>
+</div>
+</section>
+<section id="dropping-the-rows" class="level2" data-number="4.3">
+<h2 data-number="4.3" class="anchored" data-anchor-id="dropping-the-rows"><span class="header-section-number">4.3</span> Dropping the rows</h2>
+<section id="dropping-the-rows-where-values-are-3sd-away" class="level3" data-number="4.3.1">
+<h3 data-number="4.3.1" class="anchored" data-anchor-id="dropping-the-rows-where-values-are-3sd-away"><span class="header-section-number">4.3.1</span> Dropping the rows where values are 3SD away</h3>
+<p><em>Balance - Outliers</em></p>
+<div class="cell" data-execution_count="19">
+<details>
+<summary>Code</summary>
+<div class="sourceCode cell-code" id="cb30"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb30-1"><a href="#cb30-1" aria-hidden="true" tabindex="-1"></a>standard_deviation <span class="op">=</span> clean_data[[<span class="st">'balance'</span>]].std()</span>
+<span id="cb30-2"><a href="#cb30-2" aria-hidden="true" tabindex="-1"></a>mean <span class="op">=</span> clean_data[[<span class="st">'balance'</span>]].mean()</span>
+<span id="cb30-3"><a href="#cb30-3" aria-hidden="true" tabindex="-1"></a>clean_data[<span class="st">'balance_outliers'</span>] <span class="op">=</span> clean_data[<span class="st">'balance'</span>]</span>
+<span id="cb30-4"><a href="#cb30-4" aria-hidden="true" tabindex="-1"></a>clean_data[<span class="st">'balance_outliers'</span>]<span class="op">=</span> zscore(clean_data[<span class="st">'balance_outliers'</span>])</span>
+<span id="cb30-5"><a href="#cb30-5" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="ss">f"removing entries before </span><span class="sc">{</span>mean <span class="op">-</span> <span class="dv">3</span><span class="op">*</span>standard_deviation <span class="sc">}</span><span class="ss"> and after </span><span class="sc">{</span>mean <span class="op">+</span> <span class="dv">3</span><span class="op">*</span>standard_deviation <span class="sc">}</span><span class="ss">"</span>)</span>
+<span id="cb30-6"><a href="#cb30-6" aria-hidden="true" tabindex="-1"></a>three_SD <span class="op">=</span> (clean_data[<span class="st">'balance_outliers'</span>]<span class="op">&gt;</span><span class="dv">3</span>) <span class="op">|</span> (clean_data[<span class="st">'balance_outliers'</span>]<span class="op">&lt;-</span><span class="dv">3</span> )</span>
+<span id="cb30-7"><a href="#cb30-7" aria-hidden="true" tabindex="-1"></a>clean_data <span class="op">=</span> clean_data.drop(clean_data[three_SD].index, axis <span class="op">=</span> <span class="dv">0</span>, inplace <span class="op">=</span> <span class="va">False</span>)</span>
+<span id="cb30-8"><a href="#cb30-8" aria-hidden="true" tabindex="-1"></a>clean_data <span class="op">=</span> clean_data.drop(<span class="st">'balance_outliers'</span>, axis<span class="op">=</span><span class="dv">1</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+<div class="cell-output cell-output-stdout">
+<pre><code>removing entries before balance   -7772.283533
+dtype: float64 and after balance    10480.338218
+dtype: float64</code></pre>
+</div>
+</div>
+<p><em>Duration - Outliers</em></p>
+</section>
+<section id="dropping-rows-where-the-duration-of-calls-is-less-than-5sec-since-that-is-irrelevant" class="level3" data-number="4.3.2">
+<h3 data-number="4.3.2" class="anchored" data-anchor-id="dropping-rows-where-the-duration-of-calls-is-less-than-5sec-since-that-is-irrelevant"><span class="header-section-number">4.3.2</span> Dropping rows where the duration of calls is less than 5sec since that is irrelevant</h3>
+<div class="cell" data-execution_count="20">
+<details>
+<summary>Code</summary>
+<div class="sourceCode cell-code" id="cb32"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb32-1"><a href="#cb32-1" aria-hidden="true" tabindex="-1"></a>less_5 <span class="op">=</span> (clean_data[<span class="st">'duration'</span>]<span class="op">&lt;</span><span class="dv">5</span>)</span>
+<span id="cb32-2"><a href="#cb32-2" aria-hidden="true" tabindex="-1"></a>clean_data <span class="op">=</span> clean_data.drop(clean_data[less_5].index, axis <span class="op">=</span> <span class="dv">0</span>, inplace <span class="op">=</span> <span class="va">False</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+</div>
+<p>Changing unit of duration from seconds to minutes to make more sense</p>
+<div class="cell" data-execution_count="21">
+<details>
+<summary>Code</summary>
+<div class="sourceCode cell-code" id="cb33"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb33-1"><a href="#cb33-1" aria-hidden="true" tabindex="-1"></a>clean_data[<span class="st">'duration'</span>] <span class="op">=</span> clean_data[<span class="st">'duration'</span>].<span class="bu">apply</span>(<span class="kw">lambda</span> n:n<span class="op">/</span><span class="dv">60</span>).<span class="bu">round</span>(<span class="dv">2</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+</div>
+</section>
+</section>
+</section>
+<section id="data-visualization-1" class="level1" data-number="5">
+<h1 data-number="5"><span class="header-section-number">5</span> Data Visualization</h1>
+<section id="contact-versus-subscription-month-wise" class="level3" data-number="5.0.1">
+<h3 data-number="5.0.1" class="anchored" data-anchor-id="contact-versus-subscription-month-wise"><span class="header-section-number">5.0.1</span> Contact versus Subscription month wise</h3>
+</section>
+<section id="number-of-calls-versus-duration-and-affect-on-subscription" class="level3" data-number="5.0.2">
+<h3 data-number="5.0.2" class="anchored" data-anchor-id="number-of-calls-versus-duration-and-affect-on-subscription"><span class="header-section-number">5.0.2</span> Number of calls versus Duration and affect on subscription</h3>
+<div class="cell" data-execution_count="22">
+<details>
+<summary>Code</summary>
+<div class="sourceCode cell-code" id="cb34"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb34-1"><a href="#cb34-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> seaborn <span class="im">as</span> sns</span>
+<span id="cb34-2"><a href="#cb34-2" aria-hidden="true" tabindex="-1"></a>dur_cam <span class="op">=</span> sns.lmplot(x<span class="op">=</span><span class="st">'duration'</span>, y<span class="op">=</span><span class="st">'campaign'</span>,data <span class="op">=</span> clean_data,</span>
+<span id="cb34-3"><a href="#cb34-3" aria-hidden="true" tabindex="-1"></a>                     hue <span class="op">=</span> <span class="st">'y'</span>,</span>
+<span id="cb34-4"><a href="#cb34-4" aria-hidden="true" tabindex="-1"></a>                     fit_reg <span class="op">=</span> <span class="va">False</span>,</span>
+<span id="cb34-5"><a href="#cb34-5" aria-hidden="true" tabindex="-1"></a>                     scatter_kws<span class="op">=</span>{<span class="st">'alpha'</span>:<span class="fl">0.6</span>}, height <span class="op">=</span><span class="dv">7</span>)</span>
+<span id="cb34-6"><a href="#cb34-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb34-7"><a href="#cb34-7" aria-hidden="true" tabindex="-1"></a>plt.axis([<span class="dv">0</span>,<span class="dv">65</span>,<span class="dv">0</span>,<span class="dv">65</span>])</span>
+<span id="cb34-8"><a href="#cb34-8" aria-hidden="true" tabindex="-1"></a>plt.ylabel(<span class="st">'Number of Calls'</span>)</span>
+<span id="cb34-9"><a href="#cb34-9" aria-hidden="true" tabindex="-1"></a>plt.xlabel(<span class="st">'Duration of Calls (Minutes)'</span>)</span>
+<span id="cb34-10"><a href="#cb34-10" aria-hidden="true" tabindex="-1"></a>plt.title(<span class="st">'The Relationship between the Number and Duration of Calls (with y)'</span>)</span>
+<span id="cb34-11"><a href="#cb34-11" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb34-12"><a href="#cb34-12" aria-hidden="true" tabindex="-1"></a><span class="co"># Annotation</span></span>
+<span id="cb34-13"><a href="#cb34-13" aria-hidden="true" tabindex="-1"></a>plt.axhline(y<span class="op">=</span><span class="dv">5</span>, linewidth<span class="op">=</span><span class="dv">2</span>, color<span class="op">=</span><span class="st">"k"</span>, linestyle<span class="op">=</span><span class="st">'--'</span>)</span>
+<span id="cb34-14"><a href="#cb34-14" aria-hidden="true" tabindex="-1"></a>plt.annotate(<span class="st">'Higher subscription rate when number of calls &lt;5 '</span>,xytext <span class="op">=</span> (<span class="dv">35</span>,<span class="dv">13</span>),</span>
+<span id="cb34-15"><a href="#cb34-15" aria-hidden="true" tabindex="-1"></a>             arrowprops<span class="op">=</span><span class="bu">dict</span>(color <span class="op">=</span> <span class="st">'k'</span>, width<span class="op">=</span><span class="dv">1</span>),xy<span class="op">=</span>(<span class="dv">30</span>,<span class="dv">6</span>))</span>
+<span id="cb34-16"><a href="#cb34-16" aria-hidden="true" tabindex="-1"></a>plt.show()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+<div class="cell-output cell-output-display">
+<p><img src="TechnicalFile_files/figure-html/cell-23-output-1.png" width="739" height="676"></p>
+</div>
+</div>
+<p>Checking between pdays and previous as well</p>
+<ol start="13" type="1">
+<li><ul>
+<li>pdays: number of days that passed by after the client was last contacted from a previous campaign (numeric; 999 means client was not previously contacted)</li>
+</ul></li>
+<li><ul>
+<li>previous: number of contacts performed before this campaign and for this client (numeric)</li>
+</ul></li>
+</ol>
+<div class="cell" data-execution_count="23">
+<details>
+<summary>Code</summary>
+<div class="sourceCode cell-code" id="cb35"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb35-1"><a href="#cb35-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> seaborn <span class="im">as</span> sns</span>
+<span id="cb35-2"><a href="#cb35-2" aria-hidden="true" tabindex="-1"></a>dur_cam <span class="op">=</span> sns.lmplot(x<span class="op">=</span><span class="st">'pdays'</span>, y<span class="op">=</span><span class="st">'previous'</span>,data <span class="op">=</span> clean_data,</span>
+<span id="cb35-3"><a href="#cb35-3" aria-hidden="true" tabindex="-1"></a>                     hue <span class="op">=</span> <span class="st">'y'</span>,</span>
+<span id="cb35-4"><a href="#cb35-4" aria-hidden="true" tabindex="-1"></a>                     fit_reg <span class="op">=</span> <span class="va">False</span>,</span>
+<span id="cb35-5"><a href="#cb35-5" aria-hidden="true" tabindex="-1"></a>                     scatter_kws<span class="op">=</span>{<span class="st">'alpha'</span>:<span class="fl">0.6</span>}, height <span class="op">=</span><span class="dv">7</span>)</span>
+<span id="cb35-6"><a href="#cb35-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb35-7"><a href="#cb35-7" aria-hidden="true" tabindex="-1"></a><span class="co"># plt.axis([0,65,0,65])</span></span>
+<span id="cb35-8"><a href="#cb35-8" aria-hidden="true" tabindex="-1"></a>plt.ylabel(<span class="st">'pdays'</span>)</span>
+<span id="cb35-9"><a href="#cb35-9" aria-hidden="true" tabindex="-1"></a>plt.xlabel(<span class="st">'previous'</span>)</span>
+<span id="cb35-10"><a href="#cb35-10" aria-hidden="true" tabindex="-1"></a>plt.title(<span class="st">'The Relationship between number of contacts  and last contactbefore this campaign (with y)'</span>)</span>
+<span id="cb35-11"><a href="#cb35-11" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb35-12"><a href="#cb35-12" aria-hidden="true" tabindex="-1"></a>plt.show()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+<div class="cell-output cell-output-display">
+<p><img src="TechnicalFile_files/figure-html/cell-24-output-1.png" width="720" height="676"></p>
+</div>
+</div>
+</section>
+<section id="smart-question" class="level3" data-number="5.0.3">
+<h3 data-number="5.0.3" class="anchored" data-anchor-id="smart-question"><span class="header-section-number">5.0.3</span> Smart Question</h3>
+<p>Based on last contact info only number of contacts performed during this campaign is contributing a lot towards subscription rates.</p>
+</section>
+<section id="month-wise-subscription" class="level3" data-number="5.0.4">
+<h3 data-number="5.0.4" class="anchored" data-anchor-id="month-wise-subscription"><span class="header-section-number">5.0.4</span> Month wise subscription</h3>
+<div class="cell" data-execution_count="24">
+<details>
+<summary>Code</summary>
+<div class="sourceCode cell-code" id="cb36"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb36-1"><a href="#cb36-1" aria-hidden="true" tabindex="-1"></a><span class="co">#converting y values </span></span>
+<span id="cb36-2"><a href="#cb36-2" aria-hidden="true" tabindex="-1"></a><span class="co"># bankdata['y'] = bankdata['y'].apply(lambda x: 'no' if x == 'yes' else 1)</span></span>
+<span id="cb36-3"><a href="#cb36-3" aria-hidden="true" tabindex="-1"></a><span class="co"># bankdata['y'] = bankdata['y'].astype('category')</span></span>
+<span id="cb36-4"><a href="#cb36-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb36-5"><a href="#cb36-5" aria-hidden="true" tabindex="-1"></a><span class="co">#value count for each month</span></span>
+<span id="cb36-6"><a href="#cb36-6" aria-hidden="true" tabindex="-1"></a>month <span class="op">=</span> clean_data[<span class="st">'month'</span>].value_counts().rename_axis(<span class="st">'month'</span>).reset_index(name<span class="op">=</span><span class="st">'counts'</span>)</span>
+<span id="cb36-7"><a href="#cb36-7" aria-hidden="true" tabindex="-1"></a><span class="co">#for sequencing the month</span></span>
+<span id="cb36-8"><a href="#cb36-8" aria-hidden="true" tabindex="-1"></a>m1_list<span class="op">=</span>[<span class="st">'jan'</span>,<span class="st">'feb'</span>,<span class="st">'mar'</span>,<span class="st">'apr'</span>,<span class="st">'may'</span>,<span class="st">'jun'</span>,<span class="st">'jul'</span>,<span class="st">'aug'</span>,<span class="st">'sep'</span>,<span class="st">'nov'</span>,<span class="st">'dec'</span>]</span>
+<span id="cb36-9"><a href="#cb36-9" aria-hidden="true" tabindex="-1"></a>m1<span class="op">=</span>pd.DataFrame(m1_list,columns<span class="op">=</span>[<span class="st">'month'</span>])</span>
+<span id="cb36-10"><a href="#cb36-10" aria-hidden="true" tabindex="-1"></a><span class="co">#now the dataset is sequeced</span></span>
+<span id="cb36-11"><a href="#cb36-11" aria-hidden="true" tabindex="-1"></a>month <span class="op">=</span> m1.merge(month)</span>
+<span id="cb36-12"><a href="#cb36-12" aria-hidden="true" tabindex="-1"></a><span class="co">#month - counts</span></span>
+<span id="cb36-13"><a href="#cb36-13" aria-hidden="true" tabindex="-1"></a><span class="co">#% of people contacted in that month </span></span>
+<span id="cb36-14"><a href="#cb36-14" aria-hidden="true" tabindex="-1"></a>month[<span class="st">'Contact Rate'</span>] <span class="op">=</span> month[<span class="st">'counts'</span>]<span class="op">*</span><span class="dv">100</span><span class="op">/</span>month[<span class="st">'counts'</span>].<span class="bu">sum</span>()</span>
+<span id="cb36-15"><a href="#cb36-15" aria-hidden="true" tabindex="-1"></a><span class="co">#percentage of people contacted in that month </span></span>
+<span id="cb36-16"><a href="#cb36-16" aria-hidden="true" tabindex="-1"></a><span class="co"># y response </span></span>
+<span id="cb36-17"><a href="#cb36-17" aria-hidden="true" tabindex="-1"></a>month_y <span class="op">=</span> pd.crosstab(clean_data[<span class="st">'y'</span>],clean_data[<span class="st">'month'</span>]).<span class="bu">apply</span>(<span class="kw">lambda</span> x: x<span class="op">/</span>x.<span class="bu">sum</span>() <span class="op">*</span> <span class="dv">100</span>)</span>
+<span id="cb36-18"><a href="#cb36-18" aria-hidden="true" tabindex="-1"></a><span class="co">#% of 0 and 1 for each month </span></span>
+<span id="cb36-19"><a href="#cb36-19" aria-hidden="true" tabindex="-1"></a>month_y <span class="op">=</span> month_y.transpose()</span>
+<span id="cb36-20"><a href="#cb36-20" aria-hidden="true" tabindex="-1"></a>month_y.rename(columns <span class="op">=</span> {<span class="st">'y'</span>:<span class="st">'month'</span>,<span class="dv">0</span>:<span class="st">'no'</span>, <span class="dv">1</span>:<span class="st">'yes'</span>}, inplace <span class="op">=</span> <span class="va">True</span>)</span>
+<span id="cb36-21"><a href="#cb36-21" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb36-22"><a href="#cb36-22" aria-hidden="true" tabindex="-1"></a><span class="co"># month_y</span></span>
+<span id="cb36-23"><a href="#cb36-23" aria-hidden="true" tabindex="-1"></a><span class="co"># y | no% | yes%</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+</div>
+<div class="cell" data-execution_count="25">
+<details>
+<summary>Code</summary>
+<div class="sourceCode cell-code" id="cb37"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb37-1"><a href="#cb37-1" aria-hidden="true" tabindex="-1"></a><span class="co">#month = month.merge(month_y)</span></span>
+<span id="cb37-2"><a href="#cb37-2" aria-hidden="true" tabindex="-1"></a>month[<span class="st">'yes'</span>] <span class="op">=</span> <span class="st">" "</span></span>
+<span id="cb37-3"><a href="#cb37-3" aria-hidden="true" tabindex="-1"></a>month[<span class="st">'no'</span>] <span class="op">=</span> <span class="st">" "</span></span>
+<span id="cb37-4"><a href="#cb37-4" aria-hidden="true" tabindex="-1"></a><span class="co">#to make it in sequence </span></span>
+<span id="cb37-5"><a href="#cb37-5" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> addingCrossTab(): </span>
+<span id="cb37-6"><a href="#cb37-6" aria-hidden="true" tabindex="-1"></a>    <span class="cf">for</span> i, val <span class="kw">in</span> <span class="bu">enumerate</span>(m1_list):</span>
+<span id="cb37-7"><a href="#cb37-7" aria-hidden="true" tabindex="-1"></a>        <span class="co">#print (i, ",",val)</span></span>
+<span id="cb37-8"><a href="#cb37-8" aria-hidden="true" tabindex="-1"></a>        month[<span class="st">'yes'</span>].iloc[i]<span class="op">=</span>month_y.loc[val].loc[<span class="st">'yes'</span>]</span>
+<span id="cb37-9"><a href="#cb37-9" aria-hidden="true" tabindex="-1"></a>        <span class="co">#print(month_y.loc[val].loc['yes'])</span></span>
+<span id="cb37-10"><a href="#cb37-10" aria-hidden="true" tabindex="-1"></a>        month[<span class="st">'no'</span>].iloc[i]<span class="op">=</span>month_y.loc[val].loc[<span class="st">'no'</span>]</span>
+<span id="cb37-11"><a href="#cb37-11" aria-hidden="true" tabindex="-1"></a>        </span>
+<span id="cb37-12"><a href="#cb37-12" aria-hidden="true" tabindex="-1"></a>addingCrossTab()  </span>
+<span id="cb37-13"><a href="#cb37-13" aria-hidden="true" tabindex="-1"></a><span class="co">#print(month)      </span></span>
+<span id="cb37-14"><a href="#cb37-14" aria-hidden="true" tabindex="-1"></a><span class="co">#print(month_y)</span></span>
+<span id="cb37-15"><a href="#cb37-15" aria-hidden="true" tabindex="-1"></a><span class="co"># month['Subscription Rate'] = month_y['yes']</span></span>
+<span id="cb37-16"><a href="#cb37-16" aria-hidden="true" tabindex="-1"></a><span class="co"># month['% NotSubscription'] = month_y['no']</span></span>
+<span id="cb37-17"><a href="#cb37-17" aria-hidden="true" tabindex="-1"></a>month.rename(columns <span class="op">=</span> {<span class="st">'yes'</span>:<span class="st">'Subscription Rate'</span>,<span class="st">'no'</span>:<span class="st">'NotSubscribed Rate'</span>}, inplace <span class="op">=</span> <span class="va">True</span>)</span>
+<span id="cb37-18"><a href="#cb37-18" aria-hidden="true" tabindex="-1"></a><span class="co">#month.drop('month_int',axis = 1,inplace = True)</span></span>
+<span id="cb37-19"><a href="#cb37-19" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(month)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+<div class="cell-output cell-output-stdout">
+<pre><code>   month  counts  Contact Rate Subscription Rate NotSubscribed Rate
+0    jan    1310      3.134046              10.0               90.0
+1    feb    2492      5.961865         16.332263          83.667737
+2    mar     439      1.050264         53.758542          46.241458
+3    apr    2772      6.631738         19.083694          80.916306
+4    may   13050     31.220843          6.697318          93.302682
+5    jun    4874     11.660566          10.56627           89.43373
+6    jul    6550     15.670231          8.793893          91.206107
+7    aug    5924     14.172588         10.820392          89.179608
+8    sep     514      1.229694          47.66537           52.33463
+9    nov    3679      8.801646         10.192987          89.807013
+10   dec     195      0.466518         45.641026          54.358974</code></pre>
+</div>
+</div>
+<div class="cell" data-execution_count="26">
+<details>
+<summary>Code</summary>
+<div class="sourceCode cell-code" id="cb39"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb39-1"><a href="#cb39-1" aria-hidden="true" tabindex="-1"></a>plot_month <span class="op">=</span> month[[<span class="st">'month'</span>,<span class="st">'Subscription Rate'</span>,<span class="st">'Contact Rate'</span>]].plot(x<span class="op">=</span><span class="st">'month'</span>,kind <span class="op">=</span><span class="st">'line'</span>,</span>
+<span id="cb39-2"><a href="#cb39-2" aria-hidden="true" tabindex="-1"></a>                                                          figsize <span class="op">=</span> (<span class="dv">10</span>,<span class="dv">6</span>),</span>
+<span id="cb39-3"><a href="#cb39-3" aria-hidden="true" tabindex="-1"></a>                                                          marker <span class="op">=</span> <span class="st">'o'</span>)</span>
+<span id="cb39-4"><a href="#cb39-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb39-5"><a href="#cb39-5" aria-hidden="true" tabindex="-1"></a>plt.title(<span class="st">'Subscription vs. Contact Rate by Month'</span>)</span>
+<span id="cb39-6"><a href="#cb39-6" aria-hidden="true" tabindex="-1"></a>plt.ylabel(<span class="st">'Subscription and Contact Rate'</span>)</span>
+<span id="cb39-7"><a href="#cb39-7" aria-hidden="true" tabindex="-1"></a>plt.xlabel(<span class="st">'Month'</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+<div class="cell-output cell-output-display" data-execution_count="26">
+<pre><code>Text(0.5, 0, 'Month')</code></pre>
+</div>
+<div class="cell-output cell-output-display">
+<p><img src="TechnicalFile_files/figure-html/cell-27-output-2.png" width="812" height="529"></p>
+</div>
+</div>
+<p>Maximum percentage of people have subscribed in the month of March but bank is contacting people more in the month of May. So it’s better to contact customer’s based on the subcription rate plot.</p>
+</section>
+</section>
+<section id="checking-the-financially-stable-population" class="level1" data-number="6">
+<h1 data-number="6"><span class="header-section-number">6</span> Checking the Financially stable population</h1>
+<div class="cell" data-execution_count="27">
+<details>
+<summary>Code</summary>
+<div class="sourceCode cell-code" id="cb41"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb41-1"><a href="#cb41-1" aria-hidden="true" tabindex="-1"></a>data_vis <span class="op">=</span> clean_data.copy()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+</div>
+<section id="job" class="level2" data-number="6.1">
+<h2 data-number="6.1" class="anchored" data-anchor-id="job"><span class="header-section-number">6.1</span> Job</h2>
+<div class="cell" data-execution_count="28">
+<details>
+<summary>Code</summary>
+<div class="sourceCode cell-code" id="cb42"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb42-1"><a href="#cb42-1" aria-hidden="true" tabindex="-1"></a>y_job <span class="op">=</span> pd.crosstab(data_vis[<span class="st">'y'</span>],data_vis[<span class="st">'job'</span>]).<span class="bu">apply</span>(<span class="kw">lambda</span> x: x<span class="op">/</span>x.<span class="bu">sum</span>() <span class="op">*</span> <span class="dv">100</span>)</span>
+<span id="cb42-2"><a href="#cb42-2" aria-hidden="true" tabindex="-1"></a>y_job <span class="op">=</span> y_job.transpose()</span>
+<span id="cb42-3"><a href="#cb42-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb42-4"><a href="#cb42-4" aria-hidden="true" tabindex="-1"></a>y_job.rename(columns <span class="op">=</span> {<span class="st">'y'</span>:<span class="st">'job'</span>,<span class="dv">0</span>:<span class="st">'no'</span>, <span class="dv">1</span>:<span class="st">'yes'</span>}, inplace <span class="op">=</span> <span class="va">True</span>)</span>
+<span id="cb42-5"><a href="#cb42-5" aria-hidden="true" tabindex="-1"></a>jobs_sub <span class="op">=</span> y_job[<span class="st">'yes'</span>].sort_values(ascending <span class="op">=</span> <span class="va">True</span>).plot(kind <span class="op">=</span><span class="st">'barh'</span>)</span>
+<span id="cb42-6"><a href="#cb42-6" aria-hidden="true" tabindex="-1"></a>                                                                               </span>
+<span id="cb42-7"><a href="#cb42-7" aria-hidden="true" tabindex="-1"></a>plt.title(<span class="st">'Subscription Rate by Job'</span>)</span>
+<span id="cb42-8"><a href="#cb42-8" aria-hidden="true" tabindex="-1"></a>plt.xlabel(<span class="st">'Subscription Rate'</span>)</span>
+<span id="cb42-9"><a href="#cb42-9" aria-hidden="true" tabindex="-1"></a>plt.ylabel(<span class="st">'Job Category'</span>)</span>
+<span id="cb42-10"><a href="#cb42-10" aria-hidden="true" tabindex="-1"></a><span class="co"># Label each bar</span></span>
+<span id="cb42-11"><a href="#cb42-11" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> patch_i, label <span class="kw">in</span> <span class="bu">zip</span>(jobs_sub.patches,</span>
+<span id="cb42-12"><a href="#cb42-12" aria-hidden="true" tabindex="-1"></a>                      y_job[<span class="st">'yes'</span>].sort_values(ascending <span class="op">=</span> <span class="va">True</span>).<span class="bu">round</span>(<span class="dv">1</span>).astype(<span class="bu">str</span>)):</span>
+<span id="cb42-13"><a href="#cb42-13" aria-hidden="true" tabindex="-1"></a>    jobs_sub.text(patch_i.get_width()<span class="op">+</span><span class="fl">1.5</span>, </span>
+<span id="cb42-14"><a href="#cb42-14" aria-hidden="true" tabindex="-1"></a>                  patch_i.get_y()<span class="op">+</span> patch_i.get_height()<span class="op">-</span><span class="fl">0.5</span>, </span>
+<span id="cb42-15"><a href="#cb42-15" aria-hidden="true" tabindex="-1"></a>                  label<span class="op">+</span><span class="st">'%'</span>, </span>
+<span id="cb42-16"><a href="#cb42-16" aria-hidden="true" tabindex="-1"></a>                  ha <span class="op">=</span> <span class="st">'center'</span>, </span>
+<span id="cb42-17"><a href="#cb42-17" aria-hidden="true" tabindex="-1"></a>                  va<span class="op">=</span><span class="st">'bottom'</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+<div class="cell-output cell-output-display">
+<p><img src="TechnicalFile_files/figure-html/cell-29-output-1.png" width="687" height="455"></p>
+</div>
+</div>
+<div class="cell" data-execution_count="29">
+<details>
+<summary>Code</summary>
+<div class="sourceCode cell-code" id="cb43"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb43-1"><a href="#cb43-1" aria-hidden="true" tabindex="-1"></a>job_contact<span class="op">=</span>  data_vis[<span class="st">'job'</span>].value_counts().rename_axis(<span class="st">'job'</span>).reset_index(name<span class="op">=</span><span class="st">'counts'</span>)        </span>
+<span id="cb43-2"><a href="#cb43-2" aria-hidden="true" tabindex="-1"></a>job_contact[<span class="st">'Contact Rate'</span>]<span class="op">=</span> job_contact[<span class="st">'counts'</span>]<span class="op">*</span><span class="dv">100</span><span class="op">/</span>job_contact[<span class="st">'counts'</span>].<span class="bu">sum</span>()  </span>
+<span id="cb43-3"><a href="#cb43-3" aria-hidden="true" tabindex="-1"></a>job_contact[<span class="st">'Contact Rate'</span>] <span class="op">=</span> job_contact[<span class="st">'Contact Rate'</span>].<span class="bu">round</span>(<span class="dv">2</span>)</span>
+<span id="cb43-4"><a href="#cb43-4" aria-hidden="true" tabindex="-1"></a>job_contact<span class="op">=</span>job_contact.drop([<span class="st">'counts'</span>],axis<span class="op">=</span><span class="dv">1</span>)</span>
+<span id="cb43-5"><a href="#cb43-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb43-6"><a href="#cb43-6" aria-hidden="true" tabindex="-1"></a><span class="co"># job_contact['Contact Rate']= job_contact['Contact Rate'].sort_values(ascending = False)</span></span>
+<span id="cb43-7"><a href="#cb43-7" aria-hidden="true" tabindex="-1"></a>job_contact_plot <span class="op">=</span> job_contact.plot(x<span class="op">=</span><span class="st">'job'</span>,kind <span class="op">=</span><span class="st">'barh'</span>)  </span>
+<span id="cb43-8"><a href="#cb43-8" aria-hidden="true" tabindex="-1"></a><span class="co">#.plot(kind ='barh')                                                </span></span>
+<span id="cb43-9"><a href="#cb43-9" aria-hidden="true" tabindex="-1"></a>plt.title(<span class="st">'Contact Rate by Job'</span>)</span>
+<span id="cb43-10"><a href="#cb43-10" aria-hidden="true" tabindex="-1"></a>plt.xlabel(<span class="st">'Contact Rate'</span>)</span>
+<span id="cb43-11"><a href="#cb43-11" aria-hidden="true" tabindex="-1"></a>plt.ylabel(<span class="st">'Job Category'</span>)</span>
+<span id="cb43-12"><a href="#cb43-12" aria-hidden="true" tabindex="-1"></a><span class="co"># Label each bar</span></span>
+<span id="cb43-13"><a href="#cb43-13" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> patch_i, label <span class="kw">in</span> <span class="bu">zip</span>(job_contact_plot.patches,</span>
+<span id="cb43-14"><a href="#cb43-14" aria-hidden="true" tabindex="-1"></a>                      job_contact[<span class="st">'Contact Rate'</span>].astype(<span class="bu">str</span>)):</span>
+<span id="cb43-15"><a href="#cb43-15" aria-hidden="true" tabindex="-1"></a>    job_contact_plot.text(patch_i.get_width()<span class="op">+</span><span class="fl">1.5</span>, </span>
+<span id="cb43-16"><a href="#cb43-16" aria-hidden="true" tabindex="-1"></a>                  patch_i.get_y()<span class="op">+</span> patch_i.get_height()<span class="op">-</span><span class="fl">0.5</span>, </span>
+<span id="cb43-17"><a href="#cb43-17" aria-hidden="true" tabindex="-1"></a>                  label<span class="op">+</span><span class="st">'%'</span>, </span>
+<span id="cb43-18"><a href="#cb43-18" aria-hidden="true" tabindex="-1"></a>                  ha <span class="op">=</span> <span class="st">'center'</span>, </span>
+<span id="cb43-19"><a href="#cb43-19" aria-hidden="true" tabindex="-1"></a>                  va<span class="op">=</span><span class="st">'bottom'</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+<div class="cell-output cell-output-display">
+<p><img src="TechnicalFile_files/figure-html/cell-30-output-1.png" width="701" height="455"></p>
+</div>
+</div>
+<p>People in blue color and managemnet jobs are contacted more, which should not be the case.</p>
+</section>
+<section id="balance" class="level2" data-number="6.2">
+<h2 data-number="6.2" class="anchored" data-anchor-id="balance"><span class="header-section-number">6.2</span> Balance</h2>
+<div class="cell" data-execution_count="30">
+<details>
+<summary>Code</summary>
+<div class="sourceCode cell-code" id="cb44"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb44-1"><a href="#cb44-1" aria-hidden="true" tabindex="-1"></a><span class="co">#max = 10399</span></span>
+<span id="cb44-2"><a href="#cb44-2" aria-hidden="true" tabindex="-1"></a><span class="co">#min = -6847</span></span>
+<span id="cb44-3"><a href="#cb44-3" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> balance_group(bal):</span>
+<span id="cb44-4"><a href="#cb44-4" aria-hidden="true" tabindex="-1"></a>    balGroup <span class="op">=</span> <span class="st">'Negative'</span> <span class="cf">if</span> bal <span class="op">&lt;</span> <span class="dv">0</span> <span class="cf">else</span> <span class="st">'low balance'</span> <span class="cf">if</span> bal <span class="op">&lt;</span> <span class="dv">1000</span> <span class="cf">else</span> <span class="st">'moderate balance'</span> <span class="cf">if</span> bal <span class="op">&lt;</span> <span class="dv">2500</span> <span class="cf">else</span> <span class="st">'high balance'</span></span>
+<span id="cb44-5"><a href="#cb44-5" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> balGroup</span>
+<span id="cb44-6"><a href="#cb44-6" aria-hidden="true" tabindex="-1"></a>data_vis[<span class="st">'balGroup'</span>] <span class="op">=</span> data_vis[<span class="st">'balance'</span>].<span class="bu">apply</span>(balance_group)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+</div>
+<p>checking the subscription based on y value</p>
+<div class="cell" data-execution_count="31">
+<details>
+<summary>Code</summary>
+<div class="sourceCode cell-code" id="cb45"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb45-1"><a href="#cb45-1" aria-hidden="true" tabindex="-1"></a>y_balance <span class="op">=</span> pd.crosstab(data_vis[<span class="st">'y'</span>],data_vis[<span class="st">'balGroup'</span>]).<span class="bu">apply</span>(<span class="kw">lambda</span> x: x<span class="op">/</span>x.<span class="bu">sum</span>() <span class="op">*</span> <span class="dv">100</span>)</span>
+<span id="cb45-2"><a href="#cb45-2" aria-hidden="true" tabindex="-1"></a>y_balance <span class="op">=</span> y_balance.transpose()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+</div>
+<p>Cheking the subscriptions in each balance groups</p>
+<div class="cell" data-execution_count="32">
+<details>
+<summary>Code</summary>
+<div class="sourceCode cell-code" id="cb46"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb46-1"><a href="#cb46-1" aria-hidden="true" tabindex="-1"></a>bal <span class="op">=</span> pd.DataFrame(data_vis[<span class="st">'balGroup'</span>].value_counts().rename_axis(<span class="st">'balGroup'</span>).reset_index(name<span class="op">=</span><span class="st">'counts'</span>))</span>
+<span id="cb46-2"><a href="#cb46-2" aria-hidden="true" tabindex="-1"></a>bal_y <span class="op">=</span> bal.merge(y_balance,on<span class="op">=</span><span class="st">'balGroup'</span>)</span>
+<span id="cb46-3"><a href="#cb46-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb46-4"><a href="#cb46-4" aria-hidden="true" tabindex="-1"></a>bal_y[<span class="st">'% Contacted'</span>] <span class="op">=</span> bal_y[<span class="st">'counts'</span>]<span class="op">*</span><span class="dv">100</span><span class="op">/</span>bal_y[<span class="st">'counts'</span>].<span class="bu">sum</span>()</span>
+<span id="cb46-5"><a href="#cb46-5" aria-hidden="true" tabindex="-1"></a>bal_y[<span class="st">'% Subscription'</span>] <span class="op">=</span> bal_y[<span class="dv">1</span>]</span>
+<span id="cb46-6"><a href="#cb46-6" aria-hidden="true" tabindex="-1"></a>bal_y.rename(columns <span class="op">=</span> {<span class="st">'y'</span>:<span class="st">'month'</span>,<span class="dv">0</span>:<span class="st">'no'</span>, <span class="dv">1</span>:<span class="st">'yes'</span>}, inplace <span class="op">=</span> <span class="va">True</span>)</span>
+<span id="cb46-7"><a href="#cb46-7" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb46-8"><a href="#cb46-8" aria-hidden="true" tabindex="-1"></a>bal_y <span class="op">=</span> bal_y.drop([<span class="st">'counts'</span>,<span class="st">'no'</span>,<span class="st">'yes'</span>],axis<span class="op">=</span><span class="dv">1</span>)</span>
+<span id="cb46-9"><a href="#cb46-9" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(bal_y)</span>
+<span id="cb46-10"><a href="#cb46-10" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb46-11"><a href="#cb46-11" aria-hidden="true" tabindex="-1"></a>bal_list <span class="op">=</span> [<span class="st">'Negative'</span>,<span class="st">'low balance'</span>, <span class="st">'moderate balance'</span>,<span class="st">'high balance'</span>]</span>
+<span id="cb46-12"><a href="#cb46-12" aria-hidden="true" tabindex="-1"></a>balanceGroupInfo <span class="op">=</span>pd.DataFrame(bal_list,columns<span class="op">=</span>[<span class="st">'balanceGroup'</span>])</span>
+<span id="cb46-13"><a href="#cb46-13" aria-hidden="true" tabindex="-1"></a>balanceGroupInfo[<span class="st">'Contact Rate'</span>] <span class="op">=</span> <span class="st">" "</span></span>
+<span id="cb46-14"><a href="#cb46-14" aria-hidden="true" tabindex="-1"></a>balanceGroupInfo[<span class="st">'Subscription Rate'</span>] <span class="op">=</span> <span class="st">" "</span></span>
+<span id="cb46-15"><a href="#cb46-15" aria-hidden="true" tabindex="-1"></a>bal_y <span class="op">=</span> bal_y.set_index([<span class="st">'balGroup'</span>])</span>
+<span id="cb46-16"><a href="#cb46-16" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb46-17"><a href="#cb46-17" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb46-18"><a href="#cb46-18" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> i,val <span class="kw">in</span> <span class="bu">enumerate</span>(bal_list):</span>
+<span id="cb46-19"><a href="#cb46-19" aria-hidden="true" tabindex="-1"></a>     balanceGroupInfo[<span class="st">'Contact Rate'</span>].iloc[i]<span class="op">=</span>bal_y.loc[val].loc[<span class="st">'% Contacted'</span>]</span>
+<span id="cb46-20"><a href="#cb46-20" aria-hidden="true" tabindex="-1"></a>     balanceGroupInfo[<span class="st">'Subscription Rate'</span>].iloc[i]<span class="op">=</span>bal_y.loc[val].loc[<span class="st">'% Subscription'</span>]</span>
+<span id="cb46-21"><a href="#cb46-21" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(balanceGroupInfo)</span>
+<span id="cb46-22"><a href="#cb46-22" aria-hidden="true" tabindex="-1"></a><span class="co">#bal['bal'] = [1,2,0,3]</span></span>
+<span id="cb46-23"><a href="#cb46-23" aria-hidden="true" tabindex="-1"></a><span class="co">#bal = bal.sort_values('bal',ascending = True)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+<div class="cell-output cell-output-stdout">
+<pre><code>           balGroup  % Contacted  % Subscription
+0       low balance    60.339143       10.503513
+1  moderate balance    17.399906       14.036275
+2      high balance    13.709374       16.715341
+3          Negative     8.551578        5.700909
+       balanceGroup Contact Rate Subscription Rate
+0          Negative     8.551578          5.700909
+1       low balance    60.339143         10.503513
+2  moderate balance    17.399906         14.036275
+3      high balance    13.709374         16.715341</code></pre>
+</div>
+</div>
+<div class="cell" data-execution_count="33">
+<details>
+<summary>Code</summary>
+<div class="sourceCode cell-code" id="cb48"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb48-1"><a href="#cb48-1" aria-hidden="true" tabindex="-1"></a>balanceGroupInfo.plot(x<span class="op">=</span><span class="st">'balanceGroup'</span>, kind<span class="op">=</span><span class="st">'bar'</span>, stacked<span class="op">=</span><span class="va">False</span>,</span>
+<span id="cb48-2"><a href="#cb48-2" aria-hidden="true" tabindex="-1"></a>        title<span class="op">=</span><span class="st">'Balance Group Contact Rates and Subscription'</span>)</span>
+<span id="cb48-3"><a href="#cb48-3" aria-hidden="true" tabindex="-1"></a>plt.show()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+<div class="cell-output cell-output-display">
+<p><img src="TechnicalFile_files/figure-html/cell-34-output-1.png" width="569" height="558"></p>
+</div>
+</div>
+<p>People with moderate to high balance, are contacted less but they have high subscription rates so bank should target them more.</p>
+<p>Balance Group versus Job</p>
+<div class="cell" data-execution_count="34">
+<details>
+<summary>Code</summary>
+<div class="sourceCode cell-code" id="cb49"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb49-1"><a href="#cb49-1" aria-hidden="true" tabindex="-1"></a><span class="co"># add the values for 1 </span></span>
+<span id="cb49-2"><a href="#cb49-2" aria-hidden="true" tabindex="-1"></a>job_balance <span class="op">=</span> pd.DataFrame(data_vis.groupby([<span class="st">'job'</span>,<span class="st">'balGroup'</span>])[<span class="st">'y'</span>].<span class="bu">sum</span>())</span>
+<span id="cb49-3"><a href="#cb49-3" aria-hidden="true" tabindex="-1"></a><span class="co"># total number of values </span></span>
+<span id="cb49-4"><a href="#cb49-4" aria-hidden="true" tabindex="-1"></a>job_balance_count <span class="op">=</span> pd.DataFrame(data_vis.groupby([<span class="st">'job'</span>,<span class="st">'balGroup'</span>])[<span class="st">'y'</span>].count())</span>
+<span id="cb49-5"><a href="#cb49-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb49-6"><a href="#cb49-6" aria-hidden="true" tabindex="-1"></a>job_balance[<span class="st">'y'</span>] <span class="op">=</span> (job_balance[<span class="st">'y'</span>]<span class="op">/</span>job_balance_count[<span class="st">'y'</span>])<span class="op">*</span><span class="dv">100</span></span>
+<span id="cb49-7"><a href="#cb49-7" aria-hidden="true" tabindex="-1"></a>job_balance <span class="op">=</span> job_balance.unstack()</span>
+<span id="cb49-8"><a href="#cb49-8" aria-hidden="true" tabindex="-1"></a>job_balance <span class="op">=</span> job_balance.plot(kind<span class="op">=</span><span class="st">'bar'</span>,figsize <span class="op">=</span> (<span class="dv">10</span>,<span class="dv">6</span>))</span>
+<span id="cb49-9"><a href="#cb49-9" aria-hidden="true" tabindex="-1"></a>plt.title(<span class="st">'Subscription Rates for each balance group in job category'</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+<div class="cell-output cell-output-display" data-execution_count="34">
+<pre><code>Text(0.5, 1.0, 'Subscription Rates for each balance group in job category')</code></pre>
+</div>
+<div class="cell-output cell-output-display">
+<p><img src="TechnicalFile_files/figure-html/cell-35-output-2.png" width="792" height="606"></p>
+</div>
+</div>
+<p>Student and Retired are more likely to subscribe and usually have moderate to high balance.</p>
+<div class="cell" data-execution_count="35">
+<details>
+<summary>Code</summary>
+<div class="sourceCode cell-code" id="cb51"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb51-1"><a href="#cb51-1" aria-hidden="true" tabindex="-1"></a>job_balance_count1 <span class="op">=</span> job_balance_count.unstack()</span>
+<span id="cb51-2"><a href="#cb51-2" aria-hidden="true" tabindex="-1"></a>job_balance_count1 <span class="op">=</span> job_balance_count1.plot(kind<span class="op">=</span><span class="st">'bar'</span>,figsize <span class="op">=</span> (<span class="dv">10</span>,<span class="dv">6</span>))</span>
+<span id="cb51-3"><a href="#cb51-3" aria-hidden="true" tabindex="-1"></a>plt.title(<span class="st">'Contact for each balance group in job category'</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+<div class="cell-output cell-output-display" data-execution_count="35">
+<pre><code>Text(0.5, 1.0, 'Contact for each balance group in job category')</code></pre>
+</div>
+<div class="cell-output cell-output-display">
+<p><img src="TechnicalFile_files/figure-html/cell-36-output-2.png" width="809" height="606"></p>
+</div>
+</div>
+</section>
+<section id="loan-1" class="level2" data-number="6.3">
+<h2 data-number="6.3" class="anchored" data-anchor-id="loan-1"><span class="header-section-number">6.3</span> Loan</h2>
+<p>covered loan in initial EDA</p>
+<div class="cell" data-execution_count="36">
+<details>
+<summary>Code</summary>
+<div class="sourceCode cell-code" id="cb53"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb53-1"><a href="#cb53-1" aria-hidden="true" tabindex="-1"></a>data_encode <span class="op">=</span> data_vis.copy()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+</div>
+</section>
+</section>
+<section id="getting-data-ready-for-modelling" class="level1" data-number="7">
+<h1 data-number="7"><span class="header-section-number">7</span> Getting Data Ready for Modelling</h1>
+<section id="encoding" class="level2" data-number="7.1">
+<h2 data-number="7.1" class="anchored" data-anchor-id="encoding"><span class="header-section-number">7.1</span> Encoding</h2>
+<p>One Hot Encoding</p>
+<div class="cell" data-execution_count="37">
+<details>
+<summary>Code</summary>
+<div class="sourceCode cell-code" id="cb54"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb54-1"><a href="#cb54-1" aria-hidden="true" tabindex="-1"></a>data_encode <span class="op">=</span> pd.get_dummies(data_encode, columns <span class="op">=</span> [<span class="st">'housing'</span>])</span>
+<span id="cb54-2"><a href="#cb54-2" aria-hidden="true" tabindex="-1"></a>data_encode <span class="op">=</span> pd.get_dummies(data_encode, columns <span class="op">=</span> [<span class="st">'loan'</span>])</span>
+<span id="cb54-3"><a href="#cb54-3" aria-hidden="true" tabindex="-1"></a>data_encode <span class="op">=</span> pd.get_dummies(data_encode, columns <span class="op">=</span> [<span class="st">'default'</span>])</span>
+<span id="cb54-4"><a href="#cb54-4" aria-hidden="true" tabindex="-1"></a>data_encode <span class="op">=</span> pd.get_dummies(data_encode, columns <span class="op">=</span> [<span class="st">'job'</span>])</span>
+<span id="cb54-5"><a href="#cb54-5" aria-hidden="true" tabindex="-1"></a>data_encode <span class="op">=</span> pd.get_dummies(data_encode, columns <span class="op">=</span> [<span class="st">'education'</span>])</span>
+<span id="cb54-6"><a href="#cb54-6" aria-hidden="true" tabindex="-1"></a>data_encode <span class="op">=</span> pd.get_dummies(data_encode, columns <span class="op">=</span> [<span class="st">'marital'</span>])</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+</div>
+<p>Sin - Cos encoding</p>
+<div class="cell" data-execution_count="38">
+<details>
+<summary>Code</summary>
+<div class="sourceCode cell-code" id="cb55"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb55-1"><a href="#cb55-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> math</span>
+<span id="cb55-2"><a href="#cb55-2" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> math <span class="im">import</span> pi</span>
+<span id="cb55-3"><a href="#cb55-3" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> sin_transformation(x):</span>
+<span id="cb55-4"><a href="#cb55-4" aria-hidden="true" tabindex="-1"></a>    x<span class="op">=</span>x<span class="op">-</span><span class="dv">1</span></span>
+<span id="cb55-5"><a href="#cb55-5" aria-hidden="true" tabindex="-1"></a>    sin_x <span class="op">=</span> math.sin((<span class="dv">2</span><span class="op">*</span>pi<span class="op">*</span>x)<span class="op">/</span><span class="dv">11</span>)</span>
+<span id="cb55-6"><a href="#cb55-6" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> sin_x</span>
+<span id="cb55-7"><a href="#cb55-7" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> cos_transformation(x):</span>
+<span id="cb55-8"><a href="#cb55-8" aria-hidden="true" tabindex="-1"></a>    x<span class="op">=</span>x<span class="op">-</span><span class="dv">1</span></span>
+<span id="cb55-9"><a href="#cb55-9" aria-hidden="true" tabindex="-1"></a>    cos_x <span class="op">=</span> math.cos((<span class="dv">2</span><span class="op">*</span>pi<span class="op">*</span>x)<span class="op">/</span><span class="dv">11</span>)</span>
+<span id="cb55-10"><a href="#cb55-10" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> cos_x</span>
+<span id="cb55-11"><a href="#cb55-11" aria-hidden="true" tabindex="-1"></a>data_encode[<span class="st">'sin_month'</span>] <span class="op">=</span> data_encode[<span class="st">'month_int'</span>].<span class="bu">apply</span>(sin_transformation) </span>
+<span id="cb55-12"><a href="#cb55-12" aria-hidden="true" tabindex="-1"></a>data_encode[<span class="st">'cos_month'</span>] <span class="op">=</span> data_encode[<span class="st">'month_int'</span>].<span class="bu">apply</span>(cos_transformation)  </span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+</div>
+<div class="cell" data-execution_count="39">
+<details>
+<summary>Code</summary>
+<div class="sourceCode cell-code" id="cb56"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb56-1"><a href="#cb56-1" aria-hidden="true" tabindex="-1"></a>sns.scatterplot(data<span class="op">=</span>data_encode,x<span class="op">=</span><span class="st">'sin_month'</span>,y<span class="op">=</span><span class="st">'cos_month'</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+<div class="cell-output cell-output-display" data-execution_count="39">
+<pre><code>&lt;AxesSubplot: xlabel='sin_month', ylabel='cos_month'&gt;</code></pre>
+</div>
+<div class="cell-output cell-output-display">
+<p><img src="TechnicalFile_files/figure-html/cell-40-output-2.png" width="610" height="435"></p>
+</div>
+</div>
+<p>Label Encoding</p>
+<div class="cell" data-execution_count="40">
+<details>
+<summary>Code</summary>
+<div class="sourceCode cell-code" id="cb58"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb58-1"><a href="#cb58-1" aria-hidden="true" tabindex="-1"></a>data_encode<span class="op">=</span> data_encode.drop([<span class="st">'month'</span>],axis<span class="op">=</span><span class="dv">1</span>)</span>
+<span id="cb58-2"><a href="#cb58-2" aria-hidden="true" tabindex="-1"></a><span class="co">#data_encode= data_encode.drop(['month_int'],axis=1)</span></span>
+<span id="cb58-3"><a href="#cb58-3" aria-hidden="true" tabindex="-1"></a>data_encode <span class="op">=</span> data_encode.drop([<span class="st">'balGroup'</span>],axis<span class="op">=</span><span class="dv">1</span>)</span>
+<span id="cb58-4"><a href="#cb58-4" aria-hidden="true" tabindex="-1"></a>data_encode <span class="op">=</span> data_encode.drop([<span class="st">'pdays'</span>],axis<span class="op">=</span><span class="dv">1</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+</div>
+<p>Checkpoint</p>
+<div class="cell" data-execution_count="41">
+<details>
+<summary>Code</summary>
+<div class="sourceCode cell-code" id="cb59"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb59-1"><a href="#cb59-1" aria-hidden="true" tabindex="-1"></a><span class="co">#data_encode.to_csv('Dataset/final_encoded.csv',index=False)</span></span>
+<span id="cb59-2"><a href="#cb59-2" aria-hidden="true" tabindex="-1"></a><span class="co">#data_encode =  pd.read_csv('Dataset/final_encoded.csv')</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+</div>
+<div class="cell" data-execution_count="42">
+<details>
+<summary>Code</summary>
+<div class="sourceCode cell-code" id="cb60"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb60-1"><a href="#cb60-1" aria-hidden="true" tabindex="-1"></a>data_model <span class="op">=</span> data_encode.copy()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+</div>
+<section id="dropping-the-unecessary-varibles-for-modelling" class="level3" data-number="7.1.1">
+<h3 data-number="7.1.1" class="anchored" data-anchor-id="dropping-the-unecessary-varibles-for-modelling"><span class="header-section-number">7.1.1</span> Dropping the unecessary varibles for modelling</h3>
+<div class="cell" data-execution_count="43">
+<details>
+<summary>Code</summary>
+<div class="sourceCode cell-code" id="cb61"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb61-1"><a href="#cb61-1" aria-hidden="true" tabindex="-1"></a>data_model<span class="op">=</span>data_model.drop([<span class="st">'cons.conf.idx'</span>, <span class="st">'emp.var.rate'</span>, <span class="st">'euribor3m'</span>, <span class="st">'nr.employed'</span>,</span>
+<span id="cb61-2"><a href="#cb61-2" aria-hidden="true" tabindex="-1"></a>       <span class="st">'cons.price.idx'</span>],axis<span class="op">=</span><span class="dv">1</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+</div>
+</section>
+</section>
+</section>
+<section id="splitting-our-dataset" class="level1" data-number="8">
+<h1 data-number="8"><span class="header-section-number">8</span> Splitting our Dataset</h1>
+<div class="cell" data-execution_count="44">
+<details>
+<summary>Code</summary>
+<div class="sourceCode cell-code" id="cb62"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb62-1"><a href="#cb62-1" aria-hidden="true" tabindex="-1"></a><span class="co">#dropping y to extract x variables </span></span>
+<span id="cb62-2"><a href="#cb62-2" aria-hidden="true" tabindex="-1"></a>x <span class="op">=</span> data_model.drop([<span class="st">'y'</span>],axis<span class="op">=</span><span class="dv">1</span>)</span>
+<span id="cb62-3"><a href="#cb62-3" aria-hidden="true" tabindex="-1"></a><span class="co">#y variables</span></span>
+<span id="cb62-4"><a href="#cb62-4" aria-hidden="true" tabindex="-1"></a>y <span class="op">=</span> data_model[<span class="st">'y'</span>]</span>
+<span id="cb62-5"><a href="#cb62-5" aria-hidden="true" tabindex="-1"></a><span class="co">#splitting the dataset </span></span>
+<span id="cb62-6"><a href="#cb62-6" aria-hidden="true" tabindex="-1"></a>x_train,x_test,y_train,y_test <span class="op">=</span> train_test_split(x,y,test_size<span class="op">=</span><span class="fl">0.2</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+</div>
+</section>
+<section id="balancing-our-dataset" class="level1" data-number="9">
+<h1 data-number="9"><span class="header-section-number">9</span> Balancing Our Dataset</h1>
+<div class="cell" data-execution_count="45">
+<details>
+<summary>Code</summary>
+<div class="sourceCode cell-code" id="cb63"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb63-1"><a href="#cb63-1" aria-hidden="true" tabindex="-1"></a>sm <span class="op">=</span> SMOTE(random_state<span class="op">=</span><span class="dv">42</span>)</span>
+<span id="cb63-2"><a href="#cb63-2" aria-hidden="true" tabindex="-1"></a>train_sx, train_sy <span class="op">=</span> sm.fit_resample(x_train, y_train)</span>
+<span id="cb63-3"><a href="#cb63-3" aria-hidden="true" tabindex="-1"></a>test_sx, test_sy <span class="op">=</span> sm.fit_resample(x_test, y_test)</span>
+<span id="cb63-4"><a href="#cb63-4" aria-hidden="true" tabindex="-1"></a><span class="co">#printing x and y values </span></span>
+<span id="cb63-5"><a href="#cb63-5" aria-hidden="true" tabindex="-1"></a>np.bincount(train_sy)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+<div class="cell-output cell-output-display" data-execution_count="45">
+<pre><code>array([30025, 30025])</code></pre>
+</div>
+</div>
+<div class="cell" data-execution_count="46">
+<details>
+<summary>Code</summary>
+<div class="sourceCode cell-code" id="cb65"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb65-1"><a href="#cb65-1" aria-hidden="true" tabindex="-1"></a>train_sx[<span class="st">'sin_month'</span>] <span class="op">=</span> train_sx[<span class="st">'month_int'</span>].<span class="bu">apply</span>(sin_transformation) </span>
+<span id="cb65-2"><a href="#cb65-2" aria-hidden="true" tabindex="-1"></a>train_sx[<span class="st">'cos_month'</span>] <span class="op">=</span> train_sx[<span class="st">'month_int'</span>].<span class="bu">apply</span>(cos_transformation) </span>
+<span id="cb65-3"><a href="#cb65-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb65-4"><a href="#cb65-4" aria-hidden="true" tabindex="-1"></a>sns.scatterplot(data<span class="op">=</span>train_sx,x<span class="op">=</span><span class="st">'sin_month'</span>,y<span class="op">=</span><span class="st">'cos_month'</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+<div class="cell-output cell-output-display" data-execution_count="46">
+<pre><code>&lt;AxesSubplot: xlabel='sin_month', ylabel='cos_month'&gt;</code></pre>
+</div>
+<div class="cell-output cell-output-display">
+<p><img src="TechnicalFile_files/figure-html/cell-47-output-2.png" width="610" height="435"></p>
+</div>
+</div>
+<div class="cell" data-execution_count="47">
+<details>
+<summary>Code</summary>
+<div class="sourceCode cell-code" id="cb67"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb67-1"><a href="#cb67-1" aria-hidden="true" tabindex="-1"></a>train_sx<span class="op">=</span> train_sx.drop([<span class="st">'month_int'</span>],axis<span class="op">=</span><span class="dv">1</span>)</span>
+<span id="cb67-2"><a href="#cb67-2" aria-hidden="true" tabindex="-1"></a>test_sx<span class="op">=</span>test_sx.drop([<span class="st">'month_int'</span>],axis<span class="op">=</span><span class="dv">1</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+</div>
+<div class="cell" data-execution_count="48">
+<details>
+<summary>Code</summary>
+<div class="sourceCode cell-code" id="cb68"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb68-1"><a href="#cb68-1" aria-hidden="true" tabindex="-1"></a>x_train<span class="op">=</span> x_train.drop([<span class="st">'month_int'</span>],axis<span class="op">=</span><span class="dv">1</span>)</span>
+<span id="cb68-2"><a href="#cb68-2" aria-hidden="true" tabindex="-1"></a>x_test<span class="op">=</span>x_test.drop([<span class="st">'month_int'</span>],axis<span class="op">=</span><span class="dv">1</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+</div>
+<p>Checkpoint 2</p>
+<div class="cell" data-execution_count="49">
+<details>
+<summary>Code</summary>
+<div class="sourceCode cell-code" id="cb69"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb69-1"><a href="#cb69-1" aria-hidden="true" tabindex="-1"></a>train_balanced <span class="op">=</span> pd.concat([train_sx, train_sy], axis<span class="op">=</span><span class="dv">1</span>)</span>
+<span id="cb69-2"><a href="#cb69-2" aria-hidden="true" tabindex="-1"></a>train_unbalanced <span class="op">=</span> pd.concat([x_train, y_train], axis<span class="op">=</span><span class="dv">1</span>)</span>
+<span id="cb69-3"><a href="#cb69-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb69-4"><a href="#cb69-4" aria-hidden="true" tabindex="-1"></a>test_unbalanced <span class="op">=</span> pd.concat([x_test, y_test], axis<span class="op">=</span><span class="dv">1</span>)</span>
+<span id="cb69-5"><a href="#cb69-5" aria-hidden="true" tabindex="-1"></a>test_balanced <span class="op">=</span> pd.concat([test_sx, test_sy], axis<span class="op">=</span><span class="dv">1</span>)</span>
+<span id="cb69-6"><a href="#cb69-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb69-7"><a href="#cb69-7" aria-hidden="true" tabindex="-1"></a><span class="co"># train_balanced.to_csv('Dataset/train_balanced.csv',index=False)</span></span>
+<span id="cb69-8"><a href="#cb69-8" aria-hidden="true" tabindex="-1"></a><span class="co"># train_unbalanced.to_csv('Dataset/train_unbalanced.csv',index=False)</span></span>
+<span id="cb69-9"><a href="#cb69-9" aria-hidden="true" tabindex="-1"></a><span class="co"># test_unbalanced.to_csv('Dataset/test_unbalanced.csv',index=False)</span></span>
+<span id="cb69-10"><a href="#cb69-10" aria-hidden="true" tabindex="-1"></a><span class="co"># test_balanced.to_csv('Dataset/test_balanced.csv',index=False)</span></span>
+<span id="cb69-11"><a href="#cb69-11" aria-hidden="true" tabindex="-1"></a><span class="co"># print("Before Smote")</span></span>
+<span id="cb69-12"><a href="#cb69-12" aria-hidden="true" tabindex="-1"></a><span class="co"># print(f"for training : {np.bincount(y_train)}")</span></span>
+<span id="cb69-13"><a href="#cb69-13" aria-hidden="true" tabindex="-1"></a><span class="co"># print(f"for testing : {np.bincount(y_test)}")</span></span>
+<span id="cb69-14"><a href="#cb69-14" aria-hidden="true" tabindex="-1"></a><span class="co"># print("After smote")</span></span>
+<span id="cb69-15"><a href="#cb69-15" aria-hidden="true" tabindex="-1"></a><span class="co"># print(f"for training : {np.bincount(y_res)}")</span></span>
+<span id="cb69-16"><a href="#cb69-16" aria-hidden="true" tabindex="-1"></a><span class="co"># print(f"for testing : {np.bincount(test_sy)}")</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+</div>
+<div class="cell" data-execution_count="50">
+<details>
+<summary>Code</summary>
+<div class="sourceCode cell-code" id="cb70"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb70-1"><a href="#cb70-1" aria-hidden="true" tabindex="-1"></a>balanced_train<span class="op">=</span> pd.read_csv(<span class="st">'Dataset/train_balanced.csv'</span>)</span>
+<span id="cb70-2"><a href="#cb70-2" aria-hidden="true" tabindex="-1"></a>balanced_test<span class="op">=</span> pd.read_csv(<span class="st">'Dataset/test_balanced.csv'</span>)</span>
+<span id="cb70-3"><a href="#cb70-3" aria-hidden="true" tabindex="-1"></a>unbalanced_train<span class="op">=</span> pd.read_csv(<span class="st">'Dataset/train_unbalanced.csv'</span>)</span>
+<span id="cb70-4"><a href="#cb70-4" aria-hidden="true" tabindex="-1"></a>unbalanced_test<span class="op">=</span> pd.read_csv(<span class="st">'Dataset/train_unbalanced.csv'</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+</div>
+<div class="cell" data-execution_count="51">
+<details>
+<summary>Code</summary>
+<div class="sourceCode cell-code" id="cb71"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb71-1"><a href="#cb71-1" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> sklearn.preprocessing <span class="im">import</span> StandardScaler</span>
+<span id="cb71-2"><a href="#cb71-2" aria-hidden="true" tabindex="-1"></a><span class="co"># define standard scaler</span></span>
+<span id="cb71-3"><a href="#cb71-3" aria-hidden="true" tabindex="-1"></a>scaler <span class="op">=</span> StandardScaler()</span>
+<span id="cb71-4"><a href="#cb71-4" aria-hidden="true" tabindex="-1"></a><span class="co"># transform data</span></span>
+<span id="cb71-5"><a href="#cb71-5" aria-hidden="true" tabindex="-1"></a>balanced_train[[<span class="st">'age'</span>,<span class="st">'balance'</span>,<span class="st">'duration'</span>]]<span class="op">=</span> scaler.fit_transform(balanced_train[[<span class="st">'age'</span>,<span class="st">'balance'</span>,<span class="st">'duration'</span>]])</span>
+<span id="cb71-6"><a href="#cb71-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb71-7"><a href="#cb71-7" aria-hidden="true" tabindex="-1"></a>balanced_test[[<span class="st">'age'</span>,<span class="st">'balance'</span>,<span class="st">'duration'</span>]]<span class="op">=</span> scaler.fit_transform(balanced_test[[<span class="st">'age'</span>,<span class="st">'balance'</span>,<span class="st">'duration'</span>]])</span>
+<span id="cb71-8"><a href="#cb71-8" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb71-9"><a href="#cb71-9" aria-hidden="true" tabindex="-1"></a>unbalanced_train[[<span class="st">'age'</span>,<span class="st">'balance'</span>,<span class="st">'duration'</span>]]<span class="op">=</span> scaler.fit_transform(unbalanced_train[[<span class="st">'age'</span>,<span class="st">'balance'</span>,<span class="st">'duration'</span>]])</span>
+<span id="cb71-10"><a href="#cb71-10" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb71-11"><a href="#cb71-11" aria-hidden="true" tabindex="-1"></a>unbalanced_test[[<span class="st">'age'</span>,<span class="st">'balance'</span>,<span class="st">'duration'</span>]]<span class="op">=</span> scaler.fit_transform(unbalanced_test[[<span class="st">'age'</span>,<span class="st">'balance'</span>,<span class="st">'duration'</span>]])</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+</div>
+<div class="cell" data-execution_count="52">
+<details>
+<summary>Code</summary>
+<div class="sourceCode cell-code" id="cb72"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb72-1"><a href="#cb72-1" aria-hidden="true" tabindex="-1"></a>x_train <span class="op">=</span> unbalanced_train.drop([<span class="st">'y'</span>],axis<span class="op">=</span><span class="dv">1</span>)</span>
+<span id="cb72-2"><a href="#cb72-2" aria-hidden="true" tabindex="-1"></a>x_test <span class="op">=</span> unbalanced_test.drop([<span class="st">'y'</span>],axis<span class="op">=</span><span class="dv">1</span>)</span>
+<span id="cb72-3"><a href="#cb72-3" aria-hidden="true" tabindex="-1"></a>y_train <span class="op">=</span> unbalanced_train[<span class="st">'y'</span>]</span>
+<span id="cb72-4"><a href="#cb72-4" aria-hidden="true" tabindex="-1"></a>y_test <span class="op">=</span> unbalanced_test[<span class="st">'y'</span>]</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+</div>
+<div class="cell" data-execution_count="53">
+<details>
+<summary>Code</summary>
+<div class="sourceCode cell-code" id="cb73"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb73-1"><a href="#cb73-1" aria-hidden="true" tabindex="-1"></a>bx_train <span class="op">=</span> balanced_train.drop([<span class="st">'y'</span>],axis<span class="op">=</span><span class="dv">1</span>)</span>
+<span id="cb73-2"><a href="#cb73-2" aria-hidden="true" tabindex="-1"></a>bx_test <span class="op">=</span> balanced_test.drop([<span class="st">'y'</span>],axis<span class="op">=</span><span class="dv">1</span>)</span>
+<span id="cb73-3"><a href="#cb73-3" aria-hidden="true" tabindex="-1"></a>by_train <span class="op">=</span> balanced_train[<span class="st">'y'</span>]</span>
+<span id="cb73-4"><a href="#cb73-4" aria-hidden="true" tabindex="-1"></a>by_test <span class="op">=</span> balanced_test[<span class="st">'y'</span>]</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+</div>
+</section>
+
+</main>
+<!-- /main column -->
+<script id="quarto-html-after-body" type="application/javascript">
+window.document.addEventListener("DOMContentLoaded", function (event) {
+  const toggleBodyColorMode = (bsSheetEl) => {
+    const mode = bsSheetEl.getAttribute("data-mode");
+    const bodyEl = window.document.querySelector("body");
+    if (mode === "dark") {
+      bodyEl.classList.add("quarto-dark");
+      bodyEl.classList.remove("quarto-light");
+    } else {
+      bodyEl.classList.add("quarto-light");
+      bodyEl.classList.remove("quarto-dark");
+    }
+  }
+  const toggleBodyColorPrimary = () => {
+    const bsSheetEl = window.document.querySelector("link#quarto-bootstrap");
+    if (bsSheetEl) {
+      toggleBodyColorMode(bsSheetEl);
+    }
+  }
+  toggleBodyColorPrimary();  
+  const icon = "";
+  const anchorJS = new window.AnchorJS();
+  anchorJS.options = {
+    placement: 'right',
+    icon: icon
+  };
+  anchorJS.add('.anchored');
+  const clipboard = new window.ClipboardJS('.code-copy-button', {
+    target: function(trigger) {
+      return trigger.previousElementSibling;
+    }
+  });
+  clipboard.on('success', function(e) {
+    // button target
+    const button = e.trigger;
+    // don't keep focus
+    button.blur();
+    // flash "checked"
+    button.classList.add('code-copy-button-checked');
+    var currentTitle = button.getAttribute("title");
+    button.setAttribute("title", "Copied!");
+    setTimeout(function() {
+      button.setAttribute("title", currentTitle);
+      button.classList.remove('code-copy-button-checked');
+    }, 1000);
+    // clear code selection
+    e.clearSelection();
+  });
+  function tippyHover(el, contentFn) {
+    const config = {
+      allowHTML: true,
+      content: contentFn,
+      maxWidth: 500,
+      delay: 100,
+      arrow: false,
+      appendTo: function(el) {
+          return el.parentElement;
+      },
+      interactive: true,
+      interactiveBorder: 10,
+      theme: 'quarto',
+      placement: 'bottom-start'
+    };
+    window.tippy(el, config); 
+  }
+  const noterefs = window.document.querySelectorAll('a[role="doc-noteref"]');
+  for (var i=0; i<noterefs.length; i++) {
+    const ref = noterefs[i];
+    tippyHover(ref, function() {
+      // use id or data attribute instead here
+      let href = ref.getAttribute('data-footnote-href') || ref.getAttribute('href');
+      try { href = new URL(href).hash; } catch {}
+      const id = href.replace(/^#\/?/, "");
+      const note = window.document.getElementById(id);
+      return note.innerHTML;
+    });
+  }
+  var bibliorefs = window.document.querySelectorAll('a[role="doc-biblioref"]');
+  for (var i=0; i<bibliorefs.length; i++) {
+    const ref = bibliorefs[i];
+    const cites = ref.parentNode.getAttribute('data-cites').split(' ');
+    tippyHover(ref, function() {
+      var popup = window.document.createElement('div');
+      cites.forEach(function(cite) {
+        var citeDiv = window.document.createElement('div');
+        citeDiv.classList.add('hanging-indent');
+        citeDiv.classList.add('csl-entry');
+        var biblioDiv = window.document.getElementById('ref-' + cite);
+        if (biblioDiv) {
+          citeDiv.innerHTML = biblioDiv.innerHTML;
+        }
+        popup.appendChild(citeDiv);
+      });
+      return popup.innerHTML;
+    });
+  }
+});
+</script>
+</div> <!-- /content -->
+
+
+
+<script src="TechnicalFile_files/libs/quarto-html/zenscroll-min.js"></script>
+</body></html>
