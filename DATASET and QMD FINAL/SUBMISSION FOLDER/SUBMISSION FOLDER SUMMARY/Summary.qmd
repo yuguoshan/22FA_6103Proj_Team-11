@@ -1,7 +1,7 @@
 ---
 title: "AN ANALYSIS OF PORTUGUESE BANK MARKETING DATA "
-author: "TEAM 11: Anjali Mudgal , Guoshan Yu and Medhasweta Sen"
-date: "November 21, 2022"
+author: "TEAM 11: Anjali Mudgal, Guoshan Yu, Medhasweta Sen"
+date: "December 20, 2022"
 subtitle : "The George Washington University (DATS 6103: An Introduction to Data Mining)"
 execute:
   echo: false
@@ -139,6 +139,14 @@ from sklearn.metrics import classification_report
 from sklearn.feature_selection import RFE
 from sklearn.tree import DecisionTreeClassifier
 from matplotlib import pyplot
+
+from sklearn.model_selection import GridSearchCV
+
+from sklearn.model_selection import cross_validate
+from sklearn.model_selection import GridSearchCV
+from sklearn.ensemble import RandomForestClassifier
+from sklearn import metrics
+from sklearn.metrics import precision_recall_curve
 ```
 
 ## Importing the dataset
@@ -694,8 +702,7 @@ data_model = data_encode.copy()
 ```{python}
 #| code-fold: true
 #| code-summary: "Show the code"
-data_model=data_model.drop(['cons.conf.idx', 'emp.var.rate', 'euribor3m', 'nr.employed',
-       'cons.price.idx'],axis=1)
+data_model=data_model.drop(['cons.conf.idx', 'emp.var.rate', 'euribor3m', 'nr.employed','cons.price.idx'],axis=1)
 ```
 
 # Data Modeling 
@@ -713,9 +720,12 @@ x_train,x_test,y_train,y_test = train_test_split(x,y,test_size=0.2)
 ```
 
 ## Balancing Our Dataset
+
 We tried to balance our dataset using following methods:
+
 * Upsampling using SMOTE 
 * Sin and cos transformation from month_int. 
+
 ```{python}
 #| code-fold: true
 #| code-summary: "Show the code"
@@ -893,6 +903,7 @@ Here, important features are
 * Job
 * Education
 * Marital Status 
+
 We also added the important features from unbalaced dataset
 * Duration
 * Age
@@ -915,8 +926,6 @@ y_pred_probs=lr.predict_proba(X_test_final)
 # probs_y is a 2-D array of probability of being labeled as 0 (first 
 # column of array) vs 1 (2nd column in array)
 
-from sklearn import metrics
-from sklearn.metrics import precision_recall_curve
 precision, recall, thresholds = precision_recall_curve(y_test, y_pred_probs[:, 1]) 
 #retrieve probability of being 1(in second column of probs_y)
 pr_auc = metrics.auc(recall, precision)
@@ -945,10 +954,10 @@ Here as after applying feature selection, finding optimized cut-off, we are able
 
 **Answer**: The optimal cut off value for our imbalance dataset is 0.25 as the precision- recall chart indicated.
 
-### SMART Question 2.Since the dataset is imbalanced, will down sampling/up sampling or other techniques improve upon the accuracy of models.
+### SMART Question 2: Since the dataset is imbalanced, will down sampling/up sampling or other techniques improve upon the accuracy of models.
 **Answer**: As observed from above there is a slight improvement in accuracy, precision and recall after we apply SMOTE, but that improvement can also be acheived by adjusting the cut off value as well. So, we should always try adjusting cut-off first, before upsampling. 
 
-For ROC - AUC curve refer (@fig-roc-curve). 
+For ROC - AUC curve refer (@fig-roc-curve). \
 For precision recall curve refer(@fig-pr-curve). 
 
 
@@ -999,7 +1008,6 @@ For tuning the hyperparameter's we will use GridSearch CV.
 #| code-fold: true
 #| code-summary: "Show the code"
 # Creating a dictionary of parameters to use in GridSearchCV
-from sklearn.model_selection import GridSearchCV
 
 params = {
     'criterion':  ['gini', 'entropy'],
@@ -1038,7 +1046,7 @@ From the decision tree we have better precision, recall, accuracy and thus bette
 
 
 
-AUC Curve : @fig-roc-curve
+AUC Curve : @fig-roc-curve \
 Precision Recall Curve : @fig-pr-curve
 
 # Random Forest 
@@ -1047,7 +1055,7 @@ Precision Recall Curve : @fig-pr-curve
 ```{python}
 #| code-fold: true
 #| code-summary: "Show the code"
-from sklearn.ensemble import RandomForestClassifier
+
 rfc = RandomForestClassifier()
 rfc.fit(x_train, y_train)
 importance_rfc = rfc.feature_importances_
@@ -1068,7 +1076,7 @@ x_test_rf = x_test[features_rfc]
 
 ## Hyperparameter Tuning 
 ```{python}
-from sklearn.model_selection import GridSearchCV
+
 # Create the parameter grid based on the results of random search 
 param_grid = {
     'bootstrap': [True],
@@ -1102,7 +1110,7 @@ We are getting best performance from Random Forest but we are not sure why we ar
 # print(scores)
 
 # K-Fold Cross-Validation
-from sklearn.model_selection import cross_validate
+
 def cross_validation(model, _X, _y, _cv=5):
       '''Function to perform 5 Folds Cross-Validation
        Parameters
@@ -1150,7 +1158,7 @@ cross_validation(rfc, x_train_rf, y_train, _cv=5)
 
 After applying cross validation, we are getting some what real estimates. 
 
-AUC Curve : @fig-roc-curve
+AUC Curve : @fig-roc-curve \
 Precision Recall Curve : @fig-pr-curve
 
 # Linear SVC 
@@ -1184,6 +1192,8 @@ print(classification_report(y_test, svcpredictions))
 ```
 
 # Naive Bayes 
+
+Naive Bayes a naive assumption that all the features are independent of each other and thus by reducing the complexity of computing conditional probabilities it evaluates the probability of 0 and 1. 
 
 ```{python}
 param_grid_nb = {
@@ -1222,13 +1232,51 @@ def modelEvaluation(model,x,y):
     
 modelEvaluation(modelNB,x_test,y_test)
 ```
+## For balanced
 
-As we can see from the graph for Yes(1/have subscribed) the probabilities are coming both sides( for 0 as well as for 1) which is not correct.
+For balanced dataset, as we can see there is a slight improvement in performance. The f1 score has improved and also, the yellow bars are now slightly shifted towards right side. 
 
-AUC Curve : @fig-roc-curve
+```{python}
+param_grid_nb = {
+    'var_smoothing': np.logspace(0,-9, num=100)
+}
+
+from sklearn.naive_bayes import GaussianNB
+modelNB = GaussianNB(var_smoothing=0.04328761281083057)
+modelNB.fit(bx_train,by_train)
+print(f"Model score is {modelNB.score(x_test,y_test)}")
+def modelProbability(prediction0,prediction1,y):
+    plt.figure(figsize=(15,7))
+    plt.hist(prediction1[y==0], bins=50, label='No/probability 1', alpha=0.7, color='g')
+    plt.hist(prediction0[y==0], bins=50, label='No/probability 0')
+    plt.hist(prediction0[y==1], bins=50, label='Yes/probability 0', alpha=0.7, color='r')
+    plt.hist(prediction1[y==1], bins=50, label='Yes/probability 1', alpha=0.7, color='y')
+    plt.xlabel('Probability of being Positive/Negative Class', fontsize=25)
+    plt.ylabel('Number of records in each bucket', fontsize=25)
+    plt.legend(fontsize=15)
+    plt.tick_params(axis='both', labelsize=25, pad=5)
+    plt.show() 
+pred1=modelNB.predict_proba(x_test)[:,0]
+pred2 = modelNB.predict_proba(x_test)[:,1]
+modelProbability(pred1,pred2,y_test)
+
+#modelling
+def modelEvaluation(model,x,y):
+    print('test set evaluation: ')
+    y_pred = model.predict(x)
+    print(accuracy_score(y, y_pred))
+    print(confusion_matrix(y, y_pred))
+    print(classification_report(y, y_pred))
+    
+modelEvaluation(modelNB,x_test,y_test)
+```
+As we can see from the graph for the red and yellow bars for yes(1 term deposit) are coming on the opposite sides which is not expected.
+
+AUC Curve : @fig-roc-curve \
 Precision Recall Curve : @fig-pr-curve
 
 # KNN 
+Using the k - nearest neighbours we try to predict the testing dataset. Now to find the optimal k value we will look into precision and accuracy curve for different k values. 
 
 ```{python}
 acc = []
@@ -1243,10 +1291,10 @@ for i in range(1,40):
 
 ```
 
-We will look into precision and accuracy curve for the optimal value of k. 
+
 
 ```{python}
-
+#| fig-cap: "Accuracy curve for different k values"
 plt.figure(figsize=(10,6))
 plt.plot(range(1,40),acc,color = 'blue',linestyle='dashed', 
          marker='o',markerfacecolor='red',  markersize=10)
@@ -1256,6 +1304,7 @@ plt.ylabel('Accuracy')
 print("Maximum accuracy:-",max(acc),"at K =",acc.index(max(acc)))
 ```
 ```{python}
+#| fig-cap: "Precision curve for different k values"
 #plt.figure(figsize=(10,6))
 plt.plot(range(1,40),prec,color = 'blue',linestyle='dashed', 
          marker='o',markerfacecolor='red', markersize=10)
@@ -1268,6 +1317,7 @@ print("Maximum Precision:-",max(prec),"at K =",prec.index(max(prec)))
 Based on the above plot, optimal k value is 3, with maximum f1 score of 0.64. 
 
 ```{python}
+
 mrroger = 3
 knn = KNeighborsClassifier(n_neighbors=mrroger) # instantiate with n value given
 knn.fit(x_train,y_train)
@@ -1280,7 +1330,7 @@ print(classification_report(y_test, y_pred))
 ```
 
 
-AUC Curve : @fig-roc-curve
+AUC Curve : @fig-roc-curve \
 Precision Recall Curve : @fig-pr-curve
 
 
@@ -1340,7 +1390,12 @@ plt.legend(prop={'size':13}, loc='lower right')
 plt.show()
 ```
 
-# Precision Recall Curve 
+# Precision Recall Curve
+
+In imbalance problem since we have a high number of Negatives, this makes the False Posiitve Rate as low, resulting in the shift of ROC AUC Curve towards left, which is slightly misleading.
+
+So in imbalance problem we usually make sure to look at precision recall curve as well. 
+
 ```{python}
 #|label : fig-pr-curve
 #| fig-cap: "Precision Recall Curve for all Models"
@@ -1397,20 +1452,23 @@ pyplot.legend()
 pyplot.show()
 ```
 
-As per the ROC Curve and Precision Recall curve, Random Forest Classifier is performing best. 
-Second best is KNN. 
-Since we have unrealistic results from Random Forest, we would suggest using KNN for our model. 
+As per the ROC Curve and Precision Recall curve, KNN is performing best. 
+But after combining these results with precision recall curve, we suggest using Random Forest for our problem.
+
 
 # Summary 
-| Model            | Accuracy | Precision | Recall | AUC   | 
-|------------------|----------|-----------|--------|-------|
-| Logistic         | 0.88     | 0.46      |  0.48  | 0.872 |
-| Decision Tree    | 0.91     | 0.66      |  0.47  | 0.923 |
-| Random Forest    | 1        | 1         |  1     | 1     |
-| SVC              | 0.89     |  0.75     |  0.15  |       |
-| Linear SVC       | 0.89     | 0.62      | 0.16   |       |
-| Gaussian Bayes   | 0.88     | 0.50      | 0.25   | 0.841 |         
-| KNN              | 0.92     | 0.78      | 0.54   | 0.965 |
+| Model                        | Accuracy | Precision | Recall | AUC   | 
+|------------------------------|----------|-----------|--------|-------|
+| Logistic(Cutoff=0.25)        | 0.88     | 0.51      |  0.58  | 0.872 |
+| Logistic (Balanced-Train)    | 0.85     | 0.49      |  0.54  |       |
+| Decision Tree                | 0.91     | 0.66      |  0.47  | 0.923 |
+| Random Forest                | 0.88     | 0.66      |  0.46  | 0.913 |
+| SVC                          | 0.89     |  0.75     |  0.15  |       |
+| Linear SVC                   | 0.89     | 0.62      | 0.16   |       |
+| Gaussian Bayes               | 0.88     | 0.50      | 0.25   | 0.841 |         
+| KNN                          | 0.92     | 0.78      | 0.54   | 0.965 |
+| Naive Bayes                  | 0.85     | 0.56      | 0.02   |       |
+| Naive Bayes (Balanced-Train) | 0.69     | 0.19      | 0.35   |       |
 : Summary of Models {#tbl-letters}
 
 See @tbl-letters.
