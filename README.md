@@ -10,7 +10,8 @@ Our team members are:
 
 3. Medhasweta Sen
 
-     AN ANALYSIS OF PORTUGUESE BANK MARKETING DATA code{white-space: pre-wrap;} span.smallcaps{font-variant: small-caps;} div.columns{display: flex; gap: min(4vw, 1.5em);} div.column{flex: auto; overflow-x: auto;} div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;} ul.task-list{list-style: none;} ul.task-list li input\[type="checkbox"\] { width: 0.8em; margin: 0 0.8em 0.2em -1.6em; vertical-align: middle; }     html{ scroll-behavior: smooth; }
+Detailed report in SummaryPaper_Team11
+AN ANALYSIS OF PORTUGUESE BANK MARKETING DATA code{white-space: pre-wrap;} span.smallcaps{font-variant: small-caps;} div.columns{display: flex; gap: min(4vw, 1.5em);} div.column{flex: auto; overflow-x: auto;} div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;} ul.task-list{list-style: none;} ul.task-list li input\[type="checkbox"\] { width: 0.8em; margin: 0 0.8em 0.2em -1.6em; vertical-align: middle; }     html{ scroll-behavior: smooth; }
 
 Table of contents
 -----------------
