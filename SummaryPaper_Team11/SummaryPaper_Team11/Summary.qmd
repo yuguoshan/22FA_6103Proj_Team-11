@@ -692,7 +692,7 @@ data_encode = data_encode.drop(['balGroup'],axis=1)
 data_encode = data_encode.drop(['pdays'],axis=1)
 
 #Checkpoint
-#data_encode.to_csv('Dataset/final_encoded.csv',index=False)
+data_encode.to_csv('Dataset/final_encoded.csv',index=False)
 data_encode =  pd.read_csv('Dataset/final_encoded.csv')
 
 data_model = data_encode.copy()
@@ -752,10 +752,10 @@ train_unbalanced = pd.concat([x_train, y_train], axis=1)
 
 test_unbalanced = pd.concat([x_test, y_test], axis=1)
 test_balanced = pd.concat([test_sx, test_sy], axis=1)
-# train_balanced.to_csv('Dataset/train_balanced.csv',index=False)
-# train_unbalanced.to_csv('Dataset/train_unbalanced.csv',index=False)
-# test_unbalanced.to_csv('Dataset/test_unbalanced.csv',index=False)
-# test_balanced.to_csv('Dataset/test_balanced.csv',index=False)
+train_balanced.to_csv('Dataset/train_balanced.csv',index=False)
+train_unbalanced.to_csv('Dataset/train_unbalanced.csv',index=False)
+test_unbalanced.to_csv('Dataset/test_unbalanced.csv',index=False)
+test_balanced.to_csv('Dataset/test_balanced.csv',index=False)
 # print("Before Smote")
 # print(f"for training : {np.bincount(y_train)}")
 # print(f"for testing : {np.bincount(y_test)}")
