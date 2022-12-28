@@ -738,6 +738,9 @@ np.bincount(train_sy)
 train_sx['sin_month'] = train_sx['month_int'].apply(sin_transformation) 
 train_sx['cos_month'] = train_sx['month_int'].apply(cos_transformation) 
 
+#doing it for testing 
+test_sx['sin_month'] = test_sx['month_int'].apply(sin_transformation) 
+test_sx['cos_month'] = test_sx['month_int'].apply(cos_transformation) 
 #sns.scatterplot(data=train_sx,x='sin_month',y='cos_month')
 #droppping month_int since we have encoded sin and cos value 
 train_sx= train_sx.drop(['month_int'],axis=1)
@@ -752,6 +755,7 @@ train_unbalanced = pd.concat([x_train, y_train], axis=1)
 
 test_unbalanced = pd.concat([x_test, y_test], axis=1)
 test_balanced = pd.concat([test_sx, test_sy], axis=1)
+
 train_balanced.to_csv('Dataset/train_balanced.csv',index=False)
 train_unbalanced.to_csv('Dataset/train_unbalanced.csv',index=False)
 test_unbalanced.to_csv('Dataset/test_unbalanced.csv',index=False)
@@ -767,9 +771,9 @@ test_balanced.to_csv('Dataset/test_balanced.csv',index=False)
 #| code-fold: true
 #| code-summary: "Show the code"
 balanced_train= pd.read_csv('Dataset/train_balanced.csv')
-balanced_test= pd.read_csv('Dataset/test.csv')
+balanced_test= pd.read_csv('Dataset/test_balanced.csv')
 unbalanced_train= pd.read_csv('Dataset/train_unbalanced.csv')
-unbalanced_test= pd.read_csv('Dataset/test.csv')
+unbalanced_test= pd.read_csv('Dataset/test_unbalanced.csv')
 ```
 
 # Scaling numeric variables 
@@ -823,7 +827,7 @@ selected_columns = x_train.columns[rfe_model.support_]
 list_column= selected_columns.tolist()
 list_column.append('age')
 list_column.append('balance')
-#list_column.append('sin_month')
+list_column.append('sin_month')
 print(f"Columns selected by RE {list_column}")
 
 
@@ -1314,7 +1318,7 @@ plt.ylabel('Precision')
 print("Maximum Precision:-",max(prec),"at K =",prec.index(max(prec)))
 ```
 
-Based on the above plot, optimal k value is 3, with maximum f1 score of 0.64. 
+Based on the above plot, optimal k value is 3, with maximum f1 score of 0.33. 
 
 ```{python}
 

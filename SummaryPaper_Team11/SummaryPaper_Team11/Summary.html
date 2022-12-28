@@ -638,7 +638,7 @@ dtype: float64</code></pre>
 <p>Performing Logistic Regression on both balanced and unbalanced dataset. RFE is used in selecting the most important features ## Unbalanced Dataset</p>
 <div class="cell" data-execution_count="37">
 <div class="cell-output cell-output-stdout">
-<pre><code>Columns selected by RE ['duration', 'euribor3m', 'cons.price.idx', 'job_blue-collar', 'job_retired', 'job_student', 'education_primary', 'education_tertiary', 'marital_single', 'housing_no', 'housing_yes', 'loan_no', 'loan_yes', 'poutcome_failure', 'poutcome_success', 'month_apr', 'month_aug', 'month_feb', 'month_jan', 'month_jul', 'month_jun', 'month_mar', 'month_nov', 'month_oct', 'age', 'balance']</code></pre>
+<pre><code>Columns selected by RE ['duration', 'housing_no', 'housing_yes', 'loan_no', 'loan_yes', 'job_admin.', 'job_blue-collar', 'job_entrepreneur', 'job_housemaid', 'job_retired', 'job_services', 'job_student', 'education_primary', 'education_tertiary', 'cos_month', 'age', 'balance', 'sin_month']</code></pre>
 </div>
 </div>
 <p>As we can see from RFE, the most relevant features are :</p>
@@ -654,19 +654,19 @@ dtype: float64</code></pre>
 <p>Applying model with selected features</p>
 <div class="cell" data-execution_count="38">
 <div class="cell-output cell-output-stdout">
-<pre><code>Accuracy for training set 0.8717311715481172
-Accuracy for testing set 0.8713389121338913
+<pre><code>Accuracy for training set 0.8895725388601037
+Accuracy for testing set 0.8928403203014602
 Confusion matrix 
-[[4759  148]
- [ 590  239]]
+[[7379  138]
+ [ 772  203]]
               precision    recall  f1-score   support
 
-           0       0.89      0.97      0.93      4907
-           1       0.62      0.29      0.39       829
+           0       0.91      0.98      0.94      7517
+           1       0.60      0.21      0.31       975
 
-    accuracy                           0.87      5736
-   macro avg       0.75      0.63      0.66      5736
-weighted avg       0.85      0.87      0.85      5736
+    accuracy                           0.89      8492
+   macro avg       0.75      0.59      0.63      8492
+weighted avg       0.87      0.89      0.87      8492
 </code></pre>
 </div>
 </div>
@@ -676,22 +676,22 @@ weighted avg       0.85      0.87      0.85      5736
 <h1 data-number="9"><span class="header-section-number">9</span> Balanced Dataset</h1>
 <div class="cell" data-execution_count="39">
 <div class="cell-output cell-output-stdout">
-<pre><code>Columns selected by RE ['duration', 'cons.price.idx', 'job_admin.', 'job_blue-collar', 'job_management', 'job_self-employed', 'job_services', 'job_technician', 'job_unemployed', 'education_primary', 'education_secondary', 'education_tertiary', 'marital_divorced', 'marital_married', 'marital_single', 'housing_no', 'housing_yes', 'loan_yes', 'poutcome_failure', 'month_apr', 'month_aug', 'month_jul', 'month_may', 'month_nov']</code></pre>
+<pre><code>Columns selected by RE ['housing_yes', 'loan_yes', 'job_blue-collar', 'job_entrepreneur', 'job_housemaid', 'job_management', 'job_self-employed', 'job_services', 'job_technician', 'job_unemployed', 'education_primary', 'education_secondary', 'marital_divorced', 'marital_married', 'marital_single']</code></pre>
 </div>
 <div class="cell-output cell-output-stdout">
-<pre><code>Accuracy for training set 0.9064744536702155
-Accuracy for testing set 0.8516387726638772
+<pre><code>Accuracy for training set 0.8824205094056934
+Accuracy for testing set 0.8220678285445124
 Confusion matrix 
-[[4440  467]
- [ 384  445]]
+[[6356 1161]
+ [ 350  625]]
               precision    recall  f1-score   support
 
-           0       0.92      0.90      0.91      4907
-           1       0.49      0.54      0.51       829
+           0       0.95      0.85      0.89      7517
+           1       0.35      0.64      0.45       975
 
-    accuracy                           0.85      5736
-   macro avg       0.70      0.72      0.71      5736
-weighted avg       0.86      0.85      0.85      5736
+    accuracy                           0.82      8492
+   macro avg       0.65      0.74      0.67      8492
+weighted avg       0.88      0.82      0.84      8492
 </code></pre>
 </div>
 </div>
@@ -705,18 +705,18 @@ weighted avg       0.86      0.85      0.85      5736
 <div class="cell-output cell-output-stdout">
 <pre><code>
 Based on plot we would choose 0.25 as cut off 
-Accuracy for testing set 0.8589609483960948
+Accuracy for testing set 0.8777673104097975
 Confusion matrix 
-[[4447  460]
- [ 349  480]]
+[[7018  499]
+ [ 539  436]]
               precision    recall  f1-score   support
 
-           0       0.93      0.91      0.92      4907
-           1       0.51      0.58      0.54       829
+           0       0.93      0.93      0.93      7517
+           1       0.47      0.45      0.46       975
 
-    accuracy                           0.86      5736
-   macro avg       0.72      0.74      0.73      5736
-weighted avg       0.87      0.86      0.86      5736
+    accuracy                           0.88      8492
+   macro avg       0.70      0.69      0.69      8492
+weighted avg       0.88      0.88      0.88      8492
 </code></pre>
 </div>
 <div class="cell-output cell-output-display">
@@ -747,23 +747,23 @@ For precision recall curve refer(<a href="#fig-pr-curve">Figure&nbsp;2</a>).</p>
 <h2 data-number="10.1" class="anchored" data-anchor-id="feature-selection"><span class="header-section-number">10.1</span> Feature Selection</h2>
 <div class="cell" data-execution_count="41">
 <div class="cell-output cell-output-stdout">
-<pre><code>Feature 0 variable age score 0.08
-Feature 1 variable balance score 0.10
-Feature 2 variable day score 0.09
-Feature 3 variable duration score 0.28
-Feature 4 variable campaign score 0.03
-Feature 5 variable pdays score 0.07
-Feature 6 variable previous score 0.01
-Feature 7 variable cons.conf.idx score 0.01
-Feature 8 variable emp.var.rate score 0.03
-Feature 9 variable euribor3m score 0.02
-Feature 11 variable cons.price.idx score 0.01
-Feature 21 variable job_technician score 0.01
-Feature 29 variable housing_no score 0.03
-Feature 35 variable poutcome_failure score 0.05
-Feature 43 variable month_jun score 0.01
+<pre><code>Feature 0 variable age score 0.11
+Feature 1 variable balance score 0.15
+Feature 2 variable duration score 0.33
+Feature 3 variable campaign score 0.05
+Feature 4 variable previous score 0.04
+Feature 5 variable housing_no score 0.03
+Feature 6 variable housing_yes score 0.02
+Feature 11 variable job_admin. score 0.01
+Feature 15 variable job_management score 0.01
+Feature 20 variable job_technician score 0.01
+Feature 23 variable education_secondary score 0.01
+Feature 24 variable education_tertiary score 0.01
+Feature 25 variable marital_divorced score 0.01
+Feature 28 variable sin_month score 0.09
+Feature 29 variable cos_month score 0.03
 Important features from decision treee are : 
-['age', 'balance', 'day', 'duration', 'campaign', 'pdays', 'previous', 'cons.conf.idx', 'emp.var.rate', 'euribor3m', 'cons.price.idx', 'job_technician', 'housing_no', 'poutcome_failure', 'month_jun']</code></pre>
+['age', 'balance', 'duration', 'campaign', 'previous', 'housing_no', 'housing_yes', 'job_admin.', 'job_management', 'job_technician', 'education_secondary', 'education_tertiary', 'marital_divorced', 'sin_month', 'cos_month']</code></pre>
 </div>
 <div class="cell-output cell-output-display">
 <p><img src="Summary_files/figure-html/cell-42-output-2.png" width="581" height="415"></p>
@@ -793,23 +793,23 @@ Important features from decision treee are :
 </div>
 <div class="cell-output cell-output-stdout">
 <pre><code>Best parameters from Grid Search CV : 
-{'criterion': 'gini', 'max_depth': 6, 'max_features': None, 'splitter': 'best'}</code></pre>
+{'criterion': 'entropy', 'max_depth': 6, 'max_features': 0.8, 'splitter': 'best'}</code></pre>
 </div>
 </div>
 <p>Training model based on the parameters we got from Grid SearchCV.</p>
 <div class="cell" data-execution_count="43">
 <div class="cell-output cell-output-stdout">
-<pre><code>0.8767433751743375
-[[4635  272]
- [ 435  394]]
+<pre><code>0.8935468676401319
+[[7104  413]
+ [ 491  484]]
               precision    recall  f1-score   support
 
-           0       0.91      0.94      0.93      4907
-           1       0.59      0.48      0.53       829
+           0       0.94      0.95      0.94      7517
+           1       0.54      0.50      0.52       975
 
-    accuracy                           0.88      5736
-   macro avg       0.75      0.71      0.73      5736
-weighted avg       0.87      0.88      0.87      5736
+    accuracy                           0.89      8492
+   macro avg       0.74      0.72      0.73      8492
+weighted avg       0.89      0.89      0.89      8492
 </code></pre>
 </div>
 </div>
@@ -825,7 +825,7 @@ Precision Recall Curve : <a href="#fig-pr-curve">Figure&nbsp;2</a></p>
 <div class="cell" data-execution_count="44">
 <div class="cell-output cell-output-stdout">
 <pre><code>Important features from random forest :
-['age', 'balance', 'day', 'duration', 'campaign', 'pdays', 'previous', 'cons.conf.idx', 'emp.var.rate', 'euribor3m', 'nr.employed', 'cons.price.idx', 'job_management', 'job_technician', 'education_secondary', 'education_tertiary', 'marital_married', 'marital_single', 'housing_no', 'housing_yes', 'poutcome_failure', 'poutcome_success']</code></pre>
+['age', 'balance', 'duration', 'campaign', 'previous', 'housing_no', 'housing_yes', 'job_admin.', 'job_management', 'job_technician', 'education_secondary', 'education_tertiary', 'marital_married', 'marital_single', 'sin_month', 'cos_month']</code></pre>
 </div>
 <div class="cell-output cell-output-display">
 <p><img src="Summary_files/figure-html/cell-45-output-2.png" width="581" height="415"></p>
@@ -845,17 +845,17 @@ Precision Recall Curve : <a href="#fig-pr-curve">Figure&nbsp;2</a></p>
 <div class="cell" data-execution_count="46">
 <div class="cell-output cell-output-stdout">
 <pre><code>Training accuracy 1.0
-Testing set accuracy 0.8872036262203626
-[[4712  195]
- [ 452  377]]
+Testing set accuracy 0.8986104569006124
+[[7273  244]
+ [ 617  358]]
               precision    recall  f1-score   support
 
-           0       0.91      0.96      0.94      4907
-           1       0.66      0.45      0.54       829
+           0       0.92      0.97      0.94      7517
+           1       0.59      0.37      0.45       975
 
-    accuracy                           0.89      5736
-   macro avg       0.79      0.71      0.74      5736
-weighted avg       0.88      0.89      0.88      5736
+    accuracy                           0.90      8492
+   macro avg       0.76      0.67      0.70      8492
+weighted avg       0.88      0.90      0.89      8492
 </code></pre>
 </div>
 </div>
@@ -870,14 +870,14 @@ weighted avg       0.88      0.89      0.88      5736
  'Mean Training Recall': 1.0,
  'Training F1 scores': array([1., 1., 1., 1., 1.]),
  'Mean Training F1 Score': 1.0,
- 'Validation Accuracy scores': array([0.88319895, 0.88210939, 0.8910438 , 0.88777511, 0.89363557]),
- 'Mean Validation Accuracy': 88.75525663792135,
- 'Validation Precision scores': array([0.63577586, 0.6509901 , 0.68822171, 0.66299559, 0.6875    ]),
- 'Mean Validation Precision': 0.6650966529598903,
- 'Validation Recall scores': array([0.44561934, 0.39668175, 0.4494721 , 0.45399698, 0.48187311]),
- 'Mean Validation Recall': 0.4455286553385007,
- 'Validation F1 scores': array([0.52397869, 0.49297095, 0.54379562, 0.5389436 , 0.56660746]),
- 'Mean Validation F1 Score': 0.5332592623182313}</code></pre>
+ 'Validation Accuracy scores': array([0.89549603, 0.90035325, 0.89696791, 0.89842485, 0.89842485]),
+ 'Mean Validation Accuracy': 89.79333779716873,
+ 'Validation Precision scores': array([0.58850575, 0.61956522, 0.58969072, 0.59958506, 0.61009174]),
+ 'Mean Validation Precision': 0.6014876983054311,
+ 'Validation Recall scores': array([0.3252859 , 0.36213469, 0.36340534, 0.36768448, 0.33842239]),
+ 'Mean Validation Recall': 0.35138655828976595,
+ 'Validation F1 scores': array([0.41898527, 0.45709703, 0.44968553, 0.45583596, 0.43535188]),
+ 'Mean Validation F1 Score': 0.4433911363649415}</code></pre>
 </div>
 </div>
 <p>After applying cross validation, we are getting some what real estimates.</p>
@@ -890,17 +890,17 @@ Precision Recall Curve : <a href="#fig-pr-curve">Figure&nbsp;2</a></p>
 <p>Finding a linear hyperplane that tries to separate two classes.</p>
 <div class="cell" data-execution_count="48">
 <div class="cell-output cell-output-stdout">
-<pre><code>0.8559972105997211
-[[4898    9]
- [ 817   12]]
+<pre><code>0.8906029203956665
+[[7413  104]
+ [ 825  150]]
               precision    recall  f1-score   support
 
-           0       0.86      1.00      0.92      4907
-           1       0.57      0.01      0.03       829
+           0       0.90      0.99      0.94      7517
+           1       0.59      0.15      0.24       975
 
-    accuracy                           0.86      5736
-   macro avg       0.71      0.51      0.48      5736
-weighted avg       0.82      0.86      0.79      5736
+    accuracy                           0.89      8492
+   macro avg       0.75      0.57      0.59      8492
+weighted avg       0.86      0.89      0.86      8492
 </code></pre>
 </div>
 </div>
@@ -910,17 +910,17 @@ weighted avg       0.82      0.86      0.79      5736
 <p>Finding a complex hyperplane that tries to separate the classes.</p>
 <div class="cell" data-execution_count="49">
 <div class="cell-output cell-output-stdout">
-<pre><code>0.8554741980474198
-[[4907    0]
- [ 829    0]]
+<pre><code>0.8922515308525671
+[[7446   71]
+ [ 844  131]]
               precision    recall  f1-score   support
 
-           0       0.86      1.00      0.92      4907
-           1       0.00      0.00      0.00       829
+           0       0.90      0.99      0.94      7517
+           1       0.65      0.13      0.22       975
 
-    accuracy                           0.86      5736
-   macro avg       0.43      0.50      0.46      5736
-weighted avg       0.73      0.86      0.79      5736
+    accuracy                           0.89      8492
+   macro avg       0.77      0.56      0.58      8492
+weighted avg       0.87      0.89      0.86      8492
 </code></pre>
 </div>
 </div>
@@ -933,25 +933,25 @@ weighted avg       0.73      0.86      0.79      5736
 <pre><code>Fitting 10 folds for each of 100 candidates, totalling 1000 fits</code></pre>
 </div>
 <div class="cell-output cell-output-stdout">
-<pre><code>GaussianNB(var_smoothing=0.0657933224657568)
-Model score is 0.8561715481171548</code></pre>
+<pre><code>GaussianNB(var_smoothing=0.0533669923120631)
+Model score is 0.8871879415920867</code></pre>
 </div>
 <div class="cell-output cell-output-display">
 <p><img src="Summary_files/figure-html/cell-51-output-3.png" width="1260" height="620"></p>
 </div>
 <div class="cell-output cell-output-stdout">
 <pre><code>test set evaluation: 
-0.8561715481171548
-[[4892   15]
- [ 810   19]]
+0.8871879415920867
+[[7291  226]
+ [ 732  243]]
               precision    recall  f1-score   support
 
-           0       0.86      1.00      0.92      4907
-           1       0.56      0.02      0.04       829
+           0       0.91      0.97      0.94      7517
+           1       0.52      0.25      0.34       975
 
-    accuracy                           0.86      5736
-   macro avg       0.71      0.51      0.48      5736
-weighted avg       0.81      0.86      0.80      5736
+    accuracy                           0.89      8492
+   macro avg       0.71      0.61      0.64      8492
+weighted avg       0.86      0.89      0.87      8492
 </code></pre>
 </div>
 </div>
@@ -960,24 +960,24 @@ weighted avg       0.81      0.86      0.80      5736
 <p>For balanced dataset, as we can see there is a slight improvement in performance. The f1 score has improved and also, the yellow bars are now slightly shifted towards right side.</p>
 <div class="cell" data-execution_count="51">
 <div class="cell-output cell-output-stdout">
-<pre><code>Model score is 0.693863319386332</code></pre>
+<pre><code>Model score is 0.459609043805935</code></pre>
 </div>
 <div class="cell-output cell-output-display">
-<p><img src="Summary_files/figure-html/cell-52-output-2.png" width="1260" height="620"></p>
+<p><img src="Summary_files/figure-html/cell-52-output-2.png" width="1242" height="620"></p>
 </div>
 <div class="cell-output cell-output-stdout">
 <pre><code>test set evaluation: 
-0.693863319386332
-[[3690 1217]
- [ 539  290]]
+0.459609043805935
+[[2994 4523]
+ [  66  909]]
               precision    recall  f1-score   support
 
-           0       0.87      0.75      0.81      4907
-           1       0.19      0.35      0.25       829
+           0       0.98      0.40      0.57      7517
+           1       0.17      0.93      0.28       975
 
-    accuracy                           0.69      5736
-   macro avg       0.53      0.55      0.53      5736
-weighted avg       0.77      0.69      0.73      5736
+    accuracy                           0.46      8492
+   macro avg       0.57      0.67      0.42      8492
+weighted avg       0.89      0.46      0.53      8492
 </code></pre>
 </div>
 </div>
@@ -991,7 +991,7 @@ Precision Recall Curve : <a href="#fig-pr-curve">Figure&nbsp;2</a></p>
 <p>Using the k - nearest neighbours we try to predict the testing dataset. Now to find the optimal k value we will look into precision and accuracy curve for different k values.</p>
 <div class="cell" data-execution_count="53">
 <div class="cell-output cell-output-stdout">
-<pre><code>Maximum accuracy:- 0.8769177126917713 at K = 19</code></pre>
+<pre><code>Maximum accuracy:- 0.8936646255299106 at K = 16</code></pre>
 </div>
 <div class="cell-output cell-output-display">
 <div class="quarto-figure quarto-figure-center">
@@ -1004,7 +1004,7 @@ Precision Recall Curve : <a href="#fig-pr-curve">Figure&nbsp;2</a></p>
 </div>
 <div class="cell" data-execution_count="54">
 <div class="cell-output cell-output-stdout">
-<pre><code>Maximum Precision:- 0.32247407633937064 at K = 8</code></pre>
+<pre><code>Maximum Precision:- 0.23186915390816643 at K = 6</code></pre>
 </div>
 <div class="cell-output cell-output-display">
 <div class="quarto-figure quarto-figure-center">
@@ -1018,18 +1018,18 @@ Precision Recall Curve : <a href="#fig-pr-curve">Figure&nbsp;2</a></p>
 <p>Based on the above plot, optimal k value is 3, with maximum f1 score of 0.64.</p>
 <div class="cell" data-execution_count="55">
 <div class="cell-output cell-output-stdout">
-<pre><code>Train set accuracy 0.9197611576011158
-Test set accuracy 0.8657601115760112
-[[4626  281]
- [ 489  340]]
+<pre><code>Train set accuracy 0.9290508714083844
+Test set accuracy 0.8795336787564767
+[[7202  315]
+ [ 708  267]]
               precision    recall  f1-score   support
 
-           0       0.90      0.94      0.92      4907
-           1       0.55      0.41      0.47       829
+           0       0.91      0.96      0.93      7517
+           1       0.46      0.27      0.34       975
 
-    accuracy                           0.87      5736
-   macro avg       0.73      0.68      0.70      5736
-weighted avg       0.85      0.87      0.86      5736
+    accuracy                           0.88      8492
+   macro avg       0.68      0.62      0.64      8492
+weighted avg       0.86      0.88      0.87      8492
 </code></pre>
 </div>
 </div>
